@@ -35,4 +35,6 @@ The separate [offline adapter evaluation](SKILL_ADAPTER_EVAL.md) executes 18 pos
 
 Four plan §9 P0 procedures now carry concrete task operation, Dashboard delivery, audit receipt and input provenance references under their own skill folders. This improves the instructions available to Hermes; the planned trusted enforcement/publisher adapters and per-skill runtime acceptance are still open.
 
+The other six plan §9 P0 procedures now cover orchestration, routing, approval, memory, capability health and error recovery with explicit abstention and reconciliation rules. All ten P0 skill instructions have been reviewed in this milestone; their actual Hermes selection/execution and the required plugin/host gates remain unverified.
+
 See [test report](TEST_REPORT.md), [contracts](CONTRACTS.md), and [integration boundaries](ARCHITECTURE.md). The companion [`rogue-friday`](https://github.com/rogueki/rogue-friday) repository was not edited.

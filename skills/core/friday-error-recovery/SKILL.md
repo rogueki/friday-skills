@@ -13,9 +13,9 @@ metadata:
 
 Use after an actual failure or ambiguous timeout. Do not retry a successful operation or use this skill to override an approval denial. Inputs: error class, operation, attempt count, idempotency key, observed side effects, adapter health, mode and approval state.
 
-1. Classify as transient, authentication required, approval required, invalid input, external outage, partial success or nonrecoverable. Read the actual error and logs; never infer a reason from timeout alone.
-2. For an external write with ambiguous outcome, query the authoritative system by idempotency key or object ID before considering retry. If reconciliation is unavailable, stop and report unknown state.
-3. Retry only transient failures, with the same idempotency key, still-valid approval and fresh capability. Limit to at most two retries with backoff; after repeated identical failure, change diagnosis rather than looping.
-4. Record successful substeps and untouched substeps separately. Do not roll back without a defined, authorized compensation action.
+1. Classify the observed response as retryable transient, authentication required, approval required, invalid input, external outage, partial success or nonrecoverable. Record operation stage (`before_dispatch`, `after_dispatch`, `response_validation`) and evidence; a timeout or malformed success after dispatch is an **unknown side-effect state**, not evidence of failure.
+2. For a possibly dispatched write, freeze dependent writes and query the authoritative system using the original idempotency key, object ID or provider receipt. Compare target, payload fingerprint and resulting state. If reconciliation is unavailable or inconclusive, stop with `partial` or `blocked` and a specific manual check; never create a second operation with a fresh key.
+3. Retry only a proven transient failure whose effect is known absent or whose adapter guarantees replay with the same key. Recheck current capability, mode, action-bound approval and expiry before dispatch. Use at most two retries with bounded backoff; 401/403, approval denial, invalid input, 409 conflict and unknown outcome require diagnosis or reconciliation, not blind retry.
+4. Keep a ledger of verified completed steps, unresolved effects and untouched steps. Compensation is a new risk-classified action with its own approval when required. Do not call local mock receipts or task proposals provider success.
 
-Output normalized `partial`, `blocked` or `failed` result and a precise next step. Verify recovery from the authoritative response and close the parent task only when all acceptance conditions are met.
+Output normalized `partial`, `blocked` or `failed` result and a precise next step; use `completed` only after fresh authoritative evidence resolves the failure and all acceptance conditions. Preserve opaque correlation IDs, not secrets or raw provider payloads.
