@@ -204,6 +204,84 @@ def scrapling_static_transport(
     return fetch
 
 
+def scrapling_stealth_transport(
+    *,
+    allowed_hosts: set[str],
+    authorize_browser_egress: Callable[[str, float, int], bool],
+    fetcher: object | None = None,
+) -> Callable[[str, float, int], PageResponse]:
+    """Opt-in browser fetch behind a trusted host's enforced network boundary.
+
+    The authorizer approves the exact URL, time and ingress-byte budget and must
+    enforce public DNS/IP pinning, redirects, every subrequest, and byte limits.
+    Playwright routing is defense in depth; it cannot enforce those properties.
+    """
+    allowed = {host.lower().rstrip(".") for host in allowed_hosts}
+
+    def fetch(url: str, timeout_s: float, max_bytes: int) -> PageResponse:
+        source_host = _url(url, allowed)
+        if not (0 < timeout_s <= MAX_SECONDS and 1 <= max_bytes <= MAX_BYTES):
+            raise ExtractionError("transport limit exceeded")
+        if authorize_browser_egress(url, timeout_s, max_bytes) is not True:
+            raise ExtractionError("host browser egress authorization denied")
+        selected_fetcher = fetcher
+        if selected_fetcher is None:
+            try:
+                from scrapling.fetchers import StealthyFetcher
+            except ImportError as exc:
+                raise ExtractionError("optional Scrapling package unavailable") from exc
+            selected_fetcher = StealthyFetcher
+
+        route_installed = False
+
+        def route_request(route: object) -> None:
+            try:
+                if route.request.method in {"GET", "HEAD"} and _url(route.request.url, {source_host}) == source_host:
+                    route.fallback()
+                else:
+                    route.abort()
+            except (ExtractionError, AttributeError, ValueError):
+                route.abort()
+
+        def page_setup(page: object) -> None:
+            nonlocal route_installed
+            page.route("**/*", route_request)
+            route_installed = True
+
+        page = selected_fetcher.fetch(
+            url,
+            timeout=int(timeout_s * 1000),
+            retries=1,
+            retry_delay=0,
+            wait=0,
+            network_idle=False,
+            google_search=False,
+            disable_resources=True,
+            solve_cloudflare=False,
+            block_webrtc=True,
+            page_setup=page_setup,
+            additional_args={
+                "service_workers": "block",
+                "ignore_https_errors": False,
+                "permissions": [],
+            },
+        )
+        if not route_installed:
+            raise ExtractionError("browser request route was not installed")
+        body = page.body
+        if not isinstance(body, bytes) or len(body) > max_bytes:
+            raise ExtractionError("Scrapling response byte limit exceeded")
+        return PageResponse(
+            status=page.status,
+            final_url=page.url,
+            body=body,
+            headers=page.headers,
+            method="scrapling-stealth",
+        )
+
+    return fetch
+
+
 def extract_one(
     source_url: str,
     *,
@@ -243,7 +321,7 @@ def extract_one(
         raise ExtractionError("HTML content type required")
     if not isinstance(response.body, bytes) or len(response.body) > max_bytes:
         raise ExtractionError("response byte limit exceeded")
-    if response.method not in {"injected-transport", "scrapling-static"}:
+    if response.method not in {"injected-transport", "scrapling-static", "scrapling-stealth"}:
         raise ExtractionError("unknown extraction method")
     try:
         html = response.body.decode("utf-8", errors="strict")

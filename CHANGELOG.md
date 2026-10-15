@@ -22,6 +22,7 @@ Changes are recorded for the independent F.R.I.D.A.Y. Skills package by RogueKI.
 - Document the installed Hermes v0.20.5 routing path and the initially inactive `skills.write_approval` setting without making paid model calls.
 - Connect the active Windows Hermes profile to this repository's 101 skills and enable `skills.write_approval` plus `skills.guard_agent_created`; preserve all other profile values and keep optional plugins disabled.
 - Add bounded single-page HTML extraction and an opt-in static Scrapling transport requiring a trusted host egress gate. Preserve upstream Scraping concepts without importing the operator's local skill text, paid Firecrawl fallback or an unverified browser bypass.
+- Add an explicitly selected Scrapling browser transport with pre-navigation exact-host routing and offline tests. Live use still requires a host-enforced network and byte boundary; anti-bot interoperability has not been verified.
 - Add offline structured invoice review with exact arithmetic, limited IBAN validation, duplicate and independent supplier checks, plus a masked non-executable payment preview. Original-document extraction and host evidence remain open.
 
 ## 0.1.0 — 2026-10-15
