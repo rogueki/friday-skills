@@ -28,6 +28,10 @@ If the operator has installed and enabled the separate `friday-weather` plugin, 
 
 This tool does not supply current station observations, daily or weekly outlooks, geocoding, official warnings or notifications. Use another verified source or block those requests. Attribute live forecast values to GeoSphere Austria and retain the model reference, valid and retrieval timestamps. See `docs/WEATHER_PLUGIN.md` for the opt-in contract.
 
+### Local E2E4 example
+
+`run_scenario("weather")` in the separate skills package composes the deterministic router, an explicitly configured synthetic Vienna location, `adapters.weather.read_forecast(mode="mock")`, source/time/freshness checks and a short `voice_answer_text`. It is a one-hour **forecast**, not a current observation. An explicit location override applies only to that call and must match the mock forecast grid point. Stale, missing or conflicting data produce no weather answer. `voice_playback` remains `NOT_RUN`; no audio, provider call or Dashboard publication is demonstrated by this example. See `docs/WEATHER_E2E_MOCK.md`.
+
 ## Output and verification
 
 Short answer and structured conditions with source URL/retrieved_at when web fetched. Verify location, valid time, units and freshness. Return all required shared/schemas/result.schema.json fields: status, skill, mode, summary, artifacts, actions_taken, actions_proposed, approvals_required, warnings, errors, sources and verification, plus task_id for longer work. Block if essential source is missing; mark partial if only secondary detail is missing. An external notification is a proposed action until approved and adapter-confirmed. Long-running work uses a Hermes task; a skill alone does not schedule recurring checks or publish dashboard events.

@@ -36,3 +36,5 @@ Use this skill to shape a voice session. Speech recognition, audio playback, bar
 **Failure:** If trust, privacy state or a needed capability is unknown, fail closed for actions and disclose the limitation. Do not expose transcript or sensitive output to an unverified session.
 
 **Verification:** Confirm the response respects privacy mode, no unapproved side effect occurred, and any claimed voice/runtime behavior has a capability observation. Label local `friday.skill.*` records as local drafts, not delivered dashboard events.
+
+The weather E2E4 local mock returns text suitable for a voice answer but sets `voice_playback={"status":"NOT_RUN","played":false}`. Do not report that the answer was spoken or heard unless a separate runtime confirms playback and session provenance.

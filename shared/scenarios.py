@@ -8,7 +8,7 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
 
-from shared.runtime import MockRuntime, load_fixture, route_request, untrusted_text, dashboard_mapping
+from shared.runtime import MockRuntime, load_fixture, untrusted_text, dashboard_mapping
 from shared.policy import PolicyError
 
 
@@ -181,15 +181,9 @@ def run_scenario(name: str, *, variant: str = "default") -> dict[str, Any]:
 
             run_meeting_mock(runtime, result, trace, variant)
     elif name == "weather":
-        route = route_request("Wie wird das Wetter?")
-        weather = _fixture("weather", "current", variant, {"stale"})
-        if route["skill"] != "friday-weather":
-            result.update(status="blocked", reason="routing_failed")
-        elif runtime.now - _instant(weather["observed_at"]) > timedelta(hours=2):
-            result.update(status="partial", reason="stale_weather", location=weather["location"])
-        else:
-            result.update(status="completed", answer=f"{weather['location']}: {weather['temperature_c']} °C, {weather['condition']} (Mock)")
-            trace += ["weather_route", "default_location", "mock_weather", "local_voice_text"]
+        from adapters.weather_e2e_mock import run_weather_mock
+
+        run_weather_mock(runtime, result, trace, variant=variant)
     elif name == "family_travel":
         travel = _fixture("travel", "cases", variant, {"stale_quote"})
         available = [x for x in travel["options"] if x["available"]]

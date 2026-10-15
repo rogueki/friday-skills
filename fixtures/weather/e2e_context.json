@@ -1,0 +1,10 @@
+{
+  "default_location": {"name": "Wien", "latitude": 48.2082, "longitude": 16.3738},
+  "capability": {
+    "name": "weather.read", "mode": "mock", "status": "healthy", "authenticated": true,
+    "synthetic": true, "rate_limited": false, "permissions": ["read"],
+    "checked_at": "2026-10-15T12:00:00+00:00"
+  },
+  "request": "Wie wird das Wetter?",
+  "forecast_at": "2026-10-15T14:00:00+00:00"
+}
