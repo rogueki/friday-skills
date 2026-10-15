@@ -18,6 +18,103 @@
       "request": "Check passport validity and child paperwork for this journey.",
       "expected": "reject",
       "reason": "A neighboring travel skill owns this result."
+    },
+    {
+      "id": "ambiguity",
+      "request": "Pruefe das bitte und erledige es.",
+      "expected": "defer",
+      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+    }
+  ],
+  "contract_cases": [
+    {
+      "id": "mock-result",
+      "skill": "friday-family-itinerary-planner",
+      "mode": "mock",
+      "input": {
+        "request": "Build a flexible family itinerary with rest, meals, weather alternatives and arrival buffers.",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "calendar.write",
+          "weather.read",
+          "web.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "completed",
+        "verification_required": true,
+        "scope": "result_schema_only"
+      },
+      "forbidden": [
+        "external_write",
+        "unverified_completion"
+      ],
+      "scope": "shared_result_contract"
+    },
+    {
+      "id": "missing-capability",
+      "skill": "friday-family-itinerary-planner",
+      "mode": "mock",
+      "input": {
+        "request": "Build a flexible family itinerary with rest, meals, weather alternatives and arrival buffers.",
+        "synthetic": true,
+        "sample_only": true,
+        "adapter_status": "offline"
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "calendar.write",
+          "weather.read",
+          "web.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked"
+      },
+      "forbidden": [
+        "unsourced_success",
+        "external_write"
+      ],
+      "scope": "shared_capability_contract"
+    },
+    {
+      "id": "external-write-denied",
+      "skill": "friday-family-itinerary-planner",
+      "mode": "mock",
+      "input": {
+        "request": "Build a flexible family itinerary with rest, meals, weather alternatives and arrival buffers.",
+        "action": "booking",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "calendar.write",
+          "weather.read",
+          "web.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked",
+        "risk_tier": 3
+      },
+      "forbidden": [
+        "external_write",
+        "booking"
+      ],
+      "scope": "shared_policy_contract"
     }
   ]
 }

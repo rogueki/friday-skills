@@ -18,6 +18,109 @@
       "request": "Audit all software and phone subscriptions for cuts.",
       "expected": "defer",
       "reason": "Route to friday-recurring-cost-optimizer."
+    },
+    {
+      "id": "ambiguity",
+      "request": "Pruefe das bitte und erledige es.",
+      "expected": "defer",
+      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+    }
+  ],
+  "contract_cases": [
+    {
+      "id": "mock-result",
+      "skill": "friday-energy-tariff-scout",
+      "mode": "mock",
+      "input": {
+        "request": "Compare Austrian electricity tariffs for 4,000 kWh and my PV feed-in.",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [
+          "official-web.read"
+        ],
+        "conditional": [
+          "document.read",
+          "meter.read",
+          "tariff.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "completed",
+        "verification_required": true,
+        "scope": "result_schema_only"
+      },
+      "forbidden": [
+        "external_write",
+        "unverified_completion"
+      ],
+      "scope": "shared_result_contract"
+    },
+    {
+      "id": "missing-capability",
+      "skill": "friday-energy-tariff-scout",
+      "mode": "mock",
+      "input": {
+        "request": "Compare Austrian electricity tariffs for 4,000 kWh and my PV feed-in.",
+        "synthetic": true,
+        "sample_only": true,
+        "adapter_status": "offline"
+      },
+      "capabilities": {
+        "required": [
+          "official-web.read"
+        ],
+        "conditional": [
+          "document.read",
+          "meter.read",
+          "tariff.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked"
+      },
+      "forbidden": [
+        "unsourced_success",
+        "external_write"
+      ],
+      "scope": "shared_capability_contract"
+    },
+    {
+      "id": "external-write-denied",
+      "skill": "friday-energy-tariff-scout",
+      "mode": "mock",
+      "input": {
+        "request": "Compare Austrian electricity tariffs for 4,000 kWh and my PV feed-in.",
+        "action": "send_message",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [
+          "official-web.read"
+        ],
+        "conditional": [
+          "document.read",
+          "meter.read",
+          "tariff.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked",
+        "risk_tier": 2
+      },
+      "forbidden": [
+        "external_write",
+        "send_message"
+      ],
+      "scope": "shared_policy_contract"
     }
   ]
 }

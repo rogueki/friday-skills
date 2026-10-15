@@ -8,6 +8,9 @@ Changes are recorded for the independent F.R.I.D.A.Y. Skills package by RogueKI.
 - Add architecture, configuration, routing, capability, approval, security, testing, dashboard, operations, troubleshooting and authoring documentation.
 - Keep the companion `rogue-friday` repository read only while this package evolves.
 - Add an opt-in Hermes v0.20.5 plugin with four local mock tools; verified in an isolated profile. It is not a live adapter or a global policy gate.
+- Map 101 skills to 63 logical capabilities, with every live/mock adapter marked unavailable until installed and verified.
+- Add four routing examples and three executable shared contracts per skill; the report separates shared checks from unrun model routing and adapter behavior.
+- Add deterministic negative mock scenarios, a synthetic Austrian grants fixture, Python 3.11 metadata and Windows/Linux CI.
 
 ## 0.1.0 — 2026-10-15
 

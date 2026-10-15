@@ -19,11 +19,12 @@ On Windows, the source folder is `C:\Users\ByteNinja\Downloads\JARVIS_Installer\
 
 ```powershell
 python scripts/validate.py
+python scripts/run_skill_cases.py
 python -m unittest discover -s tests -q
 hermes skills list
 ```
 
-These checks cover different things: structural validity, local unit/mock behavior and discovery in the selected Hermes profile. Run them against the same revision. They do not prove production adapter behavior.
+These checks cover different things: structural validity, shared per-skill contracts, local unit/mock behavior and discovery in the selected Hermes profile. Run them against the same revision. The per-skill report explicitly marks unexecuted routing and adapter behavior; these checks do not prove production behavior.
 
 ## Documentation
 

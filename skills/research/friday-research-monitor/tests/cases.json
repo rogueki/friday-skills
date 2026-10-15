@@ -18,6 +18,106 @@
       "request": "Summarize a single changed page with no scheduler setup.",
       "expected": "defer",
       "reason": "Web or deep research owns one-off analysis."
+    },
+    {
+      "id": "ambiguity",
+      "request": "Pruefe das bitte und erledige es.",
+      "expected": "defer",
+      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+    }
+  ],
+  "contract_cases": [
+    {
+      "id": "mock-result",
+      "skill": "friday-research-monitor",
+      "mode": "mock",
+      "input": {
+        "request": "Watch these three official pages weekly and alert only on material changes.",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "notification.deliver",
+          "official-web.read",
+          "scheduler.run",
+          "web.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "completed",
+        "verification_required": true,
+        "scope": "result_schema_only"
+      },
+      "forbidden": [
+        "external_write",
+        "unverified_completion"
+      ],
+      "scope": "shared_result_contract"
+    },
+    {
+      "id": "missing-capability",
+      "skill": "friday-research-monitor",
+      "mode": "mock",
+      "input": {
+        "request": "Watch these three official pages weekly and alert only on material changes.",
+        "synthetic": true,
+        "sample_only": true,
+        "adapter_status": "offline"
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "notification.deliver",
+          "official-web.read",
+          "scheduler.run",
+          "web.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked"
+      },
+      "forbidden": [
+        "unsourced_success",
+        "external_write"
+      ],
+      "scope": "shared_capability_contract"
+    },
+    {
+      "id": "external-write-denied",
+      "skill": "friday-research-monitor",
+      "mode": "mock",
+      "input": {
+        "request": "Watch these three official pages weekly and alert only on material changes.",
+        "action": "send_message",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "notification.deliver",
+          "official-web.read",
+          "scheduler.run",
+          "web.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked",
+        "risk_tier": 2
+      },
+      "forbidden": [
+        "external_write",
+        "send_message"
+      ],
+      "scope": "shared_policy_contract"
     }
   ]
 }

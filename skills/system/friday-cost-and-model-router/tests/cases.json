@@ -1,1 +1,114 @@
-{"skill":"friday-cost-and-model-router","cases":[{"id":"positive","request":"Empfiehl für eine kurze lokale Klassifizierung eine Route anhand der aktuellen Modell-Capabilities; externe Datenübertragung ist ausgeschlossen.","expected":"select","reason":"The request requires a constrained model-route recommendation from capability evidence."},{"id":"negative","request":"Finde heraus, ob ein Sprecher verifiziert ist oder Replay vermutet wird.","expected":"reject","reason":"Speaker identity policy owns verification-state decisions."},{"id":"collision","request":"Wähle den billigsten Kimi-Tarif, obwohl Preis- und Verfügbarkeitsdaten fehlen.","expected":"defer","reason":"Without fresh route and price evidence the skill must not invent a cheapest option."}]}
+{
+  "skill": "friday-cost-and-model-router",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Empfiehl für eine kurze lokale Klassifizierung eine Route anhand der aktuellen Modell-Capabilities; externe Datenübertragung ist ausgeschlossen.",
+      "expected": "select",
+      "reason": "The request requires a constrained model-route recommendation from capability evidence."
+    },
+    {
+      "id": "negative",
+      "request": "Finde heraus, ob ein Sprecher verifiziert ist oder Replay vermutet wird.",
+      "expected": "reject",
+      "reason": "Speaker identity policy owns verification-state decisions."
+    },
+    {
+      "id": "collision",
+      "request": "Wähle den billigsten Kimi-Tarif, obwohl Preis- und Verfügbarkeitsdaten fehlen.",
+      "expected": "defer",
+      "reason": "Without fresh route and price evidence the skill must not invent a cheapest option."
+    },
+    {
+      "id": "ambiguity",
+      "request": "Pruefe das bitte und erledige es.",
+      "expected": "defer",
+      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+    }
+  ],
+  "contract_cases": [
+    {
+      "id": "mock-result",
+      "skill": "friday-cost-and-model-router",
+      "mode": "mock",
+      "input": {
+        "request": "Empfiehl für eine kurze lokale Klassifizierung eine Route anhand der aktuellen Modell-Capabilities; externe Datenübertragung ist ausgeschlossen.",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "model.inventory.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "completed",
+        "verification_required": true,
+        "scope": "result_schema_only"
+      },
+      "forbidden": [
+        "external_write",
+        "unverified_completion"
+      ],
+      "scope": "shared_result_contract"
+    },
+    {
+      "id": "missing-capability",
+      "skill": "friday-cost-and-model-router",
+      "mode": "mock",
+      "input": {
+        "request": "Empfiehl für eine kurze lokale Klassifizierung eine Route anhand der aktuellen Modell-Capabilities; externe Datenübertragung ist ausgeschlossen.",
+        "synthetic": true,
+        "sample_only": true,
+        "adapter_status": "offline"
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "model.inventory.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked"
+      },
+      "forbidden": [
+        "unsourced_success",
+        "external_write"
+      ],
+      "scope": "shared_capability_contract"
+    },
+    {
+      "id": "external-write-denied",
+      "skill": "friday-cost-and-model-router",
+      "mode": "mock",
+      "input": {
+        "request": "Empfiehl für eine kurze lokale Klassifizierung eine Route anhand der aktuellen Modell-Capabilities; externe Datenübertragung ist ausgeschlossen.",
+        "action": "credential_change",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "model.inventory.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked",
+        "risk_tier": 3
+      },
+      "forbidden": [
+        "external_write",
+        "credential_change"
+      ],
+      "scope": "shared_policy_contract"
+    }
+  ]
+}

@@ -18,6 +18,103 @@
       "request": "Find possible family tax benefits for my children.",
       "expected": "defer",
       "reason": "Route to friday-family-benefit-optimizer-at."
+    },
+    {
+      "id": "ambiguity",
+      "request": "Pruefe das bitte und erledige es.",
+      "expected": "defer",
+      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+    }
+  ],
+  "contract_cases": [
+    {
+      "id": "mock-result",
+      "skill": "friday-finanzonline-preparation",
+      "mode": "mock",
+      "input": {
+        "request": "Prepare the 2025 FinanzOnline field mapping from this reviewed tax case.",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [
+          "document.read"
+        ],
+        "conditional": [
+          "official-web.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "completed",
+        "verification_required": true,
+        "scope": "result_schema_only"
+      },
+      "forbidden": [
+        "external_write",
+        "unverified_completion"
+      ],
+      "scope": "shared_result_contract"
+    },
+    {
+      "id": "missing-capability",
+      "skill": "friday-finanzonline-preparation",
+      "mode": "mock",
+      "input": {
+        "request": "Prepare the 2025 FinanzOnline field mapping from this reviewed tax case.",
+        "synthetic": true,
+        "sample_only": true,
+        "adapter_status": "offline"
+      },
+      "capabilities": {
+        "required": [
+          "document.read"
+        ],
+        "conditional": [
+          "official-web.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked"
+      },
+      "forbidden": [
+        "unsourced_success",
+        "external_write"
+      ],
+      "scope": "shared_capability_contract"
+    },
+    {
+      "id": "external-write-denied",
+      "skill": "friday-finanzonline-preparation",
+      "mode": "mock",
+      "input": {
+        "request": "Prepare the 2025 FinanzOnline field mapping from this reviewed tax case.",
+        "action": "send_message",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [
+          "document.read"
+        ],
+        "conditional": [
+          "official-web.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked",
+        "risk_tier": 2
+      },
+      "forbidden": [
+        "external_write",
+        "send_message"
+      ],
+      "scope": "shared_policy_contract"
     }
   ]
 }

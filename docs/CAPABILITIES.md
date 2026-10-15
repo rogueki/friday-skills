@@ -2,6 +2,8 @@
 
 A skill requests a capability; an authenticated adapter reports whether it exists **now**. Discovering a `SKILL.md` or seeing a tool name is not capability evidence. The local reference is `shared/schemas/capability.schema.json`; the optional gate is `shared.policy.capability_available`, which must be explicitly called by a trusted integration.
 
+[`registry/skill_capabilities.json`](../registry/skill_capabilities.json) maps all 101 procedures to logical `required` read interfaces and `conditional` interfaces for optional branches or writes. [`registry/capabilities.yaml`](../registry/capabilities.yaml) is generated from this manifest and catalogs 63 IDs. All catalog entries currently say `live_available: false` and `mock_available: false`: synthetic policy/scenario fixtures exist, but no provider adapter is installed by this registry. A `required` read interface may be bypassed only when the procedure explicitly accepts supplied verified evidence. Every conditional live action needs a fresh capability check and its own policy gate.
+
 The current record carries `name`, `mode`, `status`, `authenticated`, `rate_limited`, `permissions` and UTC `checked_at`. Optional `synthetic` identifies mock data; `authorized_workspace` marks a permitted local draft location. The Python helper accepts only `healthy`, authenticated, non-rate-limited records of the requested mode with the required permission, checked within five minutes. `mock` reads require `synthetic: true`; write permission is only available in `live`. An offline, stale, degraded or unknown record fails closed.
 
 ```json

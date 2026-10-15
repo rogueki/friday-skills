@@ -18,6 +18,97 @@
       "request": "List the files on this new drive for the first time.",
       "expected": "reject",
       "reason": "A neighboring archive skill owns this outcome."
+    },
+    {
+      "id": "ambiguity",
+      "request": "Pruefe das bitte und erledige es.",
+      "expected": "defer",
+      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+    }
+  ],
+  "contract_cases": [
+    {
+      "id": "mock-result",
+      "skill": "friday-archive-integrity-check",
+      "mode": "mock",
+      "input": {
+        "request": "Compare source, destination and backup manifests by hashes, counts, readability and tree structure.",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [
+          "file.read"
+        ],
+        "conditional": [],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "completed",
+        "verification_required": true,
+        "scope": "result_schema_only"
+      },
+      "forbidden": [
+        "external_write",
+        "unverified_completion"
+      ],
+      "scope": "shared_result_contract"
+    },
+    {
+      "id": "missing-capability",
+      "skill": "friday-archive-integrity-check",
+      "mode": "mock",
+      "input": {
+        "request": "Compare source, destination and backup manifests by hashes, counts, readability and tree structure.",
+        "synthetic": true,
+        "sample_only": true,
+        "adapter_status": "offline"
+      },
+      "capabilities": {
+        "required": [
+          "file.read"
+        ],
+        "conditional": [],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked"
+      },
+      "forbidden": [
+        "unsourced_success",
+        "external_write"
+      ],
+      "scope": "shared_capability_contract"
+    },
+    {
+      "id": "external-write-denied",
+      "skill": "friday-archive-integrity-check",
+      "mode": "mock",
+      "input": {
+        "request": "Compare source, destination and backup manifests by hashes, counts, readability and tree structure.",
+        "action": "mass_delete",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [
+          "file.read"
+        ],
+        "conditional": [],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked",
+        "risk_tier": 3
+      },
+      "forbidden": [
+        "external_write",
+        "mass_delete"
+      ],
+      "scope": "shared_policy_contract"
     }
   ]
 }

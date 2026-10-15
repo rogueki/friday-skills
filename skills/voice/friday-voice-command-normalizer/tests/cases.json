@@ -1,1 +1,117 @@
-{"skill":"friday-voice-command-normalizer","cases":[{"id":"positive","request":"Normalisiere den klaren Transkriptbefehl: ‚Ruf mich morgen um 10 Uhr an‘; Ziel ist ausdrücklich der Nutzer selbst.","expected":"select","reason":"A clear request can be represented with action, target and time without executing it."},{"id":"negative","request":"Prüfe einen vom Nutzer hochgeladenen Backup-Snapshot auf Vollständigkeit.","expected":"reject","reason":"This is a system/backup task and has no voice transcript normalization need."},{"id":"collision","request":"‚Schreib dem Müller‘; es gibt zwei Kontakte namens Müller und keine weiteren Angaben.","expected":"defer","reason":"Recipient ambiguity must be resolved before routing or drafting."}]}
+{
+  "skill": "friday-voice-command-normalizer",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Normalisiere den klaren Transkriptbefehl: ‚Ruf mich morgen um 10 Uhr an‘; Ziel ist ausdrücklich der Nutzer selbst.",
+      "expected": "select",
+      "reason": "A clear request can be represented with action, target and time without executing it."
+    },
+    {
+      "id": "negative",
+      "request": "Prüfe einen vom Nutzer hochgeladenen Backup-Snapshot auf Vollständigkeit.",
+      "expected": "reject",
+      "reason": "This is a system/backup task and has no voice transcript normalization need."
+    },
+    {
+      "id": "collision",
+      "request": "‚Schreib dem Müller‘; es gibt zwei Kontakte namens Müller und keine weiteren Angaben.",
+      "expected": "defer",
+      "reason": "Recipient ambiguity must be resolved before routing or drafting."
+    },
+    {
+      "id": "ambiguity",
+      "request": "Pruefe das bitte und erledige es.",
+      "expected": "defer",
+      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+    }
+  ],
+  "contract_cases": [
+    {
+      "id": "mock-result",
+      "skill": "friday-voice-command-normalizer",
+      "mode": "mock",
+      "input": {
+        "request": "Normalisiere den klaren Transkriptbefehl: ‚Ruf mich morgen um 10 Uhr an‘; Ziel ist ausdrücklich der Nutzer selbst.",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "adapter.health.read",
+          "voice.hear"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "completed",
+        "verification_required": true,
+        "scope": "result_schema_only"
+      },
+      "forbidden": [
+        "external_write",
+        "unverified_completion"
+      ],
+      "scope": "shared_result_contract"
+    },
+    {
+      "id": "missing-capability",
+      "skill": "friday-voice-command-normalizer",
+      "mode": "mock",
+      "input": {
+        "request": "Normalisiere den klaren Transkriptbefehl: ‚Ruf mich morgen um 10 Uhr an‘; Ziel ist ausdrücklich der Nutzer selbst.",
+        "synthetic": true,
+        "sample_only": true,
+        "adapter_status": "offline"
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "adapter.health.read",
+          "voice.hear"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked"
+      },
+      "forbidden": [
+        "unsourced_success",
+        "external_write"
+      ],
+      "scope": "shared_capability_contract"
+    },
+    {
+      "id": "external-write-denied",
+      "skill": "friday-voice-command-normalizer",
+      "mode": "mock",
+      "input": {
+        "request": "Normalisiere den klaren Transkriptbefehl: ‚Ruf mich morgen um 10 Uhr an‘; Ziel ist ausdrücklich der Nutzer selbst.",
+        "action": "send_message",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "adapter.health.read",
+          "voice.hear"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked",
+        "risk_tier": 2
+      },
+      "forbidden": [
+        "external_write",
+        "send_message"
+      ],
+      "scope": "shared_policy_contract"
+    }
+  ]
+}

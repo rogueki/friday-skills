@@ -1,1 +1,120 @@
-{"skill":"friday-system-health","cases":[{"id":"positive","request":"Prüfe mit vorhandenen Read-only-Probes den Status von Hermes, Qwen, WSL und D:-Speicher und nenne Messzeitpunkte.","expected":"select","reason":"The request asks for evidence-based host and service health inspection."},{"id":"negative","request":"Erstelle eine kurze Sprachantwort zu einer Begrüßung.","expected":"reject","reason":"Voice response policy owns this request; no system health inspection is needed."},{"id":"collision","request":"Alle Probes sind älter als gestern; bestätige trotzdem, dass alle Dienste gesund sind.","expected":"defer","reason":"Stale evidence cannot support a healthy status and must be reported as stale/unknown."}]}
+{
+  "skill": "friday-system-health",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Prüfe mit vorhandenen Read-only-Probes den Status von Hermes, Qwen, WSL und D:-Speicher und nenne Messzeitpunkte.",
+      "expected": "select",
+      "reason": "The request asks for evidence-based host and service health inspection."
+    },
+    {
+      "id": "negative",
+      "request": "Erstelle eine kurze Sprachantwort zu einer Begrüßung.",
+      "expected": "reject",
+      "reason": "Voice response policy owns this request; no system health inspection is needed."
+    },
+    {
+      "id": "collision",
+      "request": "Alle Probes sind älter als gestern; bestätige trotzdem, dass alle Dienste gesund sind.",
+      "expected": "defer",
+      "reason": "Stale evidence cannot support a healthy status and must be reported as stale/unknown."
+    },
+    {
+      "id": "ambiguity",
+      "request": "Pruefe das bitte und erledige es.",
+      "expected": "defer",
+      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+    }
+  ],
+  "contract_cases": [
+    {
+      "id": "mock-result",
+      "skill": "friday-system-health",
+      "mode": "mock",
+      "input": {
+        "request": "Prüfe mit vorhandenen Read-only-Probes den Status von Hermes, Qwen, WSL und D:-Speicher und nenne Messzeitpunkte.",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "adapter.health.read",
+          "service.health.read",
+          "storage.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "completed",
+        "verification_required": true,
+        "scope": "result_schema_only"
+      },
+      "forbidden": [
+        "external_write",
+        "unverified_completion"
+      ],
+      "scope": "shared_result_contract"
+    },
+    {
+      "id": "missing-capability",
+      "skill": "friday-system-health",
+      "mode": "mock",
+      "input": {
+        "request": "Prüfe mit vorhandenen Read-only-Probes den Status von Hermes, Qwen, WSL und D:-Speicher und nenne Messzeitpunkte.",
+        "synthetic": true,
+        "sample_only": true,
+        "adapter_status": "offline"
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "adapter.health.read",
+          "service.health.read",
+          "storage.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked"
+      },
+      "forbidden": [
+        "unsourced_success",
+        "external_write"
+      ],
+      "scope": "shared_capability_contract"
+    },
+    {
+      "id": "external-write-denied",
+      "skill": "friday-system-health",
+      "mode": "mock",
+      "input": {
+        "request": "Prüfe mit vorhandenen Read-only-Probes den Status von Hermes, Qwen, WSL und D:-Speicher und nenne Messzeitpunkte.",
+        "action": "credential_change",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "adapter.health.read",
+          "service.health.read",
+          "storage.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked",
+        "risk_tier": 3
+      },
+      "forbidden": [
+        "external_write",
+        "credential_change"
+      ],
+      "scope": "shared_policy_contract"
+    }
+  ]
+}

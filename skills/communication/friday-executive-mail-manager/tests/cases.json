@@ -18,6 +18,106 @@
       "request": "Formuliere nur einen Antwortentwurf zu Thread 12.",
       "expected": "defer",
       "reason": "Route to friday-mail-draft-writer for that intent."
+    },
+    {
+      "id": "ambiguity",
+      "request": "Pruefe das bitte und erledige es.",
+      "expected": "defer",
+      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+    }
+  ],
+  "contract_cases": [
+    {
+      "id": "mock-result",
+      "skill": "friday-executive-mail-manager",
+      "mode": "mock",
+      "input": {
+        "request": "Triage meine ungelesenen GMX-Mails nach Handlungsbedarf.",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [
+          "mail.read"
+        ],
+        "conditional": [
+          "mail.send",
+          "task.write"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "completed",
+        "verification_required": true,
+        "scope": "result_schema_only"
+      },
+      "forbidden": [
+        "external_write",
+        "unverified_completion"
+      ],
+      "scope": "shared_result_contract"
+    },
+    {
+      "id": "missing-capability",
+      "skill": "friday-executive-mail-manager",
+      "mode": "mock",
+      "input": {
+        "request": "Triage meine ungelesenen GMX-Mails nach Handlungsbedarf.",
+        "synthetic": true,
+        "sample_only": true,
+        "adapter_status": "offline"
+      },
+      "capabilities": {
+        "required": [
+          "mail.read"
+        ],
+        "conditional": [
+          "mail.send",
+          "task.write"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked"
+      },
+      "forbidden": [
+        "unsourced_success",
+        "external_write"
+      ],
+      "scope": "shared_capability_contract"
+    },
+    {
+      "id": "external-write-denied",
+      "skill": "friday-executive-mail-manager",
+      "mode": "mock",
+      "input": {
+        "request": "Triage meine ungelesenen GMX-Mails nach Handlungsbedarf.",
+        "action": "send_message",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [
+          "mail.read"
+        ],
+        "conditional": [
+          "mail.send",
+          "task.write"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked",
+        "risk_tier": 2
+      },
+      "forbidden": [
+        "external_write",
+        "send_message"
+      ],
+      "scope": "shared_policy_contract"
     }
   ]
 }

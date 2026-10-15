@@ -1,0 +1,815 @@
+{
+  "version": 1,
+  "skills": {
+    "friday-approval-policy": {
+      "required": [],
+      "conditional": [
+        "adapter.health.read",
+        "approval.read",
+        "approval.write"
+      ]
+    },
+    "friday-archive-integrity-check": {
+      "required": [
+        "file.read"
+      ],
+      "conditional": []
+    },
+    "friday-archive-inventory": {
+      "required": [
+        "file.read"
+      ],
+      "conditional": []
+    },
+    "friday-archive-migrator": {
+      "required": [
+        "file.read"
+      ],
+      "conditional": [
+        "file.write"
+      ]
+    },
+    "friday-archive-reorganization-plan": {
+      "required": [
+        "file.read"
+      ],
+      "conditional": []
+    },
+    "friday-audit-and-lineage": {
+      "required": [],
+      "conditional": [
+        "audit.read",
+        "audit.write"
+      ]
+    },
+    "friday-austria-funding-scout": {
+      "required": [
+        "official-web.read"
+      ],
+      "conditional": []
+    },
+    "friday-austria-tax-intake": {
+      "required": [
+        "document.read"
+      ],
+      "conditional": [
+        "file.write"
+      ]
+    },
+    "friday-backup-manager": {
+      "required": [],
+      "conditional": [
+        "backup.read",
+        "backup.write",
+        "file.read"
+      ]
+    },
+    "friday-booking-preparation": {
+      "required": [],
+      "conditional": [
+        "web.read"
+      ]
+    },
+    "friday-calendar-manager": {
+      "required": [
+        "calendar.read"
+      ],
+      "conditional": [
+        "calendar.write"
+      ]
+    },
+    "friday-capability-and-health-check": {
+      "required": [],
+      "conditional": [
+        "adapter.health.read"
+      ]
+    },
+    "friday-commuter-and-work-expense-at": {
+      "required": [
+        "official-web.read"
+      ],
+      "conditional": [
+        "document.read"
+      ]
+    },
+    "friday-company-and-shop-investigation": {
+      "required": [],
+      "conditional": [
+        "official-web.read",
+        "web.read"
+      ]
+    },
+    "friday-contact-context": {
+      "required": [],
+      "conditional": [
+        "calendar.read",
+        "contact.read",
+        "mail.read"
+      ]
+    },
+    "friday-contract-and-subscription-monitor": {
+      "required": [
+        "document.read",
+        "finance.subscription-ledger.read"
+      ],
+      "conditional": [
+        "notification.deliver",
+        "scheduler.run"
+      ]
+    },
+    "friday-cost-and-model-router": {
+      "required": [],
+      "conditional": [
+        "model.inventory.read"
+      ]
+    },
+    "friday-daily-priority-planner": {
+      "required": [],
+      "conditional": [
+        "calendar.read",
+        "task.read",
+        "task.write"
+      ]
+    },
+    "friday-dashboard-activity-publisher": {
+      "required": [],
+      "conditional": [
+        "dashboard.write",
+        "task.read"
+      ]
+    },
+    "friday-deadline-and-reminder-manager": {
+      "required": [],
+      "conditional": [
+        "calendar.read",
+        "calendar.write",
+        "finance.invoice-ledger.read",
+        "mail.read",
+        "reminder.write",
+        "scheduler.run",
+        "task.read"
+      ]
+    },
+    "friday-decision-brief": {
+      "required": [],
+      "conditional": [
+        "document.read",
+        "document.write"
+      ]
+    },
+    "friday-deep-research": {
+      "required": [],
+      "conditional": [
+        "file.write",
+        "official-web.read",
+        "web.read"
+      ]
+    },
+    "friday-document-intake": {
+      "required": [
+        "document.read"
+      ],
+      "conditional": [
+        "file.write"
+      ]
+    },
+    "friday-document-retention": {
+      "required": [
+        "file.read"
+      ],
+      "conditional": [
+        "file.write",
+        "official-web.read"
+      ]
+    },
+    "friday-duplicate-detector": {
+      "required": [
+        "file.read"
+      ],
+      "conditional": [
+        "media.read"
+      ]
+    },
+    "friday-energy-optimizer": {
+      "required": [],
+      "conditional": [
+        "energy.telemetry.read",
+        "loxone.read",
+        "loxone.write",
+        "tariff.read",
+        "weather.read"
+      ]
+    },
+    "friday-energy-tariff-scout": {
+      "required": [
+        "official-web.read"
+      ],
+      "conditional": [
+        "document.read",
+        "meter.read",
+        "tariff.read"
+      ]
+    },
+    "friday-error-recovery": {
+      "required": [],
+      "conditional": [
+        "adapter.health.read",
+        "audit.read"
+      ]
+    },
+    "friday-evening-briefing": {
+      "required": [],
+      "conditional": [
+        "alert.read",
+        "approval.read",
+        "calendar.read",
+        "mail.read",
+        "notification.deliver",
+        "scheduler.run",
+        "task.read"
+      ]
+    },
+    "friday-excel-analysis": {
+      "required": [
+        "document.read"
+      ],
+      "conditional": [
+        "document.write"
+      ]
+    },
+    "friday-executive-escalation": {
+      "required": [],
+      "conditional": [
+        "alert.read",
+        "messaging.send",
+        "notification.deliver",
+        "notification.send",
+        "telephony.call"
+      ]
+    },
+    "friday-executive-mail-manager": {
+      "required": [
+        "mail.read"
+      ],
+      "conditional": [
+        "mail.send",
+        "task.write"
+      ]
+    },
+    "friday-executive-orchestrator": {
+      "required": [],
+      "conditional": [
+        "adapter.health.read",
+        "task.read",
+        "task.write"
+      ]
+    },
+    "friday-family-benefit-optimizer-at": {
+      "required": [
+        "official-web.read"
+      ],
+      "conditional": [
+        "document.read"
+      ]
+    },
+    "friday-family-destination-research": {
+      "required": [],
+      "conditional": [
+        "official-web.read",
+        "weather.read",
+        "web.read"
+      ]
+    },
+    "friday-family-highlight-selector": {
+      "required": [
+        "media.read"
+      ],
+      "conditional": [
+        "file.write"
+      ]
+    },
+    "friday-family-itinerary-planner": {
+      "required": [],
+      "conditional": [
+        "calendar.write",
+        "weather.read",
+        "web.read"
+      ]
+    },
+    "friday-family-travel-profile": {
+      "required": [],
+      "conditional": [
+        "profile.read",
+        "profile.write"
+      ]
+    },
+    "friday-file-classifier": {
+      "required": [
+        "file.read"
+      ],
+      "conditional": [
+        "document.read"
+      ]
+    },
+    "friday-finance-briefing": {
+      "required": [
+        "finance.invoice-ledger.read",
+        "finance.receipt-index.read",
+        "finance.subscription-ledger.read"
+      ],
+      "conditional": []
+    },
+    "friday-finanzonline-preparation": {
+      "required": [
+        "document.read"
+      ],
+      "conditional": [
+        "official-web.read"
+      ]
+    },
+    "friday-follow-up-manager": {
+      "required": [],
+      "conditional": [
+        "mail.read",
+        "mail.send",
+        "notification.deliver",
+        "scheduler.run",
+        "task.read",
+        "task.write"
+      ]
+    },
+    "friday-funding-eligibility-check": {
+      "required": [
+        "official-web.read"
+      ],
+      "conditional": [
+        "document.read"
+      ]
+    },
+    "friday-home-anomaly-monitor": {
+      "required": [],
+      "conditional": [
+        "home.telemetry.read",
+        "loxone.read",
+        "notification.deliver",
+        "scheduler.run"
+      ]
+    },
+    "friday-home-scene-manager": {
+      "required": [
+        "loxone.read"
+      ],
+      "conditional": [
+        "loxone.write"
+      ]
+    },
+    "friday-input-trust-and-injection-defense": {
+      "required": [],
+      "conditional": []
+    },
+    "friday-intent-and-skill-router": {
+      "required": [],
+      "conditional": [
+        "adapter.health.read"
+      ]
+    },
+    "friday-invoice-intake": {
+      "required": [
+        "document.read"
+      ],
+      "conditional": [
+        "finance.invoice-ledger.read"
+      ]
+    },
+    "friday-knowledge-base-curator": {
+      "required": [
+        "file.read"
+      ],
+      "conditional": [
+        "file.write",
+        "scheduler.run"
+      ]
+    },
+    "friday-loxone-control": {
+      "required": [
+        "loxone.read"
+      ],
+      "conditional": [
+        "loxone.write"
+      ]
+    },
+    "friday-loxone-status": {
+      "required": [
+        "loxone.read"
+      ],
+      "conditional": []
+    },
+    "friday-mail-attachment-intake": {
+      "required": [
+        "document.read",
+        "mail.read"
+      ],
+      "conditional": [
+        "file.write"
+      ]
+    },
+    "friday-mail-draft-writer": {
+      "required": [
+        "mail.read"
+      ],
+      "conditional": [
+        "file.write",
+        "mail.send"
+      ]
+    },
+    "friday-market-and-competitor-analysis": {
+      "required": [],
+      "conditional": [
+        "official-web.read",
+        "web.read"
+      ]
+    },
+    "friday-media-folder-organizer": {
+      "required": [
+        "file.read"
+      ],
+      "conditional": [
+        "file.write"
+      ]
+    },
+    "friday-media-intake": {
+      "required": [
+        "media.read"
+      ],
+      "conditional": [
+        "file.write"
+      ]
+    },
+    "friday-media-quality-review": {
+      "required": [
+        "media.read"
+      ],
+      "conditional": []
+    },
+    "friday-meeting-briefing": {
+      "required": [
+        "calendar.read"
+      ],
+      "conditional": [
+        "document.read",
+        "mail.read",
+        "task.read"
+      ]
+    },
+    "friday-meeting-follow-up": {
+      "required": [
+        "calendar.read"
+      ],
+      "conditional": [
+        "calendar.write",
+        "mail.send",
+        "task.write"
+      ]
+    },
+    "friday-meeting-request-coordinator": {
+      "required": [
+        "calendar.read",
+        "contact.read"
+      ],
+      "conditional": [
+        "calendar.write",
+        "mail.send"
+      ]
+    },
+    "friday-memory-governance": {
+      "required": [],
+      "conditional": [
+        "memory.read",
+        "memory.write"
+      ]
+    },
+    "friday-morning-briefing": {
+      "required": [],
+      "conditional": [
+        "alert.read",
+        "calendar.read",
+        "mail.read",
+        "notification.deliver",
+        "scheduler.run",
+        "task.read",
+        "weather.read"
+      ]
+    },
+    "friday-payment-preparation": {
+      "required": [
+        "document.read"
+      ],
+      "conditional": [
+        "payment.prepare"
+      ]
+    },
+    "friday-phone-call-coordinator": {
+      "required": [],
+      "conditional": [
+        "contact.read",
+        "telephony.call"
+      ]
+    },
+    "friday-photo-curator": {
+      "required": [
+        "media.read"
+      ],
+      "conditional": [
+        "file.write"
+      ]
+    },
+    "friday-photo-enhancement": {
+      "required": [
+        "media.read"
+      ],
+      "conditional": [
+        "file.write",
+        "media.render"
+      ]
+    },
+    "friday-photobook-planner": {
+      "required": [
+        "media.read"
+      ],
+      "conditional": [
+        "file.write",
+        "media.render"
+      ]
+    },
+    "friday-powerpoint-animation-director": {
+      "required": [
+        "document.read"
+      ],
+      "conditional": [
+        "document.write",
+        "office.render"
+      ]
+    },
+    "friday-powerpoint-ci-builder": {
+      "required": [
+        "document.read"
+      ],
+      "conditional": [
+        "document.write",
+        "office.render"
+      ]
+    },
+    "friday-powerpoint-enhancer": {
+      "required": [
+        "document.read"
+      ],
+      "conditional": [
+        "document.write",
+        "office.render"
+      ]
+    },
+    "friday-presentation-director": {
+      "required": [],
+      "conditional": [
+        "document.read"
+      ]
+    },
+    "friday-presentation-qa": {
+      "required": [
+        "document.read"
+      ],
+      "conditional": [
+        "office.render"
+      ]
+    },
+    "friday-project-context-builder": {
+      "required": [
+        "file.read"
+      ],
+      "conditional": [
+        "file.write"
+      ]
+    },
+    "friday-receipt-and-expense-organizer": {
+      "required": [
+        "document.read"
+      ],
+      "conditional": [
+        "file.write",
+        "finance.expense-ledger.read"
+      ]
+    },
+    "friday-recurring-cost-optimizer": {
+      "required": [
+        "document.read"
+      ],
+      "conditional": [
+        "finance.subscription-ledger.read",
+        "official-web.read"
+      ]
+    },
+    "friday-report-writer": {
+      "required": [],
+      "conditional": [
+        "document.read",
+        "document.write",
+        "office.render"
+      ]
+    },
+    "friday-research-monitor": {
+      "required": [],
+      "conditional": [
+        "notification.deliver",
+        "official-web.read",
+        "scheduler.run",
+        "web.read"
+      ]
+    },
+    "friday-service-recovery": {
+      "required": [
+        "service.health.read"
+      ],
+      "conditional": [
+        "service.restart"
+      ]
+    },
+    "friday-skill-health-and-curation": {
+      "required": [
+        "file.read"
+      ],
+      "conditional": []
+    },
+    "friday-skonto-and-due-date-monitor": {
+      "required": [
+        "finance.invoice-ledger.read"
+      ],
+      "conditional": [
+        "notification.deliver",
+        "scheduler.run"
+      ]
+    },
+    "friday-source-verification": {
+      "required": [],
+      "conditional": [
+        "document.read",
+        "official-web.read",
+        "web.read"
+      ]
+    },
+    "friday-speaker-identity-policy": {
+      "required": [],
+      "conditional": [
+        "approval.read",
+        "voice.verify-speaker"
+      ]
+    },
+    "friday-storage-monitor": {
+      "required": [
+        "storage.read"
+      ],
+      "conditional": [
+        "file.write"
+      ]
+    },
+    "friday-system-health": {
+      "required": [],
+      "conditional": [
+        "adapter.health.read",
+        "service.health.read",
+        "storage.read"
+      ]
+    },
+    "friday-task-kanban-manager": {
+      "required": [
+        "task.read"
+      ],
+      "conditional": [
+        "task.write"
+      ]
+    },
+    "friday-tax-deadline-monitor-at": {
+      "required": [
+        "document.read",
+        "official-web.read"
+      ],
+      "conditional": [
+        "notification.deliver",
+        "scheduler.run"
+      ]
+    },
+    "friday-tax-review-at": {
+      "required": [
+        "document.read"
+      ],
+      "conditional": [
+        "official-web.read"
+      ]
+    },
+    "friday-telegram-communication": {
+      "required": [],
+      "conditional": [
+        "telegram.receive",
+        "telegram.send"
+      ]
+    },
+    "friday-travel-document-checklist": {
+      "required": [],
+      "conditional": [
+        "document.read",
+        "official-web.read"
+      ]
+    },
+    "friday-trip-companion": {
+      "required": [],
+      "conditional": [
+        "calendar.read",
+        "weather.read",
+        "web.read"
+      ]
+    },
+    "friday-trip-price-comparator": {
+      "required": [],
+      "conditional": [
+        "tariff.read",
+        "web.read"
+      ]
+    },
+    "friday-unified-conversation-summary": {
+      "required": [],
+      "conditional": [
+        "calendar.read",
+        "mail.read",
+        "messaging.read"
+      ]
+    },
+    "friday-video-creator": {
+      "required": [
+        "media.read"
+      ],
+      "conditional": [
+        "file.write",
+        "media.render"
+      ]
+    },
+    "friday-voice-command-normalizer": {
+      "required": [],
+      "conditional": [
+        "adapter.health.read",
+        "voice.hear"
+      ]
+    },
+    "friday-voice-interaction-policy": {
+      "required": [],
+      "conditional": [
+        "voice.hear",
+        "voice.speak",
+        "voice.verify-speaker"
+      ]
+    },
+    "friday-weather": {
+      "required": [],
+      "conditional": [
+        "weather.read",
+        "web.read"
+      ]
+    },
+    "friday-weather-alerts": {
+      "required": [],
+      "conditional": [
+        "notification.send",
+        "weather.warning.read"
+      ]
+    },
+    "friday-weather-context-advice": {
+      "required": [],
+      "conditional": [
+        "weather.read",
+        "weather.warning.read"
+      ]
+    },
+    "friday-web-research": {
+      "required": [],
+      "conditional": [
+        "file.write",
+        "official-web.read",
+        "web.read"
+      ]
+    },
+    "friday-whatsapp-communication": {
+      "required": [],
+      "conditional": [
+        "whatsapp.receive",
+        "whatsapp.send"
+      ]
+    },
+    "friday-word-document-builder": {
+      "required": [
+        "document.read"
+      ],
+      "conditional": [
+        "document.write",
+        "office.render"
+      ]
+    }
+  }
+}

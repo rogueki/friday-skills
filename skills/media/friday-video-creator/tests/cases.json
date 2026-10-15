@@ -18,6 +18,106 @@
       "request": "Choose ten still photos for a photobook.",
       "expected": "reject",
       "reason": "A neighboring curation, archive or intake skill owns this outcome."
+    },
+    {
+      "id": "ambiguity",
+      "request": "Pruefe das bitte und erledige es.",
+      "expected": "defer",
+      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+    }
+  ],
+  "contract_cases": [
+    {
+      "id": "mock-result",
+      "skill": "friday-video-creator",
+      "mode": "mock",
+      "input": {
+        "request": "Please plan and render a reviewed family film or highlight reel from authorized media with rights-safe audio.",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [
+          "media.read"
+        ],
+        "conditional": [
+          "file.write",
+          "media.render"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "completed",
+        "verification_required": true,
+        "scope": "result_schema_only"
+      },
+      "forbidden": [
+        "external_write",
+        "unverified_completion"
+      ],
+      "scope": "shared_result_contract"
+    },
+    {
+      "id": "missing-capability",
+      "skill": "friday-video-creator",
+      "mode": "mock",
+      "input": {
+        "request": "Please plan and render a reviewed family film or highlight reel from authorized media with rights-safe audio.",
+        "synthetic": true,
+        "sample_only": true,
+        "adapter_status": "offline"
+      },
+      "capabilities": {
+        "required": [
+          "media.read"
+        ],
+        "conditional": [
+          "file.write",
+          "media.render"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked"
+      },
+      "forbidden": [
+        "unsourced_success",
+        "external_write"
+      ],
+      "scope": "shared_capability_contract"
+    },
+    {
+      "id": "external-write-denied",
+      "skill": "friday-video-creator",
+      "mode": "mock",
+      "input": {
+        "request": "Please plan and render a reviewed family film or highlight reel from authorized media with rights-safe audio.",
+        "action": "send_message",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [
+          "media.read"
+        ],
+        "conditional": [
+          "file.write",
+          "media.render"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked",
+        "risk_tier": 2
+      },
+      "forbidden": [
+        "external_write",
+        "send_message"
+      ],
+      "scope": "shared_policy_contract"
     }
   ]
 }

@@ -1,1 +1,120 @@
-{"skill":"friday-voice-interaction-policy","cases":[{"id":"positive","request":"Lies mir die Wetterzusammenfassung vor; Privacy Mode ist aus und die Voice-Ausgabe ist verfügbar.","expected":"select","reason":"Spoken response policy applies and can produce a concise non-sensitive answer."},{"id":"negative","request":"Analysiere diese CSV-Datei und erstelle nur einen Textbericht ohne Sprachsitzung.","expected":"reject","reason":"A non-voice analysis request belongs to its specialist skill."},{"id":"collision","request":"Lies meinen Kontostand laut vor, aber Privacy Mode ist aktiv.","expected":"defer","reason":"Sensitive voice disclosure must be withheld and redirected to a private channel."}]}
+{
+  "skill": "friday-voice-interaction-policy",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Lies mir die Wetterzusammenfassung vor; Privacy Mode ist aus und die Voice-Ausgabe ist verfügbar.",
+      "expected": "select",
+      "reason": "Spoken response policy applies and can produce a concise non-sensitive answer."
+    },
+    {
+      "id": "negative",
+      "request": "Analysiere diese CSV-Datei und erstelle nur einen Textbericht ohne Sprachsitzung.",
+      "expected": "reject",
+      "reason": "A non-voice analysis request belongs to its specialist skill."
+    },
+    {
+      "id": "collision",
+      "request": "Lies meinen Kontostand laut vor, aber Privacy Mode ist aktiv.",
+      "expected": "defer",
+      "reason": "Sensitive voice disclosure must be withheld and redirected to a private channel."
+    },
+    {
+      "id": "ambiguity",
+      "request": "Pruefe das bitte und erledige es.",
+      "expected": "defer",
+      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+    }
+  ],
+  "contract_cases": [
+    {
+      "id": "mock-result",
+      "skill": "friday-voice-interaction-policy",
+      "mode": "mock",
+      "input": {
+        "request": "Lies mir die Wetterzusammenfassung vor; Privacy Mode ist aus und die Voice-Ausgabe ist verfügbar.",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "voice.hear",
+          "voice.speak",
+          "voice.verify-speaker"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "completed",
+        "verification_required": true,
+        "scope": "result_schema_only"
+      },
+      "forbidden": [
+        "external_write",
+        "unverified_completion"
+      ],
+      "scope": "shared_result_contract"
+    },
+    {
+      "id": "missing-capability",
+      "skill": "friday-voice-interaction-policy",
+      "mode": "mock",
+      "input": {
+        "request": "Lies mir die Wetterzusammenfassung vor; Privacy Mode ist aus und die Voice-Ausgabe ist verfügbar.",
+        "synthetic": true,
+        "sample_only": true,
+        "adapter_status": "offline"
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "voice.hear",
+          "voice.speak",
+          "voice.verify-speaker"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked"
+      },
+      "forbidden": [
+        "unsourced_success",
+        "external_write"
+      ],
+      "scope": "shared_capability_contract"
+    },
+    {
+      "id": "external-write-denied",
+      "skill": "friday-voice-interaction-policy",
+      "mode": "mock",
+      "input": {
+        "request": "Lies mir die Wetterzusammenfassung vor; Privacy Mode ist aus und die Voice-Ausgabe ist verfügbar.",
+        "action": "send_message",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "voice.hear",
+          "voice.speak",
+          "voice.verify-speaker"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked",
+        "risk_tier": 2
+      },
+      "forbidden": [
+        "external_write",
+        "send_message"
+      ],
+      "scope": "shared_policy_contract"
+    }
+  ]
+}

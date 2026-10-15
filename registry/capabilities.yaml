@@ -1,84 +1,1264 @@
 {
   "capabilities": {
+    "adapter.health.read": {
+      "adapter": "adapter_registry",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "alert.read": {
+      "adapter": "alerts",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "approval.read": {
+      "adapter": "approval_store",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "approval.write": {
+      "adapter": "approval_store",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
+    "audit.read": {
+      "adapter": "audit_store",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "audit.write": {
+      "adapter": "audit_store",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
+    "backup.read": {
+      "adapter": "backup",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "backup.write": {
+      "adapter": "backup",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
     "calendar.read": {
       "adapter": "caldav",
       "live_available": false,
-      "mock_available": true,
-      "mode": "read_only"
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
     },
     "calendar.write": {
       "adapter": "caldav",
       "live_available": false,
-      "mock_available": true,
-      "mode": "approval_required"
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
+    "contact.read": {
+      "adapter": "carddav",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
     },
     "contacts.read": {
       "adapter": "carddav",
       "live_available": false,
-      "mock_available": true,
-      "mode": "read_only"
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
     },
     "dashboard.write": {
       "adapter": "control_api",
       "live_available": false,
-      "mock_available": true,
-      "mode": "approval_required"
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
+    "document.read": {
+      "adapter": "document_parser",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "document.write": {
+      "adapter": "document_worker",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "draft_only",
+      "permission": "write"
+    },
+    "energy.telemetry.read": {
+      "adapter": "energy_telemetry",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "file.read": {
+      "adapter": "scoped_filesystem",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "file.write": {
+      "adapter": "scoped_filesystem",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
+    "finance.expense-ledger.read": {
+      "adapter": "finance",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "finance.invoice-ledger.read": {
+      "adapter": "finance",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "finance.receipt-index.read": {
+      "adapter": "finance",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "finance.subscription-ledger.read": {
+      "adapter": "finance",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "finanzonline.submit": {
+      "adapter": "finanzonline",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "hard_approval",
+      "permission": "write"
+    },
+    "home.telemetry.read": {
+      "adapter": "home_telemetry",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
     },
     "loxone.read": {
       "adapter": "loxone",
       "live_available": false,
-      "mock_available": true,
-      "mode": "read_only"
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
     },
     "loxone.write": {
       "adapter": "loxone",
       "live_available": false,
-      "mock_available": true,
-      "mode": "approval_required"
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
     },
     "mail.read": {
       "adapter": "gmx",
       "live_available": false,
-      "mock_available": true,
-      "mode": "read_only"
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
     },
     "mail.send": {
       "adapter": "gmx",
       "live_available": false,
-      "mock_available": true,
-      "mode": "approval_required"
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
+    "media.read": {
+      "adapter": "media_worker",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "media.render": {
+      "adapter": "media_worker",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "draft_only",
+      "permission": "write"
+    },
+    "memory.read": {
+      "adapter": "memory_store",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "memory.write": {
+      "adapter": "memory_store",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
+    "messaging.read": {
+      "adapter": "messaging_gateway",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "messaging.send": {
+      "adapter": "messaging_gateway",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
+    "meter.read": {
+      "adapter": "meter",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "model.inventory.read": {
+      "adapter": "model_registry",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "notification.deliver": {
+      "adapter": "notification_gateway",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
+    "notification.send": {
+      "adapter": "notification_gateway",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
     },
     "office.render": {
       "adapter": "windows_worker",
       "live_available": false,
-      "mock_available": true,
-      "mode": "draft_only"
+      "mock_available": false,
+      "mode": "draft_only",
+      "permission": "write"
+    },
+    "official-web.read": {
+      "adapter": "official_web_fetch",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
     },
     "payment.execute": {
       "adapter": "banking",
       "live_available": false,
-      "mock_available": true,
-      "mode": "hard_approval"
+      "mock_available": false,
+      "mode": "hard_approval",
+      "permission": "write"
     },
     "payment.prepare": {
       "adapter": "finance",
       "live_available": false,
-      "mock_available": true,
-      "mode": "draft_only"
+      "mock_available": false,
+      "mode": "draft_only",
+      "permission": "write"
+    },
+    "profile.read": {
+      "adapter": "profile_store",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "profile.write": {
+      "adapter": "profile_store",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
+    "reminder.write": {
+      "adapter": "reminder_store",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
+    "scheduler.run": {
+      "adapter": "scheduler",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
+    "service.health.read": {
+      "adapter": "service_probes",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "service.restart": {
+      "adapter": "service_control",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "hard_approval",
+      "permission": "write"
+    },
+    "storage.read": {
+      "adapter": "storage_probe",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "tariff.read": {
+      "adapter": "tariff_source",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "task.read": {
+      "adapter": "task_store",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "task.write": {
+      "adapter": "task_store",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
+    "telegram.receive": {
+      "adapter": "telegram_gateway",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "telegram.send": {
+      "adapter": "telegram_gateway",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
+    "telephony.call": {
+      "adapter": "telephony",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
+    "voice.hear": {
+      "adapter": "local_voice",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
     },
     "voice.speak": {
       "adapter": "local_voice",
       "live_available": false,
-      "mock_available": true,
-      "mode": "draft_only"
+      "mock_available": false,
+      "mode": "draft_only",
+      "permission": "write"
+    },
+    "voice.verify-speaker": {
+      "adapter": "local_voice",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
     },
     "weather.read": {
       "adapter": "weather",
       "live_available": false,
-      "mock_available": true,
-      "mode": "read_only"
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "weather.warning.read": {
+      "adapter": "official_weather",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "web.read": {
+      "adapter": "web_fetch",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "whatsapp.receive": {
+      "adapter": "whatsapp_gateway",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "whatsapp.send": {
+      "adapter": "whatsapp_gateway",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
     }
   },
   "product": "F.R.I.D.A.Y.",
+  "requirement_semantics": {
+    "conditional": "Check separately before optional retrieval, persistence, delivery, or other live action; absence blocks that branch.",
+    "required": "Read interface for the primary adapter-backed path; a skill may explicitly accept supplied verified evidence instead."
+  },
+  "skill_requirements": {
+    "friday-approval-policy": {
+      "conditional": [
+        "adapter.health.read",
+        "approval.read",
+        "approval.write"
+      ],
+      "required": []
+    },
+    "friday-archive-integrity-check": {
+      "conditional": [],
+      "required": [
+        "file.read"
+      ]
+    },
+    "friday-archive-inventory": {
+      "conditional": [],
+      "required": [
+        "file.read"
+      ]
+    },
+    "friday-archive-migrator": {
+      "conditional": [
+        "file.write"
+      ],
+      "required": [
+        "file.read"
+      ]
+    },
+    "friday-archive-reorganization-plan": {
+      "conditional": [],
+      "required": [
+        "file.read"
+      ]
+    },
+    "friday-audit-and-lineage": {
+      "conditional": [
+        "audit.read",
+        "audit.write"
+      ],
+      "required": []
+    },
+    "friday-austria-funding-scout": {
+      "conditional": [],
+      "required": [
+        "official-web.read"
+      ]
+    },
+    "friday-austria-tax-intake": {
+      "conditional": [
+        "file.write"
+      ],
+      "required": [
+        "document.read"
+      ]
+    },
+    "friday-backup-manager": {
+      "conditional": [
+        "backup.read",
+        "backup.write",
+        "file.read"
+      ],
+      "required": []
+    },
+    "friday-booking-preparation": {
+      "conditional": [
+        "web.read"
+      ],
+      "required": []
+    },
+    "friday-calendar-manager": {
+      "conditional": [
+        "calendar.write"
+      ],
+      "required": [
+        "calendar.read"
+      ]
+    },
+    "friday-capability-and-health-check": {
+      "conditional": [
+        "adapter.health.read"
+      ],
+      "required": []
+    },
+    "friday-commuter-and-work-expense-at": {
+      "conditional": [
+        "document.read"
+      ],
+      "required": [
+        "official-web.read"
+      ]
+    },
+    "friday-company-and-shop-investigation": {
+      "conditional": [
+        "official-web.read",
+        "web.read"
+      ],
+      "required": []
+    },
+    "friday-contact-context": {
+      "conditional": [
+        "calendar.read",
+        "contact.read",
+        "mail.read"
+      ],
+      "required": []
+    },
+    "friday-contract-and-subscription-monitor": {
+      "conditional": [
+        "notification.deliver",
+        "scheduler.run"
+      ],
+      "required": [
+        "document.read",
+        "finance.subscription-ledger.read"
+      ]
+    },
+    "friday-cost-and-model-router": {
+      "conditional": [
+        "model.inventory.read"
+      ],
+      "required": []
+    },
+    "friday-daily-priority-planner": {
+      "conditional": [
+        "calendar.read",
+        "task.read",
+        "task.write"
+      ],
+      "required": []
+    },
+    "friday-dashboard-activity-publisher": {
+      "conditional": [
+        "dashboard.write",
+        "task.read"
+      ],
+      "required": []
+    },
+    "friday-deadline-and-reminder-manager": {
+      "conditional": [
+        "calendar.read",
+        "calendar.write",
+        "finance.invoice-ledger.read",
+        "mail.read",
+        "reminder.write",
+        "scheduler.run",
+        "task.read"
+      ],
+      "required": []
+    },
+    "friday-decision-brief": {
+      "conditional": [
+        "document.read",
+        "document.write"
+      ],
+      "required": []
+    },
+    "friday-deep-research": {
+      "conditional": [
+        "file.write",
+        "official-web.read",
+        "web.read"
+      ],
+      "required": []
+    },
+    "friday-document-intake": {
+      "conditional": [
+        "file.write"
+      ],
+      "required": [
+        "document.read"
+      ]
+    },
+    "friday-document-retention": {
+      "conditional": [
+        "file.write",
+        "official-web.read"
+      ],
+      "required": [
+        "file.read"
+      ]
+    },
+    "friday-duplicate-detector": {
+      "conditional": [
+        "media.read"
+      ],
+      "required": [
+        "file.read"
+      ]
+    },
+    "friday-energy-optimizer": {
+      "conditional": [
+        "energy.telemetry.read",
+        "loxone.read",
+        "loxone.write",
+        "tariff.read",
+        "weather.read"
+      ],
+      "required": []
+    },
+    "friday-energy-tariff-scout": {
+      "conditional": [
+        "document.read",
+        "meter.read",
+        "tariff.read"
+      ],
+      "required": [
+        "official-web.read"
+      ]
+    },
+    "friday-error-recovery": {
+      "conditional": [
+        "adapter.health.read",
+        "audit.read"
+      ],
+      "required": []
+    },
+    "friday-evening-briefing": {
+      "conditional": [
+        "alert.read",
+        "approval.read",
+        "calendar.read",
+        "mail.read",
+        "notification.deliver",
+        "scheduler.run",
+        "task.read"
+      ],
+      "required": []
+    },
+    "friday-excel-analysis": {
+      "conditional": [
+        "document.write"
+      ],
+      "required": [
+        "document.read"
+      ]
+    },
+    "friday-executive-escalation": {
+      "conditional": [
+        "alert.read",
+        "messaging.send",
+        "notification.deliver",
+        "notification.send",
+        "telephony.call"
+      ],
+      "required": []
+    },
+    "friday-executive-mail-manager": {
+      "conditional": [
+        "mail.send",
+        "task.write"
+      ],
+      "required": [
+        "mail.read"
+      ]
+    },
+    "friday-executive-orchestrator": {
+      "conditional": [
+        "adapter.health.read",
+        "task.read",
+        "task.write"
+      ],
+      "required": []
+    },
+    "friday-family-benefit-optimizer-at": {
+      "conditional": [
+        "document.read"
+      ],
+      "required": [
+        "official-web.read"
+      ]
+    },
+    "friday-family-destination-research": {
+      "conditional": [
+        "official-web.read",
+        "weather.read",
+        "web.read"
+      ],
+      "required": []
+    },
+    "friday-family-highlight-selector": {
+      "conditional": [
+        "file.write"
+      ],
+      "required": [
+        "media.read"
+      ]
+    },
+    "friday-family-itinerary-planner": {
+      "conditional": [
+        "calendar.write",
+        "weather.read",
+        "web.read"
+      ],
+      "required": []
+    },
+    "friday-family-travel-profile": {
+      "conditional": [
+        "profile.read",
+        "profile.write"
+      ],
+      "required": []
+    },
+    "friday-file-classifier": {
+      "conditional": [
+        "document.read"
+      ],
+      "required": [
+        "file.read"
+      ]
+    },
+    "friday-finance-briefing": {
+      "conditional": [],
+      "required": [
+        "finance.invoice-ledger.read",
+        "finance.receipt-index.read",
+        "finance.subscription-ledger.read"
+      ]
+    },
+    "friday-finanzonline-preparation": {
+      "conditional": [
+        "official-web.read"
+      ],
+      "required": [
+        "document.read"
+      ]
+    },
+    "friday-follow-up-manager": {
+      "conditional": [
+        "mail.read",
+        "mail.send",
+        "notification.deliver",
+        "scheduler.run",
+        "task.read",
+        "task.write"
+      ],
+      "required": []
+    },
+    "friday-funding-eligibility-check": {
+      "conditional": [
+        "document.read"
+      ],
+      "required": [
+        "official-web.read"
+      ]
+    },
+    "friday-home-anomaly-monitor": {
+      "conditional": [
+        "home.telemetry.read",
+        "loxone.read",
+        "notification.deliver",
+        "scheduler.run"
+      ],
+      "required": []
+    },
+    "friday-home-scene-manager": {
+      "conditional": [
+        "loxone.write"
+      ],
+      "required": [
+        "loxone.read"
+      ]
+    },
+    "friday-input-trust-and-injection-defense": {
+      "conditional": [],
+      "required": []
+    },
+    "friday-intent-and-skill-router": {
+      "conditional": [
+        "adapter.health.read"
+      ],
+      "required": []
+    },
+    "friday-invoice-intake": {
+      "conditional": [
+        "finance.invoice-ledger.read"
+      ],
+      "required": [
+        "document.read"
+      ]
+    },
+    "friday-knowledge-base-curator": {
+      "conditional": [
+        "file.write",
+        "scheduler.run"
+      ],
+      "required": [
+        "file.read"
+      ]
+    },
+    "friday-loxone-control": {
+      "conditional": [
+        "loxone.write"
+      ],
+      "required": [
+        "loxone.read"
+      ]
+    },
+    "friday-loxone-status": {
+      "conditional": [],
+      "required": [
+        "loxone.read"
+      ]
+    },
+    "friday-mail-attachment-intake": {
+      "conditional": [
+        "file.write"
+      ],
+      "required": [
+        "document.read",
+        "mail.read"
+      ]
+    },
+    "friday-mail-draft-writer": {
+      "conditional": [
+        "file.write",
+        "mail.send"
+      ],
+      "required": [
+        "mail.read"
+      ]
+    },
+    "friday-market-and-competitor-analysis": {
+      "conditional": [
+        "official-web.read",
+        "web.read"
+      ],
+      "required": []
+    },
+    "friday-media-folder-organizer": {
+      "conditional": [
+        "file.write"
+      ],
+      "required": [
+        "file.read"
+      ]
+    },
+    "friday-media-intake": {
+      "conditional": [
+        "file.write"
+      ],
+      "required": [
+        "media.read"
+      ]
+    },
+    "friday-media-quality-review": {
+      "conditional": [],
+      "required": [
+        "media.read"
+      ]
+    },
+    "friday-meeting-briefing": {
+      "conditional": [
+        "document.read",
+        "mail.read",
+        "task.read"
+      ],
+      "required": [
+        "calendar.read"
+      ]
+    },
+    "friday-meeting-follow-up": {
+      "conditional": [
+        "calendar.write",
+        "mail.send",
+        "task.write"
+      ],
+      "required": [
+        "calendar.read"
+      ]
+    },
+    "friday-meeting-request-coordinator": {
+      "conditional": [
+        "calendar.write",
+        "mail.send"
+      ],
+      "required": [
+        "calendar.read",
+        "contact.read"
+      ]
+    },
+    "friday-memory-governance": {
+      "conditional": [
+        "memory.read",
+        "memory.write"
+      ],
+      "required": []
+    },
+    "friday-morning-briefing": {
+      "conditional": [
+        "alert.read",
+        "calendar.read",
+        "mail.read",
+        "notification.deliver",
+        "scheduler.run",
+        "task.read",
+        "weather.read"
+      ],
+      "required": []
+    },
+    "friday-payment-preparation": {
+      "conditional": [
+        "payment.prepare"
+      ],
+      "required": [
+        "document.read"
+      ]
+    },
+    "friday-phone-call-coordinator": {
+      "conditional": [
+        "contact.read",
+        "telephony.call"
+      ],
+      "required": []
+    },
+    "friday-photo-curator": {
+      "conditional": [
+        "file.write"
+      ],
+      "required": [
+        "media.read"
+      ]
+    },
+    "friday-photo-enhancement": {
+      "conditional": [
+        "file.write",
+        "media.render"
+      ],
+      "required": [
+        "media.read"
+      ]
+    },
+    "friday-photobook-planner": {
+      "conditional": [
+        "file.write",
+        "media.render"
+      ],
+      "required": [
+        "media.read"
+      ]
+    },
+    "friday-powerpoint-animation-director": {
+      "conditional": [
+        "document.write",
+        "office.render"
+      ],
+      "required": [
+        "document.read"
+      ]
+    },
+    "friday-powerpoint-ci-builder": {
+      "conditional": [
+        "document.write",
+        "office.render"
+      ],
+      "required": [
+        "document.read"
+      ]
+    },
+    "friday-powerpoint-enhancer": {
+      "conditional": [
+        "document.write",
+        "office.render"
+      ],
+      "required": [
+        "document.read"
+      ]
+    },
+    "friday-presentation-director": {
+      "conditional": [
+        "document.read"
+      ],
+      "required": []
+    },
+    "friday-presentation-qa": {
+      "conditional": [
+        "office.render"
+      ],
+      "required": [
+        "document.read"
+      ]
+    },
+    "friday-project-context-builder": {
+      "conditional": [
+        "file.write"
+      ],
+      "required": [
+        "file.read"
+      ]
+    },
+    "friday-receipt-and-expense-organizer": {
+      "conditional": [
+        "file.write",
+        "finance.expense-ledger.read"
+      ],
+      "required": [
+        "document.read"
+      ]
+    },
+    "friday-recurring-cost-optimizer": {
+      "conditional": [
+        "finance.subscription-ledger.read",
+        "official-web.read"
+      ],
+      "required": [
+        "document.read"
+      ]
+    },
+    "friday-report-writer": {
+      "conditional": [
+        "document.read",
+        "document.write",
+        "office.render"
+      ],
+      "required": []
+    },
+    "friday-research-monitor": {
+      "conditional": [
+        "notification.deliver",
+        "official-web.read",
+        "scheduler.run",
+        "web.read"
+      ],
+      "required": []
+    },
+    "friday-service-recovery": {
+      "conditional": [
+        "service.restart"
+      ],
+      "required": [
+        "service.health.read"
+      ]
+    },
+    "friday-skill-health-and-curation": {
+      "conditional": [],
+      "required": [
+        "file.read"
+      ]
+    },
+    "friday-skonto-and-due-date-monitor": {
+      "conditional": [
+        "notification.deliver",
+        "scheduler.run"
+      ],
+      "required": [
+        "finance.invoice-ledger.read"
+      ]
+    },
+    "friday-source-verification": {
+      "conditional": [
+        "document.read",
+        "official-web.read",
+        "web.read"
+      ],
+      "required": []
+    },
+    "friday-speaker-identity-policy": {
+      "conditional": [
+        "approval.read",
+        "voice.verify-speaker"
+      ],
+      "required": []
+    },
+    "friday-storage-monitor": {
+      "conditional": [
+        "file.write"
+      ],
+      "required": [
+        "storage.read"
+      ]
+    },
+    "friday-system-health": {
+      "conditional": [
+        "adapter.health.read",
+        "service.health.read",
+        "storage.read"
+      ],
+      "required": []
+    },
+    "friday-task-kanban-manager": {
+      "conditional": [
+        "task.write"
+      ],
+      "required": [
+        "task.read"
+      ]
+    },
+    "friday-tax-deadline-monitor-at": {
+      "conditional": [
+        "notification.deliver",
+        "scheduler.run"
+      ],
+      "required": [
+        "document.read",
+        "official-web.read"
+      ]
+    },
+    "friday-tax-review-at": {
+      "conditional": [
+        "official-web.read"
+      ],
+      "required": [
+        "document.read"
+      ]
+    },
+    "friday-telegram-communication": {
+      "conditional": [
+        "telegram.receive",
+        "telegram.send"
+      ],
+      "required": []
+    },
+    "friday-travel-document-checklist": {
+      "conditional": [
+        "document.read",
+        "official-web.read"
+      ],
+      "required": []
+    },
+    "friday-trip-companion": {
+      "conditional": [
+        "calendar.read",
+        "weather.read",
+        "web.read"
+      ],
+      "required": []
+    },
+    "friday-trip-price-comparator": {
+      "conditional": [
+        "tariff.read",
+        "web.read"
+      ],
+      "required": []
+    },
+    "friday-unified-conversation-summary": {
+      "conditional": [
+        "calendar.read",
+        "mail.read",
+        "messaging.read"
+      ],
+      "required": []
+    },
+    "friday-video-creator": {
+      "conditional": [
+        "file.write",
+        "media.render"
+      ],
+      "required": [
+        "media.read"
+      ]
+    },
+    "friday-voice-command-normalizer": {
+      "conditional": [
+        "adapter.health.read",
+        "voice.hear"
+      ],
+      "required": []
+    },
+    "friday-voice-interaction-policy": {
+      "conditional": [
+        "voice.hear",
+        "voice.speak",
+        "voice.verify-speaker"
+      ],
+      "required": []
+    },
+    "friday-weather": {
+      "conditional": [
+        "weather.read",
+        "web.read"
+      ],
+      "required": []
+    },
+    "friday-weather-alerts": {
+      "conditional": [
+        "notification.send",
+        "weather.warning.read"
+      ],
+      "required": []
+    },
+    "friday-weather-context-advice": {
+      "conditional": [
+        "weather.read",
+        "weather.warning.read"
+      ],
+      "required": []
+    },
+    "friday-web-research": {
+      "conditional": [
+        "file.write",
+        "official-web.read",
+        "web.read"
+      ],
+      "required": []
+    },
+    "friday-whatsapp-communication": {
+      "conditional": [
+        "whatsapp.receive",
+        "whatsapp.send"
+      ],
+      "required": []
+    },
+    "friday-word-document-builder": {
+      "conditional": [
+        "document.write",
+        "office.render"
+      ],
+      "required": [
+        "document.read"
+      ]
+    }
+  },
+  "status": "logical_contract_only",
   "version": 1
 }

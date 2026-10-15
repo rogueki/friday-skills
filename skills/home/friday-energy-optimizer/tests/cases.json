@@ -18,6 +18,109 @@
       "request": "Compare current electricity tariffs and contract terms.",
       "expected": "defer",
       "reason": "Route to friday-energy-tariff-scout."
+    },
+    {
+      "id": "ambiguity",
+      "request": "Pruefe das bitte und erledige es.",
+      "expected": "defer",
+      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+    }
+  ],
+  "contract_cases": [
+    {
+      "id": "mock-result",
+      "skill": "friday-energy-optimizer",
+      "mode": "mock",
+      "input": {
+        "request": "When should hot water run to use today's PV surplus?",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "energy.telemetry.read",
+          "loxone.read",
+          "loxone.write",
+          "tariff.read",
+          "weather.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "completed",
+        "verification_required": true,
+        "scope": "result_schema_only"
+      },
+      "forbidden": [
+        "external_write",
+        "unverified_completion"
+      ],
+      "scope": "shared_result_contract"
+    },
+    {
+      "id": "missing-capability",
+      "skill": "friday-energy-optimizer",
+      "mode": "mock",
+      "input": {
+        "request": "When should hot water run to use today's PV surplus?",
+        "synthetic": true,
+        "sample_only": true,
+        "adapter_status": "offline"
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "energy.telemetry.read",
+          "loxone.read",
+          "loxone.write",
+          "tariff.read",
+          "weather.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked"
+      },
+      "forbidden": [
+        "unsourced_success",
+        "external_write"
+      ],
+      "scope": "shared_capability_contract"
+    },
+    {
+      "id": "external-write-denied",
+      "skill": "friday-energy-optimizer",
+      "mode": "mock",
+      "input": {
+        "request": "When should hot water run to use today's PV surplus?",
+        "action": "smart_home_write",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [],
+        "conditional": [
+          "energy.telemetry.read",
+          "loxone.read",
+          "loxone.write",
+          "tariff.read",
+          "weather.read"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked",
+        "risk_tier": 2
+      },
+      "forbidden": [
+        "external_write",
+        "smart_home_write"
+      ],
+      "scope": "shared_policy_contract"
     }
   ]
 }

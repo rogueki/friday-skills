@@ -1,0 +1,48 @@
+{
+  "synthetic": true,
+  "purpose": "Offline contract example for friday-funding-eligibility-check; not an Austrian grant listing or current legal advice.",
+  "as_of": "2026-10-15",
+  "program": {
+    "id": "synthetic-at-heat-pump-001",
+    "name": "Synthetic Austrian heat-pump grant",
+    "publisher": "Synthetic Austrian funding office (test only)",
+    "source_url": "https://example.invalid/austria/grants/synthetic-heat-pump",
+    "source_retrieved_at": "2026-10-15",
+    "rules_effective_from": "2026-01-01",
+    "rules_effective_until": "2027-12-31",
+    "availability": "synthetic_open",
+    "regions": ["Wien", "Niederösterreich"],
+    "applicant_types": ["private_household"],
+    "project_types": ["heat_pump_replacement"],
+    "minimum_eligible_cost_eur": 5000,
+    "application_before_order": true,
+    "required_evidence": ["quote", "property_address"]
+  },
+  "cases": [
+    {
+      "id": "potential_fit",
+      "applicant": {"type": "private_household", "region": "Wien", "project_type": "heat_pump_replacement", "eligible_cost_eur": 12000, "order_date": "2026-11-20", "application_date": "2026-11-01", "evidence": ["quote", "property_address"]},
+      "expected": "potential_fit"
+    },
+    {
+      "id": "wrong_region",
+      "applicant": {"type": "private_household", "region": "Steiermark", "project_type": "heat_pump_replacement", "eligible_cost_eur": 12000, "order_date": "2026-11-20", "application_date": "2026-11-01", "evidence": ["quote", "property_address"]},
+      "expected": "ineligible"
+    },
+    {
+      "id": "ordered_before_application",
+      "applicant": {"type": "private_household", "region": "Wien", "project_type": "heat_pump_replacement", "eligible_cost_eur": 12000, "order_date": "2026-10-20", "application_date": "2026-11-01", "evidence": ["quote", "property_address"]},
+      "expected": "ineligible"
+    },
+    {
+      "id": "missing_quote",
+      "applicant": {"type": "private_household", "region": "Wien", "project_type": "heat_pump_replacement", "eligible_cost_eur": 12000, "order_date": "2026-11-20", "application_date": "2026-11-01", "evidence": ["property_address"]},
+      "expected": "undetermined"
+    },
+    {
+      "id": "start_date_unknown",
+      "applicant": {"type": "private_household", "region": "Wien", "project_type": "heat_pump_replacement", "eligible_cost_eur": 12000, "order_date": null, "application_date": "2026-11-01", "evidence": ["quote", "property_address"]},
+      "expected": "undetermined"
+    }
+  ]
+}
