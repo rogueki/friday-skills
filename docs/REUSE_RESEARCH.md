@@ -4,6 +4,8 @@
 
 ## Decision summary
 
+Update: An independently written [single-page extraction adapter](WEB_EXTRACTION_ADAPTER.md) now offers a narrow static Scrapling transport behind a trusted host gate. Browser stealth, anti-bot and cloud paths remain unconnected and untested; the original source table remains a research record.
+
 The best reuse is procedural: copy the workflow ideas into concise, project-specific instructions, while retaining this plan's capability checks, mock/read-only/live separation, tiered approvals, untrusted-input boundaries, Austria focus, and explicit verification. Do not import upstream credentials, scripts, API assumptions, side-effect defaults, or full skill prose. Hermes skills are instructions, not enforcement; real integrations still belong in tools/adapters/plugins.
 
 | Candidate and source | Plan sections informed | License / redistribution check | Fit and adaptation; exclude |

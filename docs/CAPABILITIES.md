@@ -14,6 +14,8 @@ The Loxone status plugin exposes only synthetic, read-only fixture data. Its `au
 
 The invoice adapter reviews caller-supplied structured fields in `mock` or `read_only` mode and can create a masked local payment preview. It does not implement `document.read`, `finance.invoice-ledger.read` or any banking capability. A trusted host must supply original-document extraction, an independent duplicate index and a supplier record before treating the review as complete. See [invoice adapter](INVOICE_ADAPTER.md).
 
+The web extraction adapter processes one supplied HTML response and offers an opt-in static Scrapling transport. It does not itself establish a `web.read` or `official-web.read` capability. The trusted host must authorize the exact HTTPS host, pin public DNS/IP results and cap downloaded bytes before the optional transport may be used. See [web extraction](WEB_EXTRACTION_ADAPTER.md).
+
 For GMX and CalDAV writes, a fresh capability record is checked alongside a host-owned one-time grant. This local record still does not authenticate the operator or prove provider permission by itself; the host must establish both independently before issuing a grant.
 
 ```json

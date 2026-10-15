@@ -14,6 +14,7 @@ The [roadmap](registry/roadmap.json) names **100 skills from the implementation 
 - Optional [GMX mail](docs/GMX_MAIL_ADAPTER.md) and [CalDAV calendar](docs/CALDAV_ADAPTER.md) adapters with bounded synthetic and explicit read paths. Their Hermes plugins expose read tools only. Python write functions require a trusted approval gateway and durable replay journal; no real account was connected.
 - A bounded [Loxone status snapshot](docs/LOXONE_STATUS_ADAPTER.md) contract with a synthetic Hermes read tool. It has no native Miniserver client or control command.
 - An offline [invoice review and payment preview](docs/INVOICE_ADAPTER.md) contract for caller-supplied structured fields. It checks arithmetic, IBAN, duplicate keys and independent supplier data; it cannot read a PDF or make a payment.
+- A bounded [single-page web extractor](docs/WEB_EXTRACTION_ADAPTER.md) for supplied HTML, with an optional static Scrapling transport behind a trusted host egress gate. Browser stealth, broad crawling and paid fallback are not wired into Hermes.
 - An opt-in [routing evaluator](docs/HERMES_ROUTING_EVAL.md) for all 404 authored cases. It defaults to `NOT_RUN` and needs an explicit, externally budgeted model callback for actual decision evidence.
 - A host-owned [one-time approval ledger](docs/APPROVAL_LEDGER.md) for the GMX and CalDAV Python write paths. Grant issuance still requires a real operator decision and trusted host integration.
 - A [parent integration handoff](docs/PARENT_INTEGRATION_HANDOFF.md) pinned to the read-only `rogue-friday` snapshot, covering service authentication, tasks, activity, audit and event replay.
@@ -40,7 +41,7 @@ These checks cover different things: structural validity, shared per-skill contr
 | Need | Read |
 |---|---|
 | Choose a skill and understand coverage | [Catalog](docs/SKILL_CATALOG.md), [routing](docs/ROUTING.md) |
-| Connect safely | [Architecture](docs/ARCHITECTURE.md), [capabilities](docs/CAPABILITIES.md), [approvals](docs/APPROVALS.md), [one-time grants](docs/APPROVAL_LEDGER.md), [contracts](docs/CONTRACTS.md), [Control API tasks](docs/CONTROL_API_TASKS.md), [weather adapter](docs/WEATHER_ADAPTER.md), [GMX mail](docs/GMX_MAIL_ADAPTER.md), [CalDAV](docs/CALDAV_ADAPTER.md), [invoice review](docs/INVOICE_ADAPTER.md) |
+| Connect safely | [Architecture](docs/ARCHITECTURE.md), [capabilities](docs/CAPABILITIES.md), [approvals](docs/APPROVALS.md), [one-time grants](docs/APPROVAL_LEDGER.md), [contracts](docs/CONTRACTS.md), [Control API tasks](docs/CONTROL_API_TASKS.md), [weather adapter](docs/WEATHER_ADAPTER.md), [GMX mail](docs/GMX_MAIL_ADAPTER.md), [CalDAV](docs/CALDAV_ADAPTER.md), [invoice review](docs/INVOICE_ADAPTER.md), [web extraction](docs/WEB_EXTRACTION_ADAPTER.md) |
 | Operate and troubleshoot | [Operations](docs/OPERATIONS.md), [testing](docs/TESTING.md), [Hermes runtime verification](docs/HERMES_RUNTIME_VERIFICATION.md), [troubleshooting](docs/TROUBLESHOOTING.md) |
 | Integrate dashboard | [Dashboard events](docs/DASHBOARD_EVENTS.md), [parent handoff](docs/PARENT_INTEGRATION_HANDOFF.md) |
 | Contribute | [Skill authoring](docs/SKILL_AUTHORING.md), [security](docs/SECURITY.md), [reuse research](docs/REUSE_RESEARCH.md) |
