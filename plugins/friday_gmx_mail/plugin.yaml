@@ -1,0 +1,8 @@
+name: friday-gmx-mail
+version: 0.1.0
+description: Opt-in GMX read-by-UID tool for F.R.I.D.A.Y.
+author: RogueKI
+kind: standalone
+manifest_version: 2
+provides_tools:
+  - friday_gmx_read_uid

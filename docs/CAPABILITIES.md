@@ -8,6 +8,8 @@ The current record carries `name`, `mode`, `status`, `authenticated`, `rate_limi
 
 The public GeoSphere forecast is a narrow exception to credential-based authentication. A `weather.read` record from `geosphere-weather` may set `authenticated: false` and `public_read: true` only for a read-only HTTPS forecast response from the exact GeoSphere endpoint. The helper still checks mode, freshness, status and read permission; this exception never authorizes a write or any other capability. The weather plugin produces this record only after a successful adapter call. Public access is not a general bypass for other adapters.
 
+The GMX and CalDAV adapters add explicit transport paths and synthetic fixtures. Their presence does not change the static registry flags: no authenticated provider session, trusted approval gateway or per-account capability reporter has been installed. The mail plugin can read one UID only after operator opt-in and credentials; the calendar plugin currently serves synthetic reads only. Neither plugin exposes a write tool.
+
 ```json
 {"name":"mail.read","mode":"mock","status":"healthy","authenticated":true,"rate_limited":false,"permissions":["read"],"checked_at":"2026-10-15T12:00:00Z","synthetic":true}
 ```

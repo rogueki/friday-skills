@@ -7,20 +7,21 @@ Repository: `friday-skills` at the 0.3.0 integration stage. Environment: Windows
 | `python scripts/validate.py` | PASS | 101 skills; registry, 100-item roadmap, schemas and ignored local files valid. |
 | `python scripts/build_registry.py` | PASS | Generated routing/capability/automation/dashboard registries current. |
 | `python scripts/run_skill_cases.py` | PASS shared contract | 101 case files; 909 repeated shared policy/result checks passed, 404 manual routing expectations declared, 1616 skill-runtime cases not run. |
-| `python -m unittest discover -s tests -q` | PASS | 78 tests, including policy, negative mock scenarios, grants fixture, capability registry, weather, Control API task client, packaging and three plugin contracts. |
+| `python -m unittest discover -s tests -q` | PASS | 101 tests, including policy, negative mock scenarios, grants fixture, capability registry, weather, GMX and CalDAV adapters, Control API task client, packaging and plugin contracts. |
 | `ruff check scripts shared plugins tools tests adapters` | PASS | Python lint passed locally. |
 | `python -m compileall -q scripts shared plugins tools tests adapters` | PASS | Python files compiled locally. |
 | `python scripts/smoke_test.py` | PASS | 101 registered `SKILL.md` files exist. |
 | Isolated `HERMES_HOME` + `hermes skills list` | PASS | 101 `friday-*` rows reported `enabled`. The temporary profile only referenced this checkout via `skills.external_dirs`. |
-| Isolated Hermes v0.20.5 plugin registration | PASS | `hermes plugins doctor --ci <plugin path>` passed for `friday-local` (4 tools), `friday-weather` (1 tool) and `friday-kanban-observer` (3 hooks) in `artifacts/hermes-plugin-check-20261015`; active profile untouched. No real Kanban transition was fired. |
+| Isolated Hermes v0.20.5 plugin registration | PASS | `hermes plugins doctor --ci <plugin path>` passed for `friday-local` (4 tools), `friday-weather` (1 tool), `friday-gmx-mail` (1 read tool), `friday-caldav` (1 mock read tool) and `friday-kanban-observer` (3 hooks) using `artifacts/hermes-plugin-check-20261015`; active profile untouched. No real Kanban transition was fired. |
 | GeoSphere forecast read | PASS narrow live read | One GET for Vienna at 2026-10-15 14:06 UTC returned a 15:00 UTC forecast from the 09:00 UTC model run: 16.6 °C, 0 kg m-2 rain, 1.7 m s-1 wind. This proves only that response and no Hermes invocation. |
 | Control API task client | PASS mock contract | POST/PATCH/GET, auth headers, version and unknown-outcome behavior tested with injected transports. No parent Control API request made. |
+| GMX / CalDAV adapters | PASS offline contract | Bounded reads, rejected inputs, approval binding, ETag or SMTP replay journals and failure paths tested with synthetic fixtures and injected transports. No provider login, read, calendar mutation or mail send occurred. |
 | 101 per-skill `tests/cases.json` | PASS structural | Every skill has positive, negative, ambiguity and collision examples plus three §31 shared contracts. Routing outcomes are authored expectations, not executed model decisions. |
 | `pyproject.toml` and GitHub Actions | PASS remote | Python 3.11 project metadata and [CI run 38750510094](https://github.com/rogueki/friday-skills/actions/runs/38750510094) on integration commit `c9a0ebe`: Windows and Ubuntu jobs both passed. |
 | PowerShell and Bash install / repeat install | PASS local | Worker ran dry run, first copy and second copy into temporary targets; 203 files copied first, 0 changed on repeat. No active Hermes profile was modified. |
-| ZIP export / CRC | PASS local | A 0.3.0 preview ZIP contains 302 source files; the final ZIP is rebuilt after this report and its hash recorded in local `MEMORY.md`. Local memory, scope and the ignored plan are excluded. |
+| ZIP export / CRC | PASS local | The 0.3.0 adapter preview ZIP contains 317 source files; CRC passed and local memory, scope and the ignored plan were excluded. Final ZIP/hash is recorded in local `MEMORY.md`. |
 | `hermes skills audit` | NOT APPLICABLE | Local Hermes command reported `No hub-installed skills to audit`; it did not audit these `external_dirs` skills. |
-| Real GMX/CalDAV/Loxone/banking/Office/Control API actions | NOT RUN | No live authenticated service mutations were invoked. The separate weather GET is the only live provider call in this milestone. |
+| Real GMX/CalDAV/Loxone/banking/Office/Control API actions | NOT RUN | No live authenticated service call or mutation was invoked. The separate weather GET is the only live provider call in this milestone. |
 
 The ten plan workflows are **synthetic local scenarios**, with fixture-dependent negative variants for injection mail, suspicious invoice, timezone conflict, stale weather and travel, archive hash mismatch, Loxone readback failure, unknown tax rule and offline adapter. They are not end-to-end tests of the separate `rogue-friday` application. Policy helpers and hooks are callable local contracts; the optional plugin does not create a Hermes-wide enforcement gate merely because it is installed.
 

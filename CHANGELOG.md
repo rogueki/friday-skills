@@ -4,7 +4,7 @@ Changes are recorded for the independent F.R.I.D.A.Y. Skills package by RogueKI.
 
 ## Unreleased (registry 0.3.0)
 
-- Added procedures and local cases for all 100 plan skills, plus the extra web research skill; live adapters are still unavailable.
+- Added procedures and local cases for all 100 plan skills, plus the extra web research skill; authenticated live integrations remain unverified.
 - Add architecture, configuration, routing, capability, approval, security, testing, dashboard, operations, troubleshooting and authoring documentation.
 - Keep the companion `rogue-friday` repository read only while this package evolves.
 - Add an opt-in Hermes v0.20.5 plugin with four local mock tools; verified in an isolated profile. It is not a live adapter or a global policy gate.
@@ -13,6 +13,9 @@ Changes are recorded for the independent F.R.I.D.A.Y. Skills package by RogueKI.
 - Add deterministic negative mock scenarios, a synthetic Austrian grants fixture, Python 3.11 metadata and Windows/Linux CI.
 - Add a bounded public GeoSphere forecast reader and optional Hermes weather tool; one live read-only forecast was verified, with no write path.
 - Add an opt-in Hermes Kanban observer that journals sanitized task metadata locally and a transport-injected Control API task client tested against the pinned parent contract.
+- Add bounded GMX IMAP reads and a Tier-2-gated SMTP Python adapter with durable send journal. The optional Hermes plugin exposes reading only and defaults to synthetic data.
+- Add bounded CalDAV reads and a Tier-2-gated create/update Python adapter with ETag preconditions and durable replay journal. The optional Hermes plugin remains mock-only until trusted transport wiring exists.
+- Document the read-only parent integration handoff and the remaining service auth, activity and task lifecycle contracts.
 
 ## 0.1.0 — 2026-10-15
 

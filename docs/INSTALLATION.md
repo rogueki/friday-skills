@@ -16,6 +16,6 @@ Run `hermes skills list` and compare the discovered `friday-*` names with the cu
 
 The optional [native Hermes mock plugin](../plugins/CONTRACT.md) has a separate, explicit opt-in setup. An isolated Hermes v0.20.5 profile loaded its four local tools; the active profile was not changed. The plugin has no external write path and does not enforce approvals for unrelated Hermes tools.
 
-The current package has no authenticated dashboard, mail, calendar, payment or memory adapter. Before live use, an integration must supply explicit capability records, mode, approval evidence, idempotency, durable audit/event delivery and a tested failure path. See [contracts](CONTRACTS.md). Never put tokens into a skill or this repository.
+The package has optional GMX and CalDAV adapter code, but no configured account or trusted write gateway. The dashboard, payment and memory integrations likewise remain unconnected. Before live use, an integration must supply explicit capability records, mode, trusted approval evidence, idempotency, durable audit/event delivery and a tested failure path. See [contracts](CONTRACTS.md), [GMX mail](GMX_MAIL_ADAPTER.md) and [CalDAV](CALDAV_ADAPTER.md). Never put tokens into a skill or this repository.
 
 Hermes references: [Skills System](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills), [Creating Skills](https://hermes-agent.nousresearch.com/docs/developer-guide/creating-skills).

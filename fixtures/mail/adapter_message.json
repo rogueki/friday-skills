@@ -1,0 +1,5 @@
+{
+  "mailbox": "INBOX",
+  "uid": "42",
+  "rfc822": "From: Demo <demo@example.invalid>\r\nTo: friday@example.invalid\r\nSubject: Synthetic Friday appointment\r\nDate: Thu, 15 Oct 2026 10:00:00 +0000\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=utf-8\r\n\r\nThis is a synthetic appointment reminder.\r\n"
+}
