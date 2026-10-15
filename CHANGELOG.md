@@ -19,7 +19,8 @@ Changes are recorded for the independent F.R.I.D.A.Y. Skills package by RogueKI.
 - Add an opt-in, bounded routing evaluation runner that separates synthetic callback checks from claimed model inference; its default reports all 404 decisions as not run.
 - Add a read-only, provider-neutral Loxone status snapshot adapter and synthetic Hermes tool with allowlisted IDs, freshness and unit validation. Native Miniserver interoperability remains unverified.
 - Replace model-supplied approval mappings for GMX and CalDAV mutations with host-owned, durable one-time grants. Add replay, mismatch, concurrent-consume and failure tests; operator authentication remains a host responsibility.
-- Document the installed Hermes v0.20.5 routing path and the current inactive `skills.write_approval` setting without changing the active profile or making paid model calls.
+- Document the installed Hermes v0.20.5 routing path and the initially inactive `skills.write_approval` setting without making paid model calls.
+- Connect the active Windows Hermes profile to this repository's 101 skills and enable `skills.write_approval` plus `skills.guard_agent_created`; preserve all other profile values and keep optional plugins disabled.
 - Add offline structured invoice review with exact arithmetic, limited IBAN validation, duplicate and independent supplier checks, plus a masked non-executable payment preview. Original-document extraction and host evidence remain open.
 
 ## 0.1.0 — 2026-10-15

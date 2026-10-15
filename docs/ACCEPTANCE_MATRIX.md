@@ -5,7 +5,7 @@ Status means `PASS` (observed), `PARTIAL` (bounded evidence), `FAIL` (observed u
 | Requirement | Status | Evidence / remaining work |
 |---|---|---|
 | All 100 plan skills plus extra web research | PASS | 101 valid `SKILL.md`; 100 roadmap entries implemented. |
-| Hermes discovery and no name conflict | PASS | Isolated Hermes v0.20.5 profile showed 101 enabled rows; registry and path uniqueness validated. |
+| Hermes discovery and no name conflict | PASS | Active Windows Hermes v0.20.5 profile now shows 101 enabled `friday-*` rows; zero name collisions with 86 profile-local skills were checked before configuration. Registry and path uniqueness validated. |
 | Positive, negative, ambiguity and collision cases per skill | PARTIAL | 404 authored routing expectations across 101 files. The opt-in evaluator reports `404 NOT_RUN` with no provider; model routing outcomes have not been executed. |
 | Skill test matrix and shared mock contracts | PARTIAL | Plan §30–31 runner executes 909 repeated shared policy/result checks; 1616 skill-runtime cases remain `NOT_RUN`. These checks do not execute individual skill procedures. |
 | Mock mode and no real test side effects | PARTIAL | 126 local tests and ten synthetic scenarios use no external mutations. One separate GeoSphere GET verified the weather reader; GMX, CalDAV and Loxone status tests use only fixtures/injected transports. Other skill procedures remain text or lack adapters. |
@@ -16,7 +16,7 @@ Status means `PASS` (observed), `PARTIAL` (bounded evidence), `FAIL` (observed u
 | PowerPoint worker flow | PARTIAL | Synthetic brief/render fixture and QA trace; no Windows Office Worker connection or rendered production deck. |
 | Capability registry, documentation, 15 automations and CI | PARTIAL | 63 logical IDs mapped to 101 skills. Static adapter availability remains false; the opt-in weather tool returns fresh per-call public read evidence. Docs/catalog and Windows/Ubuntu CI passed on `1812f80`; automations remain disabled. |
 | Repeatable install and ZIP export | PASS | PowerShell/Bash repeat install and deterministic ZIP/CRC checked locally. |
-| Skill write approval active in operator profile | FAIL current state | Read-only Hermes v0.20.5 inspection resolved `skills.write_approval` to `false`; the active profile was not changed. See [runtime verification](HERMES_RUNTIME_VERIFICATION.md). |
+| Skill write approval active in operator profile | PASS configuration | `hermes config get` now resolves `skills.write_approval=true` and `skills.guard_agent_created=true` in the active Windows profile. The former gates Hermes `skill_manage` writes; no staged write was exercised. See [runtime verification](HERMES_RUNTIME_VERIFICATION.md). |
 | Optional Hermes plugins | PASS registration | Isolated Hermes v0.20.5 `plugins doctor --ci` registered four local mock tools, one weather tool, one GMX read tool, one CalDAV mock read tool, one Loxone synthetic read tool and three Kanban hooks. None is enabled in the active profile; no global policy gate exists. |
 | Live adapters and production tests | PARTIAL | One public weather GET was verified. GMX/CalDAV adapter code has offline tests but no provider interoperability or trusted write gateway; Loxone has a read-only snapshot contract without a Miniserver transport. Invoice review accepts structured fields only; banking, Office and Control API runtime integration remain unverified or absent. `rogue-friday` stayed read only. |
 | `v1.0.0` tag | NOT RUN | Deferred until live contract integration and acceptance criteria above are met. |

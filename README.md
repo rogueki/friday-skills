@@ -8,7 +8,7 @@ The [roadmap](registry/roadmap.json) names **100 skills from the implementation 
 
 - Hermes `SKILL.md` decision procedures, examples and local tests.
 - Local schemas and Python policy/mock helpers that an integration must **explicitly call**. Installing skills alone does not enforce approvals, prevent tool calls or emit dashboard events.
-- An optional [native Hermes plugin](plugins/CONTRACT.md) with four local mock tools. It was loaded in an isolated test profile; the active profile is untouched. Its policy tool returns a decision but cannot enforce other Hermes tools or perform external actions.
+- An optional [native Hermes plugin](plugins/CONTRACT.md) with four local mock tools. It was loaded in an isolated test profile and is not enabled in the active profile. Its policy tool returns a decision but cannot enforce other Hermes tools or perform external actions.
 - An optional [GeoSphere weather tool](docs/WEATHER_PLUGIN.md) backed by a bounded public read adapter, and a separate [Kanban observer](docs/KANBAN_OBSERVER.md). All three plugins passed isolated Hermes v0.20.5 registration checks; none is enabled in the active profile.
 - A [Control API task client](docs/CONTROL_API_TASKS.md) with injected transport and mock tests. The companion `rogue-friday` repository stays read only; this package does not ship its dashboard or credentials.
 - Optional [GMX mail](docs/GMX_MAIL_ADAPTER.md) and [CalDAV calendar](docs/CALDAV_ADAPTER.md) adapters with bounded synthetic and explicit read paths. Their Hermes plugins expose read tools only. Python write functions require a trusted approval gateway and durable replay journal; no real account was connected.
@@ -23,6 +23,8 @@ The [roadmap](registry/roadmap.json) names **100 skills from the implementation 
 ## Local use
 
 On Windows, the source folder is `C:\Users\ByteNinja\Downloads\JARVIS_Installer\Skills`. Point Hermes `skills.external_dirs` at its `skills` child and enable `skills.write_approval: true`; see [installation](docs/INSTALLATION.md) and [configuration](docs/CONFIGURATION.md). A WSL Hermes process needs its Linux view of the same path.
+
+On the operator's Windows Hermes v0.20.5 profile, this path is now configured and all 101 `friday-*` skills appear enabled. Skill write approval and the agent-created content scanner are enabled. This does not enable any optional plugin or verify model routing.
 
 ```powershell
 python scripts/validate.py

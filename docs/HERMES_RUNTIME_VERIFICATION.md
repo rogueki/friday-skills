@@ -1,15 +1,18 @@
 # Hermes runtime verification boundary
 
 RogueKI checked the locally installed Hermes Agent v0.20.5 (`68518c1f`) on
-2026-10-15 without running a model or changing a profile. This is a procedure
-for a later controlled test, not evidence of routing success.
+2026-10-15 without running a model. The operator's active Windows profile was
+subsequently connected to this repository's skill directory. This is not
+evidence of routing success.
 
 ## Current local evidence
 
-- The active profile resolves `skills.write_approval` to `false`. The option is
-  documented in [installation](INSTALLATION.md); enabling it in the operator's
-  profile remains an explicit integration step. This setting governs edits to
-  skill text, not Tier 2/3 external actions.
+- The active profile resolves `skills.external_dirs` to this repository's `skills`
+  directory, `skills.write_approval` to `true`, and `skills.guard_agent_created`
+  to `true`. `hermes skills list --enabled-only` shows 101 `friday-*` rows.
+  A local backup preceded the configuration change and all other parsed config
+  values stayed equal. Write approval governs Hermes skill-management edits,
+  not Tier 2/3 external actions. No staged-write flow was exercised.
 - Hermes places an `<available_skills>` index into its model prompt and the model
   may call `skill_view(name)` to load a skill. `--skills` preloads a named skill
   and therefore cannot prove automatic routing. Local source:
