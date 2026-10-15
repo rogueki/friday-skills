@@ -8,7 +8,7 @@ import argparse
 
 ROOT = Path(__file__).resolve().parents[1]
 INCLUDE_DIRS = ("skills", "shared", "registry", "plugins", "adapters", "tools", "fixtures", "scripts", "tests", "docs", ".github/workflows")
-INCLUDE_FILES = ("README.md", "CHANGELOG.md", "LICENSE", ".gitignore", "pyproject.toml")
+INCLUDE_FILES = ("README.md", "CHANGELOG.md", "LICENSE", ".gitignore", ".gitattributes", "pyproject.toml")
 EXCLUDED_PARTS = {"__pycache__", ".git", "artifacts", "secrets", ".venv"}
 
 
