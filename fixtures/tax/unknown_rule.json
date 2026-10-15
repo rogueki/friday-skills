@@ -1,1 +1,29 @@
-{"cases":[{"kind":"novel_deduction","source_date":"2026-10-01","document_present":true,"rule_known":false}]}
+{
+  "request": "Prepare a fictional tax evidence checklist for review only.",
+  "tax_year": 2025,
+  "jurisdiction": "AT",
+  "source": "synthetic:fixtures/tax/cases.json",
+  "rule_reference": {
+    "url": "https://www.bmf.gv.at/themen/steuern/arbeitnehmerveranlagung/verfahren-arbeitnehmerinnenveranlagung/verfahren-beim-finanzamt.html",
+    "status": "unverified_for_tax_year",
+    "synthetic_context_checked_at": "2026-10-15T10:00:00Z"
+  },
+  "form_reference": {
+    "url": "https://finanzonline.bmf.gv.at/html/demo/Bearbeiten.html",
+    "status": "demo_taxonomy_only"
+  },
+  "documents": [
+    {
+      "id": "synthetic-7",
+      "kind": "novel_deduction",
+      "source": "synthetic:fixtures/tax/cases.json",
+      "owner": "fictional-household",
+      "content": "FICTIONAL NOVEL CATEGORY NOTE",
+      "sha256": "dafcccb2f2f45199689bb1f55bb0f706d5b118273fd84adc9df39bb7a47a4f3c",
+      "date": "2025-06-15",
+      "amount_eur": "0.00",
+      "taxonomy_known": false
+    }
+  ],
+  "declared_evidence_total_eur": "0.00"
+}

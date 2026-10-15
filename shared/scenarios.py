@@ -205,10 +205,9 @@ def run_scenario(name: str, *, variant: str = "default") -> dict[str, Any]:
 
         run_loxone_mock(runtime, result, trace, variant=variant)
     elif name == "austria_tax":
-        cases = _fixture("tax", "cases", variant, {"unknown_rule"})["cases"]
-        missing = [x["kind"] for x in cases if x.get("document_present") is False or not x.get("source_date") or x.get("rule_known") is False]
-        trace += ["receipts_read", "categories", "missing_documents", "finanzonline_draft", "human_review"]
-        result.update(missing_or_uncertain=missing, status="partial" if missing else "completed", review_required=bool(missing))
+        from adapters.austria_tax_e2e_mock import run_tax_mock
+
+        run_tax_mock(runtime, result, trace, variant=variant)
     elif name == "system_outage":
         adapters = _fixture("system", "adapters", variant, {"offline"})
         mail_status = adapters["mail"]["status"]

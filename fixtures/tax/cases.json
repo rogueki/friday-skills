@@ -1,1 +1,84 @@
-{"cases":[{"kind":"family_bonus","source_date":"2026-01-01"},{"kind":"commuter","source_date":"2026-01-01"},{"kind":"childcare","source_date":"2026-01-01"},{"kind":"missing_receipt","document_present":false},{"kind":"uncertain_law","source_date":null}]}
+{
+  "request": "Prepare a fictional tax evidence checklist for review only.",
+  "tax_year": 2025,
+  "jurisdiction": "AT",
+  "source": "synthetic:fixtures/tax/cases.json",
+  "rule_reference": {
+    "url": "https://www.bmf.gv.at/themen/steuern/arbeitnehmerveranlagung/verfahren-arbeitnehmerinnenveranlagung/verfahren-beim-finanzamt.html",
+    "status": "unverified_for_tax_year",
+    "synthetic_context_checked_at": "2026-10-15T10:00:00Z"
+  },
+  "form_reference": {
+    "url": "https://finanzonline.bmf.gv.at/html/demo/Bearbeiten.html",
+    "status": "demo_taxonomy_only"
+  },
+  "documents": [
+    {
+      "id": "synthetic-1",
+      "kind": "family_bonus",
+      "source": "synthetic:fixtures/tax/cases.json",
+      "owner": "fictional-household",
+      "content": "FICTIONAL FAMILY SUPPORT DOCUMENT",
+      "sha256": "14ce5ad87aeaa1fa9feed9df55ee6b2dadbffcef4c6b2b51eae412d63012d5b8",
+      "date": "2025-06-15",
+      "amount_eur": "100.00",
+      "taxonomy_known": true
+    },
+    {
+      "id": "synthetic-2",
+      "kind": "commuter",
+      "source": "synthetic:fixtures/tax/cases.json",
+      "owner": "fictional-household",
+      "content": "FICTIONAL COMMUTING RECORD",
+      "sha256": "7dadd68dc3514a79c92350e4e90cb18f358ff78af7e3625655fb34d98ba5d241",
+      "date": "2025-06-15",
+      "amount_eur": "80.00",
+      "taxonomy_known": true
+    },
+    {
+      "id": "synthetic-3",
+      "kind": "childcare",
+      "source": "synthetic:fixtures/tax/cases.json",
+      "owner": "fictional-household",
+      "content": "FICTIONAL CHILDCARE RECORD",
+      "sha256": "b9449a09146d09b24d9eb61a559d1e5544fbd7441b1a7161cece051a72f16884",
+      "date": "2025-06-15",
+      "amount_eur": "50.00",
+      "taxonomy_known": true
+    },
+    {
+      "id": "synthetic-4",
+      "kind": "work_expense",
+      "source": "synthetic:fixtures/tax/cases.json",
+      "owner": "fictional-household",
+      "content": "FICTIONAL WORK ITEM RECEIPT",
+      "sha256": "45a7da5c49d0fff40c0ebb5cb34c4c4854670593442f7fe994c135715db13622",
+      "date": "2025-06-15",
+      "amount_eur": "20.00",
+      "taxonomy_known": true
+    },
+    {
+      "id": "synthetic-5",
+      "kind": "uncertain_law",
+      "source": "synthetic:fixtures/tax/cases.json",
+      "owner": "fictional-household",
+      "content": "FICTIONAL UNSPECIFIED TAX NOTE",
+      "sha256": "2bcb6abb006815f11452f1fe0ce36d2ce1e7bdcad08a7f6ddf7761370e715209",
+      "date": "2025-06-15",
+      "amount_eur": "0.00",
+      "taxonomy_known": false
+    },
+    {
+      "id": "synthetic-6",
+      "kind": "missing_receipt",
+      "source": "synthetic:fixtures/tax/cases.json",
+      "owner": "fictional-household",
+      "content": null,
+      "sha256": null,
+      "date": "2025-08-01",
+      "amount_eur": "10.00",
+      "taxonomy_known": false
+    }
+  ],
+  "declared_evidence_total_eur": "250.00"
+}
