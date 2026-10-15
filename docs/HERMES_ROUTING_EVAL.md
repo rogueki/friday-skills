@@ -60,3 +60,47 @@ Hermes JSONL export and takes the native session ID from that record, even if
 quiet chat mode prints none. A single PASS/FAIL applies only to that case and
 does not update this evaluator's 404-case aggregate. See [runtime verification](HERMES_RUNTIME_VERIFICATION.md)
 for isolation, trace and scoring limits.
+
+## Bounded local batch for all authored cases
+
+`scripts/local_hermes_routing_batch.py` enumerates the full authored case set
+in registry order. It uses the isolated `local_hermes_smoke.py` session once per
+attempt. A dry run inventories the cases and writes no Ollama or Hermes call:
+
+```powershell
+python scripts/local_hermes_routing_batch.py --dry-run --output artifacts/routing-batch-preview.json
+```
+
+After the exact local `qwen3:4b` model is installed and the one-case harness has
+been inspected, start with an explicit small cap. `--max-cases` limits **new
+attempts in this invocation**, not the total report size:
+
+```powershell
+python scripts/local_hermes_routing_batch.py --run --max-cases 4 --output artifacts/routing-batch.json
+python scripts/local_hermes_routing_batch.py --run --max-cases 4 --output artifacts/routing-batch.json --resume
+```
+
+Reports and redacted per-case JSONL traces are confined to ignored
+`artifacts/`. Each report path gets its own trace directory. The report has no
+raw request, model response or credential text.
+It records the ordered case-set hash, Git HEAD, skill-tree and harness source
+hashes, model, case
+identities, statuses, session IDs and trace hashes. Every attempted case first
+gets an atomic `STARTED` reservation. Resume accepts only matching case set,
+model, revision, skill tree and harness sources, then reopens and hashes each retained trace and
+recomputes its status from structured assistant `skill_view` calls. Verified
+cases are never attempted twice by resume. A previously started or finished
+case without verified trace blocks automatic resume; `--retry-unverified`
+explicitly permits a new attempt. Inspect its report and any trace before
+using that option. `attempted_total` counts distinct cases and
+`attempt_reservations_total` also counts explicit retries. An existing case
+trace cannot be silently overwritten.
+
+The report's `.lock` file prevents concurrent use of the same output path. A
+crashed process may leave it behind; verify the prior process has ended and
+inspect the report before removing that lock manually. Keep reports and traces
+local: Hermes redaction is applied to exported sessions, but traces can still
+contain case text. A `PASS` or `FAIL` reflects only one case's structured
+`skill_view` observation. `PARTIAL` includes defer cases and ambiguous multiple
+views; `NOT_RUN` includes cases without retained evidence. This batch does not
+turn the separate 1,616 individual SKILL.md runtime checks into passing tests.
