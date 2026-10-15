@@ -213,10 +213,14 @@ def run_scenario(name: str, *, variant: str = "default") -> dict[str, Any]:
             result["status"] = "waiting_approval"
             trace += ["duplicate_groups", "reorganization_plan", "approval_required", "mock_migration_plan"]
     elif name == "powerpoint":
+        from adapters.presentation_mock import run_mock
+
         brief = load_fixture("presentations", "brief")
-        trace += ["brief", "mock_research", "storyline", "deck_outline", "windows_worker_mock", "render_fixture", "qa"]
-        result["slides"] = brief["slides"] if brief["rendered"] and brief["worker"] == "mock" else 0
-        result["status"] = "completed" if result["slides"] else "blocked"
+        trace += ["brief", "synthetic_storyline", "pptx_built", "ooxml_checked"]
+        presentation = run_mock(brief)
+        result.update(presentation)
+        if presentation.get("rendered"):
+            trace += ["office_cli_render", "all_pdf_pages_rasterized", "nonblank_pages_checked"]
     elif name == "loxone":
         device = _fixture("loxone", "status", variant, {"readback_failed"})
         trace.append("status_read")

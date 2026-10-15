@@ -22,4 +22,6 @@ Use for acceptance review of an actual deck or export. Do not claim QA complete 
 
 **Mode/capability:** `mock` uses sample artifacts and labels limits; `read_only` reviews without edit; `live` may save an authorized QA report or revised export but not alter the original. Reads are Tier 0; local report/export Tier 1; external distribution Tier 2. Do not upload confidential decks to unapproved renderers.
 
+For the local synthetic E2E7 adapter, distinguish OOXML package checks from rendered-slide checks. Its PDF page count, extracted text and sampled pixel variance are automated smoke checks, not human visual review, accessibility review or native PowerPoint playback. A failed or unavailable renderer leaves the scenario `partial` and the missing QA items `NOT_RUN`.
+
 **Output:** PASS/FAIL/NOT_RUN matrix, slide findings, verified export paths and normalized result. **Failure:** When rendering, fonts or playback are unavailable, mark those checks NOT_RUN and status `partial`; never equate successful file open with visual approval.

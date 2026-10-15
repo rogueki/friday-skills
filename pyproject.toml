@@ -9,6 +9,7 @@ authors = [{ name = "RogueKI" }]
 
 [project.optional-dependencies]
 pdf = ["pypdf==6.13.2"]
+presentation = ["python-pptx==1.0.2", "PyMuPDF==1.28.0"]
 
 [tool.ruff]
 target-version = "py311"

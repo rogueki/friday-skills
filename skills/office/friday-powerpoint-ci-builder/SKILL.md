@@ -22,4 +22,6 @@ Use for a brand-consistent presentation template or deck styling. Do not use to 
 
 **Mode/capability:** `mock` yields a style specification with synthetic assets; `read_only` audits template/deck; `live` may produce a separate file after checking a healthy local worker and authorized workspace. Reads are Tier 0, a new reversible file Tier 1, external sharing Tier 2. Do not upload proprietary templates or logos without authorization.
 
+For the repository's synthetic E2E7 mock, `adapters/presentation_mock.py` creates a new three-slide editable PPTX from synthetic labels and checks its OOXML parts. If a local LibreOffice/OpenOffice CLI successfully converts that file to PDF, rasterize and inspect all three pages. Missing or failed rendering is `partial`, even when PPTX creation succeeded. This mock does not apply an approved brand template, preserve an existing deck, exercise PowerPoint COM, or verify animations.
+
 **Output:** style rules, new artifact path if created, deviations and visual comparison evidence. **Failure:** Missing template, licensing, font or render capability leaves a design spec or `partial` result, not a verified deck.
