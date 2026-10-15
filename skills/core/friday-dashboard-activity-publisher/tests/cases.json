@@ -1,0 +1,23 @@
+{
+  "skill": "friday-dashboard-activity-publisher",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Ordne einen verifizierten Task-Fortschritt einem Dashboard-Ereignis zu.",
+      "expected": "select",
+      "reason": "Directly matches this skill intent."
+    },
+    {
+      "id": "negative",
+      "request": "Erstelle den Inhalt einer Rechnung.",
+      "expected": "reject",
+      "reason": "Outside the skill scope or requires another specialist."
+    },
+    {
+      "id": "collision",
+      "request": "Ein lokales friday.skill.completed soll als bereits gesendetes jarvis.task.completed gelten.",
+      "expected": "defer",
+      "reason": "Requires trust, routing, or policy clarification before execution."
+    }
+  ]
+}

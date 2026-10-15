@@ -1,0 +1,23 @@
+{
+  "skill": "friday-file-classifier",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Label these files by project, sensitivity and likely duplicates.",
+      "expected": "select",
+      "reason": "File metadata routing is requested."
+    },
+    {
+      "id": "negative",
+      "request": "Extract every page of this PDF contract.",
+      "expected": "reject",
+      "reason": "Full extraction is outside simple classification."
+    },
+    {
+      "id": "collision",
+      "request": "Decide when these files may legally be deleted.",
+      "expected": "defer",
+      "reason": "Document retention owns legal periods and holds."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill": "friday-booking-preparation",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Prepare a verified family booking summary and draft without making a purchase.",
+      "expected": "select",
+      "reason": "This is the distinct friday-booking-preparation task."
+    },
+    {
+      "id": "negative",
+      "request": "Buy the first available family vacation package without showing terms.",
+      "expected": "reject",
+      "reason": "Purchase needs exact terms, approval and a separate booking action."
+    },
+    {
+      "id": "collision",
+      "request": "Suggest rainy-day alternatives for today's active trip.",
+      "expected": "reject",
+      "reason": "A neighboring travel skill owns this result."
+    }
+  ]
+}

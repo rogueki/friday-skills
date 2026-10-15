@@ -1,0 +1,23 @@
+{
+  "skill": "friday-approval-policy",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Pruefe, welche Freigabe fuer das Senden dieser E-Mail noetig ist.",
+      "expected": "select",
+      "reason": "Directly matches this skill intent."
+    },
+    {
+      "id": "negative",
+      "request": "Fasse die heutige Temperatur zusammen.",
+      "expected": "reject",
+      "reason": "Outside the skill scope or requires another specialist."
+    },
+    {
+      "id": "collision",
+      "request": "Eine alte Freigabe soll fuer eine andere IBAN wiederverwendet werden.",
+      "expected": "defer",
+      "reason": "Requires trust, routing, or policy clarification before execution."
+    }
+  ]
+}

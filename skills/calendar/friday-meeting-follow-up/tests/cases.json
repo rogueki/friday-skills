@@ -1,0 +1,23 @@
+{
+  "skill": "friday-meeting-follow-up",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Fasse die Meetingnotizen zusammen und erstelle Folgeaufgaben.",
+      "expected": "select",
+      "reason": "Matches the calendar workflow."
+    },
+    {
+      "id": "negative",
+      "request": "Bereite die Agenda für das Meeting morgen vor.",
+      "expected": "reject",
+      "reason": "Missing evidence or outside permission."
+    },
+    {
+      "id": "collision",
+      "request": "Suche alle überfälligen Fristen aus Mail und Vertrag.",
+      "expected": "defer",
+      "reason": "Route to friday-deadline-and-reminder-manager for the requested result."
+    }
+  ]
+}

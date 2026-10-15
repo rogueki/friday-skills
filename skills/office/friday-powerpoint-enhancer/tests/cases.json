@@ -1,0 +1,23 @@
+{
+  "skill": "friday-powerpoint-enhancer",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Improve this existing deck's crowded slides and show before/after renders.",
+      "expected": "select",
+      "reason": "Existing deck enhancement is requested."
+    },
+    {
+      "id": "negative",
+      "request": "Start a brand-new deck from a one-line topic.",
+      "expected": "reject",
+      "reason": "There is no existing artifact to enhance."
+    },
+    {
+      "id": "collision",
+      "request": "Only check the finished deck for overflow and export defects.",
+      "expected": "defer",
+      "reason": "Presentation QA owns final verification."
+    }
+  ]
+}

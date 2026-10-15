@@ -1,0 +1,23 @@
+{
+  "skill": "friday-knowledge-base-curator",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Find stale wiki pages, duplicate entries and broken source links; propose a structure.",
+      "expected": "select",
+      "reason": "Knowledge-base maintenance is requested."
+    },
+    {
+      "id": "negative",
+      "request": "Read this one new PDF and extract invoice totals.",
+      "expected": "reject",
+      "reason": "Document intake owns file extraction."
+    },
+    {
+      "id": "collision",
+      "request": "Compile the active project's goals, decisions and open tasks.",
+      "expected": "defer",
+      "reason": "Project context builder owns an orientation snapshot."
+    }
+  ]
+}

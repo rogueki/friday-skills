@@ -1,0 +1,23 @@
+{
+  "skill": "friday-deep-research",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Research three technology options with primary sources, contradictions and an evidence matrix.",
+      "expected": "select",
+      "reason": "Multi-question synthesis is needed."
+    },
+    {
+      "id": "negative",
+      "request": "What is the title of this single public page?",
+      "expected": "reject",
+      "reason": "A single lookup does not need deep research."
+    },
+    {
+      "id": "collision",
+      "request": "Verify whether one quoted paragraph supports a claim.",
+      "expected": "defer",
+      "reason": "Source verification owns claim-specific checks."
+    }
+  ]
+}

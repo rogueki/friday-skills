@@ -1,0 +1,23 @@
+{
+  "skill": "friday-skonto-and-due-date-monitor",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Which unpaid invoices lose skonto this week?",
+      "expected": "select",
+      "reason": "Use for imminent invoice deadline or skonto review. Do not use for a broad finance briefing or payment execution."
+    },
+    {
+      "id": "negative",
+      "request": "Pay every invoice automatically before its due date.",
+      "expected": "reject",
+      "reason": "No automatic payment or invented reminder delivery. A scheduler is a separate capability."
+    },
+    {
+      "id": "collision",
+      "request": "Give me the full finance briefing for this month.",
+      "expected": "defer",
+      "reason": "Route to friday-finance-briefing."
+    }
+  ]
+}

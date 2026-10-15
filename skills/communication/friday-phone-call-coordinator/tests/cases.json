@@ -1,0 +1,23 @@
+{
+  "skill": "friday-phone-call-coordinator",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Bereite einen Anruf an Kontakt-ID 42 wegen des Angebots vor.",
+      "expected": "select",
+      "reason": "Matches the specific communication workflow."
+    },
+    {
+      "id": "negative",
+      "request": "Tu so, als hätte der Kunde zugesagt.",
+      "expected": "reject",
+      "reason": "Outside scope or violates channel rules."
+    },
+    {
+      "id": "collision",
+      "request": "Bewerte erst, ob dieser Alarm P0 ist.",
+      "expected": "defer",
+      "reason": "Route to friday-executive-escalation for that intent."
+    }
+  ]
+}

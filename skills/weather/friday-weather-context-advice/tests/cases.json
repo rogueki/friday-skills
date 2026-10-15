@@ -1,0 +1,23 @@
+{
+  "skill": "friday-weather-context-advice",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Was sollen die Kinder morgen früh bei Regen zum Schulweg anziehen?",
+      "expected": "select",
+      "reason": "Matches the specific weather intent."
+    },
+    {
+      "id": "negative",
+      "request": "Garantier mir, dass die Fahrt bei Glätte sicher ist.",
+      "expected": "reject",
+      "reason": "Unsupported certainty or external action."
+    },
+    {
+      "id": "collision",
+      "request": "Wie viel Grad hat es jetzt?",
+      "expected": "defer",
+      "reason": "Route to friday-weather for that requested output."
+    }
+  ]
+}

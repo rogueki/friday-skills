@@ -1,0 +1,21 @@
+{
+  "tiers": {
+    "0": {
+      "approval": "none",
+      "scope": "observe/search/analyze"
+    },
+    "1": {
+      "approval": "workspace_bound",
+      "scope": "draft/local reversible"
+    },
+    "2": {
+      "approval": "bound_expiring",
+      "scope": "external communication/calendar/home write"
+    },
+    "3": {
+      "approval": "bound_expiring_hard_second_factor",
+      "scope": "payment/purchase/booking/tax/critical"
+    }
+  },
+  "version": 1
+}

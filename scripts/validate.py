@@ -5,6 +5,8 @@ import json
 import re
 import sys
 
+from build_registry import build
+
 ROOT = Path(__file__).resolve().parents[1]
 
 try:
@@ -82,6 +84,43 @@ def validate() -> list[str]:
     for name in ("MEMORY.md", "SCOPE.md", "JARVIS_HERMES_SKILLS_IMPLEMENTIERUNGSPLAN_CODEX.md", ".env"):
         if name not in ignored:
             errors.append(f".gitignore missing {name}")
+    for filename, expected in build().items():
+        path = ROOT / "registry" / filename
+        if not path.is_file():
+            errors.append(f"missing operational registry: {filename}")
+        else:
+            try:
+                actual = json.loads(path.read_text(encoding="utf-8"))
+                if actual != expected:
+                    errors.append(f"operational registry out of date: {filename}")
+            except json.JSONDecodeError as exc:
+                errors.append(f"invalid registry {filename}: {exc}")
+    for path in (ROOT / "fixtures").rglob("*.json"):
+        try:
+            json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            errors.append(f"invalid fixture {path}: {exc}")
+    for path in (ROOT / "skills").rglob("tests/cases.json"):
+        try:
+            cases = json.loads(path.read_text(encoding="utf-8"))
+            if cases.get("skill") != path.parents[1].name:
+                errors.append(f"test case skill mismatch: {path}")
+            seen = {case.get("id") for case in cases.get("cases", [])}
+            if not {"positive", "negative", "collision"}.issubset(seen):
+                errors.append(f"missing routing test cases: {path}")
+            for case in cases.get("cases", []):
+                if case.get("expected") not in {"select", "reject", "defer"} or not case.get("request"):
+                    errors.append(f"invalid routing test case: {path}")
+        except (json.JSONDecodeError, AttributeError, TypeError) as exc:
+            errors.append(f"invalid test cases {path}: {exc}")
+    for skill_path in paths:
+        if not (skill_path.parent / "tests/cases.json").is_file():
+            errors.append(f"missing routing test cases: {skill_path.parent.name}")
+    for path in ROOT.rglob("*"):
+        if any(part in {".git", "__pycache__", "artifacts"} for part in path.relative_to(ROOT).parts):
+            continue
+        if path.is_symlink():
+            errors.append(f"symlink in package: {path}")
     return errors
 
 

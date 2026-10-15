@@ -1,0 +1,23 @@
+{
+  "skill": "friday-market-and-competitor-analysis",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Compare five vendors' current offers and prices for the German market.",
+      "expected": "select",
+      "reason": "The task is market and competitor comparison."
+    },
+    {
+      "id": "negative",
+      "request": "Send an inquiry to a vendor.",
+      "expected": "reject",
+      "reason": "Contacting a third party is outside analysis."
+    },
+    {
+      "id": "collision",
+      "request": "Check whether one store is legitimate before paying.",
+      "expected": "defer",
+      "reason": "Company and shop investigation owns specific due diligence."
+    }
+  ]
+}

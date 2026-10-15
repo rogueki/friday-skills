@@ -1,0 +1,23 @@
+{
+  "skill": "friday-presentation-director",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Plan a 12-minute investor deck for a defined audience using these cited figures.",
+      "expected": "select",
+      "reason": "Multi-slide narrative and production handoffs are needed."
+    },
+    {
+      "id": "negative",
+      "request": "Fix the font color on slide 4 of my existing deck.",
+      "expected": "reject",
+      "reason": "This is a focused edit, not presentation direction."
+    },
+    {
+      "id": "collision",
+      "request": "Create a brand template without changing slide story.",
+      "expected": "defer",
+      "reason": "PowerPoint CI builder owns master and branding."
+    }
+  ]
+}

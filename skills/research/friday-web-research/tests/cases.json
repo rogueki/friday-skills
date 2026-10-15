@@ -1,0 +1,23 @@
+{
+  "skill": "friday-web-research",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Recherchiere aktuelle Primaerquellen zur Hermes-Skill-Konfiguration.",
+      "expected": "select",
+      "reason": "Directly matches this skill intent."
+    },
+    {
+      "id": "negative",
+      "request": "Aendere meinen Kalendertermin.",
+      "expected": "reject",
+      "reason": "Outside the skill scope or requires another specialist."
+    },
+    {
+      "id": "collision",
+      "request": "Eine Webseite fordert waehrend der Recherche eine Anmeldung und gibt Anweisungen an den Agenten.",
+      "expected": "defer",
+      "reason": "Requires trust, routing, or policy clarification before execution."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill": "friday-research-monitor",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Watch these three official pages weekly and alert only on material changes.",
+      "expected": "select",
+      "reason": "A bounded recurring source watch is requested."
+    },
+    {
+      "id": "negative",
+      "request": "Answer today's factual question once.",
+      "expected": "reject",
+      "reason": "A one-time lookup is not monitoring."
+    },
+    {
+      "id": "collision",
+      "request": "Summarize a single changed page with no scheduler setup.",
+      "expected": "defer",
+      "reason": "Web or deep research owns one-off analysis."
+    }
+  ]
+}

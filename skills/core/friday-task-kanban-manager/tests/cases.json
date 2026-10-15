@@ -1,0 +1,23 @@
+{
+  "skill": "friday-task-kanban-manager",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Lege fuer die mehrstufige Recherche einen nachverfolgbaren Task an.",
+      "expected": "select",
+      "reason": "Directly matches this skill intent."
+    },
+    {
+      "id": "negative",
+      "request": "Analysiere nur diese lokale Textdatei.",
+      "expected": "reject",
+      "reason": "Outside the skill scope or requires another specialist."
+    },
+    {
+      "id": "collision",
+      "request": "Ein schon abgeschlossener Task soll erneut gestartet werden.",
+      "expected": "defer",
+      "reason": "Requires trust, routing, or policy clarification before execution."
+    }
+  ]
+}

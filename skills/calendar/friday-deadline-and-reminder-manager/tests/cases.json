@@ -1,0 +1,23 @@
+{
+  "skill": "friday-deadline-and-reminder-manager",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Welche Fristen aus meinen Rechnungen und Mails stehen nächste Woche an?",
+      "expected": "select",
+      "reason": "Matches the calendar workflow."
+    },
+    {
+      "id": "negative",
+      "request": "Erfinde ein Fälligkeitsdatum für diese Rechnung.",
+      "expected": "reject",
+      "reason": "Missing evidence or outside permission."
+    },
+    {
+      "id": "collision",
+      "request": "Trage diesen konkreten Termin in meinen Kalender ein.",
+      "expected": "defer",
+      "reason": "Route to friday-calendar-manager for the requested result."
+    }
+  ]
+}

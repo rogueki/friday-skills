@@ -1,0 +1,23 @@
+{
+  "skill": "friday-austria-funding-scout",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Find current Austrian PV and storage grants for my municipality.",
+      "expected": "select",
+      "reason": "Use to discover possible federal, state or municipal funding. Do not use to decide one applicant's final eligibility."
+    },
+    {
+      "id": "negative",
+      "request": "Apply for all grants and commit me to a contractor.",
+      "expected": "reject",
+      "reason": "No application, purchase or contractor engagement. Do not rely on blogs as primary evidence."
+    },
+    {
+      "id": "collision",
+      "request": "Check whether my specific planned heat pump meets this known grant's rules.",
+      "expected": "defer",
+      "reason": "Route to friday-funding-eligibility-check."
+    }
+  ]
+}

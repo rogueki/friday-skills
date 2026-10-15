@@ -1,0 +1,23 @@
+{
+  "skill": "friday-executive-mail-manager",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Triage meine ungelesenen GMX-Mails nach Handlungsbedarf.",
+      "expected": "select",
+      "reason": "Matches the specific communication workflow."
+    },
+    {
+      "id": "negative",
+      "request": "Sende sofort diese Mail ohne Freigabe.",
+      "expected": "reject",
+      "reason": "Outside scope or violates channel rules."
+    },
+    {
+      "id": "collision",
+      "request": "Formuliere nur einen Antwortentwurf zu Thread 12.",
+      "expected": "defer",
+      "reason": "Route to friday-mail-draft-writer for that intent."
+    }
+  ]
+}

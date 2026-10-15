@@ -1,0 +1,23 @@
+{
+  "skill": "friday-document-retention",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Check current Austrian retention rules and legal holds before proposing archive or deletion dates.",
+      "expected": "select",
+      "reason": "Retention decisions need law and policy."
+    },
+    {
+      "id": "negative",
+      "request": "Reformat this document for print.",
+      "expected": "reject",
+      "reason": "Layout is outside retention."
+    },
+    {
+      "id": "collision",
+      "request": "Only label files by type and project without legal assessment.",
+      "expected": "defer",
+      "reason": "File classifier owns basic metadata routing."
+    }
+  ]
+}

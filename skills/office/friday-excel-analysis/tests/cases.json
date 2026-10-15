@@ -1,0 +1,23 @@
+{
+  "skill": "friday-excel-analysis",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Analyze this XLSX for formula errors, duplicates and monthly anomalies.",
+      "expected": "select",
+      "reason": "Workbook analysis is needed."
+    },
+    {
+      "id": "negative",
+      "request": "Send a SEPA payment from these rows.",
+      "expected": "reject",
+      "reason": "Payment execution is outside spreadsheet analysis."
+    },
+    {
+      "id": "collision",
+      "request": "Classify this XLSX into a project folder without reading the data.",
+      "expected": "defer",
+      "reason": "File classifier owns routing."
+    }
+  ]
+}

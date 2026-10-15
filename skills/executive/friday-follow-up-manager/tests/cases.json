@@ -1,0 +1,23 @@
+{
+  "skill": "friday-follow-up-manager",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Welche zugesagten Lieferantenantworten sind offen?",
+      "expected": "select",
+      "reason": "Specific intent and evidence fit."
+    },
+    {
+      "id": "negative",
+      "request": "Schreibe eine neue Angebotsmail.",
+      "expected": "reject",
+      "reason": "Outside the stated purpose or permission."
+    },
+    {
+      "id": "collision",
+      "request": "Sortiere die gesamte Inbox nach Wichtigkeit.",
+      "expected": "defer",
+      "reason": "Route to friday-executive-mail-manager for that outcome."
+    }
+  ]
+}

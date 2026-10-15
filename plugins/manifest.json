@@ -1,0 +1,1 @@
+{"product":"F.R.I.D.A.Y.","author":"RogueKI","version":"0.1.0","runtime":"local_mock_only","hermes_registered":false,"components":["policy_preflight","input_inspection","approval_boundary","audit_record","dashboard_mapping","notification_proposal"],"external_delivery":false}

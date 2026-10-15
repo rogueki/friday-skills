@@ -1,0 +1,1 @@
+{"party":{"adults":2,"children":2},"options":[{"kind":"budget","price_eur":1200,"available":true},{"kind":"premium","price_eur":2500,"available":true},{"kind":"sold_out","price_eur":900,"available":false}],"conditions":["rain","flight_change"]}

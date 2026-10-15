@@ -1,0 +1,23 @@
+{
+  "skill": "friday-family-benefit-optimizer-at",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Which Austrian family tax benefits might apply for my children in 2025?",
+      "expected": "select",
+      "reason": "Use for family-related Austrian benefits such as Familienbonus Plus or Mehrkindzuschlag. Do not use for commuter deductions."
+    },
+    {
+      "id": "negative",
+      "request": "Guarantee my Familienbonus amount without income or child records.",
+      "expected": "reject",
+      "reason": "No definitive entitlement or automatic claim. Sensitive family records stay private; submission remains tier 3 elsewhere."
+    },
+    {
+      "id": "collision",
+      "request": "Check Pendlerpauschale and my work travel.",
+      "expected": "defer",
+      "reason": "Route to friday-commuter-and-work-expense-at."
+    }
+  ]
+}

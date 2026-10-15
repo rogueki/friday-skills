@@ -1,0 +1,23 @@
+{
+  "skill": "friday-presentation-qa",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Review every slide for clipping, contrast, source errors and export compatibility.",
+      "expected": "select",
+      "reason": "This requests presentation acceptance QA."
+    },
+    {
+      "id": "negative",
+      "request": "Invent a story for a new presentation.",
+      "expected": "reject",
+      "reason": "Story design precedes QA."
+    },
+    {
+      "id": "collision",
+      "request": "Fix and redesign the deck after finding problems.",
+      "expected": "defer",
+      "reason": "Enhancer owns edits; QA can report and recheck."
+    }
+  ]
+}

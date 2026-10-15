@@ -1,0 +1,23 @@
+{
+  "skill": "friday-trip-companion",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Provide day-of-trip plans and alternatives using current local conditions without exposing family location unnecessarily.",
+      "expected": "select",
+      "reason": "This is the distinct friday-trip-companion task."
+    },
+    {
+      "id": "negative",
+      "request": "Buy the first available family vacation package without showing terms.",
+      "expected": "reject",
+      "reason": "Purchase needs exact terms, approval and a separate booking action."
+    },
+    {
+      "id": "collision",
+      "request": "Create a reusable profile of our travel preferences.",
+      "expected": "reject",
+      "reason": "A neighboring travel skill owns this result."
+    }
+  ]
+}

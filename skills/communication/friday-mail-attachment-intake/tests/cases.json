@@ -1,0 +1,23 @@
+{
+  "skill": "friday-mail-attachment-intake",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Prüfe den PDF-Anhang aus Mail 73 und erfasse die Frist.",
+      "expected": "select",
+      "reason": "Matches the specific communication workflow."
+    },
+    {
+      "id": "negative",
+      "request": "Schicke den Anhang an Dritte.",
+      "expected": "reject",
+      "reason": "Outside scope or violates channel rules."
+    },
+    {
+      "id": "collision",
+      "request": "Fasse nur den Mailtext zusammen.",
+      "expected": "defer",
+      "reason": "Route to friday-executive-mail-manager for that intent."
+    }
+  ]
+}

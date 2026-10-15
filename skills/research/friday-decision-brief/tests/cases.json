@@ -1,0 +1,23 @@
+{
+  "skill": "friday-decision-brief",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Compare the documented options and recommend one under our budget and deadline.",
+      "expected": "select",
+      "reason": "Existing evidence must become a decision brief."
+    },
+    {
+      "id": "negative",
+      "request": "Pay for the selected vendor now.",
+      "expected": "reject",
+      "reason": "Payment execution requires a separate gated skill."
+    },
+    {
+      "id": "collision",
+      "request": "Gather missing primary sources before we compare options.",
+      "expected": "defer",
+      "reason": "Deep research owns evidence collection."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill": "friday-error-recovery",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Diagnostiziere den ausgefallenen Kalenderadapter und sichere den Zwischenstand.",
+      "expected": "select",
+      "reason": "Directly matches this skill intent."
+    },
+    {
+      "id": "negative",
+      "request": "Buche den gewaehlten Flug.",
+      "expected": "reject",
+      "reason": "Outside the skill scope or requires another specialist."
+    },
+    {
+      "id": "collision",
+      "request": "Nach Timeout eines Zahlversuchs soll blind erneut bezahlt werden.",
+      "expected": "defer",
+      "reason": "Requires trust, routing, or policy clarification before execution."
+    }
+  ]
+}

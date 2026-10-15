@@ -1,0 +1,275 @@
+{
+  "automations": [
+    {
+      "deduplication_window": "24h",
+      "deliver": "local_preview",
+      "enabled": false,
+      "failure_policy": "record_and_stop",
+      "id": "morning_briefing",
+      "input": {},
+      "profile": "mock",
+      "quiet_hours": [
+        "22:00",
+        "07:00"
+      ],
+      "risk_tier": 0,
+      "schedule": null,
+      "skill": "friday-morning-briefing",
+      "skill_installed": true,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "deduplication_window": "24h",
+      "deliver": "local_preview",
+      "enabled": false,
+      "failure_policy": "record_and_stop",
+      "id": "evening_briefing",
+      "input": {},
+      "profile": "mock",
+      "quiet_hours": [
+        "22:00",
+        "07:00"
+      ],
+      "risk_tier": 0,
+      "schedule": null,
+      "skill": "friday-evening-briefing",
+      "skill_installed": true,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "deduplication_window": "24h",
+      "deliver": "local_preview",
+      "enabled": false,
+      "failure_policy": "record_and_stop",
+      "id": "mail_priority_watch",
+      "input": {},
+      "profile": "mock",
+      "quiet_hours": [
+        "22:00",
+        "07:00"
+      ],
+      "risk_tier": 0,
+      "schedule": null,
+      "skill": "friday-executive-mail-manager",
+      "skill_installed": true,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "deduplication_window": "24h",
+      "deliver": "local_preview",
+      "enabled": false,
+      "failure_policy": "record_and_stop",
+      "id": "calendar_meeting_prep",
+      "input": {},
+      "profile": "mock",
+      "quiet_hours": [
+        "22:00",
+        "07:00"
+      ],
+      "risk_tier": 0,
+      "schedule": null,
+      "skill": "friday-meeting-briefing",
+      "skill_installed": true,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "deduplication_window": "24h",
+      "deliver": "local_preview",
+      "enabled": false,
+      "failure_policy": "record_and_stop",
+      "id": "follow_up_watch",
+      "input": {},
+      "profile": "mock",
+      "quiet_hours": [
+        "22:00",
+        "07:00"
+      ],
+      "risk_tier": 0,
+      "schedule": null,
+      "skill": "friday-follow-up-manager",
+      "skill_installed": true,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "deduplication_window": "24h",
+      "deliver": "local_preview",
+      "enabled": false,
+      "failure_policy": "record_and_stop",
+      "id": "invoice_due_watch",
+      "input": {},
+      "profile": "mock",
+      "quiet_hours": [
+        "22:00",
+        "07:00"
+      ],
+      "risk_tier": 0,
+      "schedule": null,
+      "skill": "friday-skonto-and-due-date-monitor",
+      "skill_installed": true,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "deduplication_window": "24h",
+      "deliver": "local_preview",
+      "enabled": false,
+      "failure_policy": "record_and_stop",
+      "id": "skonto_watch",
+      "input": {},
+      "profile": "mock",
+      "quiet_hours": [
+        "22:00",
+        "07:00"
+      ],
+      "risk_tier": 0,
+      "schedule": null,
+      "skill": "friday-skonto-and-due-date-monitor",
+      "skill_installed": true,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "deduplication_window": "24h",
+      "deliver": "local_preview",
+      "enabled": false,
+      "failure_policy": "record_and_stop",
+      "id": "tax_deadline_watch",
+      "input": {},
+      "profile": "mock",
+      "quiet_hours": [
+        "22:00",
+        "07:00"
+      ],
+      "risk_tier": 0,
+      "schedule": null,
+      "skill": "friday-tax-deadline-monitor-at",
+      "skill_installed": true,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "deduplication_window": "24h",
+      "deliver": "local_preview",
+      "enabled": false,
+      "failure_policy": "record_and_stop",
+      "id": "funding_scan",
+      "input": {},
+      "profile": "mock",
+      "quiet_hours": [
+        "22:00",
+        "07:00"
+      ],
+      "risk_tier": 0,
+      "schedule": null,
+      "skill": "friday-austria-funding-scout",
+      "skill_installed": true,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "deduplication_window": "24h",
+      "deliver": "local_preview",
+      "enabled": false,
+      "failure_policy": "record_and_stop",
+      "id": "tariff_review",
+      "input": {},
+      "profile": "mock",
+      "quiet_hours": [
+        "22:00",
+        "07:00"
+      ],
+      "risk_tier": 0,
+      "schedule": null,
+      "skill": "friday-energy-tariff-scout",
+      "skill_installed": true,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "deduplication_window": "24h",
+      "deliver": "local_preview",
+      "enabled": false,
+      "failure_policy": "record_and_stop",
+      "id": "weather_warning_watch",
+      "input": {},
+      "profile": "mock",
+      "quiet_hours": [
+        "22:00",
+        "07:00"
+      ],
+      "risk_tier": 0,
+      "schedule": null,
+      "skill": "friday-weather-alerts",
+      "skill_installed": true,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "deduplication_window": "24h",
+      "deliver": "local_preview",
+      "enabled": false,
+      "failure_policy": "record_and_stop",
+      "id": "loxone_anomaly_watch",
+      "input": {},
+      "profile": "mock",
+      "quiet_hours": [
+        "22:00",
+        "07:00"
+      ],
+      "risk_tier": 0,
+      "schedule": null,
+      "skill": "friday-home-anomaly-monitor",
+      "skill_installed": true,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "deduplication_window": "24h",
+      "deliver": "local_preview",
+      "enabled": false,
+      "failure_policy": "record_and_stop",
+      "id": "storage_watch",
+      "input": {},
+      "profile": "mock",
+      "quiet_hours": [
+        "22:00",
+        "07:00"
+      ],
+      "risk_tier": 0,
+      "schedule": null,
+      "skill": "friday-storage-monitor",
+      "skill_installed": true,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "deduplication_window": "24h",
+      "deliver": "local_preview",
+      "enabled": false,
+      "failure_policy": "record_and_stop",
+      "id": "backup_check",
+      "input": {},
+      "profile": "mock",
+      "quiet_hours": [
+        "22:00",
+        "07:00"
+      ],
+      "risk_tier": 0,
+      "schedule": null,
+      "skill": "friday-backup-manager",
+      "skill_installed": true,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "deduplication_window": "24h",
+      "deliver": "local_preview",
+      "enabled": false,
+      "failure_policy": "record_and_stop",
+      "id": "skill_health_review",
+      "input": {},
+      "profile": "mock",
+      "quiet_hours": [
+        "22:00",
+        "07:00"
+      ],
+      "risk_tier": 0,
+      "schedule": null,
+      "skill": "friday-capability-and-health-check",
+      "skill_installed": true,
+      "timezone": "Europe/Vienna"
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,23 @@
+{
+  "skill": "friday-family-highlight-selector",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Please select balanced family trip, birthday and school highlights across people and moments for a requested story.",
+      "expected": "select",
+      "reason": "This requests friday-family-highlight-selector's distinct deliverable."
+    },
+    {
+      "id": "negative",
+      "request": "Send the family album to a public social account now.",
+      "expected": "reject",
+      "reason": "Publication is a separate authorized action outside this skill."
+    },
+    {
+      "id": "collision",
+      "request": "Inventory all disks and detect corrupted files.",
+      "expected": "reject",
+      "reason": "A neighboring curation, archive or intake skill owns this outcome."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill": "friday-energy-optimizer",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "When should hot water run to use today's PV surplus?",
+      "expected": "select",
+      "reason": "Use to recommend energy timing or automation candidates. Do not use for comparing retail tariffs or commanding a device."
+    },
+    {
+      "id": "negative",
+      "request": "Change the heat-pump schedule without asking.",
+      "expected": "reject",
+      "reason": "No device action without separate policy and tier 2 approval through a real adapter. Tariff switching is outside scope."
+    },
+    {
+      "id": "collision",
+      "request": "Compare current electricity tariffs and contract terms.",
+      "expected": "defer",
+      "reason": "Route to friday-energy-tariff-scout."
+    }
+  ]
+}

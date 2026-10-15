@@ -1,0 +1,23 @@
+{
+  "skill": "friday-calendar-manager",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Finde freie Zeit am Dienstag zwischen 9 und 16 Uhr.",
+      "expected": "select",
+      "reason": "Matches the calendar workflow."
+    },
+    {
+      "id": "negative",
+      "request": "Trage heimlich einen Termin in den Kalender meiner Kollegin ein.",
+      "expected": "reject",
+      "reason": "Missing evidence or outside permission."
+    },
+    {
+      "id": "collision",
+      "request": "Koordiniere Terminvorschläge mit mehreren Teilnehmern.",
+      "expected": "defer",
+      "reason": "Route to friday-meeting-request-coordinator for the requested result."
+    }
+  ]
+}

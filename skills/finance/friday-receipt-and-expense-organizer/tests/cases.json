@@ -1,0 +1,23 @@
+{
+  "skill": "friday-receipt-and-expense-organizer",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Sort these travel receipts by project and flag missing dates.",
+      "expected": "select",
+      "reason": "Use to organize receipt batches. Do not use for formal invoice validation or definitive deductibility decisions."
+    },
+    {
+      "id": "negative",
+      "request": "Claim all restaurant receipts on my tax return.",
+      "expected": "reject",
+      "reason": "Local reversible filing is tier 1. No tax submission. Keep payment details and personal addresses out of events."
+    },
+    {
+      "id": "collision",
+      "request": "Check this supplier invoice for total and IBAN mismatch.",
+      "expected": "defer",
+      "reason": "Route to friday-invoice-intake."
+    }
+  ]
+}

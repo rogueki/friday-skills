@@ -1,0 +1,23 @@
+{
+  "skill": "friday-archive-migrator",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Execute approved archive batches copy-first with hash checks, resume log and rollback manifest.",
+      "expected": "select",
+      "reason": "Requests the friday-archive-migrator result."
+    },
+    {
+      "id": "negative",
+      "request": "Delete all files that seem redundant immediately.",
+      "expected": "reject",
+      "reason": "Unreviewed deletion is outside this skill and requires exact target approval."
+    },
+    {
+      "id": "collision",
+      "request": "Plan a future migration, with no file changes.",
+      "expected": "reject",
+      "reason": "A neighboring archive skill owns this outcome."
+    }
+  ]
+}

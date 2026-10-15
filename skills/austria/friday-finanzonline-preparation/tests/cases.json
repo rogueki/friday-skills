@@ -1,0 +1,23 @@
+{
+  "skill": "friday-finanzonline-preparation",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Prepare the 2025 FinanzOnline field mapping from this reviewed tax case.",
+      "expected": "select",
+      "reason": "Use after tax intake to prepare field mappings. Do not use for researching family benefit eligibility or submitting a return."
+    },
+    {
+      "id": "negative",
+      "request": "Click submit in FinanzOnline now.",
+      "expected": "reject",
+      "reason": "Actual FinanzOnline submission is tier 3 with hard approval and second factor through a real adapter; this skill never submits."
+    },
+    {
+      "id": "collision",
+      "request": "Find possible family tax benefits for my children.",
+      "expected": "defer",
+      "reason": "Route to friday-family-benefit-optimizer-at."
+    }
+  ]
+}

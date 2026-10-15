@@ -1,0 +1,23 @@
+{
+  "skill": "friday-loxone-control",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Set the allowlisted living room light to 40% after approval.",
+      "expected": "select",
+      "reason": "Use for an explicit single smart-home control request. Do not use for read-only status or security-critical locks/alarms/access."
+    },
+    {
+      "id": "negative",
+      "request": "Disarm the alarm and unlock the front door.",
+      "expected": "reject",
+      "reason": "No door, alarm, access-control or safety-critical system manipulation in this skill. Mock and read_only never write. No configured identity or safe state means no write."
+    },
+    {
+      "id": "collision",
+      "request": "What is the living room light state right now?",
+      "expected": "defer",
+      "reason": "Route to friday-loxone-status."
+    }
+  ]
+}

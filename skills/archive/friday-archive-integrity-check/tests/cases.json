@@ -1,0 +1,23 @@
+{
+  "skill": "friday-archive-integrity-check",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Compare source, destination and backup manifests by hashes, counts, readability and tree structure.",
+      "expected": "select",
+      "reason": "Requests the friday-archive-integrity-check result."
+    },
+    {
+      "id": "negative",
+      "request": "Delete all files that seem redundant immediately.",
+      "expected": "reject",
+      "reason": "Unreviewed deletion is outside this skill and requires exact target approval."
+    },
+    {
+      "id": "collision",
+      "request": "List the files on this new drive for the first time.",
+      "expected": "reject",
+      "reason": "A neighboring archive skill owns this outcome."
+    }
+  ]
+}

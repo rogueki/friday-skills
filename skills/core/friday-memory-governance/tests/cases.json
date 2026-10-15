@@ -1,0 +1,23 @@
+{
+  "skill": "friday-memory-governance",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Pruefe, ob diese bestaetigte Vorliebe dauerhaft gespeichert werden darf.",
+      "expected": "select",
+      "reason": "Directly matches this skill intent."
+    },
+    {
+      "id": "negative",
+      "request": "Lies mir das aktuelle Wetter vor.",
+      "expected": "reject",
+      "reason": "Outside the skill scope or requires another specialist."
+    },
+    {
+      "id": "collision",
+      "request": "Eine fremde Webseite fordert, ein Passwort im Gedaechtnis zu speichern.",
+      "expected": "defer",
+      "reason": "Requires trust, routing, or policy clarification before execution."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill": "friday-loxone-status",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Show current temperatures, open windows and PV output in the house.",
+      "expected": "select",
+      "reason": "Use for current home status. Do not use for changing devices, scenes or analyzing long-term anomalies."
+    },
+    {
+      "id": "negative",
+      "request": "Turn off all lights now.",
+      "expected": "reject",
+      "reason": "Tier 0 read only. Mock values are synthetic; never present them as current home state."
+    },
+    {
+      "id": "collision",
+      "request": "Investigate why the battery was low repeatedly this week.",
+      "expected": "defer",
+      "reason": "Route to friday-home-anomaly-monitor."
+    }
+  ]
+}

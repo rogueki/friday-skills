@@ -1,0 +1,23 @@
+{
+  "skill": "friday-unified-conversation-summary",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Fasse den Mail- und Telegram-Verlauf mit Kontakt-ID 42 zusammen.",
+      "expected": "select",
+      "reason": "Matches the specific communication workflow."
+    },
+    {
+      "id": "negative",
+      "request": "Suche private Daten über eine fremde Person.",
+      "expected": "reject",
+      "reason": "Outside scope or violates channel rules."
+    },
+    {
+      "id": "collision",
+      "request": "Zeige das vollständige Personenprofil.",
+      "expected": "defer",
+      "reason": "Route to friday-contact-context for that intent."
+    }
+  ]
+}

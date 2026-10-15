@@ -1,0 +1,23 @@
+{
+  "skill": "friday-archive-inventory",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Inventory disks and folders read-only with file types, sizes, date ranges, duplicates suspicion, damage and backup evidence.",
+      "expected": "select",
+      "reason": "Requests the friday-archive-inventory result."
+    },
+    {
+      "id": "negative",
+      "request": "Delete all files that seem redundant immediately.",
+      "expected": "reject",
+      "reason": "Unreviewed deletion is outside this skill and requires exact target approval."
+    },
+    {
+      "id": "collision",
+      "request": "Check whether yesterday's migration preserved every source hash.",
+      "expected": "reject",
+      "reason": "A neighboring archive skill owns this outcome."
+    }
+  ]
+}

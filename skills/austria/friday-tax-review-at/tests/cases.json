@@ -1,0 +1,23 @@
+{
+  "skill": "friday-tax-review-at",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Review my prepared Austrian 2025 tax draft for duplicates and missing proof.",
+      "expected": "select",
+      "reason": "Use for final quality review of an assembled tax draft. Do not use for first document intake or FinanzOnline submission."
+    },
+    {
+      "id": "negative",
+      "request": "Submit this tax return and assume it was accepted.",
+      "expected": "reject",
+      "reason": "No submission. Filing is tier 3 and requires a real adapter, hard approval and second factor."
+    },
+    {
+      "id": "collision",
+      "request": "Create the initial checklist from a pile of documents.",
+      "expected": "defer",
+      "reason": "Route to friday-austria-tax-intake."
+    }
+  ]
+}

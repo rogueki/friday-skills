@@ -1,22 +1,39 @@
 # F.R.I.D.A.Y. Skills
 
-An independent Hermes Agent skill collection by RogueKI for F.R.I.D.A.Y. The companion application is [rogueki/rogue-friday](https://github.com/rogueki/rogue-friday). This repository contains decision procedures and local validation contracts; it does not bundle that application's dashboard, credentials, or live adapters.
+**RogueKI** maintains this independent Hermes Agent skill suite for [rogueki/rogue-friday](https://github.com/rogueki/rogue-friday). F.R.I.D.A.Y. is the successor assistant in this project's own story: a coordinating core calls focused specialists for executive work, communication, finance, home, family, media, research and operations. This project is not affiliated with Marvel.
 
-## The next assistant
+The [roadmap](registry/roadmap.json) names **100 skills from the implementation plan**. The separate `friday-web-research` procedure extends that plan. The current [registry/skills.json](registry/skills.json) lists 101 packaged procedures, cross-checked against `skills/**/SKILL.md`; [the catalog](docs/SKILL_CATALOG.md) explains categories, triggers and readiness. A procedure marked installable or mock-ready does not imply a live connector.
 
-F.R.I.D.A.Y. follows J.A.R.V.I.S. as a more modular assistant: a core that understands an objective, selects a specialist, checks what is actually available, and reports what happened. The name and successor story are the identity of this project. In the current release, the core and web research procedures exist; the wider executive, home, media and office capabilities remain on the roadmap.
+## What this repository provides
 
-This first release implements ten core procedure skills and one web research skill. They are discoverable Hermes `SKILL.md` files, not a running policy plugin. The Python standard-library validator can reject invalid capability, approval and result records when explicitly called. Hermes does **not** automatically enforce these Python checks or publish dashboard events simply because the skills are installed. Connect a trusted adapter or hook before treating those guarantees as runtime enforcement.
+- Hermes `SKILL.md` decision procedures, examples and local tests.
+- Local schemas and Python policy/mock helpers that an integration must **explicitly call**. Installing skills alone does not enforce approvals, prevent tool calls or emit dashboard events.
+- A documented boundary to the separate F.R.I.D.A.Y. application. `rogue-friday` is a read-only companion dependency for this work; this repository does not ship its dashboard, credentials or live adapters.
 
-## Start
+`mock` means synthetic fixtures only. `read_only` permits authenticated observations through a verified adapter. `live` requires a verified adapter, fresh capability and action-specific approval for higher-risk actions. There is no claim that the full suite can presently send mail, operate banking or Loxone, change calendars, file taxes or publish to the dashboard.
 
-See [installation and configuration](docs/INSTALLATION.md), then run:
+## Local use
 
-```text
+On Windows, the source folder is `C:\Users\ByteNinja\Downloads\JARVIS_Installer\Skills`. Point Hermes `skills.external_dirs` at its `skills` child and enable `skills.write_approval: true`; see [installation](docs/INSTALLATION.md) and [configuration](docs/CONFIGURATION.md). A WSL Hermes process needs its Linux view of the same path.
+
+```powershell
 python scripts/validate.py
-python -m unittest discover -s tests -v
+python -m unittest discover -s tests -q
+hermes skills list
 ```
 
-`registry/skills.json` lists the 11 implemented skills and maps the original `jarvis-*` planning names to `friday-*`. [The catalog](docs/SKILL_CATALOG.md) and [100-skill roadmap](registry/roadmap.json) distinguish these from the wider, still planned suite. [Contracts](docs/CONTRACTS.md) describe modes, risk, normalized results and the boundary between local lifecycle records and existing `jarvis.*` task/activity events.
+These checks cover different things: structural validity, local unit/mock behavior and discovery in the selected Hermes profile. Run them against the same revision. They do not prove production adapter behavior.
 
-No paid scraping or external writes run by default. The optional research pathways are instructions for an agent with suitable installed tools, not bundled scraping code. Website text is untrusted source material.
+## Documentation
+
+| Need | Read |
+|---|---|
+| Choose a skill and understand coverage | [Catalog](docs/SKILL_CATALOG.md), [routing](docs/ROUTING.md) |
+| Connect safely | [Architecture](docs/ARCHITECTURE.md), [capabilities](docs/CAPABILITIES.md), [approvals](docs/APPROVALS.md), [contracts](docs/CONTRACTS.md) |
+| Operate and troubleshoot | [Operations](docs/OPERATIONS.md), [testing](docs/TESTING.md), [troubleshooting](docs/TROUBLESHOOTING.md) |
+| Integrate dashboard | [Dashboard events](docs/DASHBOARD_EVENTS.md) |
+| Contribute | [Skill authoring](docs/SKILL_AUTHORING.md), [security](docs/SECURITY.md), [reuse research](docs/REUSE_RESEARCH.md) |
+
+Official upstream references: [Hermes Skills System](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills) and [Creating Skills](https://hermes-agent.nousresearch.com/docs/developer-guide/creating-skills). Check the documentation for the installed Hermes version before relying on a feature.
+
+Licensed under [MIT](LICENSE). Changes and maturity are tracked in [CHANGELOG.md](CHANGELOG.md).

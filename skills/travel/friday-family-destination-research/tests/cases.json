@@ -1,0 +1,23 @@
+{
+  "skill": "friday-family-destination-research",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Compare family destinations by season, safety, child suitability, cost and logistics using dated sources.",
+      "expected": "select",
+      "reason": "This is the distinct friday-family-destination-research task."
+    },
+    {
+      "id": "negative",
+      "request": "Buy the first available family vacation package without showing terms.",
+      "expected": "reject",
+      "reason": "Purchase needs exact terms, approval and a separate booking action."
+    },
+    {
+      "id": "collision",
+      "request": "Calculate the baggage-inclusive total for these two exact offers.",
+      "expected": "reject",
+      "reason": "A neighboring travel skill owns this result."
+    }
+  ]
+}

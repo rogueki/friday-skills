@@ -1,0 +1,23 @@
+{
+  "skill": "friday-photobook-planner",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Please create a family photobook chapter and page plan with image selection, captions and print preparation.",
+      "expected": "select",
+      "reason": "This requests friday-photobook-planner's distinct deliverable."
+    },
+    {
+      "id": "negative",
+      "request": "Send the family album to a public social account now.",
+      "expected": "reject",
+      "reason": "Publication is a separate authorized action outside this skill."
+    },
+    {
+      "id": "collision",
+      "request": "Inventory all disks and detect corrupted files.",
+      "expected": "reject",
+      "reason": "A neighboring curation, archive or intake skill owns this outcome."
+    }
+  ]
+}

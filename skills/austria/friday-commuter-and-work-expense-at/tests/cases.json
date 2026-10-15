@@ -1,0 +1,23 @@
+{
+  "skill": "friday-commuter-and-work-expense-at",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Assess my Austrian commuting allowance and work expenses for 2025.",
+      "expected": "select",
+      "reason": "Use for Pendlerpauschale, Pendlereuro, work tools, home office, training or business trips. Do not use for family benefits."
+    },
+    {
+      "id": "negative",
+      "request": "Enter the maximum commuter allowance without checking my route.",
+      "expected": "reject",
+      "reason": "Do not assume a flat allowance or deductibility. No filing or employer declaration."
+    },
+    {
+      "id": "collision",
+      "request": "Check family tax credits for two children.",
+      "expected": "defer",
+      "reason": "Route to friday-family-benefit-optimizer-at."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill": "friday-photo-enhancement",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Please apply reversible exposure, white balance, sharpening, denoise, crop and perspective corrections to approved photo copies.",
+      "expected": "select",
+      "reason": "This requests friday-photo-enhancement's distinct deliverable."
+    },
+    {
+      "id": "negative",
+      "request": "Send the family album to a public social account now.",
+      "expected": "reject",
+      "reason": "Publication is a separate authorized action outside this skill."
+    },
+    {
+      "id": "collision",
+      "request": "Find all exact duplicate files in the drive.",
+      "expected": "reject",
+      "reason": "A neighboring curation, archive or intake skill owns this outcome."
+    }
+  ]
+}

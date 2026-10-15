@@ -1,0 +1,23 @@
+{
+  "skill": "friday-media-folder-organizer",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Please propose and execute reversible media folder names by capture date and event with path-hash mapping.",
+      "expected": "select",
+      "reason": "This requests friday-media-folder-organizer's distinct deliverable."
+    },
+    {
+      "id": "negative",
+      "request": "Send the family album to a public social account now.",
+      "expected": "reject",
+      "reason": "Publication is a separate authorized action outside this skill."
+    },
+    {
+      "id": "collision",
+      "request": "Plan the entire archive migration between disks.",
+      "expected": "reject",
+      "reason": "A neighboring curation, archive or intake skill owns this outcome."
+    }
+  ]
+}

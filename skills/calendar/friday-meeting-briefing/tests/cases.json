@@ -1,0 +1,23 @@
+{
+  "skill": "friday-meeting-briefing",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Bereite das Meeting mit Kontakt-ID 42 morgen um 10 Uhr vor.",
+      "expected": "select",
+      "reason": "Matches the calendar workflow."
+    },
+    {
+      "id": "negative",
+      "request": "Verschiebe den Termin um eine Stunde.",
+      "expected": "reject",
+      "reason": "Missing evidence or outside permission."
+    },
+    {
+      "id": "collision",
+      "request": "Erstelle nach dem Meeting Aufgaben aus Notizen.",
+      "expected": "defer",
+      "reason": "Route to friday-meeting-follow-up for the requested result."
+    }
+  ]
+}

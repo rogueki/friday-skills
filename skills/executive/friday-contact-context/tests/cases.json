@@ -1,0 +1,23 @@
+{
+  "skill": "friday-contact-context",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Gib mir Gesprächskontext zu Kontakt-ID 42.",
+      "expected": "select",
+      "reason": "Specific intent and evidence fit."
+    },
+    {
+      "id": "negative",
+      "request": "Profiliere heimlich alle Kollegen.",
+      "expected": "reject",
+      "reason": "Outside the stated purpose or permission."
+    },
+    {
+      "id": "collision",
+      "request": "Erstelle das Meeting-Briefing für morgen.",
+      "expected": "defer",
+      "reason": "Route to friday-meeting-briefing for that outcome."
+    }
+  ]
+}

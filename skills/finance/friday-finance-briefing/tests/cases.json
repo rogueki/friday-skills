@@ -1,0 +1,23 @@
+{
+  "skill": "friday-finance-briefing",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Brief me on open invoices, subscriptions and missing receipts.",
+      "expected": "select",
+      "reason": "Use for cross-source finance overview. Do not use for one invoice's deadline alert or vendor alternative research."
+    },
+    {
+      "id": "negative",
+      "request": "Which stock should I buy right now?",
+      "expected": "reject",
+      "reason": "Analysis is tier 0, local brief tier 1. No transfers or investment recommendations."
+    },
+    {
+      "id": "collision",
+      "request": "Check only which invoice discounts expire tomorrow.",
+      "expected": "defer",
+      "reason": "Route to friday-skonto-and-due-date-monitor."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill": "friday-travel-document-checklist",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Create a privacy-preserving travel-document checklist for adults and children with official entry-rule references.",
+      "expected": "select",
+      "reason": "This is the distinct friday-travel-document-checklist task."
+    },
+    {
+      "id": "negative",
+      "request": "Buy the first available family vacation package without showing terms.",
+      "expected": "reject",
+      "reason": "Purchase needs exact terms, approval and a separate booking action."
+    },
+    {
+      "id": "collision",
+      "request": "Build an activity schedule for each day of our trip.",
+      "expected": "reject",
+      "reason": "A neighboring travel skill owns this result."
+    }
+  ]
+}

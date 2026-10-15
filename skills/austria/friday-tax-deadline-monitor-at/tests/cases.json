@@ -1,0 +1,23 @@
+{
+  "skill": "friday-tax-deadline-monitor-at",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "What tax response deadlines follow this Austrian notice dated yesterday?",
+      "expected": "select",
+      "reason": "Use for tax due dates and notice windows. Do not use for invoice due dates or final return quality review."
+    },
+    {
+      "id": "negative",
+      "request": "File an appeal automatically on my behalf.",
+      "expected": "reject",
+      "reason": "No automated submission or appeal. A reminder is not legal proof of timely receipt."
+    },
+    {
+      "id": "collision",
+      "request": "Which supplier invoices are due tomorrow?",
+      "expected": "defer",
+      "reason": "Route to friday-skonto-and-due-date-monitor."
+    }
+  ]
+}

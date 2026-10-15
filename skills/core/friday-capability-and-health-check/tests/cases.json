@@ -1,0 +1,23 @@
+{
+  "skill": "friday-capability-and-health-check",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Pruefe, ob mail.read aktuell gesund und authentifiziert verfuegbar ist.",
+      "expected": "select",
+      "reason": "Directly matches this skill intent."
+    },
+    {
+      "id": "negative",
+      "request": "Sende die E-Mail an den Kunden.",
+      "expected": "reject",
+      "reason": "Outside the skill scope or requires another specialist."
+    },
+    {
+      "id": "collision",
+      "request": "Ein Skill behauptet, Loxone sei installiert, aber der Adapterstatus fehlt.",
+      "expected": "defer",
+      "reason": "Requires trust, routing, or policy clarification before execution."
+    }
+  ]
+}

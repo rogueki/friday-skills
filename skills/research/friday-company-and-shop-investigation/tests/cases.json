@@ -1,0 +1,23 @@
+{
+  "skill": "friday-company-and-shop-investigation",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Check the public register, imprint, domain and returns terms for this named shop.",
+      "expected": "select",
+      "reason": "A specific business needs due diligence."
+    },
+    {
+      "id": "negative",
+      "request": "Buy the item from that shop.",
+      "expected": "reject",
+      "reason": "A purchase is an external action."
+    },
+    {
+      "id": "collision",
+      "request": "Map the competitive positioning of a whole category.",
+      "expected": "defer",
+      "reason": "Market analysis owns broad competitor mapping."
+    }
+  ]
+}

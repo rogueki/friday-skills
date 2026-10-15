@@ -1,0 +1,23 @@
+{
+  "skill": "friday-telegram-communication",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Sende mir die freigegebene Statusmeldung per Telegram.",
+      "expected": "select",
+      "reason": "Matches the specific communication workflow."
+    },
+    {
+      "id": "negative",
+      "request": "Lege ein Telegram-Konto an.",
+      "expected": "reject",
+      "reason": "Outside scope or violates channel rules."
+    },
+    {
+      "id": "collision",
+      "request": "Verschicke diese WhatsApp-Nachricht.",
+      "expected": "defer",
+      "reason": "Route to friday-whatsapp-communication for that intent."
+    }
+  ]
+}

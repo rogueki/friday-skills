@@ -1,0 +1,23 @@
+{
+  "skill": "friday-weather",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Wie wird das Wetter morgen in Graz?",
+      "expected": "select",
+      "reason": "Matches the specific weather intent."
+    },
+    {
+      "id": "negative",
+      "request": "Sag mir ohne Daten den exakten Niederschlag nächstes Jahr.",
+      "expected": "reject",
+      "reason": "Unsupported certainty or external action."
+    },
+    {
+      "id": "collision",
+      "request": "Gib mir mein komplettes Morgenbriefing.",
+      "expected": "defer",
+      "reason": "Route to friday-morning-briefing for that requested output."
+    }
+  ]
+}

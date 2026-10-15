@@ -1,0 +1,23 @@
+{
+  "skill": "friday-executive-escalation",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Bewerte diesen kritischen Serveralarm für Eskalation.",
+      "expected": "select",
+      "reason": "Specific intent and evidence fit."
+    },
+    {
+      "id": "negative",
+      "request": "Schreibe eine höfliche Mailantwort.",
+      "expected": "reject",
+      "reason": "Outside the stated purpose or permission."
+    },
+    {
+      "id": "collision",
+      "request": "Ruf mich wegen des bestätigten P0-Alarms an.",
+      "expected": "defer",
+      "reason": "Route to friday-phone-call-coordinator for that outcome."
+    }
+  ]
+}

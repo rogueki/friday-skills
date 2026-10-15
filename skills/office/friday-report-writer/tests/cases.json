@@ -1,0 +1,23 @@
+{
+  "skill": "friday-report-writer",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Turn these verified audit findings into an executive report with citations.",
+      "expected": "select",
+      "reason": "Evidence must become a report."
+    },
+    {
+      "id": "negative",
+      "request": "Find whether the alleged issue is true using web sources.",
+      "expected": "reject",
+      "reason": "Underlying investigation comes first."
+    },
+    {
+      "id": "collision",
+      "request": "Lay out this approved report text in a branded DOCX.",
+      "expected": "defer",
+      "reason": "Word document builder owns file production."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill": "friday-powerpoint-ci-builder",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Build a deck theme from our approved PPTX template and logo rules.",
+      "expected": "select",
+      "reason": "Brand layout construction is the target."
+    },
+    {
+      "id": "negative",
+      "request": "Research competitors for a pitch.",
+      "expected": "reject",
+      "reason": "This is research, not template construction."
+    },
+    {
+      "id": "collision",
+      "request": "Make the argument more persuasive without changing the theme.",
+      "expected": "defer",
+      "reason": "Presentation director or enhancer owns the narrative."
+    }
+  ]
+}

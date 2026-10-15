@@ -1,0 +1,23 @@
+{
+  "skill": "friday-daily-priority-planner",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Plane meinen Arbeitstag realistisch um zwei Meetings herum.",
+      "expected": "select",
+      "reason": "Specific intent and evidence fit."
+    },
+    {
+      "id": "negative",
+      "request": "Welche Aufgaben wurden gestern abgeschlossen?",
+      "expected": "reject",
+      "reason": "Outside the stated purpose or permission."
+    },
+    {
+      "id": "collision",
+      "request": "Zeige nur heutige Termine.",
+      "expected": "defer",
+      "reason": "Route to friday-calendar-manager for that outcome."
+    }
+  ]
+}

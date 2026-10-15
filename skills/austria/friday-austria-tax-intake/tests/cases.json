@@ -1,0 +1,23 @@
+{
+  "skill": "friday-austria-tax-intake",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Prepare my 2025 Austrian tax document checklist from these records.",
+      "expected": "select",
+      "reason": "Use to collect Austrian tax inputs. Do not use for final return review or FinanzOnline field entry."
+    },
+    {
+      "id": "negative",
+      "request": "Submit my return to FinanzOnline.",
+      "expected": "reject",
+      "reason": "Keep personal tax data only in authorized private storage. No FinanzOnline login or submission."
+    },
+    {
+      "id": "collision",
+      "request": "Perform final review of the completed Austrian return.",
+      "expected": "defer",
+      "reason": "Route to friday-tax-review-at."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill": "friday-meeting-request-coordinator",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Finde drei Termine für ein Meeting mit Wien und London nächste Woche.",
+      "expected": "select",
+      "reason": "Matches the calendar workflow."
+    },
+    {
+      "id": "negative",
+      "request": "Wie sieht nur mein heutiger Kalender aus?",
+      "expected": "reject",
+      "reason": "Missing evidence or outside permission."
+    },
+    {
+      "id": "collision",
+      "request": "Gib mir Inhalt und offene Fragen für das bereits geplante Meeting.",
+      "expected": "defer",
+      "reason": "Route to friday-meeting-briefing for the requested result."
+    }
+  ]
+}

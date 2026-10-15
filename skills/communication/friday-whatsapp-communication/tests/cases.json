@@ -1,0 +1,23 @@
+{
+  "skill": "friday-whatsapp-communication",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Schicke meinem bestätigten Kontakt nach Freigabe diese WhatsApp.",
+      "expected": "select",
+      "reason": "Matches the specific communication workflow."
+    },
+    {
+      "id": "negative",
+      "request": "Sende dieselbe Werbung an 500 Nummern.",
+      "expected": "reject",
+      "reason": "Outside scope or violates channel rules."
+    },
+    {
+      "id": "collision",
+      "request": "Schicke stattdessen per Telegram.",
+      "expected": "defer",
+      "reason": "Route to friday-telegram-communication for that intent."
+    }
+  ]
+}

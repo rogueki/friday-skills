@@ -1,0 +1,23 @@
+{
+  "skill": "friday-project-context-builder",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Create a current project overview from scope, decisions, tasks and repository facts.",
+      "expected": "select",
+      "reason": "A source-linked project snapshot is needed."
+    },
+    {
+      "id": "negative",
+      "request": "Restore a broken production service.",
+      "expected": "reject",
+      "reason": "This is incident recovery, not context building."
+    },
+    {
+      "id": "collision",
+      "request": "Deduplicate our whole wiki and fix its links.",
+      "expected": "defer",
+      "reason": "Knowledge base curator owns corpus maintenance."
+    }
+  ]
+}

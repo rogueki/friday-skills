@@ -1,0 +1,23 @@
+{
+  "skill": "friday-powerpoint-animation-director",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Create a click-by-click reveal sequence matching my talk notes.",
+      "expected": "select",
+      "reason": "Motion timing and speaker cues are requested."
+    },
+    {
+      "id": "negative",
+      "request": "Correct the market size cited on slide 7.",
+      "expected": "reject",
+      "reason": "Factual correction is outside animation."
+    },
+    {
+      "id": "collision",
+      "request": "Check whether existing animations play correctly but do not edit.",
+      "expected": "defer",
+      "reason": "Presentation QA owns acceptance checks."
+    }
+  ]
+}

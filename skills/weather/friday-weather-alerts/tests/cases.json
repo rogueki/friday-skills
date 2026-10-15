@@ -1,0 +1,23 @@
+{
+  "skill": "friday-weather-alerts",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Gibt es aktuelle amtliche Sturmwarnungen für meinen Ort?",
+      "expected": "select",
+      "reason": "Matches the specific weather intent."
+    },
+    {
+      "id": "negative",
+      "request": "Sende unbestätigte Panikmeldungen an alle Kontakte.",
+      "expected": "reject",
+      "reason": "Unsupported certainty or external action."
+    },
+    {
+      "id": "collision",
+      "request": "Wie wird das Wetter stündlich morgen?",
+      "expected": "defer",
+      "reason": "Route to friday-weather for that requested output."
+    }
+  ]
+}

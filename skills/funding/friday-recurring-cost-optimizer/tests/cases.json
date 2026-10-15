@@ -1,0 +1,23 @@
+{
+  "skill": "friday-recurring-cost-optimizer",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Find the biggest cuts across my internet, phone and software subscriptions.",
+      "expected": "select",
+      "reason": "Use for multi-category recurring cost optimization. Do not use for only energy tariff pricing or contract deadline extraction."
+    },
+    {
+      "id": "negative",
+      "request": "Cancel every plan and buy replacements now.",
+      "expected": "reject",
+      "reason": "No cancellation, purchase or switch; messages are tier 2, contracts tier 3 with real adapters and approvals."
+    },
+    {
+      "id": "collision",
+      "request": "Compare just electricity tariffs for my Austrian meter.",
+      "expected": "defer",
+      "reason": "Route to friday-energy-tariff-scout."
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"events":[{"id":"c1","kind":"conflict","starts_at":"2026-10-15T12:30:00Z"},{"id":"c2","kind":"soon","starts_at":"2026-10-15T12:30:00Z"},{"id":"c3","kind":"timezone","starts_at":"2026-10-15T14:00:00+02:00"},{"id":"c4","kind":"private","starts_at":"2026-10-16T08:00:00Z"},{"id":"c5","kind":"meeting_no_context","starts_at":"2026-10-17T12:00:00Z"}]}

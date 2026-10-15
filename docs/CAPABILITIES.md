@@ -1,0 +1,13 @@
+# Capability contract
+
+A skill requests a capability; an authenticated adapter reports whether it exists **now**. Discovering a `SKILL.md` or seeing a tool name is not capability evidence. The local reference is `shared/schemas/capability.schema.json`; the optional gate is `shared.policy.capability_available`, which must be explicitly called by a trusted integration.
+
+The current record carries `name`, `mode`, `status`, `authenticated`, `rate_limited`, `permissions` and UTC `checked_at`. Optional `synthetic` identifies mock data; `authorized_workspace` marks a permitted local draft location. The Python helper accepts only `healthy`, authenticated, non-rate-limited records of the requested mode with the required permission, checked within five minutes. `mock` reads require `synthetic: true`; write permission is only available in `live`. An offline, stale, degraded or unknown record fails closed.
+
+```json
+{"name":"mail.read","mode":"mock","status":"healthy","authenticated":true,"rate_limited":false,"permissions":["read"],"checked_at":"2026-10-15T12:00:00Z","synthetic":true}
+```
+
+This is a **fixture example at its timestamp**, not a current or live mail capability. A real adapter must supply its own narrowly scoped record, declare the target/account outside logs, verify authentication and refresh on expiry or error. It must check actual adapter permissions, not grant them because a skill asks. Missing support yields `blocked` or a clearly labeled draft/mock result. Never silently substitute a different user's account, host or provider.
+
+Service categories in the plan include mail, calendar, contacts, payment preparation/execution, Loxone read/write, weather, Office worker, voice, filesystem and dashboard Control API. Each requires separate implementation and proof. The current repository includes local policy/mock code, not a full set of connectors. See [configuration](CONFIGURATION.md) and [operations](OPERATIONS.md).

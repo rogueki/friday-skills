@@ -1,0 +1,23 @@
+{
+  "skill": "friday-morning-briefing",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Gib mir heute Morgen die wichtigsten Termine, Mails, Fristen und Warnungen.",
+      "expected": "select",
+      "reason": "Requests a multi-source morning executive summary."
+    },
+    {
+      "id": "negative",
+      "request": "Schick das Briefing sofort ungeprüft an alle Kontakte.",
+      "expected": "reject",
+      "reason": "Mass delivery is not authorized by the briefing request."
+    },
+    {
+      "id": "collision",
+      "request": "Wie wird das Wetter morgen in Graz?",
+      "expected": "defer",
+      "reason": "Route a single forecast question to friday-weather."
+    }
+  ]
+}

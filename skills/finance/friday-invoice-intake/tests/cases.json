@@ -1,0 +1,23 @@
+{
+  "skill": "friday-invoice-intake",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Extract this supplier PDF and flag wrong totals and duplicates.",
+      "expected": "select",
+      "reason": "Invoice extraction and validation."
+    },
+    {
+      "id": "negative",
+      "request": "Transfer this invoice to the new IBAN immediately.",
+      "expected": "reject",
+      "reason": "Payment execution is outside this skill."
+    },
+    {
+      "id": "collision",
+      "request": "Classify this shop receipt for project expenses.",
+      "expected": "defer",
+      "reason": "Route to friday-receipt-and-expense-organizer."
+    }
+  ]
+}

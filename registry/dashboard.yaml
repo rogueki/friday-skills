@@ -1,0 +1,723 @@
+{
+  "delivery": "local_only",
+  "skills": {
+    "friday-approval-policy": {
+      "category": "core",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "core",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-archive-integrity-check": {
+      "category": "archive",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "archive",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-archive-inventory": {
+      "category": "archive",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "archive",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-archive-migrator": {
+      "category": "archive",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "archive",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-archive-reorganization-plan": {
+      "category": "archive",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "archive",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-audit-and-lineage": {
+      "category": "core",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "core",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-austria-funding-scout": {
+      "category": "funding",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "funding",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-austria-tax-intake": {
+      "category": "austria",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "austria",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-backup-manager": {
+      "category": "system",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "system",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-booking-preparation": {
+      "category": "travel",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "travel",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-calendar-manager": {
+      "category": "calendar",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "calendar",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-capability-and-health-check": {
+      "category": "core",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "core",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-commuter-and-work-expense-at": {
+      "category": "austria",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "austria",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-company-and-shop-investigation": {
+      "category": "research",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "research",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-contact-context": {
+      "category": "executive",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "executive",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-contract-and-subscription-monitor": {
+      "category": "finance",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "finance",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-cost-and-model-router": {
+      "category": "system",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "system",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-daily-priority-planner": {
+      "category": "executive",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "executive",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-dashboard-activity-publisher": {
+      "category": "core",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "core",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-deadline-and-reminder-manager": {
+      "category": "calendar",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "calendar",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-decision-brief": {
+      "category": "research",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "research",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-deep-research": {
+      "category": "research",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "research",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-document-intake": {
+      "category": "office",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "office",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-document-retention": {
+      "category": "knowledge",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "knowledge",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-duplicate-detector": {
+      "category": "archive",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "archive",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-energy-optimizer": {
+      "category": "home",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "home",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-energy-tariff-scout": {
+      "category": "funding",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "funding",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-error-recovery": {
+      "category": "core",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "core",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-evening-briefing": {
+      "category": "executive",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "executive",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-excel-analysis": {
+      "category": "office",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "office",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-executive-escalation": {
+      "category": "executive",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "executive",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-executive-mail-manager": {
+      "category": "communication",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "communication",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-executive-orchestrator": {
+      "category": "core",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "core",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-family-benefit-optimizer-at": {
+      "category": "austria",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "austria",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-family-destination-research": {
+      "category": "travel",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "travel",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-family-highlight-selector": {
+      "category": "media",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "media",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-family-itinerary-planner": {
+      "category": "travel",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "travel",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-family-travel-profile": {
+      "category": "travel",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "travel",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-file-classifier": {
+      "category": "knowledge",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "knowledge",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-finance-briefing": {
+      "category": "finance",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "finance",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-finanzonline-preparation": {
+      "category": "austria",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "austria",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-follow-up-manager": {
+      "category": "executive",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "executive",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-funding-eligibility-check": {
+      "category": "funding",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "funding",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-home-anomaly-monitor": {
+      "category": "home",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "home",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-home-scene-manager": {
+      "category": "home",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "home",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-input-trust-and-injection-defense": {
+      "category": "core",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "core",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-intent-and-skill-router": {
+      "category": "core",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "core",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-invoice-intake": {
+      "category": "finance",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "finance",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-knowledge-base-curator": {
+      "category": "knowledge",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "knowledge",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-loxone-control": {
+      "category": "home",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "home",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-loxone-status": {
+      "category": "home",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "home",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-mail-attachment-intake": {
+      "category": "communication",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "communication",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-mail-draft-writer": {
+      "category": "communication",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "communication",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-market-and-competitor-analysis": {
+      "category": "research",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "research",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-media-folder-organizer": {
+      "category": "media",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "media",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-media-intake": {
+      "category": "media",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "media",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-media-quality-review": {
+      "category": "archive",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "archive",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-meeting-briefing": {
+      "category": "calendar",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "calendar",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-meeting-follow-up": {
+      "category": "calendar",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "calendar",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-meeting-request-coordinator": {
+      "category": "calendar",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "calendar",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-memory-governance": {
+      "category": "core",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "core",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-morning-briefing": {
+      "category": "executive",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "executive",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-payment-preparation": {
+      "category": "finance",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "finance",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-phone-call-coordinator": {
+      "category": "communication",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "communication",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-photo-curator": {
+      "category": "media",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "media",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-photo-enhancement": {
+      "category": "media",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "media",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-photobook-planner": {
+      "category": "media",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "media",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-powerpoint-animation-director": {
+      "category": "office",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "office",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-powerpoint-ci-builder": {
+      "category": "office",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "office",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-powerpoint-enhancer": {
+      "category": "office",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "office",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-presentation-director": {
+      "category": "office",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "office",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-presentation-qa": {
+      "category": "office",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "office",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-project-context-builder": {
+      "category": "knowledge",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "knowledge",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-receipt-and-expense-organizer": {
+      "category": "finance",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "finance",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-recurring-cost-optimizer": {
+      "category": "funding",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "funding",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-report-writer": {
+      "category": "office",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "office",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-research-monitor": {
+      "category": "research",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "research",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-service-recovery": {
+      "category": "system",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "system",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-skill-health-and-curation": {
+      "category": "system",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "system",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-skonto-and-due-date-monitor": {
+      "category": "finance",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "finance",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-source-verification": {
+      "category": "research",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "research",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-speaker-identity-policy": {
+      "category": "voice",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "voice",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-storage-monitor": {
+      "category": "system",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "system",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-system-health": {
+      "category": "system",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "system",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-task-kanban-manager": {
+      "category": "core",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "core",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-tax-deadline-monitor-at": {
+      "category": "austria",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "austria",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-tax-review-at": {
+      "category": "austria",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "austria",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-telegram-communication": {
+      "category": "communication",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "communication",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-travel-document-checklist": {
+      "category": "travel",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "travel",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-trip-companion": {
+      "category": "travel",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "travel",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-trip-price-comparator": {
+      "category": "travel",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "travel",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-unified-conversation-summary": {
+      "category": "communication",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "communication",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-video-creator": {
+      "category": "media",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "media",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-voice-command-normalizer": {
+      "category": "voice",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "voice",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-voice-interaction-policy": {
+      "category": "voice",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "voice",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-weather": {
+      "category": "weather",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "weather",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-weather-alerts": {
+      "category": "weather",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "weather",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-weather-context-advice": {
+      "category": "weather",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "weather",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-web-research": {
+      "category": "research",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "research",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-whatsapp-communication": {
+      "category": "communication",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "communication",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-word-document-builder": {
+      "category": "office",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "office",
+      "progress_strategy": "indeterminate"
+    }
+  },
+  "states": [
+    "queued",
+    "working",
+    "waiting",
+    "waiting_approval",
+    "completed",
+    "partial",
+    "failed",
+    "blocked"
+  ],
+  "version": 1
+}

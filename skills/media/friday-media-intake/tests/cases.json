@@ -1,0 +1,23 @@
+{
+  "skill": "friday-media-intake",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Please register new family photos and videos with metadata, hashes and corruption checks while preserving originals; skip curation or moving.",
+      "expected": "select",
+      "reason": "This requests friday-media-intake's distinct deliverable."
+    },
+    {
+      "id": "negative",
+      "request": "Send the family album to a public social account now.",
+      "expected": "reject",
+      "reason": "Publication is a separate authorized action outside this skill."
+    },
+    {
+      "id": "collision",
+      "request": "Pick the best pictures for the birthday album.",
+      "expected": "reject",
+      "reason": "A neighboring curation, archive or intake skill owns this outcome."
+    }
+  ]
+}

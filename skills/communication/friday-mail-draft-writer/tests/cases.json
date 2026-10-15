@@ -1,0 +1,23 @@
+{
+  "skill": "friday-mail-draft-writer",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Entwirf eine Antwort auf Thread 12 zu Lieferzeit und Preis.",
+      "expected": "select",
+      "reason": "Matches the specific communication workflow."
+    },
+    {
+      "id": "negative",
+      "request": "Räume meinen Spamordner auf.",
+      "expected": "reject",
+      "reason": "Outside scope or violates channel rules."
+    },
+    {
+      "id": "collision",
+      "request": "Sortiere erst die gesamte Inbox.",
+      "expected": "defer",
+      "reason": "Route to friday-executive-mail-manager for that intent."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill": "friday-trip-price-comparator",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Calculate comparable family trip total costs including baggage, transfers, food, fees and cancellation terms.",
+      "expected": "select",
+      "reason": "This is the distinct friday-trip-price-comparator task."
+    },
+    {
+      "id": "negative",
+      "request": "Buy the first available family vacation package without showing terms.",
+      "expected": "reject",
+      "reason": "Purchase needs exact terms, approval and a separate booking action."
+    },
+    {
+      "id": "collision",
+      "request": "Prepare the traveler names and cancellation terms for the selected offer.",
+      "expected": "reject",
+      "reason": "A neighboring travel skill owns this result."
+    }
+  ]
+}

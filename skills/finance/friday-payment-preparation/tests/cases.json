@@ -1,0 +1,23 @@
+{
+  "skill": "friday-payment-preparation",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Prepare SEPA fields and calculate the offered discount.",
+      "expected": "select",
+      "reason": "Use for payment-field drafts and skonto calculations. Do not use to log in to a bank, execute a transfer or extract an unread invoice."
+    },
+    {
+      "id": "negative",
+      "request": "Log into my bank and send the transfer.",
+      "expected": "reject",
+      "reason": "Preparation is tier 1. Transfer is tier 3 with separate hard approval and second factor in a real banking adapter; this skill performs no banking action."
+    },
+    {
+      "id": "collision",
+      "request": "Extract supplier and IBAN from this unread PDF first.",
+      "expected": "defer",
+      "reason": "Route to friday-invoice-intake."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill": "friday-media-quality-review",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Flag visibly damaged, empty, badly exposed or very similar media for human archive review.",
+      "expected": "select",
+      "reason": "Requests the friday-media-quality-review result."
+    },
+    {
+      "id": "negative",
+      "request": "Delete all files that seem redundant immediately.",
+      "expected": "reject",
+      "reason": "Unreviewed deletion is outside this skill and requires exact target approval."
+    },
+    {
+      "id": "collision",
+      "request": "Find all bit-identical files by SHA-256.",
+      "expected": "reject",
+      "reason": "A neighboring archive skill owns this outcome."
+    }
+  ]
+}

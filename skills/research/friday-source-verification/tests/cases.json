@@ -1,0 +1,23 @@
+{
+  "skill": "friday-source-verification",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Check whether this official report actually supports the quoted statistic and is current.",
+      "expected": "select",
+      "reason": "A cited claim needs provenance and context."
+    },
+    {
+      "id": "negative",
+      "request": "Build an entire market entry strategy from scratch.",
+      "expected": "reject",
+      "reason": "A broad strategy exceeds source verification."
+    },
+    {
+      "id": "collision",
+      "request": "Compare ten competitors using their current prices.",
+      "expected": "defer",
+      "reason": "Market analysis owns a comparison."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill": "friday-home-scene-manager",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Preview the Night scene and activate its lights and shades after approval.",
+      "expected": "select",
+      "reason": "Use for named home scenes such as home, away, night or focus. Do not use for a single light setpoint or read-only status."
+    },
+    {
+      "id": "negative",
+      "request": "Create an Away scene that unlocks doors automatically.",
+      "expected": "reject",
+      "reason": "Mock/read_only may preview only. A scene is not approval for unseen changes. Security-critical devices are outside scope."
+    },
+    {
+      "id": "collision",
+      "request": "Dim only the kitchen light to 30%.",
+      "expected": "defer",
+      "reason": "Route to friday-loxone-control."
+    }
+  ]
+}

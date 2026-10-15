@@ -1,0 +1,1321 @@
+{
+  "product": "F.R.I.D.A.Y.",
+  "routes": [
+    {
+      "id": "approval-policy",
+      "intents": [
+        "approval_policy"
+      ],
+      "preferred_model": "local",
+      "risk_tier": 3,
+      "skills": [
+        "friday-approval-policy"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Classify F.R.I.D.A.Y. actions into risk tiers and prepare action-bound approvals before external or irreversible changes."
+    },
+    {
+      "id": "archive-integrity-check",
+      "intents": [
+        "archive_integrity_check"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-archive-integrity-check"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Compare source, destination and backup manifests by hashes, counts, readability and tree structure."
+    },
+    {
+      "id": "archive-inventory",
+      "intents": [
+        "archive_inventory"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-archive-inventory"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Inventory disks and folders read-only with file types, sizes, date ranges, duplicates suspicion, damage and backup evidence."
+    },
+    {
+      "id": "archive-migrator",
+      "intents": [
+        "archive_migrator"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 2,
+      "skills": [
+        "friday-archive-migrator"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Execute approved archive batches copy-first with hash checks, resume log and rollback manifest."
+    },
+    {
+      "id": "archive-reorganization-plan",
+      "intents": [
+        "archive_reorganization_plan"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-archive-reorganization-plan"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Design a conflict-aware archive target tree and reversible copy or move manifest before execution."
+    },
+    {
+      "id": "audit-and-lineage",
+      "intents": [
+        "audit_and_lineage"
+      ],
+      "preferred_model": "local",
+      "risk_tier": 0,
+      "skills": [
+        "friday-audit-and-lineage"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Assemble redacted action, source, approval and artifact lineage for F.R.I.D.A.Y. tasks when an audit trail is required."
+    },
+    {
+      "id": "austria-funding-scout",
+      "intents": [
+        "austria_funding_scout"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-austria-funding-scout"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Find current Austrian funding programs by region and project with official dated source evidence; no application."
+    },
+    {
+      "id": "austria-tax-intake",
+      "intents": [
+        "austria_tax_intake"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-austria-tax-intake"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Build an evidence-linked Austrian tax case inventory and missing-document list; no filing or eligibility ruling."
+    },
+    {
+      "id": "backup-manager",
+      "intents": [
+        "backup_manager"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 3,
+      "skills": [
+        "friday-backup-manager"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Plan and verify policy-compliant backups and restore drills for F.R.I.D.A.Y. configuration and data; use when backup coverage, integrity, encryption or restore evidence is needed."
+    },
+    {
+      "id": "booking-preparation",
+      "intents": [
+        "booking_preparation"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-booking-preparation"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Prepare a verified family booking summary and draft without making a purchase."
+    },
+    {
+      "id": "calendar-manager",
+      "intents": [
+        "calendar_manager"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 2,
+      "skills": [
+        "friday-calendar-manager"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Read availability, conflicts and agenda or prepare a calendar event draft; not meeting content research."
+    },
+    {
+      "id": "capability-and-health-check",
+      "intents": [
+        "capability_and_health_check"
+      ],
+      "preferred_model": "local",
+      "risk_tier": 0,
+      "skills": [
+        "friday-capability-and-health-check"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Verify fresh adapter availability, authentication, mode and permission before a F.R.I.D.A.Y. task uses an integration."
+    },
+    {
+      "id": "commuter-and-work-expense-at",
+      "intents": [
+        "commuter_and_work_expense_at"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-commuter-and-work-expense-at"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Assess Austrian commuting and work-expense candidates using tax-year rules and documented travel/work facts."
+    },
+    {
+      "id": "company-and-shop-investigation",
+      "intents": [
+        "company_and_shop_investigation"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-company-and-shop-investigation"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Investigate a named company's or shop's public identity, terms, reputation and operational signals with attributed findings."
+    },
+    {
+      "id": "contact-context",
+      "intents": [
+        "contact_context"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-contact-context"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Assemble an evidence-backed person and organization context card; not covert profiling."
+    },
+    {
+      "id": "contract-and-subscription-monitor",
+      "intents": [
+        "contract_and_subscription_monitor"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-contract-and-subscription-monitor"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Extract renewal, cancellation and price-change terms from supplied contracts; monitor only with a scheduler."
+    },
+    {
+      "id": "cost-and-model-router",
+      "intents": [
+        "cost_and_model_router"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-cost-and-model-router"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Recommend a model route from task complexity, risk, context, latency, cost and tool needs; use when selecting among configured local Qwen and Kimi quality tiers."
+    },
+    {
+      "id": "daily-priority-planner",
+      "intents": [
+        "daily_priority_planner"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-daily-priority-planner"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Build a feasible daily schedule from fixed events and task estimates; not a retrospective briefing."
+    },
+    {
+      "id": "dashboard-activity-publisher",
+      "intents": [
+        "dashboard_activity_publisher"
+      ],
+      "preferred_model": "local",
+      "risk_tier": 0,
+      "skills": [
+        "friday-dashboard-activity-publisher"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Prepare local F.R.I.D.A.Y. skill lifecycle records and map them to real dashboard task/activity events only through a verified adapter."
+    },
+    {
+      "id": "deadline-and-reminder-manager",
+      "intents": [
+        "deadline_and_reminder_manager"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-deadline-and-reminder-manager"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Reconcile dated obligations and reminders from multiple sources without duplicates; not a calendar event editor."
+    },
+    {
+      "id": "decision-brief",
+      "intents": [
+        "decision_brief"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-decision-brief"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Turn verified options into a concise decision brief with criteria, cost, risk, uncertainty and a recommended next step."
+    },
+    {
+      "id": "deep-research",
+      "intents": [
+        "deep_research"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-deep-research"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Run multi-question research with a source strategy, evidence matrix, contradiction checks and explicit limits."
+    },
+    {
+      "id": "document-intake",
+      "intents": [
+        "document_intake"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-document-intake"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Safely ingest a provided PDF, Office file, image, email or text into a classified extraction record while keeping the original intact."
+    },
+    {
+      "id": "document-retention",
+      "intents": [
+        "document_retention"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 2,
+      "skills": [
+        "friday-document-retention"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Decide whether documents should be kept, archived, reviewed or proposed for deletion using current jurisdictional rules and legal holds."
+    },
+    {
+      "id": "duplicate-detector",
+      "intents": [
+        "duplicate_detector"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-duplicate-detector"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Group exact and near duplicate archive files without automatically deleting any version."
+    },
+    {
+      "id": "energy-optimizer",
+      "intents": [
+        "energy_optimizer"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-energy-optimizer"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Analyze home PV, battery, load and weather data for comfort-aware energy recommendations; no automatic control."
+    },
+    {
+      "id": "energy-tariff-scout",
+      "intents": [
+        "energy_tariff_scout"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-energy-tariff-scout"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Compare current Austrian energy tariff total costs using consumption and contract terms; no switch."
+    },
+    {
+      "id": "error-recovery",
+      "intents": [
+        "error_recovery"
+      ],
+      "preferred_model": "local",
+      "risk_tier": 0,
+      "skills": [
+        "friday-error-recovery"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Recover from F.R.I.D.A.Y. tool and adapter failures with bounded retries, idempotency and partial-success accounting."
+    },
+    {
+      "id": "evening-briefing",
+      "intents": [
+        "evening_briefing"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-evening-briefing"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Summarize verified outcomes today and decisions, deadlines and appointments tomorrow; not a morning plan."
+    },
+    {
+      "id": "excel-analysis",
+      "intents": [
+        "excel_analysis"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-excel-analysis"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Analyze a workbook's sheets, formulas and anomalies, then produce a traceable summary without changing accounting records."
+    },
+    {
+      "id": "executive-escalation",
+      "intents": [
+        "executive_escalation"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 2,
+      "skills": [
+        "friday-executive-escalation"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Choose urgency and channel for a verified alert using quiet hours and impact; not ordinary drafting."
+    },
+    {
+      "id": "executive-mail-manager",
+      "intents": [
+        "mail_triage"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-executive-mail-manager"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Classify and prioritize inbox threads, detect action intents and propose next steps; not a final send operation."
+    },
+    {
+      "id": "executive-orchestrator",
+      "intents": [
+        "executive_orchestrator"
+      ],
+      "preferred_model": "local",
+      "risk_tier": 3,
+      "skills": [
+        "friday-executive-orchestrator"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Coordinate multi-step F.R.I.D.A.Y. requests across skills, capabilities and approval gates; skip for one clear specialist task."
+    },
+    {
+      "id": "family-benefit-optimizer-at",
+      "intents": [
+        "family_benefit_optimizer_at"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-family-benefit-optimizer-at"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Screen Austrian family tax benefits against current official rules and documented household facts; no eligibility guarantee."
+    },
+    {
+      "id": "family-destination-research",
+      "intents": [
+        "family_destination_research"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-family-destination-research"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Compare family destinations by season, safety, child suitability, cost and logistics using dated sources."
+    },
+    {
+      "id": "family-highlight-selector",
+      "intents": [
+        "family_highlight_selector"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-family-highlight-selector"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Select balanced family trip, birthday and school highlights across people and moments for a requested story."
+    },
+    {
+      "id": "family-itinerary-planner",
+      "intents": [
+        "family_itinerary_planner"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-family-itinerary-planner"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Build a flexible family itinerary with rest, meals, weather alternatives and arrival buffers."
+    },
+    {
+      "id": "family-travel-profile",
+      "intents": [
+        "family_travel_profile"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-family-travel-profile"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Maintain a revisable family travel preference profile with age-at-trip, budget and privacy controls."
+    },
+    {
+      "id": "file-classifier",
+      "intents": [
+        "file_classifier"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-file-classifier"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Classify a provided file by project, type, sensitivity, date, retention and duplicate likelihood before routing it."
+    },
+    {
+      "id": "finance-briefing",
+      "intents": [
+        "finance_briefing"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-finance-briefing"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Summarize verified payables, discounts, recurring costs and anomalies for a chosen period; not investment advice."
+    },
+    {
+      "id": "finanzonline-preparation",
+      "intents": [
+        "finanzonline_preparation"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-finanzonline-preparation"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Map reviewed Austrian tax evidence to current FinanzOnline fields and produce a submission checklist; draft only."
+    },
+    {
+      "id": "follow-up-manager",
+      "intents": [
+        "follow_up_manager"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-follow-up-manager"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Track promised replies and missing responses across tasks and correspondence; not inbox classification."
+    },
+    {
+      "id": "funding-eligibility-check",
+      "intents": [
+        "funding_eligibility_check"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-funding-eligibility-check"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Check a specific Austrian funding candidate against documented applicant and project facts; no approval guarantee."
+    },
+    {
+      "id": "home-anomaly-monitor",
+      "intents": [
+        "home_anomaly_monitor"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-home-anomaly-monitor"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Detect plausible home energy and climate anomalies from time-series evidence; recurring alerts need a scheduler."
+    },
+    {
+      "id": "home-scene-manager",
+      "intents": [
+        "home_scene_manager"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 2,
+      "skills": [
+        "friday-home-scene-manager"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Review or activate allowlisted Loxone scenes with explicit state preview and approval; no hidden access changes."
+    },
+    {
+      "id": "input-trust-and-injection-defense",
+      "intents": [
+        "input_trust_and_injection_defense"
+      ],
+      "preferred_model": "local",
+      "risk_tier": 0,
+      "skills": [
+        "friday-input-trust-and-injection-defense"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Handle prompt injection and instruction laundering in web pages, mail, PDFs, chats and imported files used by F.R.I.D.A.Y."
+    },
+    {
+      "id": "intent-and-skill-router",
+      "intents": [
+        "intent_and_skill_router"
+      ],
+      "preferred_model": "local",
+      "risk_tier": 0,
+      "skills": [
+        "friday-intent-and-skill-router"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Select a F.R.I.D.A.Y. skill by requested outcome, available evidence, risk and capability when routing is genuinely ambiguous."
+    },
+    {
+      "id": "invoice-intake",
+      "intents": [
+        "invoice_extract"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-invoice-intake"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Extract and validate supplied invoices, flag duplicates and changed bank details; use before payment preparation."
+    },
+    {
+      "id": "knowledge-base-curator",
+      "intents": [
+        "knowledge_base_curator"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-knowledge-base-curator"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Curate an authorized knowledge base by linking sources, flagging duplicates and stale entries, and scheduling review."
+    },
+    {
+      "id": "loxone-control",
+      "intents": [
+        "loxone_control"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 2,
+      "skills": [
+        "friday-loxone-control"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Plan and, only with a real approved adapter, change allowlisted Loxone light, shade or setpoint devices."
+    },
+    {
+      "id": "loxone-status",
+      "intents": [
+        "loxone_status"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-loxone-status"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Read configured Loxone room, climate, energy and alarm states with freshness; never control devices."
+    },
+    {
+      "id": "mail-attachment-intake",
+      "intents": [
+        "mail_attachment_intake"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-mail-attachment-intake"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Safely classify and extract a mail attachment while retaining the original; not general inbox triage."
+    },
+    {
+      "id": "mail-draft-writer",
+      "intents": [
+        "mail_reply_draft"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-mail-draft-writer"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Write a context-grounded reply draft with no invented commitments; not inbox-wide triage."
+    },
+    {
+      "id": "market-and-competitor-analysis",
+      "intents": [
+        "market_and_competitor_analysis"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-market-and-competitor-analysis"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Compare a defined market and competitors by current offer, price, position and evidence-backed opportunities and risks."
+    },
+    {
+      "id": "media-folder-organizer",
+      "intents": [
+        "media_folder_organizer"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-media-folder-organizer"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Propose and execute reversible media folder names by capture date and event with path-hash mapping."
+    },
+    {
+      "id": "media-intake",
+      "intents": [
+        "media_intake"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-media-intake"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Register new family photos and videos with metadata, hashes and corruption checks while preserving originals; skip curation or moving."
+    },
+    {
+      "id": "media-quality-review",
+      "intents": [
+        "media_quality_review"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-media-quality-review"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Flag visibly damaged, empty, badly exposed or very similar media for human archive review."
+    },
+    {
+      "id": "meeting-briefing",
+      "intents": [
+        "meeting_briefing"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-meeting-briefing"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Prepare a meeting-specific decision brief from authorized calendar, mail, task and document context; not rescheduling."
+    },
+    {
+      "id": "meeting-follow-up",
+      "intents": [
+        "meeting_follow_up"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-meeting-follow-up"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Turn actual meeting notes into decisions, owned tasks and a reviewed follow-up draft; not speculative meeting preparation."
+    },
+    {
+      "id": "meeting-request-coordinator",
+      "intents": [
+        "meeting_request_coordinator"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 2,
+      "skills": [
+        "friday-meeting-request-coordinator"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Coordinate multi-person meeting options and invitation draft across timezones; not a private agenda query."
+    },
+    {
+      "id": "memory-governance",
+      "intents": [
+        "memory_governance"
+      ],
+      "preferred_model": "local",
+      "risk_tier": 1,
+      "skills": [
+        "friday-memory-governance"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Evaluate durable F.R.I.D.A.Y. memory candidates, conflicts and deletion requests with provenance and write controls."
+    },
+    {
+      "id": "morning-briefing",
+      "intents": [
+        "morning_briefing"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-morning-briefing"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Prepare a bounded morning executive briefing from current agenda, messages, tasks, deadlines and alerts; not a weather-only answer."
+    },
+    {
+      "id": "payment-preparation",
+      "intents": [
+        "payment_prepare"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-payment-preparation"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Prepare a reviewable SEPA payment draft from verified invoice evidence; never initiate banking."
+    },
+    {
+      "id": "phone-call-coordinator",
+      "intents": [
+        "phone_call_coordinator"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 2,
+      "skills": [
+        "friday-phone-call-coordinator"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Prepare and coordinate an authorized call or owner alert through telephony; not text messaging."
+    },
+    {
+      "id": "photo-curator",
+      "intents": [
+        "photo_curator"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-photo-curator"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Rank and group family photos for review by image quality, duplicates, bursts and event context without automatic deletion."
+    },
+    {
+      "id": "photo-enhancement",
+      "intents": [
+        "photo_enhancement"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-photo-enhancement"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Apply reversible exposure, white balance, sharpening, denoise, crop and perspective corrections to approved photo copies."
+    },
+    {
+      "id": "photobook-planner",
+      "intents": [
+        "photobook_planner"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-photobook-planner"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Create a family photobook chapter and page plan with image selection, captions and print preparation."
+    },
+    {
+      "id": "powerpoint-animation-director",
+      "intents": [
+        "powerpoint_animation_director"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-powerpoint-animation-director"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Design and verify purposeful PowerPoint builds and transitions for a particular talk and audience."
+    },
+    {
+      "id": "powerpoint-ci-builder",
+      "intents": [
+        "powerpoint_ci_builder"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-powerpoint-ci-builder"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Build or repair PowerPoint brand styling from an authorized template, including layouts, typography and reusable chart rules."
+    },
+    {
+      "id": "powerpoint-enhancer",
+      "intents": [
+        "powerpoint_enhancer"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-powerpoint-enhancer"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Improve an existing deck's story, readability and visual consistency while preserving and comparing its original."
+    },
+    {
+      "id": "presentation-director",
+      "intents": [
+        "presentation_director"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-presentation-director"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Plan a presentation's audience, argument and slide sequence before production; hand off visual construction and file QA to their specialists."
+    },
+    {
+      "id": "presentation-qa",
+      "intents": [
+        "presentation_qa"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-presentation-qa"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Check a produced presentation for visual, factual, accessibility, playback and export defects before delivery."
+    },
+    {
+      "id": "project-context-builder",
+      "intents": [
+        "project_context_builder"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-project-context-builder"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Build a source-linked project context snapshot covering goals, stakeholders, decisions, tasks, timeline and risks."
+    },
+    {
+      "id": "receipt-and-expense-organizer",
+      "intents": [
+        "receipt_and_expense_organizer"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-receipt-and-expense-organizer"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Classify receipts by merchant, project and category with duplicate evidence; not a tax entitlement decision."
+    },
+    {
+      "id": "recurring-cost-optimizer",
+      "intents": [
+        "recurring_cost_optimizer"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-recurring-cost-optimizer"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Find defensible savings across recurring bills using usage, contract and switching costs; no cancellations."
+    },
+    {
+      "id": "report-writer",
+      "intents": [
+        "report_writer"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-report-writer"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Write an evidence-linked executive, research, comparison, status or audit report from verified inputs."
+    },
+    {
+      "id": "research-monitor",
+      "intents": [
+        "research_monitor"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-research-monitor"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Define or run a bounded watch for meaningful changes in named sources with deduplication and evidence of each alert."
+    },
+    {
+      "id": "service-recovery",
+      "intents": [
+        "service_recovery"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 3,
+      "skills": [
+        "friday-service-recovery"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Diagnose an unavailable or degraded F.R.I.D.A.Y. service and plan or perform only policy-approved recovery; use for controlled restart and recovery status."
+    },
+    {
+      "id": "skill-health-and-curation",
+      "intents": [
+        "skill_health_and_curation"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-skill-health-and-curation"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Audit a F.R.I.D.A.Y. skill collection for format, references, trigger collisions, stale claims, test coverage and security issues; use before a proposed skill maintenance release."
+    },
+    {
+      "id": "skonto-and-due-date-monitor",
+      "intents": [
+        "skonto_and_due_date_monitor"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-skonto-and-due-date-monitor"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Prioritize open invoice due dates and documented skonto windows; schedule checks only with a real hook."
+    },
+    {
+      "id": "source-verification",
+      "intents": [
+        "source_verification"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-source-verification"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Test the provenance, authority, recency and reproducibility of a source or a specific cited claim."
+    },
+    {
+      "id": "speaker-identity-policy",
+      "intents": [
+        "speaker_identity_policy"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-speaker-identity-policy"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Interpret speaker-verification states for voice requests and apply fail-closed identity policy; use when authorization depends on who is speaking."
+    },
+    {
+      "id": "storage-monitor",
+      "intents": [
+        "storage_monitor"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-storage-monitor"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Review fresh storage measurements, WSL virtual disk growth, logs, model caches, backups and temporary files; use to identify capacity risk and prepare a cleanup plan."
+    },
+    {
+      "id": "system-health",
+      "intents": [
+        "system_health"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-system-health"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Assess reported F.R.I.D.A.Y. stack and host health from fresh measurements; use for Hermes, Control API, models, voice, WSL, resources, storage, adapters or event-stream status."
+    },
+    {
+      "id": "task-kanban-manager",
+      "intents": [
+        "task_kanban_manager"
+      ],
+      "preferred_model": "local",
+      "risk_tier": 1,
+      "skills": [
+        "friday-task-kanban-manager"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Structure longer F.R.I.D.A.Y. tasks with dependencies, progress and evidence-based completion when a Kanban workflow is needed."
+    },
+    {
+      "id": "tax-deadline-monitor-at",
+      "intents": [
+        "tax_deadline_monitor_at"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-tax-deadline-monitor-at"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Track Austrian tax filing, response and appeal deadlines from dated official rules and case-specific notices."
+    },
+    {
+      "id": "tax-review-at",
+      "intents": [
+        "tax_review_at"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-tax-review-at"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Review an Austrian tax draft for evidence coverage, double counts and tax-year rule currency before human sign-off."
+    },
+    {
+      "id": "telegram-communication",
+      "intents": [
+        "telegram_communication"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 2,
+      "skills": [
+        "friday-telegram-communication"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Handle owner Telegram commands, approvals and delivery through a verified gateway; not a generic messaging promise."
+    },
+    {
+      "id": "travel-document-checklist",
+      "intents": [
+        "travel_document_checklist"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-travel-document-checklist"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Create a privacy-preserving travel-document checklist for adults and children with official entry-rule references."
+    },
+    {
+      "id": "trip-companion",
+      "intents": [
+        "trip_companion"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-trip-companion"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Provide day-of-trip plans and alternatives using current local conditions without exposing family location unnecessarily."
+    },
+    {
+      "id": "trip-price-comparator",
+      "intents": [
+        "trip_price_comparator"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-trip-price-comparator"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Calculate comparable family trip total costs including baggage, transfers, food, fees and cancellation terms."
+    },
+    {
+      "id": "unified-conversation-summary",
+      "intents": [
+        "unified_conversation_summary"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-unified-conversation-summary"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Summarize related conversations across channels with explicit identity linkage; not contact enrichment."
+    },
+    {
+      "id": "video-creator",
+      "intents": [
+        "video_creator"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-video-creator"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Plan and render a reviewed family film or highlight reel from authorized media with rights-safe audio."
+    },
+    {
+      "id": "voice-command-normalizer",
+      "intents": [
+        "voice_command_normalizer"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-voice-command-normalizer"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Convert a voice transcript into a bounded structured intent while preserving uncertainty; use for voice commands that may route to another skill or action."
+    },
+    {
+      "id": "voice-interaction-policy",
+      "intents": [
+        "voice_interaction_policy"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-voice-interaction-policy"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Apply F.R.I.D.A.Y. voice-session, privacy, interruption and response-length rules; use for spoken conversations and voice-originated requests."
+    },
+    {
+      "id": "weather",
+      "intents": [
+        "weather_current",
+        "weather_today",
+        "weather_tomorrow"
+      ],
+      "preferred_model": "local",
+      "risk_tier": 0,
+      "skills": [
+        "friday-weather"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Answer a current or forecast weather question for one location and horizon; not an executive briefing."
+    },
+    {
+      "id": "weather-alerts",
+      "intents": [
+        "weather_alerts"
+      ],
+      "preferred_model": "local",
+      "risk_tier": 2,
+      "skills": [
+        "friday-weather-alerts"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Assess official severe-weather warnings for a place and time window; not a routine forecast."
+    },
+    {
+      "id": "weather-context-advice",
+      "intents": [
+        "weather_context_advice"
+      ],
+      "preferred_model": "local",
+      "risk_tier": 0,
+      "skills": [
+        "friday-weather-context-advice"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Translate a fresh forecast into practical clothing, travel, school-run or energy suggestions; not a raw weather lookup."
+    },
+    {
+      "id": "web-research",
+      "intents": [
+        "web_research"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 0,
+      "skills": [
+        "friday-web-research"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Public web research with source attribution and bounded extraction."
+    },
+    {
+      "id": "whatsapp-communication",
+      "intents": [
+        "whatsapp_communication"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 2,
+      "skills": [
+        "friday-whatsapp-communication"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Coordinate authorized individual WhatsApp messages via a verified gateway; not bulk outreach."
+    },
+    {
+      "id": "word-document-builder",
+      "intents": [
+        "word_document_builder"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-word-document-builder"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Build a branded DOCX from approved content and template with styles, tables, page furniture and checked export."
+    }
+  ],
+  "version": 1
+}

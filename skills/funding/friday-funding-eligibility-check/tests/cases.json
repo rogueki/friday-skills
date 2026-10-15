@@ -1,0 +1,23 @@
+{
+  "skill": "friday-funding-eligibility-check",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Do my roof and timing meet this named Austrian PV grant?",
+      "expected": "select",
+      "reason": "Use after a program is identified to assess a particular project's fit. Do not use for broad discovery or submitting an application."
+    },
+    {
+      "id": "negative",
+      "request": "Guarantee the subsidy and submit the application.",
+      "expected": "reject",
+      "reason": "No application, contract signature or purchase. External filing needs actual adapter and approval by its action tier."
+    },
+    {
+      "id": "collision",
+      "request": "Find all new grants in Lower Austria for home renovation.",
+      "expected": "defer",
+      "reason": "Route to friday-austria-funding-scout."
+    }
+  ]
+}

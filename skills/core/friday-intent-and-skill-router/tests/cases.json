@@ -1,0 +1,23 @@
+{
+  "skill": "friday-intent-and-skill-router",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Welcher F.R.I.D.A.Y.-Skill passt zu einer Wetterwarnung?",
+      "expected": "select",
+      "reason": "Directly matches this skill intent."
+    },
+    {
+      "id": "negative",
+      "request": "Schreibe eine fertige Steuererklaerung.",
+      "expected": "reject",
+      "reason": "Outside the skill scope or requires another specialist."
+    },
+    {
+      "id": "collision",
+      "request": "Unterscheide Wetterfrage von Morgenbriefing.",
+      "expected": "defer",
+      "reason": "Requires trust, routing, or policy clarification before execution."
+    }
+  ]
+}

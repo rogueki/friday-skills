@@ -1,0 +1,23 @@
+{
+  "skill": "friday-document-intake",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Extract the key fields and page references from this supplied PDF invoice.",
+      "expected": "select",
+      "reason": "Format-aware intake and extraction are needed."
+    },
+    {
+      "id": "negative",
+      "request": "Delete all old invoices in this folder.",
+      "expected": "reject",
+      "reason": "Deletion is not intake."
+    },
+    {
+      "id": "collision",
+      "request": "Just label this file by project and sensitivity without extracting it.",
+      "expected": "defer",
+      "reason": "File classifier owns simple routing."
+    }
+  ]
+}

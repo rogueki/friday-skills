@@ -1,0 +1,23 @@
+{
+  "skill": "friday-executive-orchestrator",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Plane meine Mails, Termine und faelligen Rechnungen fuer diese Woche zusammen.",
+      "expected": "select",
+      "reason": "Directly matches this skill intent."
+    },
+    {
+      "id": "negative",
+      "request": "Wie wird morgen das Wetter?",
+      "expected": "reject",
+      "reason": "Outside the skill scope or requires another specialist."
+    },
+    {
+      "id": "collision",
+      "request": "Ordne eine reine Kalenderfrage bitte direkt dem Kalender-Skill zu.",
+      "expected": "defer",
+      "reason": "Requires trust, routing, or policy clarification before execution."
+    }
+  ]
+}

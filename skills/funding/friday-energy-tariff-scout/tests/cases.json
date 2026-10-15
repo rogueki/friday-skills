@@ -1,0 +1,23 @@
+{
+  "skill": "friday-energy-tariff-scout",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Compare Austrian electricity tariffs for 4,000 kWh and my PV feed-in.",
+      "expected": "select",
+      "reason": "Use for electricity or gas offer comparison. Do not use for broad subscription optimization or physical home energy control."
+    },
+    {
+      "id": "negative",
+      "request": "Switch my electricity provider now.",
+      "expected": "reject",
+      "reason": "No tariff switch, purchase or contract. Contract changes are tier 3 with real adapter and hard approval."
+    },
+    {
+      "id": "collision",
+      "request": "Audit all software and phone subscriptions for cuts.",
+      "expected": "defer",
+      "reason": "Route to friday-recurring-cost-optimizer."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill": "friday-video-creator",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Please plan and render a reviewed family film or highlight reel from authorized media with rights-safe audio.",
+      "expected": "select",
+      "reason": "This requests friday-video-creator's distinct deliverable."
+    },
+    {
+      "id": "negative",
+      "request": "Send the family album to a public social account now.",
+      "expected": "reject",
+      "reason": "Publication is a separate authorized action outside this skill."
+    },
+    {
+      "id": "collision",
+      "request": "Choose ten still photos for a photobook.",
+      "expected": "reject",
+      "reason": "A neighboring curation, archive or intake skill owns this outcome."
+    }
+  ]
+}

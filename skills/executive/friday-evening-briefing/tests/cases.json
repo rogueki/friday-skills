@@ -1,0 +1,23 @@
+{
+  "skill": "friday-evening-briefing",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Fasse meinen heutigen Stand und morgen anstehende Entscheidungen zusammen.",
+      "expected": "select",
+      "reason": "Specific intent and evidence fit."
+    },
+    {
+      "id": "negative",
+      "request": "Wie ist das Wetter morgen?",
+      "expected": "reject",
+      "reason": "Outside the stated purpose or permission."
+    },
+    {
+      "id": "collision",
+      "request": "Plane mir heute Fokusblöcke.",
+      "expected": "defer",
+      "reason": "Route to friday-daily-priority-planner for that outcome."
+    }
+  ]
+}

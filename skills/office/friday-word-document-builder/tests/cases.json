@@ -1,0 +1,23 @@
+{
+  "skill": "friday-word-document-builder",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Create a branded DOCX with headings, tables, footer and PDF export from approved text.",
+      "expected": "select",
+      "reason": "Word construction and rendering are requested."
+    },
+    {
+      "id": "negative",
+      "request": "Research the claims that should go into the document.",
+      "expected": "reject",
+      "reason": "Fact finding is outside file building."
+    },
+    {
+      "id": "collision",
+      "request": "Write the argument for an executive report without a Word file.",
+      "expected": "defer",
+      "reason": "Report writer owns report content."
+    }
+  ]
+}

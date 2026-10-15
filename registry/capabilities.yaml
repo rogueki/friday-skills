@@ -1,0 +1,84 @@
+{
+  "capabilities": {
+    "calendar.read": {
+      "adapter": "caldav",
+      "live_available": false,
+      "mock_available": true,
+      "mode": "read_only"
+    },
+    "calendar.write": {
+      "adapter": "caldav",
+      "live_available": false,
+      "mock_available": true,
+      "mode": "approval_required"
+    },
+    "contacts.read": {
+      "adapter": "carddav",
+      "live_available": false,
+      "mock_available": true,
+      "mode": "read_only"
+    },
+    "dashboard.write": {
+      "adapter": "control_api",
+      "live_available": false,
+      "mock_available": true,
+      "mode": "approval_required"
+    },
+    "loxone.read": {
+      "adapter": "loxone",
+      "live_available": false,
+      "mock_available": true,
+      "mode": "read_only"
+    },
+    "loxone.write": {
+      "adapter": "loxone",
+      "live_available": false,
+      "mock_available": true,
+      "mode": "approval_required"
+    },
+    "mail.read": {
+      "adapter": "gmx",
+      "live_available": false,
+      "mock_available": true,
+      "mode": "read_only"
+    },
+    "mail.send": {
+      "adapter": "gmx",
+      "live_available": false,
+      "mock_available": true,
+      "mode": "approval_required"
+    },
+    "office.render": {
+      "adapter": "windows_worker",
+      "live_available": false,
+      "mock_available": true,
+      "mode": "draft_only"
+    },
+    "payment.execute": {
+      "adapter": "banking",
+      "live_available": false,
+      "mock_available": true,
+      "mode": "hard_approval"
+    },
+    "payment.prepare": {
+      "adapter": "finance",
+      "live_available": false,
+      "mock_available": true,
+      "mode": "draft_only"
+    },
+    "voice.speak": {
+      "adapter": "local_voice",
+      "live_available": false,
+      "mock_available": true,
+      "mode": "draft_only"
+    },
+    "weather.read": {
+      "adapter": "weather",
+      "live_available": false,
+      "mock_available": true,
+      "mode": "read_only"
+    }
+  },
+  "product": "F.R.I.D.A.Y.",
+  "version": 1
+}

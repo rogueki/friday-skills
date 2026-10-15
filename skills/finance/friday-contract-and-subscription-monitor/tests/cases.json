@@ -1,0 +1,23 @@
+{
+  "skill": "friday-contract-and-subscription-monitor",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Which subscriptions renew next quarter and when must I give notice?",
+      "expected": "select",
+      "reason": "Use for contract timelines and notice dates. Do not use for comparing energy offers or purchasing a new plan."
+    },
+    {
+      "id": "negative",
+      "request": "Cancel all contracts now.",
+      "expected": "reject",
+      "reason": "Sending notice is tier 2; signing or switching a contract is tier 3 with real adapter and hard approval."
+    },
+    {
+      "id": "collision",
+      "request": "Compare new electricity plans against my usage.",
+      "expected": "defer",
+      "reason": "Route to friday-energy-tariff-scout."
+    }
+  ]
+}

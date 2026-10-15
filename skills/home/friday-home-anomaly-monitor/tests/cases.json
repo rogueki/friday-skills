@@ -1,0 +1,23 @@
+{
+  "skill": "friday-home-anomaly-monitor",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Was yesterday's overnight power draw abnormal compared with similar nights?",
+      "expected": "select",
+      "reason": "Use for unusual consumption, temperature, PV or battery patterns. Do not use for one-time current status or device control."
+    },
+    {
+      "id": "negative",
+      "request": "Call emergency services because one sensor spike appeared.",
+      "expected": "reject",
+      "reason": "No panic alert from one outlier; no automatic device writes or emergency calls."
+    },
+    {
+      "id": "collision",
+      "request": "Show the current window and room temperature states.",
+      "expected": "defer",
+      "reason": "Route to friday-loxone-status."
+    }
+  ]
+}

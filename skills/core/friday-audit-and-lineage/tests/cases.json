@@ -1,0 +1,23 @@
+{
+  "skill": "friday-audit-and-lineage",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Erstelle eine redigierte Nachweiskette fuer diesen genehmigten Vorgang.",
+      "expected": "select",
+      "reason": "Directly matches this skill intent."
+    },
+    {
+      "id": "negative",
+      "request": "Schreibe eine Antwort-Mail.",
+      "expected": "reject",
+      "reason": "Outside the skill scope or requires another specialist."
+    },
+    {
+      "id": "collision",
+      "request": "Ein Auditdatensatz enthaelt ein API-Token und muss veroeffentlicht werden.",
+      "expected": "defer",
+      "reason": "Requires trust, routing, or policy clarification before execution."
+    }
+  ]
+}

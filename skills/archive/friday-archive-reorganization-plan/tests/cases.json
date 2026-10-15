@@ -1,0 +1,23 @@
+{
+  "skill": "friday-archive-reorganization-plan",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Design a conflict-aware archive target tree and reversible copy or move manifest before execution.",
+      "expected": "select",
+      "reason": "Requests the friday-archive-reorganization-plan result."
+    },
+    {
+      "id": "negative",
+      "request": "Delete all files that seem redundant immediately.",
+      "expected": "reject",
+      "reason": "Unreviewed deletion is outside this skill and requires exact target approval."
+    },
+    {
+      "id": "collision",
+      "request": "Execute this already approved manifest.",
+      "expected": "reject",
+      "reason": "A neighboring archive skill owns this outcome."
+    }
+  ]
+}
