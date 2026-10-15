@@ -9,7 +9,7 @@ metadata:
     tags: [friday, calendar, calendar-manager]
 ---
 
-# calendar manager
+# Calendar manager
 
 Do not use for meeting content research.
 
@@ -17,11 +17,12 @@ Use to read availability, conflicts and agenda or prepare a calendar event draft
 
 ## Procedure
 
-1. Resolve timezone and daylight-saving transitions; fetch only authorized calendars for bounded interval.
-2. Show busy/free blocks with privacy-safe titles, travel buffers and overlapping events; avoid treating unknown calendars as free.
-3. For a new or changed event, prepare exact start/end, timezone, participants, location and reminders. Recheck conflicts immediately before any write.
-4. Calendar create, update or delete needs real CalDAV live adapter, tier-2 action-bound approval and idempotency. Read back by stable event ID/ETag before reporting success.
+1. Resolve the requested calendar IDs, account, interval, IANA timezone and visibility rights. Reject an unbounded interval. Record query time, source and calendar capability freshness; include only authorized collections. A date-only event, when supported by a provider, occupies a local calendar day and is not a midnight deadline; the current parser does not support DATE values. For a local time in a daylight-saving gap or fold, request an explicit offset or another time before proposing an instant.
+2. Read events within the interval and retain UID, resource URL, strong ETag, start/end and source for each. Build an agenda with privacy-safe titles and overlap/travel buffers. Mark a collection that failed, was omitted, or is stale as **unknown**, never free. Availability is confirmed only for collections with a verified free/busy source covering the interval; bounded VEVENT reads alone cannot prove attendee availability, recurrence expansion or absence of hidden events.
+3. For a proposed event, show exact start/end in UTC and the requested local timezone, attendees, place, travel buffer, reminder intent and detected conflicts. If participant availability, recurrence, or reminder scheduling is needed and the connected adapter cannot supply it, label those parts tentative or blocked. Do not promise a reminder merely because a VALARM or schedule was drafted.
+4. Immediately before a live create/update, refresh the affected interval and event identity. Calendar write is a separate Tier-2 action bound to target, payload, grant and idempotency key. The current CalDAV adapter supports create/update with conditional resource ETags; it does not implement delete, free/busy, recurrence expansion or a reminder scheduler. For create use a create-only precondition; for update use the observed strong ETag. On conflict or uncertain outcome, reconcile by UID/resource before any retry.
+5. Report a write as verified only after the provider resource can be read back and its parsed UID, times and ETag match the approved intent. The current parser does not expose attendees, location or alarms: those fields remain unverified unless a separate capable reader checks them. A transport receipt or local journal entry alone proves less; preserve that distinction in `verification`.
 
 ## Output and verification
 
-Agenda/availability or event draft and conflict list. Verify timezone conversion and that actual write appears in readback. Populate every required shared/schemas/result.schema.json field: status, skill, mode, summary, artifacts, actions_taken, actions_proposed, approvals_required, warnings, errors, sources and verification, plus task_id for a long Hermes task. On unavailable essential data use blocked; on incomplete independent data use partial; on pending action-specific approval use waiting_approval. Local friday.skill.* lifecycle records are not evidence that the dashboard received an event.
+Agenda/availability or event draft and conflict list. Example: `09:00-10:00 Europe/Berlin, calendar A: busy (UID x, ETag y); calendar B: unknown (read failed); proposed 10:30-11:00 tentative`. Verify timezone conversion and provider readback for actual writes. Populate every required shared/schemas/result.schema.json field: status, skill, mode, summary, artifacts, actions_taken, actions_proposed, approvals_required, warnings, errors, sources and verification, plus task_id for a long Hermes task. On unavailable essential data use blocked; on incomplete independent data use partial; on pending action-specific approval use waiting_approval. Local friday.skill.* lifecycle records are not evidence that the dashboard received an event.

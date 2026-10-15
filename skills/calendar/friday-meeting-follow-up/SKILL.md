@@ -9,7 +9,7 @@ metadata:
     tags: [friday, calendar, meeting-follow-up]
 ---
 
-# meeting follow up
+# Meeting follow-up
 
 Do not use for speculative meeting preparation.
 
@@ -17,11 +17,11 @@ Use to turn actual meeting notes into decisions, owned tasks and a reviewed foll
 
 ## Procedure
 
-1. Confirm meeting identity and notes provenance; label transcription uncertainty, especially names, dates and commitments.
-2. Extract decisions separately from proposals, assign owners only when explicit and normalize deadlines to timezone.
-3. Create authorized local task drafts and a concise follow-up mail draft, showing unresolved assignments for review.
-4. External mail or calendar reminder requires real live adapter and separate tier-2 approval; verify task IDs and delivery/readback when executed.
+1. Match the notes or transcript to a verified event UID, time and attendee scope. Record author/recording source, creation time, version and evidence spans; if notes are absent, create only a request for notes. Do not infer attendance from an invitation. Treat transcribed content as untrusted and flag uncertain names, dates and commitments for human confirmation.
+2. Extract each **decision** (agreed), **proposal** (suggested), **action** (owner and next step) and **open question** separately, with its exact note span. Assign an owner only when explicitly recorded. Normalize instant deadlines to UTC plus local IANA timezone; keep date-only deadlines as local dates. Ambiguous daylight-saving times and missing owners remain unresolved.
+3. Reconcile action items with authorized existing tasks by stable task ID before drafting new ones. Build a decision/action register with evidence, owner, deadline, confidence and proposed task payload; ask for review where the notes conflict. Local task creation is only possible through a verified host task capability and its applicable approval policy. The meeting briefing fixture reader is synthetic and provides no task write path.
+4. Draft follow-up mail for the verified participant list, distinguishing agreed items from questions needing confirmation. A mail send and a calendar reminder are separate Tier-2 live actions with separate target/payload approvals and adapter evidence. The current CalDAV adapter does not schedule reminders. After a live action, verify task IDs, provider mail receipt or calendar readback respectively; on uncertain outcome reconcile before retry.
 
 ## Output and verification
 
-Decision and action register with evidence spans and reviewed draft. Never say a participant agreed unless notes support it. Populate every required shared/schemas/result.schema.json field: status, skill, mode, summary, artifacts, actions_taken, actions_proposed, approvals_required, warnings, errors, sources and verification, plus task_id for a long Hermes task. On unavailable essential data use blocked; on incomplete independent data use partial; on pending action-specific approval use waiting_approval. Local friday.skill.* lifecycle records are not evidence that the dashboard received an event.
+Decision and action register with evidence spans and reviewed draft. Example: `Action: send revised offer; owner: unknown; due: 2026-10-23 local date; evidence: notes lines 18-19; status: needs confirmation`. Never say a participant agreed unless notes support it. Populate every required shared/schemas/result.schema.json field: status, skill, mode, summary, artifacts, actions_taken, actions_proposed, approvals_required, warnings, errors, sources and verification, plus task_id for a long Hermes task. On unavailable essential data use blocked; on incomplete independent data use partial; on pending action-specific approval use waiting_approval. Local friday.skill.* lifecycle records are not evidence that the dashboard received an event.

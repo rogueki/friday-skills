@@ -1,5 +1,7 @@
 # Test report — 2026-10-15
 
+Plan §§10–12 procedure update: all 18 executive, communication and calendar `SKILL.md` files now specify bounded sources, missing-data behavior, evidence and action verification. The local checks below were rerun after this edit: `validate.py` passed 101 skills, `run_skill_cases.py` passed 909 shared checks while 404 routing expectations stayed declared and 1616 skill-runtime cases stayed `NOT_RUN`, 212 unit tests passed with one optional renderer skip, and Ruff, compileall, smoke test and `git diff --check` passed. No provider account, messaging gateway, parent Dashboard or individual Hermes skill runtime was exercised by this procedure update.
+
 Repository: `friday-skills` at the 0.3.0 integration stage. Environment: Windows PowerShell, Python 3.11.0, Hermes Agent v0.20.5 (2026.8.19; upstream `2d4de4e7`, local `68518c1f`). Automated fixture/scenario tests used synthetic data and in-memory transports. One separate read-only GeoSphere GET was performed.
 
 | Check | Result | Evidence |

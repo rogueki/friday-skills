@@ -4,6 +4,7 @@ Changes are recorded for the independent F.R.I.D.A.Y. Skills package by RogueKI.
 
 ## Unreleased (registry 0.3.0)
 
+- Deepen all 18 plan §§10–12 executive, communication and calendar skills with source coverage, evidence, ambiguity handling, exact action boundaries and verifiable outputs. Document the current GMX/CalDAV limitations and missing messaging, telephony, contacts, reminder and Dashboard integrations without treating drafts as delivery.
 - Add source-provenance and exact action binding for host-owned in-memory mock proposals, with seven negative and positive regression tests. This helper has no live transport or Hermes-wide enforcement.
 - Expand four P0 core procedures with task operation and reconciliation steps, local versus parent Dashboard delivery, audit receipt lineage, and source provenance checks before tool calls. Their reference files describe the checked contracts without claiming a live integration.
 - Clarify the other six P0 core procedures: evidence-based orchestration, abstaining skill routing, action-bound approvals, memory conflict handling, fresh capability checks and reconciliation before retrying ambiguous writes.

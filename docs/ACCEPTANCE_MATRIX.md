@@ -1,5 +1,7 @@
 # Acceptance matrix — plan §§38–39
 
+Plan §§10–12 instruction review: all 18 executive, communication and calendar skills now contain source/coverage, ambiguity, approval and verification procedures. This is a **PARTIAL** documentation milestone: the local validator and 909 shared checks pass, but 404 Hermes routing expectations and 1616 individual skill-runtime cases remain unexecuted. GMX/CalDAV provider interoperability, Telegram/WhatsApp/telephony, contact and reminder backends, and parent Dashboard delivery are not established by these edits.
+
 Status means `PASS` (observed), `PARTIAL` (bounded evidence), `FAIL` (observed unmet condition), `BLOCKED` (depends on the separate application or adapter), or `NOT RUN`. This is a 0.3.0 integration milestone, not a v1.0.0 acceptance claim.
 
 | Requirement | Status | Evidence / remaining work |
