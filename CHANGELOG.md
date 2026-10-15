@@ -4,6 +4,7 @@ Changes are recorded for the independent F.R.I.D.A.Y. Skills package by RogueKI.
 
 ## Unreleased (registry 0.3.0)
 
+- Expand the offline adapter evaluation from 18 to all 106 declared variants across nine synthetic workflows, with source-variant coverage checks and scenario-specific risk assertions. Hermes routing and individual skill execution remain untested.
 - Add a bounded, opt-in read-only local archive scanner with SHA-256 inventory and exact duplicate groups, scan provenance, limit and coverage reporting, and eight real temporary-file tests. It performs no migration, cleanup, media decoding or Hermes skill execution.
 - Deepen all 48 plan §§18–25 media, archive, travel, office, research, knowledge, voice and system procedures with source/capability contracts, verification and failure states. Existing synthetic E2E6/E2E5/E2E7/E2E10 checks remain bounded; no live provider, filesystem, Office, voice or host-operation adapter is added.
 - Deepen all nine plan §§16–17 funding, tariff and home skills with program-level source checks, comparable total costs, Loxone snapshot boundaries, scene/action verification and missing capability behavior. No provider, tariff or device connector is added.
