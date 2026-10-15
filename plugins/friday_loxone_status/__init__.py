@@ -1,4 +1,4 @@
-"""Hermes plugin exposing only a labelled synthetic Loxone status fixture."""
+"""Hermes Loxone status tool with an optional host-injected read boundary."""
 
 from __future__ import annotations
 
@@ -12,8 +12,8 @@ TOOL_NAME = "friday_loxone_status_snapshot"
 SCHEMA = {
     "name": TOOL_NAME,
     "description": (
-        "Read a synthetic, explicitly allowlisted Loxone status example. This plugin is fixture-only; "
-        "it does not connect to a Miniserver or expose control/write commands."
+        "Read an allowlisted Loxone status snapshot. The host may inject an authenticated "
+        "read provider; otherwise the result is an explicitly labelled synthetic fixture."
     ),
     "parameters": {
         "type": "object",
@@ -29,7 +29,8 @@ SCHEMA = {
 }
 
 
-def register(ctx) -> None:
+def register(ctx, *, transport=None, allowed_control_ids=None) -> None:
+    """Register one read tool; only the host can inject transport and its fixed ID ceiling."""
     from adapters import loxone_status
 
     configured = os.environ.get("FRIDAY_SKILLS_ROOT")
@@ -38,30 +39,61 @@ def register(ctx) -> None:
     root = Path(configured).resolve(strict=True)
     if (root / "adapters" / "loxone_status.py").resolve() != Path(loxone_status.__file__).resolve():
         raise RuntimeError("Loxone status adapter was imported from outside this friday-skills package")
+    if (transport is None) != (allowed_control_ids is None):
+        raise RuntimeError("read provider and host control allowlist must be configured together")
+    if transport is not None:
+        ids = allowed_control_ids
+        if (not isinstance(ids, (list, tuple, frozenset)) or
+                not 1 <= len(ids) <= loxone_status.MAX_CONTROLS or
+                any(not isinstance(item, str) or not loxone_status.ID_PATTERN.fullmatch(item) for item in ids) or
+                len(set(ids)) != len(ids)):
+            raise RuntimeError("host control allowlist is invalid")
+        host_ids = frozenset(ids)
+    else:
+        host_ids = None
     fixture = root / "fixtures" / "loxone" / "adapter_status.json"
-    if not fixture.is_file():
+    if transport is None and not fixture.is_file():
         raise RuntimeError("Friday support directory lacks the synthetic Loxone fixture")
+
+    def blocked(code: str) -> str:
+        return json.dumps({
+            "status": "blocked", "error": {"code": code},
+            "capability": None, "write_effect": False,
+        })
 
     def status(params: dict, **_kwargs) -> str:
         if not isinstance(params, dict) or set(params) != {"control_ids"}:
-            return json.dumps({
-                "status": "blocked", "error": {"code": "invalid_request"},
-                "capability": None, "write_effect": False,
-            })
+            return blocked("invalid_request")
+        requested = params["control_ids"]
+        if host_ids is not None and (
+            not isinstance(requested, list)
+            or any(not isinstance(item, str) or item not in host_ids for item in requested)
+        ):
+            return blocked("not_allowlisted")
         try:
-            result = loxone_status.read_status(params["control_ids"], mode="mock")
+            mode = "read_only" if host_ids is not None else "mock"
+            result = loxone_status.read_status(requested, mode=mode, transport=transport)
         except loxone_status.LoxoneStatusError as exc:
-            return json.dumps({
-                "status": "blocked", "error": {"code": exc.code, "message": str(exc)},
-                "capability": None, "write_effect": False,
-            }, ensure_ascii=False)
+            return blocked(exc.code)
+        except Exception:
+            return blocked("adapter_unavailable")
+        if host_ids is not None:
+            try:
+                authenticated = getattr(transport, "authenticated", False) is True
+            except Exception:
+                authenticated = False
+            if not authenticated:
+                return blocked("transport_required")
         return json.dumps({
             **result,
             "capability": {
-                "name": "loxone.read", "status": "synthetic", "mode": "mock",
+                "name": "loxone.read", "status": "available" if host_ids is not None else "synthetic",
+                "mode": mode,
                 "permissions": ["read"], "checked_at": datetime.now(timezone.utc).isoformat(),
-                "source": result["source"], "synthetic": True, "authenticated": False,
-                "rate_limited": False, "public_read": False, "adapter_id": "loxone-status-fixture",
+                "source": result["source"], "synthetic": host_ids is None,
+                "authenticated": host_ids is not None,
+                "rate_limited": False, "public_read": False,
+                "adapter_id": "loxone-status-provider" if host_ids is not None else "loxone-status-fixture",
             },
         }, ensure_ascii=False)
 

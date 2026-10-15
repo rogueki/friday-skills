@@ -1,6 +1,6 @@
 name: friday-loxone-status
 version: 0.1.0
-description: Optional fixture-only, read-only Loxone status example for F.R.I.D.A.Y.
+description: Optional read-only Loxone status tool; synthetic by default or host-injected provider.
 author: RogueKI
 kind: standalone
 manifest_version: 2

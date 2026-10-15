@@ -57,11 +57,23 @@ Primary sources (checked 2026-10-15):
 
 ## Hermes plugin
 
-`plugins/friday_loxone_status` exposes one synthetic fixture tool. Its schema
-accepts only control IDs; it cannot select `read_only`, pass a host, provide
-credentials or issue control commands. It reports `synthetic: true` and
-`authenticated: false`. Plugin installation/registration is not evidence that
-the live Loxone capability is available.
+`plugins/friday_loxone_status` exposes one read tool. Default `register(ctx)`
+uses the synthetic fixture (`synthetic: true`, `authenticated: false`). A trusted
+host can call `register(ctx, transport=provider, allowed_control_ids=[...])`.
+Both arguments are required together; the host must supply a fixed list of
+1–100 unique control IDs and an already authenticated provider implementing the
+snapshot contract above. The tool accepts only `control_ids`, checks that every
+requested ID belongs to the host list before calling the provider, and sends
+only the requested subset to `read_status(..., mode="read_only")`. The model
+cannot choose mode, host, credentials or additional control IDs. Only a fresh,
+valid provider snapshot is returned as `loxone.read` with `authenticated: true`,
+`synthetic: false`, `checked_at` and a provider-neutral `source`. Errors expose
+only stable codes; provider details are never forwarded. No write tool exists.
+
+This host injection and fake-transport test coverage do not establish live
+Miniserver interoperability. A reviewed and authenticated Loxone transport and
+versioned hardware validation are still required. Registration alone does not
+make the live Loxone capability available.
 
 Tests use only the local fixture and injected Python callbacks. They perform no
 network requests and never access an active Hermes profile.

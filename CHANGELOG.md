@@ -4,6 +4,7 @@ Changes are recorded for the independent F.R.I.D.A.Y. Skills package by RogueKI.
 
 ## Unreleased (registry 0.3.0)
 
+- Bind optional CalDAV and Loxone Hermes read tools to host-selected authenticated transports and fixed account or control scopes, while preserving synthetic defaults. Fake-transport tests cover authorization loss and invalid provider results; no live provider was contacted.
 - Connect real, bounded local source and backup scans to a separate E2E6 in-memory archive copy simulation; preserve the synthetic scenario and block incomplete scans, changed sources, hardlinked backup files and unverified capacity.
 - Add a fail-closed Hermes web extraction tool with host-injected transport, exact host allowlist, per-call authorization and six offline plugin tests. Native host egress and live retrieval remain unverified.
 - Add a bounded, resumable local Hermes routing batch for the 404 authored cases. Its dry run makes no model calls; verified traces and explicit attempt reservations prevent silent retry or unsupported PASS claims.
