@@ -21,14 +21,15 @@ Inputs: Open invoice ledger with status/as-of time, due/discount dates and terms
 
 ## Procedure
 
-1. Select unpaid and undisputed invoices; deduplicate by identity and reconcile latest status.
-2. Calculate days to due and documented discount deadlines in the stated time zone; rank potential savings by date and amount.
-3. Return one-time alerts. Ongoing checks require configured scheduler or hook and deduplication window.
+1. Record the ledger source, as-of time, coverage window and invoice revision. Select only open, unpaid and undisputed obligations; deduplicate on independent supplier ID plus invoice number, then resolve conflicting rows against the authoritative ledger. Paid, void, disputed, duplicate and unknown-status rows stay out of actionable totals and are listed separately. A missing or stale ledger means current status is unknown.
+2. For each candidate, trace issue/due/discount dates and discount base/rate to an invoice clause or independently reviewed record. Compare date-only values in the declared business time zone; state the as-of date and days remaining. Do not infer a precise bank cut-off or calendar adjustment from a due date alone. Recompute gross × rate ÷ 100 or net × rate ÷ 100 as the terms specify, round once to cents, and label savings *possible* until eligibility is verified.
+3. Rank by the earlier of documented discount deadline and due date, then by amount at risk. Show invoice identity, source, open-status freshness, proposed next review and separate liquidity note; do not infer cash availability from invoice data.
+4. Return a one-time alert list. A daily monitor requires a configured scheduler, persistent deduplication key/window and a working delivery adapter with receipt. Otherwise report `NOT_CONFIGURED` for recurrence and delivery; a local result or dashboard mapping is not a sent alert.
 
 ## Approval and failures
 
 No automatic payment or invented reminder delivery. A scheduler is a separate capability.
-Stale ledger or ambiguous discount base produces partial results without precise savings claims.
+Stale ledger, ambiguous discount base, time zone or amendments produce partial results without precise savings claims. If a send or schedule attempt has uncertain outcome, reconcile its provider receipt before retrying to avoid duplicate alerts. No payment action follows an alert.
 
 ## Output and verification
 

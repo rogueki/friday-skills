@@ -17,18 +17,19 @@ Use to organize receipt batches. Do not use for formal invoice validation or def
 
 ## Inputs and capability
 
-Inputs: Original receipts, authorized workspace, project taxonomy, optional expense index and retention policy. Required logical capability: document.read or an available local OCR parser for receipts; finance.expense-ledger.read is optional for duplicate checks. mock handles synthetic receipts; read_only reads authorized originals and makes a local index; live may only perform explicitly authorized reversible filing in the workspace, never a tax or banking action.
+Inputs: Original receipts, authorized workspace, project taxonomy, optional expense index and retention policy. Required logical capability: document.read or an actually installed local OCR parser for receipts; finance.expense-ledger.read is optional for duplicate checks. No receipt OCR, expense-ledger connector or filing adapter is implemented in this repository. mock may describe synthetic receipts; read_only may produce a one-time index only from actually readable authorized originals. Filing requires a separate verified workspace operation; a mode label alone does not provide it.
 
 ## Procedure
 
-1. Inventory originals without modification; extract merchant, date, gross/tax, currency and payment marker with location and confidence.
-2. Classify by agreed project/category; flag duplicate hash or merchant/date/amount and missing proof. Tax relevance is a candidate label.
-3. Produce an index and proposed filing map; copy or rename only within authorized local workspace while preserving originals.
+1. Inventory originals without modification. Record per-file source path/ID, byte hash, capture time and page/region evidence for merchant, date, gross, tax, currency and payment marker. Distinguish an OCR guess from a visually verified field; for unreadable images return `unreadable` rather than inferred values.
+2. Classify only against the provided project/category taxonomy. Record a candidate category and reason with evidence; tax relevance and deductibility remain unverified until current jurisdiction-specific rules and competent review establish them. Keep mixed currencies separate and distinguish receipt, invoice, card slip and refund.
+3. Check exact-byte duplicates by hash and near duplicates by merchant/date/amount/reference, but keep separate originals and flag uncertain matches for review. A card slip may document payment but not establish the underlying invoice or tax treatment.
+4. Produce a proposed filing map and index with original IDs, hashes, field provenance, duplicate state and missing evidence. If a verified local filing capability is later connected, copy only to an authorized destination, verify the copy hash and retain the source; do not report a move/copy as done from a proposal.
 
 ## Approval and failures
 
 Local reversible filing is tier 1. No tax submission. Keep payment details and personal addresses out of events.
-Unreadable currency or image remains unresolved; do not silently merge near duplicates.
+Unreadable currency or image remains unresolved; do not silently merge near duplicates. Missing originals, unresolved refunds, conflicting project tags or absent retention rules leave filing `partial` or `blocked` as appropriate. Do not claim a persistent receipt register or scheduled missing-beleg alert without its backing adapter.
 
 ## Output and verification
 
