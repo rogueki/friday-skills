@@ -1,0 +1,5 @@
+{
+  "mailbox": "INBOX",
+  "uid": "81",
+  "rfc822": "From: Synthetic Coordinator <coordinator@example.invalid>\r\nTo: friday@example.invalid\r\nSubject: Synthetic handoff question\r\nDate: Thu, 15 Oct 2026 11:20:00 +0000\r\nMessage-ID: <meeting-81@example.invalid>\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=utf-8\r\n\r\nMeeting-UID: other-briefing@example.invalid\r\nQuestion: Who owns the synthetic release handoff?\r\n"
+}

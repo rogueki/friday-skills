@@ -1,0 +1,8 @@
+{
+  "source": "synthetic:fixtures/tasks/meeting_snapshot.json",
+  "observed_at": "2026-10-15T11:58:00Z",
+  "tasks": [
+    {"id":"task-meeting-1","meeting_uid":"friday-briefing@example.invalid","status":"open","title":"Confirm synthetic handoff owner","due_at":"2026-10-16T10:00:00Z"},
+    {"id":"task-meeting-2","meeting_uid":"friday-briefing@example.invalid","status":"in_progress","title":"Review synthetic release checklist","due_at":"2026-10-17T10:00:00Z"}
+  ]
+}

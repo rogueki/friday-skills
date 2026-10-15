@@ -1,0 +1,21 @@
+{
+  "event_uid": "friday-briefing@example.invalid",
+  "calendar_endpoint": "https://calendar.example.invalid/calendars/friday/",
+  "calendar_host": "calendar.example.invalid",
+  "calendar_account": "friday@example.invalid",
+  "window_start": "2026-10-15T11:45:00Z",
+  "window_end": "2026-10-15T12:45:00Z",
+  "preparation_cutoff": "2026-10-15T12:00:00Z",
+  "expected_start": "2026-10-15T12:00:00Z",
+  "mailbox": "INBOX",
+  "mail_uid": "81",
+  "message_id": "<meeting-81@example.invalid>",
+  "task_ids": ["task-meeting-1", "task-meeting-2"],
+  "goal": "Decide the synthetic release handoff",
+  "participants": ["coordinator@example.invalid", "friday@example.invalid"],
+  "capabilities": {
+    "calendar": {"name":"calendar.read","mode":"mock","status":"healthy","authenticated":true,"rate_limited":false,"permissions":["read"],"synthetic":true,"checked_at":"2026-10-15T12:00:00Z"},
+    "mail": {"name":"mail.read","mode":"mock","status":"healthy","authenticated":true,"rate_limited":false,"permissions":["read"],"synthetic":true,"checked_at":"2026-10-15T12:00:00Z"},
+    "task": {"name":"task.read","mode":"mock","status":"healthy","authenticated":true,"rate_limited":false,"permissions":["read"],"synthetic":true,"checked_at":"2026-10-15T12:00:00Z"}
+  }
+}

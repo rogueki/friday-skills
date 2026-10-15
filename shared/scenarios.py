@@ -169,18 +169,17 @@ def run_scenario(name: str, *, variant: str = "default") -> dict[str, Any]:
     elif name == "invoice_pdf_to_payment_draft":
         _invoice_pdf_to_payment_draft(runtime, result, trace, variant)
     elif name == "meeting":
-        data = _fixture("calendar", "events", variant, {"timezone_conflict"})
-        if variant == "default":
-            meeting = next(x for x in data["events"] if x["kind"] == "soon")
-            relevant_mail = next(x for x in load_fixture("mail", "messages")["messages"] if x["kind"] == "meeting_question")
-            result.update(status="completed", summary=f"{meeting['starts_at']}: {relevant_mail['subject']}")
-            trace += ["calendar_read", "meeting_briefing", "related_mail", "open_tasks_checked"]
-        else:
+        if variant == "timezone_conflict":
+            data = load_fixture("calendar", "timezone_conflict")
             meeting = data["meeting"]
             start, end = _instant(meeting["starts_at"]), _instant(meeting["ends_at"])
             conflicts = [item["id"] for item in data["events"] if start < _instant(item["ends_at"]) and _instant(item["starts_at"]) < end]
             result.update(status="partial" if conflicts else "completed", starts_at_utc=start.isoformat(), conflicts=conflicts)
             trace.append("calendar_read")
+        else:
+            from adapters.meeting_briefing_mock import run_meeting_mock
+
+            run_meeting_mock(runtime, result, trace, variant)
     elif name == "weather":
         route = route_request("Wie wird das Wetter?")
         weather = _fixture("weather", "current", variant, {"stale"})

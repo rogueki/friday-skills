@@ -22,6 +22,8 @@ Use to prepare a meeting-specific decision brief from authorized calendar, mail,
 3. Build goal, participants, context, open points, risks, questions, decisions needed and materials; distinguish verified facts from suggestions.
 4. Keep confidential third-party details out of broadly shared output; never change event or send briefing without a separate approved channel action.
 
+For the local §32 E2E3 mock, `adapters/meeting_briefing_mock.py` binds a parsed CalDAV VEVENT UID to an explicit `Meeting-UID` line in a parsed RFC822 message and to every selected task's `meeting_uid`. It checks each source's mock read capability, calendar window, mail date, task snapshot cutoff and duplicate IDs before composing a brief. The task snapshot is an explicitly synthetic fixture reader, not a Control API or Kanban read. A similar title or subject alone never establishes relevance. Header `From` equality does not authenticate a sender. Unsupported or missing feeds and optional context must be named in `missing_data` rather than invented.
+
 ## Output and verification
 
 Briefing with source IDs and freshness, plus missing-context list. Verify event identity and each material fact. Populate every required shared/schemas/result.schema.json field: status, skill, mode, summary, artifacts, actions_taken, actions_proposed, approvals_required, warnings, errors, sources and verification, plus task_id for a long Hermes task. On unavailable essential data use blocked; on incomplete independent data use partial; on pending action-specific approval use waiting_approval. Local friday.skill.* lifecycle records are not evidence that the dashboard received an event.

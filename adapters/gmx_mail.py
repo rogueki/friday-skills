@@ -134,7 +134,10 @@ def read_message(
     if mode == "mock":
         if transport is not None or use_stdlib_transport or credentials is not None:
             raise MailAdapterError("invalid_transport", "mock mode has no external transport")
-        if not isinstance(mock_fixture, str) or mock_fixture not in {"adapter_message", "e2e_important", "e2e_injection"}:
+        if not isinstance(mock_fixture, str) or mock_fixture not in {
+            "adapter_message", "e2e_important", "e2e_injection",
+            "e2e_meeting", "e2e_meeting_foreign", "e2e_meeting_stale", "e2e_meeting_injection",
+        }:
             raise MailAdapterError("invalid_fixture", "unknown synthetic message fixture")
         fixture = Path(__file__).resolve().parents[1] / "fixtures" / "mail" / f"{mock_fixture}.json"
         sample = json.loads(fixture.read_text(encoding="utf-8"))
