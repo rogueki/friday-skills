@@ -5,11 +5,14 @@ from __future__ import annotations
 from collections import defaultdict
 from datetime import datetime, timedelta
 from hashlib import sha256
-from pathlib import PurePosixPath
+import os
+from pathlib import Path, PurePosixPath
 import re
+import stat
 import unicodedata
 from typing import Any
 
+from adapters.local_archive_reader import ArchiveScanError, scan_archive
 from shared.policy import action_fingerprint, risk_tier
 from shared.runtime import MockRuntime, dashboard_mapping, load_fixture
 
@@ -189,6 +192,153 @@ def _simulate_and_verify(manifest: dict[str, Any], contents: dict[str, bytes], v
         raise ArchiveMockError("post_copy_integrity_failure", invalid_ids=bad_ids)
     verification["sha256_matches"] = True
     return verification
+
+
+def _local_rows(scan: dict[str, Any]) -> dict[str, tuple[int, str, int, int, int, int]]:
+    return {row["relative_path"]: (row["size"], row["sha256"], row["mtime_ns"],
+            row["ctime_ns"], row["device"], row["inode"]) for row in scan["files"]}
+
+
+def _read_scanned_file(root: Path, row: dict[str, Any], max_bytes: int) -> bytes:
+    """Read only a previously scanned regular file, bounded by the local mock cap."""
+    relative = row["relative_path"]
+    if _safe_path(f"incoming/{relative}", "incoming") != f"incoming/{relative}":
+        raise ArchiveMockError("unsafe_path")
+    path = root.joinpath(*relative.split("/"))
+    root_real = root.resolve(strict=True)
+    if os.path.commonpath((str(root_real), str(path.resolve(strict=True)))) != str(root_real):
+        raise ArchiveMockError("path_escape")
+    before = path.lstat()
+    expected = (row["size"], row["mtime_ns"], row["ctime_ns"], row["device"], row["inode"])
+    def identity(info: os.stat_result) -> tuple[int, int, int, int, int]:
+        return (info.st_size, info.st_mtime_ns, info.st_ctime_ns, info.st_dev, info.st_ino)
+    if not stat.S_ISREG(before.st_mode) or identity(before) != expected:
+        raise ArchiveMockError("source_changed")
+    flags = os.O_RDONLY | getattr(os, "O_BINARY", 0) | getattr(os, "O_NOFOLLOW", 0)
+    fd = os.open(path, flags)
+    try:
+        opened = os.fstat(fd)
+        if not stat.S_ISREG(opened.st_mode) or identity(opened) != expected:
+            raise ArchiveMockError("source_changed")
+        data = bytearray()
+        while len(data) <= max_bytes:
+            chunk = os.read(fd, min(1024 * 1024, max_bytes - len(data) + 1))
+            if not chunk:
+                break
+            data.extend(chunk)
+        after = os.fstat(fd)
+    finally:
+        os.close(fd)
+    if (len(data) > max_bytes or identity(after) != expected or identity(path.lstat()) != expected
+            or _sha(data) != row["sha256"] or len(data) != row["size"]):
+        raise ArchiveMockError("source_changed")
+    return bytes(data)
+
+
+def run_local_archive_mock(
+    source_root: str | os.PathLike[str], backup_root: str | os.PathLike[str], *,
+    destination_free_bytes: int | None, simulated_approval: bool = False,
+    max_files: int = 100, max_bytes: int = 32 * 1024 * 1024,
+    max_entries: int = 200, max_depth: int = 8,
+) -> dict[str, Any]:
+    """Opt-in local E2E6: real read-only scans, in-memory copy simulation only.
+
+    The caller must authorize both roots. Neither the backup nor capacity proof
+    is inferred from a model-supplied manifest or from the source alone.
+    """
+    result: dict[str, Any] = {"status": "blocked", "external_effects": 0,
+                              "media_integrity": "unknown_unverified", "target_files_written": 0}
+    try:
+        if (type(max_files) is not int or not 0 < max_files <= 100
+                or type(max_bytes) is not int or not 0 < max_bytes <= 32 * 1024 * 1024
+                or type(max_entries) is not int or not 0 < max_entries <= 200
+                or type(max_depth) is not int or not 0 <= max_depth <= 8):
+            raise ArchiveMockError("invalid_local_limits")
+        if type(destination_free_bytes) is not int or destination_free_bytes < 0:
+            raise ArchiveMockError("capacity_unknown")
+        if type(simulated_approval) is not bool:
+            raise ArchiveMockError("invalid_mock_approval")
+        limits = {"max_files": max_files, "max_bytes": max_bytes,
+                  "max_entries": max_entries, "max_depth": max_depth}
+        source = scan_archive(source_root, **limits)
+        backup = scan_archive(backup_root, **limits)
+        result["source_scan"] = source
+        result["backup_scan"] = backup
+        if source["status"] != "complete" or backup["status"] != "complete":
+            raise ArchiveMockError("incomplete_scan")
+        if not source["file_count"]:
+            raise ArchiveMockError("empty_inventory")
+        if Path(source["root"]).resolve() == Path(backup["root"]).resolve():
+            raise ArchiveMockError("backup_not_independent")
+        source_rows = _local_rows(source)
+        if source_rows.keys() != _local_rows(backup).keys() or any(
+            source_rows[path][:2] != backup_row[:2]
+            for path, backup_row in _local_rows(backup).items()
+        ):
+            raise ArchiveMockError("backup_unverified")
+        if any(source_rows[path][4:] == backup_row[4:]
+               for path, backup_row in _local_rows(backup).items()):
+            raise ArchiveMockError("backup_not_independent")
+        current = scan_archive(source_root, **limits)
+        if current["status"] != "complete" or _local_rows(current) != source_rows:
+            raise ArchiveMockError("source_changed")
+        rows = []
+        for index, file in enumerate(source["files"], 1):
+            relative = file["relative_path"]
+            safe_source = _safe_path(f"incoming/{relative}", "incoming")
+            rows.append({"id": f"f{index:06d}", "source": safe_source,
+                         "size": file["size"], "sha256": file["sha256"],
+                         "year": datetime.fromtimestamp(file["mtime_ns"] / 1e9).strftime("%Y"),
+                         "target_override": None})
+        result["inventory"] = {"files": rows, "count": len(rows),
+                               "bytes": sum(row["size"] for row in rows), "read_only": True}
+        result["duplicate_groups"] = _groups(rows)
+        backup_evidence = {"verified": True, "snapshot_id": backup["scan_id"],
+                           "observed_at": backup["completed_at"],
+                           "method": "independent_local_byte_sha256_scan",
+                           "root": backup["root"]}
+        plan_source = {"source_root": "incoming", "target_root": "archive",
+                       "destination_free_bytes": destination_free_bytes,
+                       "backup": backup_evidence}
+        now = datetime.now().astimezone()
+        manifest = _manifest(plan_source, rows, now)
+        manifest["type"] = "local_scan_in_memory_copy_manifest"
+        manifest["source_scan_id"] = source["scan_id"]
+        manifest["backup_scan_id"] = backup["scan_id"]
+        manifest["destination_capacity"] = "caller_supplied_for_simulation"
+        result["manifest"] = manifest
+        digest = action_fingerprint("archive_copy", manifest["target_root"], manifest)
+        result["proposal"] = {"action": "archive_copy", "risk_tier": 2,
+                              "manifest_hash": digest, "executed": False,
+                              "simulated_only": True}
+        result["approval"] = {"status": "required", "tier": 2, "granted": False,
+                              "trusted_host_approval": False, "bound_manifest_hash": digest}
+        result["status"] = "waiting_approval"
+        if not simulated_approval:
+            return result
+        # Revalidate the entire directory before reading the manifest's files.
+        latest = scan_archive(source_root, **limits)
+        if latest["status"] != "complete" or _local_rows(latest) != source_rows:
+            raise ArchiveMockError("source_changed")
+        grant = _mock_approval(manifest, "mock_approved", now)
+        _verify_mock_grant(grant, manifest, now)
+        contents = {row["id"]: _read_scanned_file(Path(source["root"]), file, max_bytes)
+                    for row, file in zip(rows, source["files"], strict=True)}
+        result["verification"] = _simulate_and_verify(manifest, contents, "mock_approved")
+        final_scan = scan_archive(source_root, **limits)
+        if final_scan["status"] != "complete" or _local_rows(final_scan) != source_rows:
+            raise ArchiveMockError("source_changed")
+        result["verification"]["scope"] = "real_local_input_in_memory_copy"
+        result["approval"] = {"status": "simulated_only", "tier": 2, "granted": True,
+                              "trusted_host_approval": False, "bound_manifest_hash": digest}
+        result["status"] = "completed"
+    except (ArchiveMockError, ArchiveScanError, OSError, ValueError, TypeError) as exc:
+        result["status"] = "blocked"
+        result["reason"] = exc.code if isinstance(exc, ArchiveMockError) else (
+            str(exc) if isinstance(exc, ArchiveScanError) else "source_unavailable")
+        result.pop("proposal", None)
+        result.pop("verification", None)
+    return result
 
 
 def run_archive_mock(runtime: MockRuntime, result: dict[str, Any], trace: list[str], *, variant: str) -> None:

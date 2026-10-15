@@ -1,0 +1,8 @@
+name: friday-web-research
+version: 0.1.0
+description: Optional bounded public web extraction with explicit host-side egress injection
+author: RogueKI
+kind: standalone
+manifest_version: 2
+provides_tools:
+  - friday_web_extract

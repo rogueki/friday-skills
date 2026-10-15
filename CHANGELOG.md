@@ -4,6 +4,8 @@ Changes are recorded for the independent F.R.I.D.A.Y. Skills package by RogueKI.
 
 ## Unreleased (registry 0.3.0)
 
+- Connect real, bounded local source and backup scans to a separate E2E6 in-memory archive copy simulation; preserve the synthetic scenario and block incomplete scans, changed sources, hardlinked backup files and unverified capacity.
+- Add a fail-closed Hermes web extraction tool with host-injected transport, exact host allowlist, per-call authorization and six offline plugin tests. Native host egress and live retrieval remain unverified.
 - Add a bounded, resumable local Hermes routing batch for the 404 authored cases. Its dry run makes no model calls; verified traces and explicit attempt reservations prevent silent retry or unsupported PASS claims.
 - Correct isolated Hermes session scoring for native v0.20.5 IDs and quiet chat output: exactly one exported JSONL session is required before a structured `skill_view` can score.
 - Add plan E2E7 PowerPoint as the 107th offline adapter case. Windows without a renderer reports `PARTIAL`; Ubuntu CI requires an actual three-page PDF and three checked PNGs.
