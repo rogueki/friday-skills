@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Pruefe die Freigabe fuer die vorbereitete Ueberweisung und fuehre sie danach aus.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "Empfaenger, Betrag und konkrete Zahlung fehlen; eine aktionsgebundene Freigabe kann nicht geprueft oder vorbereitet werden."
     }
   ],
   "contract_cases": [

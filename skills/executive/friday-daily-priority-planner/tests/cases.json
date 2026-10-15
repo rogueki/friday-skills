@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Fit my urgent work around the meetings today.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The fixed meetings, task list and estimated durations are missing; a feasible schedule cannot be built."
     }
   ],
   "contract_cases": [

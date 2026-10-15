@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Summarize what we owe and any unusual charges.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The reporting period and verified payable or cost records are absent; totals and anomalies cannot be stated."
     }
   ],
   "contract_cases": [

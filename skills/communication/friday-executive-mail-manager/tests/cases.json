@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Triage the messages that arrived from the customer.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The mailbox, customer identity or thread set is undefined; no bounded triage can be performed."
     }
   ],
   "contract_cases": [

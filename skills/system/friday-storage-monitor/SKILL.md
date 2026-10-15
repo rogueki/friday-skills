@@ -1,6 +1,6 @@
 ---
 name: friday-storage-monitor
-description: Measure storage free space and warning thresholds, WSL virtual disk growth, logs and caches; propose cleanup from verified measurements.
+description: Measure free disk capacity, thresholds and WSL VHD growth; inspect measured logs and caches before proposing cleanup. Read-only.
 version: 0.1.0
 author: RogueKI
 license: MIT

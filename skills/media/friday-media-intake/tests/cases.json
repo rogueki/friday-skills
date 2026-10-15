@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Register the new videos from the family camera.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The camera import root and authorized destination record are missing; originals and intake coverage cannot be established."
     }
   ],
   "contract_cases": [

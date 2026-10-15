@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Check whether the shop offering that device is trustworthy.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The shop identity or URL and jurisdiction are missing; public records and terms cannot be attributed."
     }
   ],
   "contract_cases": [

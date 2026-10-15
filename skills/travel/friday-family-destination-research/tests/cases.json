@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Find a child-friendly destination for our next holiday.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "Travel season, departure region, children's ages and budget are missing; destination comparisons would be unbounded."
     }
   ],
   "contract_cases": [

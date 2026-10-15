@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Lege dafuer eine Aufgabe an und aktualisiere den Fortschritt.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "Ziel, betroffene Aufgabenablage und Fortschrittsbelege fehlen; weder Aufgabe noch Status lassen sich eindeutig bestimmen."
     }
   ],
   "contract_cases": [

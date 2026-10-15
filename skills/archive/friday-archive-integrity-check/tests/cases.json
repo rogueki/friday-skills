@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Compare the source and backup for that archive and tell me if the copy is intact.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "Neither the archive root nor the matching source, destination and backup manifests are identified; integrity cannot be reconciled."
     }
   ],
   "contract_cases": [

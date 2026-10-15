@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Der letzte API-Aufruf lief in einen Timeout. Versuche ihn erneut.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "Operation, Ziel, Idempotenzschluessel und moegliche Seiteneffekte fehlen; ein sicherer Retry setzt zuerst Abgleich voraus."
     }
   ],
   "contract_cases": [

@@ -52,6 +52,20 @@ python scripts/local_hermes_smoke.py --skill friday-archive-inventory --case-id 
 ```
 
 The harness uses a temporary profile and a **copy** of all packaged skills.
+Hermes v0.20.5 requires at least 64,000 context tokens for agent initialization.
+That profile requests exactly `model.context_length: 65536` and
+`model.ollama_num_ctx: 65536` for local Ollama. Smaller values fail argument
+validation before any model or Hermes process call. The default Hermes run budget
+is 420 seconds, with a 480-second subprocess limit; startup and redacted
+session export each have a separate 30-second limit. The result records these
+requested settings and `effective_context_verified: false`. A configuration
+request does not prove the context actually allocated by Ollama; inspect the
+local runtime separately before interpreting a model result. The optional
+`--context-tokens` (currently only 65536), `--run-budget-seconds` (180–600) and
+`--timeout-seconds` flags apply only to this isolated run. The timeout must
+exceed the run budget by 30–180 seconds and cannot exceed 780 seconds.
+The large requested window may exceed available host/GPU memory; it is not
+evidence that Ollama allocated that window or that the model can answer.
 This matters because Hermes' `skills` toolset includes `skill_manage` alongside
 `skill_view`. It never uses `-z`/YOLO or preloads `--skills`. It returns
 `NOT_RUN`/`PARTIAL` unless the structured `skill_view` call is found and a
@@ -66,6 +80,20 @@ when no structured assistant `skill_view` call occurs. The result then stays
 `NOT_RUN`: `trace_verified` and its SHA-256 attest to the retained session,
 not to a scored routing decision. Review the local trace to diagnose the
 model's tool behavior; the JSON result does not include session contents.
+If Hermes exits nonzero before export, the result remains `NOT_RUN` and adds a
+fixed `reason_code` for recognizable local model memory, context, Ollama
+connection/model, CLI, config, or runtime dependency errors. Unknown failures
+use `hermes_nonzero_exit`. Timeout codes identify version probe, chat, or
+session export. Neither the smoke nor batch report copies Hermes stdout,
+stderr, exception text, or request content into the diagnostic field. The
+classification is a hint, not proof of the underlying failure; inspect the
+isolated runtime separately when a code is ambiguous.
+`hermes_context_minimum` identifies the explicit Hermes 64,000-token
+initialization rejection if it is ever returned despite preflight validation.
+On Windows, the isolated child process and capture decoder use UTF-8 so
+Unicode skill-index output cannot fail at the local console code page. An
+unclassified exit remains `hermes_nonzero_exit`; it must not be interpreted as
+a model routing decision.
 
 ## Bounded local batch for all authored cases
 
@@ -90,7 +118,7 @@ Reports and redacted per-case JSONL traces are confined to ignored
 `artifacts/`. Each report path gets its own trace directory. The report has no
 raw request, model response or credential text.
 It records the ordered case-set hash, Git HEAD, skill-tree and harness source
-hashes, model, case
+hashes, model, requested context and time budgets, case
 identities, statuses, session IDs and trace hashes. Every attempted case first
 gets an atomic `STARTED` reservation. Resume accepts only matching case set,
 model, revision, skill tree and harness sources, then reopens and hashes each retained trace and
@@ -99,6 +127,9 @@ zero-view traces are hash- and session-checked on resume, remain `NOT_RUN` with
 `reason_code: no_skill_view`, and are not automatically retried. Use a new
 report path for an intentional fresh attempt while keeping the first report
 and trace for comparison. Verified cases are never attempted twice by resume.
+A changed requested context or time budget also fails resume provenance checks;
+start a new report path for a fresh configuration. Existing reports made with
+the earlier report schema cannot be resumed by this version.
 A previously started or finished case without verified trace blocks automatic
 resume; `--retry-unverified`
 explicitly permits a new attempt. Inspect its report and any trace before

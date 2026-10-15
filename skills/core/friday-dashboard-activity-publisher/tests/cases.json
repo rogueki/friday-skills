@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Zeige im Dashboard an, dass die Analyse abgeschlossen ist.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "Aufgaben-ID und verifiziertes Analyseergebnis fehlen; ein konkretes Dashboard-Ereignis kann nicht zugeordnet werden."
     }
   ],
   "contract_cases": [

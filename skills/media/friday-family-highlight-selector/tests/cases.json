@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Pick highlights from the children's summer photos for a short story.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The allowed collection, people coverage and requested story length are missing; a balanced selection cannot be made."
     }
   ],
   "contract_cases": [

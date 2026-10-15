@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Plane und erledige die Vorbereitung fuer naechste Woche.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "Das gewuenschte Ergebnis und die einzelnen Liefergegenstaende fehlen; eine belastbare Mehrschrittplanung ist nicht moeglich."
     }
   ],
   "contract_cases": [

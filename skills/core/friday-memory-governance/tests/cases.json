@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Merke dir meine neue Einstellung fuer kuenftige Aufgaben.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "Die konkrete Einstellung und ihr Geltungsbereich fehlen; ein dauerhafter Erinnerungseintrag kann nicht bestimmt werden."
     }
   ],
   "contract_cases": [

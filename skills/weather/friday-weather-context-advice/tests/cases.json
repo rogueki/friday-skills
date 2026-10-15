@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "What should the kids wear outside in the morning?",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The place, date and fresh forecast are missing; practical clothing advice cannot be tied to conditions."
     }
   ],
   "contract_cases": [

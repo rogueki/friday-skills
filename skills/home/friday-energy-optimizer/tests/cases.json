@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "When should we run the water heater to use solar energy?",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The day, fresh PV forecast and heater constraints are absent; a comfort-aware recommendation cannot be timed."
     }
   ],
   "contract_cases": [

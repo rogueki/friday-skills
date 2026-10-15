@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Pruefe, ob der Zugang fuer den geplanten Datenabgleich bereit ist.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "Der betroffene Adapter und die benoetigte Lese- oder Schreibberechtigung fehlen; ein konkreter Gesundheitsentscheid ist unmoeglich."
     }
   ],
   "contract_cases": [

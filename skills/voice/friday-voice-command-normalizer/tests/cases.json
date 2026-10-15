@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "I heard a voice command about calling someone tomorrow; route it.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The complete transcript, time and callee are uncertain; a bounded structured intent cannot be extracted."
     }
   ],
   "contract_cases": [

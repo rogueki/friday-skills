@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Arrange a call with the supplier about the quote.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The supplier contact, quote and desired call outcome are unspecified; an authorized call cannot be prepared."
     }
   ],
   "contract_cases": [

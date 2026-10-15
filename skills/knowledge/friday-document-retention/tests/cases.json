@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Can we delete those old personnel documents this year?",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The document class, jurisdiction, retention start date and legal-hold status are missing; no disposal date can be proposed."
     }
   ],
   "contract_cases": [

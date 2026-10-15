@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Prepare the family booking for the hotel we discussed.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The hotel offer, dates, travelers and verified price are missing; no accurate booking draft is possible."
     }
   ],
   "contract_cases": [

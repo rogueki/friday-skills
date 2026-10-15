@@ -3,6 +3,7 @@
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -53,6 +54,89 @@ class LocalHermesSmokeTests(unittest.TestCase):
         self.assertNotIn("--skills", command)
         self.assertNotIn("--yolo", command)
         self.assertNotIn("-z", command)
+        self.assertEqual(command[command.index("--run-budget") + 1], "420")
+        config = smoke._config(Path("copied-skills"))
+        self.assertIn("context_length: 65536\n", config)
+        self.assertIn("ollama_num_ctx: 65536\n", config)
+        with self.assertRaisesRegex(ValueError, "exactly 65536"):
+            smoke._config(Path("copied-skills"), 8192)
+
+    def test_context_and_runtime_bounds_reject_invalid_settings(self):
+        for options in ({"context_tokens": 4096}, {"context_tokens": 8192},
+                        {"context_tokens": 16384}, {"context_tokens": True},
+                        {"run_budget_seconds": 601}, {"run_budget_seconds": True},
+                        {"timeout": 420}, {"timeout": 900}):
+            with self.subTest(options=options), self.assertRaises(ValueError):
+                smoke.execute(self.root, "friday-a", "positive", run=False, **options)
+
+    @patch.object(smoke, "installed_exact_model")
+    @patch.object(smoke.subprocess, "run")
+    def test_below_hermes_minimum_fails_before_any_model_or_process_call(self, process, model):
+        with self.assertRaisesRegex(ValueError, "exactly 65536"):
+            smoke.execute(self.root, "friday-a", "positive", run=True,
+                          context_tokens=8192)
+        model.assert_not_called()
+        process.assert_not_called()
+
+    def test_diagnostic_labels_never_copy_process_text(self):
+        secret = "SECRET_MARKER_FROM_PROVIDER"
+        self.assertEqual(smoke._error_code("", f"Ollama: not enough memory {secret}"),
+                         "local_model_memory")
+        self.assertEqual(smoke._error_code("", "context window of 8,192 tokens is below the minimum 64,000 required"),
+                         "hermes_context_minimum")
+        self.assertEqual(smoke._error_code(f"arbitrary failure {secret}", ""),
+                         "hermes_nonzero_exit")
+        self.assertEqual(smoke._error_code(None, None), "hermes_nonzero_exit")
+
+    @patch.object(smoke, "installed_exact_model", return_value=True)
+    @patch.object(smoke.subprocess, "run")
+    def test_nonzero_exit_reports_fixed_code_without_secret_text(self, process, _model):
+        class Result:
+            returncode = 0
+            stdout = "Hermes Agent v0.20.5\n"
+            stderr = ""
+
+        def invoke(command, **_kwargs):
+            result = Result()
+            if command[1] == "chat":
+                result.returncode = 1
+                result.stderr = "Ollama model requires more system memory SECRET_MARKER"
+                result.stdout = "SECRET_RESPONSE"
+            return result
+
+        process.side_effect = invoke
+        result = smoke.execute(self.root, "friday-a", "positive", run=True)
+        self.assertEqual(result["status"], "NOT_RUN")
+        self.assertEqual(result["reason_code"], "local_model_memory")
+        self.assertNotIn("SECRET_MARKER", json.dumps(result))
+        self.assertNotIn("SECRET_RESPONSE", json.dumps(result))
+
+    @patch.object(smoke, "installed_exact_model", return_value=True)
+    @patch.object(smoke.subprocess, "run")
+    def test_timeout_reports_phase_without_exception_contents(self, process, _model):
+        class Result:
+            returncode = 0
+            stdout = "Hermes Agent v0.20.5\n"
+            stderr = ""
+
+        for target, code in (("--version", "version_probe_timeout"),
+                             ("chat", "chat_timeout"),
+                             ("export", "session_export_timeout")):
+            with self.subTest(target=target):
+                def invoke(command, **_kwargs):
+                    if target == "--version" and command[1] == "--version":
+                        raise subprocess.TimeoutExpired(command, 30, output="SECRET")
+                    if target == "chat" and command[1] == "chat":
+                        raise subprocess.TimeoutExpired(command, 480, output="SECRET")
+                    if target == "export" and command[1:3] == ["sessions", "export"]:
+                        raise subprocess.TimeoutExpired(command, 30, output="SECRET")
+                    return Result()
+
+                process.side_effect = invoke
+                result = smoke.execute(self.root, "friday-a", "positive", run=True)
+                self.assertEqual(result["reason_code"], code)
+                self.assertEqual(result["status"], "NOT_RUN")
+                self.assertNotIn("SECRET", json.dumps(result))
 
     def test_trace_requires_structured_assistant_tool_call(self):
         trace = self.root / "trace.jsonl"
@@ -130,13 +214,23 @@ class LocalHermesSmokeTests(unittest.TestCase):
             self.assertNotEqual(kwargs["env"]["HERMES_HOME"], str(active_config.parent))
             self.assertNotIn("OPENAI_API_KEY", kwargs["env"])
             self.assertNotIn("OPENROUTER_API_KEY", kwargs["env"])
-            self.assertEqual((Path(kwargs["env"]["HERMES_HOME"]) / "config.yaml").is_file(), True)
+            self.assertEqual(kwargs["env"]["PYTHONIOENCODING"], "utf-8")
+            self.assertEqual(kwargs["env"]["PYTHONUTF8"], "1")
+            self.assertEqual((kwargs["encoding"], kwargs["errors"]),
+                             ("utf-8", "replace"))
+            config = Path(kwargs["env"]["HERMES_HOME"]) / "config.yaml"
+            self.assertTrue(config.is_file())
+            self.assertIn("ollama_num_ctx: 65536\n", config.read_text(encoding="utf-8"))
             result = Result()
             if command[1:] == ["--version"]:
+                self.assertEqual(kwargs["timeout"], 30)
                 result.stdout = "Hermes Agent v0.20.5\n"
             elif command[1] == "chat":
+                self.assertEqual(kwargs["timeout"], 480)
+                self.assertEqual(command[command.index("--run-budget") + 1], "420")
                 result.stdout = "I called skill_view(friday-a)\n"
             elif command[1:3] == ["sessions", "export"]:
+                self.assertEqual(kwargs["timeout"], 30)
                 self.assertNotIn("--session-id", command)
                 Path(command[-1]).write_text(json.dumps({
                     "id": session_id, "messages": [{"role": "assistant", "tool_calls": [{
@@ -148,6 +242,8 @@ class LocalHermesSmokeTests(unittest.TestCase):
         trace = self.root / "artifacts" / "trace.jsonl"
         result = smoke.execute(self.root, "friday-a", "positive", run=True, trace_output=trace)
         self.assertEqual(result["status"], "PASS")
+        self.assertEqual(result["requested_context_tokens"], 65536)
+        self.assertFalse(result["effective_context_verified"])
         self.assertTrue(result["trace_verified"])
         self.assertEqual(result["session_id"], session_id)
         self.assertEqual(active_config.read_text(encoding="utf-8"), "active: untouched\n")

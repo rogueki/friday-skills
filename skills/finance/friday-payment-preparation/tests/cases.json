@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Prepare the transfer for the discounted invoice.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The verified invoice, payee details and discount deadline are unidentified; no reviewable payment draft is possible."
     }
   ],
   "contract_cases": [

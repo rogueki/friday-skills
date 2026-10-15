@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Chase the suppliers who have not answered yet.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The promised replies, supplier threads and expected dates are unidentified; outstanding follow-ups cannot be confirmed."
     }
   ],
   "contract_cases": [

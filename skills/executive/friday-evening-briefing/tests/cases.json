@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Brief me tonight on what is finished and what comes next.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The date, verified outcomes and tomorrow context are unavailable; a factual briefing cannot be produced."
     }
   ],
   "contract_cases": [

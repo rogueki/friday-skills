@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Build an up-to-date overview for our new project.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The project identifier and its authorized scope, decision and task sources are missing; a snapshot cannot be grounded."
     }
   ],
   "contract_cases": [

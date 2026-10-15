@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Tell me whether the latest configuration backup can be restored.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The backup set, target environment and restore evidence are unidentified; recoverability cannot be verified."
     }
   ],
   "contract_cases": [

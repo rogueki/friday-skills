@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Read the latest message aloud while the family is nearby.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "Session identity, privacy mode and message sensitivity are missing; spoken output cannot be approved."
     }
   ],
   "contract_cases": [

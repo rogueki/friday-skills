@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Waehle die passende Funktion fuer meinen Bericht und verschicke ihn danach.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "Art und Quelle des Berichts sowie Empfaenger und gewuenschtes Ergebnis fehlen; Route und Versandfreigabe bleiben offen."
     }
   ],
   "contract_cases": [

@@ -32,9 +32,12 @@ class LocalHermesRoutingBatchTests(unittest.TestCase):
         revision.start()
         self.addCleanup(revision.stop)
 
-    def _execute(self, root, skill, case_id, *, run, trace_output):
+    def _execute(self, root, skill, case_id, *, run, trace_output,
+                 context_tokens, run_budget_seconds, timeout):
         self.assertTrue(run)
         self.assertEqual(root, self.root)
+        self.assertEqual((context_tokens, run_budget_seconds, timeout),
+                         (65536, 420, 480))
         session = {"id": "20261015_183401_abcdef", "messages": [{"role": "assistant",
                    "tool_calls": [{"function": {"name": "skill_view", "arguments":
                                                   json.dumps({"name": skill})}}]}]}
@@ -57,7 +60,21 @@ class LocalHermesRoutingBatchTests(unittest.TestCase):
         self.assertEqual(report["counts"]["NOT_RUN"], 4)
         self.assertEqual(report["attempted_total"], 0)
         self.assertEqual(report["attempt_reservations_total"], 0)
+        self.assertEqual(report["requested_context_tokens"], 65536)
+        self.assertFalse(report["effective_context_verified"])
+        self.assertEqual(report["run_budget_seconds"], 420)
+        self.assertEqual(report["subprocess_timeout_seconds"], 480)
         self.assertNotIn("SECRET REQUEST", self.report.read_text(encoding="utf-8"))
+        model.assert_not_called()
+        execute.assert_not_called()
+
+    @patch.object(batch.smoke, "installed_exact_model")
+    @patch.object(batch.smoke, "execute")
+    def test_invalid_context_fails_before_report_or_model_call(self, execute, model):
+        with self.assertRaisesRegex(ValueError, "exactly 65536"):
+            batch.evaluate(self.root, run=True, max_cases=1, output=self.report,
+                           context_tokens=16384)
+        self.assertFalse(self.report.exists())
         model.assert_not_called()
         execute.assert_not_called()
 
@@ -80,6 +97,12 @@ class LocalHermesRoutingBatchTests(unittest.TestCase):
     def test_resume_rejects_revision_or_case_set_change(self, execute, _model):
         execute.side_effect = self._execute
         batch.evaluate(self.root, run=True, max_cases=1, output=self.report)
+        with self.assertRaisesRegex(ValueError, "exactly 65536"):
+            batch.evaluate(self.root, run=True, max_cases=1, output=self.report,
+                           resume=True, context_tokens=8192)
+        with self.assertRaisesRegex(ValueError, "run_budget_seconds mismatch"):
+            batch.evaluate(self.root, run=True, max_cases=1, output=self.report,
+                           resume=True, run_budget_seconds=390, timeout_seconds=480)
         with patch.object(batch, "_revision", return_value="b" * 40):
             with self.assertRaisesRegex(ValueError, "git_revision mismatch"):
                 batch.evaluate(self.root, run=True, max_cases=1, output=self.report, resume=True)
@@ -107,9 +130,11 @@ class LocalHermesRoutingBatchTests(unittest.TestCase):
     @patch.object(batch.smoke, "execute")
     def test_unverified_attempt_is_not_repeated_implicitly(self, execute, _model):
         execute.return_value = {"case_set_sha256": batch._new_report(self.root)[0]["case_set_sha256"],
-                                "status": "NOT_RUN", "trace_verified": False}
+                                "status": "NOT_RUN", "trace_verified": False,
+                                "reason_code": "local_model_memory"}
         report = batch.evaluate(self.root, run=True, max_cases=1, output=self.report)
         self.assertEqual(report["counts"]["NOT_RUN"], 4)
+        self.assertEqual(report["cases"][0]["reason_code"], "local_model_memory")
         with self.assertRaisesRegex(ValueError, "retry-unverified"):
             batch.evaluate(self.root, run=True, max_cases=1, output=self.report, resume=True)
         self.assertEqual(execute.call_count, 1)
@@ -117,8 +142,11 @@ class LocalHermesRoutingBatchTests(unittest.TestCase):
     @patch.object(batch.smoke, "installed_exact_model", return_value=True)
     @patch.object(batch.smoke, "execute")
     def test_zero_view_trace_is_checked_and_not_retried_on_resume(self, execute, _model):
-        def zero_view(root, skill, case_id, *, run, trace_output):
+        def zero_view(root, skill, case_id, *, run, trace_output,
+                      context_tokens, run_budget_seconds, timeout):
             self.assertTrue(run)
+            self.assertEqual((context_tokens, run_budget_seconds, timeout),
+                             (65536, 420, 480))
             session = {"id": "20261015_183401_abcdef", "messages": [{
                 "role": "assistant", "tool_calls": [{"function": {
                     "name": "skills_list", "arguments": '{"category":"friday"}'}}]}]}

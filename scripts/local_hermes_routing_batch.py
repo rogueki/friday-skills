@@ -27,7 +27,7 @@ else:
 
 
 STATES = ("PASS", "FAIL", "PARTIAL", "NOT_RUN")
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 
 def _digest(value: Any) -> str:
@@ -86,7 +86,9 @@ def _record(case: dict[str, Any]) -> dict[str, Any]:
             "status": "NOT_RUN", "attempt_state": "PENDING", "trace_verified": False}
 
 
-def _new_report(root: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+def _new_report(root: Path, *, context_tokens: int = smoke.CONTEXT_TOKENS,
+                run_budget_seconds: int = smoke.RUN_BUDGET_SECONDS,
+                timeout_seconds: int = smoke.TIMEOUT_SECONDS) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     cases, catalog, _ = load_cases(root)
     keys = [(case["skill"], case["case_id"]) for case in cases]
     if len(keys) != len(set(keys)):
@@ -94,6 +96,10 @@ def _new_report(root: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     report = {"schema_version": SCHEMA_VERSION, "case_set_sha256": _digest({
                   "cases": cases, "catalog": catalog}),
               "model": smoke.MODEL, "provider": "local-ollama/hermes",
+              "requested_context_tokens": context_tokens,
+              "effective_context_verified": False,
+              "run_budget_seconds": run_budget_seconds,
+              "subprocess_timeout_seconds": timeout_seconds,
               "git_revision": _revision(root), "skills_sha256": _skills_digest(root),
               "harness_sha256": _harness_digest(),
               "case_total": len(cases), "attempted_total": 0,
@@ -141,7 +147,9 @@ def _resume_report(root: Path, path: Path, fresh: dict[str, Any],
     if set(saved) != set(fresh):
         raise ValueError("resume report fields mismatch")
     for key in ("schema_version", "case_set_sha256", "model", "provider", "git_revision",
-                "skills_sha256", "harness_sha256", "case_total"):
+                "skills_sha256", "harness_sha256", "case_total",
+                "requested_context_tokens", "effective_context_verified",
+                "run_budget_seconds", "subprocess_timeout_seconds"):
         if saved.get(key) != fresh[key]:
             raise ValueError(f"resume report {key} mismatch")
     records = saved.get("cases")
@@ -154,7 +162,8 @@ def _resume_report(root: Path, path: Path, fresh: dict[str, Any],
         allowed = set(_record(case)) | {"trace_path", "trace_sha256", "session_id",
                                        "skill_view_count", "observed_decision", "reason_code"}
         if not set(record).issubset(allowed) or record.get("reason_code") not in {
-                None, "no_verified_trace", "attempt_error", "no_skill_view"}:
+                None, "no_verified_trace", "attempt_error", "no_skill_view",
+                *smoke.ERROR_CODES}:
             raise ValueError("resume case fields invalid")
         state = record.get("attempt_state")
         if state not in {"PENDING", "STARTED", "FINISHED"} or record.get("status") not in STATES:
@@ -209,9 +218,22 @@ def _lock(path: Path) -> Iterator[None]:
 
 def evaluate(root: Path = ROOT, *, run: bool, max_cases: int | None = None,
              output: Path | None = None, resume: bool = False,
-             retry_unverified: bool = False) -> dict[str, Any]:
+             retry_unverified: bool = False,
+             context_tokens: int = smoke.CONTEXT_TOKENS,
+             run_budget_seconds: int = smoke.RUN_BUDGET_SECONDS,
+             timeout_seconds: int = smoke.TIMEOUT_SECONDS) -> dict[str, Any]:
     """Evaluate up to max_cases *new* attempts, recording each reservation first."""
-    fresh, cases = _new_report(root)
+    smoke._validate_context_tokens(context_tokens)
+    if (not isinstance(run_budget_seconds, int) or isinstance(run_budget_seconds, bool)
+            or not 180 <= run_budget_seconds <= 600):
+        raise ValueError("run budget must be 180-600 seconds")
+    if (not isinstance(timeout_seconds, int) or isinstance(timeout_seconds, bool)
+            or not run_budget_seconds + 30 <= timeout_seconds <= run_budget_seconds + 180
+            or timeout_seconds > 780):
+        raise ValueError("subprocess timeout must exceed run budget by 30-180 seconds")
+    fresh, cases = _new_report(root, context_tokens=context_tokens,
+                               run_budget_seconds=run_budget_seconds,
+                               timeout_seconds=timeout_seconds)
     if run:
         if not isinstance(max_cases, int) or isinstance(max_cases, bool) or not 1 <= max_cases <= len(cases):
             raise ValueError("--run requires explicit --max-cases from 1 to case count")
@@ -268,7 +290,9 @@ def evaluate(root: Path = ROOT, *, run: bool, max_cases: int | None = None,
             attempts += 1
             try:
                 result = smoke.execute(root, case["skill"], case["case_id"], run=True,
-                                       trace_output=trace)
+                                       trace_output=trace, context_tokens=context_tokens,
+                                       run_budget_seconds=run_budget_seconds,
+                                       timeout=timeout_seconds)
                 if result.get("case_set_sha256") != report["case_set_sha256"]:
                     raise ValueError("single-case harness case-set hash changed")
                 verified = result.get("trace_verified") is True
@@ -283,7 +307,8 @@ def evaluate(root: Path = ROOT, *, run: bool, max_cases: int | None = None,
                         record["reason_code"] = "no_skill_view"
                     _trace_observation(root, output, case, record)
                 else:
-                    record["reason_code"] = "no_verified_trace"
+                    code = result.get("reason_code")
+                    record["reason_code"] = code if code in smoke.ERROR_CODES else "no_verified_trace"
             except Exception:
                 for field in ("trace_path", "trace_sha256", "session_id", "skill_view_count",
                               "observed_decision"):
@@ -305,16 +330,28 @@ def main() -> int:
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--retry-unverified", action="store_true",
                         help="explicitly repeat attempts with no verified trace")
+    parser.add_argument("--context-tokens", type=int, choices=(smoke.CONTEXT_TOKENS,),
+                        default=smoke.CONTEXT_TOKENS)
+    parser.add_argument("--run-budget-seconds", type=int,
+                        default=smoke.RUN_BUDGET_SECONDS)
+    parser.add_argument("--timeout-seconds", type=int, default=smoke.TIMEOUT_SECONDS)
     args = parser.parse_args()
     try:
         report = evaluate(run=args.run, max_cases=args.max_cases, output=args.output,
-                          resume=args.resume, retry_unverified=args.retry_unverified)
+                          resume=args.resume, retry_unverified=args.retry_unverified,
+                          context_tokens=args.context_tokens,
+                          run_budget_seconds=args.run_budget_seconds,
+                          timeout_seconds=args.timeout_seconds)
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         parser.error(str(exc))
     print(json.dumps({"case_total": report["case_total"], "attempted_total":
                       report["attempted_total"], "attempt_reservations_total":
                       report["attempt_reservations_total"], "counts": report["counts"],
-                      "case_set_sha256": report["case_set_sha256"]}, indent=2))
+                      "case_set_sha256": report["case_set_sha256"],
+                      "requested_context_tokens": report["requested_context_tokens"],
+                      "effective_context_verified": report["effective_context_verified"],
+                      "run_budget_seconds": report["run_budget_seconds"],
+                      "subprocess_timeout_seconds": report["subprocess_timeout_seconds"]}, indent=2))
     return 1 if report["counts"]["FAIL"] else 0
 
 

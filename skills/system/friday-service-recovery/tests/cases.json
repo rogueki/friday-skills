@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Restart the failing service and confirm it is healthy.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The service identity, observed failure and approved recovery mode are absent; a restart cannot be planned safely."
     }
   ],
   "contract_cases": [

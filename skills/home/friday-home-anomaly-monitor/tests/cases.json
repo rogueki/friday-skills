@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Was the heating behavior in the house unusual last night?",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The relevant measurements, comparison period and zone are unspecified; no anomaly baseline is available."
     }
   ],
   "contract_cases": [

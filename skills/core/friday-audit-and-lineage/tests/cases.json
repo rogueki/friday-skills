@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Stelle den Pruefpfad fuer die gestern abgeschlossene Aenderung zusammen.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "Ohne Vorgangs-ID oder betroffene Aenderung lassen sich Quellen, Entscheidungen und Belege keinem konkreten Ablauf zuordnen."
     }
   ],
   "contract_cases": [

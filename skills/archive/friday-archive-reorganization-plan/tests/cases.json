@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Plan a reversible folder layout for the family archive.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The source roots and intended destination are unspecified; paths, capacity and conflicts cannot be planned."
     }
   ],
   "contract_cases": [

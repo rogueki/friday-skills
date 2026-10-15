@@ -1,6 +1,6 @@
 ---
 name: friday-archive-inventory
-description: Inventory files read-only by type, size and date; flag duplicate suspects, unreadable items and backup evidence without reorganizing files.
+description: "Archive census: file types, sizes, dates and duplicates. Flag unreadable items and check backup evidence; read-only, no file moves."
 version: 0.1.0
 author: RogueKI
 license: MIT

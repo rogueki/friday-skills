@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Brighten the photos from the party and crop the bad edges.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The approved source copies, output location and edit preferences are missing; reversible edits cannot be applied."
     }
   ],
   "contract_cases": [

@@ -21,9 +21,9 @@
     },
     {
       "id": "ambiguity",
-      "request": "Pruefe das bitte und erledige es.",
+      "request": "Count the files and duplicate suspects on that drive before I reorganize it.",
       "expected": "defer",
-      "reason": "Ziel, Objekt und erlaubte Aktion fehlen; der Skill kann ohne Klaerung nicht sicher ausgewaehlt werden."
+      "reason": "The allowed drive or folder root is missing; a read-only inventory cannot define coverage."
     }
   ],
   "contract_cases": [
