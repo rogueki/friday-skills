@@ -1,5 +1,7 @@
 # Acceptance matrix — plan §§38–39
 
+Archive inventory and exact duplicate detection now have an opt-in local file reader with eight temporary-file tests for hashes, links, limits, changes and read errors. This is **PARTIAL** evidence for §§19.1–19.2: the caller must authorize the root, Windows concurrent path-swap resistance is limited, and neither Hermes skill execution nor migration/deletion occurs. The 404 routing and 1616 individual runtime dimensions remain open.
+
 Plan §§18–25 instruction review: all 48 media, archive, travel, office, research, knowledge, voice and system skills now have distinct evidence, capability and stop conditions. This remains **PARTIAL**: the existing photo-archive, family-travel, presentation and system-outage E2E flows are synthetic and do not establish real filesystem migration, booking, Office Worker, voice identity or host recovery. The 404 model-routing and 1616 individual skill-runtime cases remain unexecuted.
 
 Plan §§16–17 instruction review: four funding/tariff/cost and five home/energy skills now state source, calculation and adapter prerequisites explicitly. This is **PARTIAL** until official live program/tariff reads, native Loxone transport and per-skill Hermes execution are evidenced; synthetic fixtures and a normalized snapshot do not establish live monitoring, switching or device writes.
