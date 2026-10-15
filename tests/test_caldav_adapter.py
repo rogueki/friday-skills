@@ -12,7 +12,7 @@ from unittest.mock import patch
 from adapters.caldav_calendar import (
     CalendarAdapterError, Request, Response, list_events, parse_event, write_event,
 )
-from shared.policy import action_fingerprint
+from shared.approval_ledger import ApprovalLedger
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,18 +38,20 @@ def capability():
             "rate_limited": False}
 
 
-def approval(target, etag=None, ical=ICAL, expires=None):
-    payload = {"account": "friday@example.invalid", "ical": ical, "etag": etag}
-    return {"status": "approved", "target": target, "tier": 2,
-            "fingerprint": action_fingerprint("calendar_write", target, payload),
-            "expires_at": (expires or NOW + timedelta(minutes=5)).isoformat()}
-
-
 class CalDAVAdapterTests(unittest.TestCase):
     def setUp(self):
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)
         self.ledger = Path(self.directory.name) / "mutations.sqlite"
+        self.grants = ApprovalLedger(Path(self.directory.name) / "approvals.sqlite")
+        self.decision_counter = 0
+
+    def approval(self, target, *, etag=None, ical=ICAL, key="op-1", expires=None):
+        self.decision_counter += 1
+        return self.grants.issue(action="calendar_write", target=target,
+                                 payload={"account": "friday@example.invalid", "ical": ical, "etag": etag},
+                                 idempotency_key=key, decision_id=f"operator-decision-{self.decision_counter}",
+                                 expires_at=expires or NOW + timedelta(minutes=5), now=NOW)
 
     def test_mock_read_labels_fixture_and_never_calls_transport(self):
         result = list_events(ENDPOINT, "friday@example.invalid", START, END,
@@ -122,7 +124,7 @@ class CalDAVAdapterTests(unittest.TestCase):
                transport=None, key="op-1", href=None, etag=None, ical=ICAL):
         return write_event(ENDPOINT, "friday@example.invalid", ical,
                            allowed_host="cal.example.invalid", action=action,
-                           idempotency_key=key, approval=approval_record,
+                           idempotency_key=key, approval_ledger=self.grants, grant_id=approval_record,
                            capability=capability_record or capability(), ledger_path=self.ledger,
                            transport=transport or (lambda _: response(status=201, body=b"", headers={"ETag": '"v2"'})),
                            href=href, etag=etag, now=NOW)
@@ -130,34 +132,40 @@ class CalDAVAdapterTests(unittest.TestCase):
     def test_create_requires_exact_unexpired_approval_and_conditional_put(self):
         seen = []
         target = ENDPOINT + sha256(b"friday@example.invalid:op-1").hexdigest() + ".ics"
-        for record in (None, approval(target, expires=NOW - timedelta(seconds=1)),
-                       approval(target, ical=ICAL.replace("Approved", "Changed"))):
+        with self.assertRaises(TypeError):
+            write_event(ENDPOINT, "friday@example.invalid", ICAL, allowed_host="cal.example.invalid",
+                        action="create", idempotency_key="op-1", approval_ledger=self.grants,
+                        grant_id=None, approval={"status": "approved"}, capability=capability(),
+                        ledger_path=self.ledger, transport=lambda _: response(status=201))
+        for record in (None, "forged", self.approval(target, ical=ICAL.replace("Approved", "Changed"))):
             with self.assertRaises(CalendarAdapterError) as caught:
                 self._write(approval_record=record, transport=lambda req: seen.append(req) or response(status=201))
             self.assertEqual(caught.exception.code, "approval_blocked")
         self.assertFalse(seen)
-        result = self._write(approval_record=approval(target),
+        grant_id = self.approval(target)
+        result = self._write(approval_record=grant_id,
                              transport=lambda req: seen.append(req) or response(status=201, body=b"", headers={"ETag": '"v2"'}))
         self.assertTrue(result["write_effect"])
         self.assertEqual(seen[0].method, "PUT")
         self.assertEqual(seen[0].headers["If-None-Match"], "*")
         self.assertEqual(seen[0].url, target)
         self.assertEqual(len(seen), 1)
-        self.assertEqual(self._write(approval_record=approval(target), transport=lambda req: seen.append(req)), result)
+        with self.assertRaises(CalendarAdapterError):
+            self._write(approval_record=grant_id, transport=lambda req: seen.append(req))
         self.assertEqual(len(seen), 1)
 
     def test_update_conflict_blocks_retry_and_requires_strong_etag(self):
         href = ENDPOINT + "briefing.ics"
         with self.assertRaises(CalendarAdapterError):
-            self._write(action="update", href=href, etag='W/"weak"', approval_record=approval(href, 'W/"weak"'))
+            self._write(action="update", href=href, etag='W/"weak"', approval_record="forged")
         seen = []
         with self.assertRaises(CalendarAdapterError) as caught:
-            self._write(action="update", href=href, etag='"v1"', approval_record=approval(href, '"v1"'),
+            self._write(action="update", href=href, etag='"v1"', approval_record=self.approval(href, etag='"v1"'),
                         transport=lambda req: seen.append(req) or response(status=412, body=b""))
         self.assertEqual(caught.exception.code, "conflict")
         self.assertEqual(seen[0].headers["If-Match"], '"v1"')
         with self.assertRaises(CalendarAdapterError) as caught:
-            self._write(action="update", href=href, etag='"v1"', approval_record=approval(href, '"v1"'),
+            self._write(action="update", href=href, etag='"v1"', approval_record=self.approval(href, etag='"v1"'),
                         transport=lambda req: seen.append(req))
         self.assertEqual(caught.exception.code, "outcome_uncertain")
         self.assertEqual(len(seen), 1)
@@ -171,14 +179,14 @@ class CalDAVAdapterTests(unittest.TestCase):
             raise TimeoutError("synthetic timeout")
 
         with self.assertRaises(CalendarAdapterError) as caught:
-            self._write(approval_record=approval(target), transport=timeout)
+            self._write(approval_record=self.approval(target), transport=timeout)
         self.assertEqual(caught.exception.code, "outcome_uncertain")
         with self.assertRaises(CalendarAdapterError) as caught:
-            self._write(approval_record=approval(target), transport=timeout)
+            self._write(approval_record=self.approval(target), transport=timeout)
         self.assertEqual(caught.exception.code, "outcome_uncertain")
         self.assertEqual(len(calls), 1)
         with self.assertRaises(CalendarAdapterError) as caught:
-            self._write(approval_record=approval(target), ical=ICAL.replace("Approved", "Changed"), transport=timeout)
+            self._write(approval_record=self.approval(target), ical=ICAL.replace("Approved", "Changed"), transport=timeout)
         self.assertEqual(caught.exception.code, "approval_blocked")
 
     def test_stale_or_unauthenticated_capability_never_reaches_transport(self):
@@ -187,7 +195,7 @@ class CalDAVAdapterTests(unittest.TestCase):
         for broken in ({**capability(), "authenticated": False},
                        {**capability(), "checked_at": (NOW - timedelta(minutes=6)).isoformat()}):
             with self.subTest(broken=broken), self.assertRaises(CalendarAdapterError) as caught:
-                self._write(approval_record=approval(target), capability_record=broken,
+                self._write(approval_record=self.approval(target), capability_record=broken,
                             transport=lambda req: seen.append(req) or response(status=201))
             self.assertEqual(caught.exception.code, "approval_blocked")
         self.assertFalse(seen)

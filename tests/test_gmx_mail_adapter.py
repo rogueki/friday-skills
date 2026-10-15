@@ -12,7 +12,7 @@ import unittest
 from unittest.mock import patch
 
 from adapters import gmx_mail as mail
-from shared.policy import action_fingerprint
+from shared.approval_ledger import ApprovalLedger
 
 
 NOW = datetime(2026, 10, 15, 14, 0, tzinfo=timezone.utc)
@@ -96,28 +96,30 @@ class GMXMailAdapterTests(unittest.TestCase):
         payload = {"sender": CREDS.address, "recipient": "recipient@example.invalid", "subject": "Hello", "body": "Message"}
         capability = {"name": "mail.send", "status": "healthy", "mode": "live", "permissions": ["write"],
                       "authenticated": True, "rate_limited": False, "checked_at": NOW.isoformat()}
-        approval = {"status": "approved", "target": payload["recipient"], "tier": 2,
-                    "fingerprint": action_fingerprint("send_message", payload["recipient"], payload),
-                    "expires_at": (NOW + timedelta(minutes=5)).isoformat()}
         calls: list[EmailMessage] = []
         def sender(_credentials, message, _timeout):
             calls.append(message)
         with tempfile.TemporaryDirectory() as tmp:
             ledger = Path(tmp) / "mail.sqlite3"
+            grants = ApprovalLedger(Path(tmp) / "approvals.sqlite3")
+            grant_id = grants.issue(action="send_message", target=payload["recipient"], payload=payload,
+                                    idempotency_key="stable_send_key_001", decision_id="operator-decision-1",
+                                    expires_at=NOW + timedelta(minutes=5), now=NOW)
             common = dict(**payload, mode="live", credentials=CREDS, capability=capability,
-                          approval=approval, idempotency_key="stable_send_key_001", ledger_path=ledger,
+                          approval_ledger=grants, grant_id=grant_id, idempotency_key="stable_send_key_001", ledger_path=ledger,
                           transport=sender, now=NOW)
-            for bad in ({}, {**approval, "expires_at": NOW.isoformat()},
-                        {**approval, "fingerprint": "wrong"}):
+            with self.assertRaises(TypeError):
+                mail.send_message(**{**common, "approval": {"status": "approved"}})
+            for bad in ({}, None, "forged"):
                 with self.subTest(bad=bad), self.assertRaises(mail.MailAdapterError):
-                    mail.send_message(**{**common, "approval": bad})
+                    mail.send_message(**{**common, "grant_id": bad})
             self.assertEqual(calls, [])
             result = mail.send_message(**common)
             self.assertEqual(result["status"], "accepted_by_smtp")
             self.assertEqual(len(calls), 1)
-            with self.assertRaisesRegex(mail.MailAdapterError, "already reserved"):
+            with self.assertRaisesRegex(mail.MailAdapterError, "already consumed"):
                 mail.send_message(**common)
-            with self.assertRaisesRegex(mail.MailAdapterError, "already reserved"):
+            with self.assertRaises(mail.MailAdapterError):
                 mail.send_message(**{**common, "idempotency_key": "stable_send_key_002"})
             self.assertEqual(len(calls), 1)
 
@@ -125,12 +127,14 @@ class GMXMailAdapterTests(unittest.TestCase):
         payload = {"sender": CREDS.address, "recipient": "recipient@example.invalid", "subject": "Hello", "body": "Message"}
         capability = {"name": "mail.send", "status": "healthy", "mode": "live", "permissions": ["write"],
                       "authenticated": True, "rate_limited": False, "checked_at": NOW.isoformat()}
-        approval = {"status": "approved", "target": payload["recipient"], "tier": 2,
-                    "fingerprint": action_fingerprint("send_message", payload["recipient"], payload),
-                    "expires_at": (NOW + timedelta(minutes=5)).isoformat()}
         with tempfile.TemporaryDirectory() as tmp:
             ledger = Path(tmp) / "mail.sqlite3"
-            kwargs = dict(**payload, mode="live", credentials=CREDS, capability=capability, approval=approval,
+            grants = ApprovalLedger(Path(tmp) / "approvals.sqlite3")
+            grant_id = grants.issue(action="send_message", target=payload["recipient"], payload=payload,
+                                    idempotency_key="stable_send_key_003", decision_id="operator-decision-2",
+                                    expires_at=NOW + timedelta(minutes=5), now=NOW)
+            kwargs = dict(**payload, mode="live", credentials=CREDS, capability=capability,
+                          approval_ledger=grants, grant_id=grant_id,
                           idempotency_key="stable_send_key_003", ledger_path=ledger, now=NOW,
                           transport=lambda *_: (_ for _ in ()).throw(TimeoutError()))
             result = mail.send_message(**kwargs)
@@ -140,6 +144,25 @@ class GMXMailAdapterTests(unittest.TestCase):
                 self.assertEqual(db.execute("SELECT state FROM mail_send").fetchone()[0], "unknown_outcome")
             with self.assertRaises(mail.MailAdapterError):
                 mail.send_message(**kwargs)
+
+    def test_failed_approval_store_never_calls_smtp(self):
+        payload = {"sender": CREDS.address, "recipient": "recipient@example.invalid", "subject": "Hello", "body": "Message"}
+        capability = {"name": "mail.send", "status": "healthy", "mode": "live", "permissions": ["write"],
+                      "authenticated": True, "rate_limited": False, "checked_at": NOW.isoformat()}
+        with tempfile.TemporaryDirectory() as tmp:
+            grants = ApprovalLedger(Path(tmp) / "approvals.sqlite3")
+            grant_id = grants.issue(action="send_message", target=payload["recipient"], payload=payload,
+                                    idempotency_key="stable_send_key_004", decision_id="operator-decision-3",
+                                    expires_at=NOW + timedelta(minutes=5), now=NOW)
+            with closing(sqlite3.connect(grants.path)) as db:
+                db.execute("DROP TABLE grants")
+                db.commit()
+            calls = []
+            with self.assertRaises(mail.MailAdapterError):
+                mail.send_message(**payload, mode="live", credentials=CREDS, capability=capability,
+                                  approval_ledger=grants, grant_id=grant_id, idempotency_key="stable_send_key_004",
+                                  ledger_path=Path(tmp) / "mail.sqlite3", transport=lambda *_: calls.append(True), now=NOW)
+            self.assertEqual(calls, [])
 
 
 if __name__ == "__main__":

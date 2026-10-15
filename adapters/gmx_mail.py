@@ -21,7 +21,8 @@ import sqlite3
 import ssl
 from typing import Any, Callable, Mapping
 
-from shared.policy import PolicyError, action_fingerprint, authorize_action
+from shared.approval_ledger import ApprovalLedger, ApprovalLedgerError
+from shared.policy import action_fingerprint, capability_available
 
 
 IMAP_HOST = "imap.gmx.net"
@@ -184,7 +185,8 @@ def read_message(
 def send_message(
     *, sender: str, recipient: str, subject: str, body: str,
     mode: str = "mock", credentials: GMXCredentials | None = None,
-    capability: Mapping[str, Any] | None = None, approval: Mapping[str, Any] | None = None,
+    capability: Mapping[str, Any] | None = None, approval_ledger: ApprovalLedger | None = None,
+    grant_id: str | None = None,
     idempotency_key: str | None = None, ledger_path: Path | None = None,
     transport: SendTransport | None = None, use_stdlib_transport: bool = False,
     timeout: float = 8.0, now: datetime | None = None,
@@ -208,10 +210,14 @@ def send_message(
         raise MailAdapterError("transport_missing", "choose exactly one explicit send transport")
     seconds = _timeout(timeout)
     payload = {"sender": sender, "recipient": recipient, "subject": subject, "body": body}
+    if not capability_available(capability or {}, permission="write", mode="live", now=now):
+        raise MailAdapterError("approval_required", "fresh authenticated write capability required")
+    if not isinstance(approval_ledger, ApprovalLedger) or not isinstance(grant_id, str):
+        raise MailAdapterError("approval_required", "trusted approval ledger and grant ID required")
     try:
-        authorize_action("send_message", recipient, payload, mode=mode, capability=capability or {}, approval=approval,
-                         idempotency_key=idempotency_key, now=now)
-    except PolicyError as exc:
+        approval_ledger.consume(grant_id, action="send_message", target=recipient, payload=payload,
+                                idempotency_key=idempotency_key, now=now)
+    except ApprovalLedgerError as exc:
         raise MailAdapterError("approval_required", str(exc)) from exc
     fingerprint = action_fingerprint("send_message", recipient, payload)
     message = EmailMessage()

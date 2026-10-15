@@ -12,6 +12,8 @@ The GMX and CalDAV adapters add explicit transport paths and synthetic fixtures.
 
 The Loxone status plugin exposes only synthetic, read-only fixture data. Its `authenticated: false` marker is intentional; the plugin does not assert a current `loxone.read` capability. A separately authenticated Miniserver provider must satisfy the documented snapshot contract before the static availability flags change.
 
+For GMX and CalDAV writes, a fresh capability record is checked alongside a host-owned one-time grant. This local record still does not authenticate the operator or prove provider permission by itself; the host must establish both independently before issuing a grant.
+
 ```json
 {"name":"mail.read","mode":"mock","status":"healthy","authenticated":true,"rate_limited":false,"permissions":["read"],"checked_at":"2026-10-15T12:00:00Z","synthetic":true}
 ```

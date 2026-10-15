@@ -20,7 +20,8 @@ from urllib.parse import urlsplit, urljoin
 import xml.etree.ElementTree as ET
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from shared.policy import PolicyError, action_fingerprint, authorize_action
+from shared.approval_ledger import ApprovalLedger, ApprovalLedgerError
+from shared.policy import action_fingerprint, capability_available
 
 
 MAX_RESPONSE_BYTES = 1_000_000
@@ -282,7 +283,8 @@ def _ledger_complete(path: Path, key: str, receipt: dict[str, Any]) -> None:
 
 
 def write_event(endpoint: str, account: str, ical: str, *, allowed_host: str,
-                action: str, idempotency_key: str, approval: Mapping[str, Any] | None,
+                action: str, idempotency_key: str, approval_ledger: ApprovalLedger | None,
+                grant_id: str | None,
                 capability: Mapping[str, Any], ledger_path: Path, transport: Transport | None,
                 href: str | None = None, etag: str | None = None, mode: str = "live",
                 timeout: float = 8.0, now: datetime | None = None) -> dict[str, Any]:
@@ -309,10 +311,14 @@ def write_event(endpoint: str, account: str, ical: str, *, allowed_host: str,
         target = _resource(href, endpoint)
         precondition = {"If-Match": etag}
     payload = {"account": account, "ical": ical, "etag": etag}
+    if not capability_available(capability, permission="write", mode="live", now=now):
+        raise CalendarAdapterError("approval_blocked", "fresh authenticated write capability required")
+    if not isinstance(approval_ledger, ApprovalLedger) or not isinstance(grant_id, str):
+        raise CalendarAdapterError("approval_blocked", "trusted approval ledger and grant ID required")
     try:
-        authorize_action("calendar_write", target, payload, mode="live", capability=capability,
-                         approval=approval, idempotency_key=idempotency_key, now=now)
-    except PolicyError as exc:
+        approval_ledger.consume(grant_id, action="calendar_write", target=target, payload=payload,
+                                idempotency_key=idempotency_key, now=now)
+    except ApprovalLedgerError as exc:
         raise CalendarAdapterError("approval_blocked", str(exc)) from exc
     fingerprint = action_fingerprint("calendar_write", target, payload)
     prior = _ledger_claim(Path(ledger_path), idempotency_key, fingerprint)
