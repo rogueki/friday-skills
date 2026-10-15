@@ -13,11 +13,11 @@ class SkillCaseTests(unittest.TestCase):
     def test_all_skill_contracts_and_matrix(self):
         report, errors = run()
         self.assertEqual(errors, [])
-        self.assertEqual(report["skills"], 101)
+        self.assertEqual(report["skills"], 105)
         self.assertEqual({category: len(checks) for category, checks in MATRIX.items()},
                          {"trigger": 4, "functional": 8, "security": 7,
                           "policy": 5, "output": 5})
-        self.assertEqual(sum(report["counts"].values()), 101 * 29)
+        self.assertEqual(sum(report["counts"].values()), 105 * 29)
         self.assertGreater(report["counts"]["NOT_RUN"], report["counts"]["PASS"])
         self.assertEqual(report["live_skill_runtime"], "NOT_RUN")
 

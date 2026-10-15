@@ -1316,6 +1316,58 @@
       "mock_ready": true,
       "live_adapter_ready": false,
       "last_checked": "2026-10-15"
+    },
+    {
+      "name": "friday-content-planning",
+      "legacy_plan_name": null,
+      "category": "media",
+      "status": "implemented_procedure",
+      "max_risk_tier": 1,
+      "path": "skills/media/friday-content-planning/SKILL.md",
+      "version": "0.1.0",
+      "trigger": "Plan Content Studio ideas, posting drafts and version 1 plan.json without publishing.",
+      "mock_ready": true,
+      "live_adapter_ready": false,
+      "last_checked": "2026-10-16"
+    },
+    {
+      "name": "friday-kie-media",
+      "legacy_plan_name": null,
+      "category": "media",
+      "status": "implemented_procedure",
+      "max_risk_tier": 3,
+      "path": "skills/media/friday-kie-media/SKILL.md",
+      "version": "0.1.0",
+      "trigger": "Generate an image or five-second clip via the Content Studio kie.ai API after explicit cost confirmation.",
+      "mock_ready": true,
+      "live_adapter_ready": false,
+      "last_checked": "2026-10-16"
+    },
+    {
+      "name": "friday-elevenlabs-voice",
+      "legacy_plan_name": null,
+      "category": "media",
+      "status": "implemented_procedure",
+      "max_risk_tier": 3,
+      "path": "skills/media/friday-elevenlabs-voice/SKILL.md",
+      "version": "0.1.0",
+      "trigger": "Generate an approved MP3 narration with a licensed voice ID through the Content Studio server API.",
+      "mock_ready": true,
+      "live_adapter_ready": false,
+      "last_checked": "2026-10-16"
+    },
+    {
+      "name": "friday-video-editing",
+      "legacy_plan_name": null,
+      "category": "media",
+      "status": "implemented_procedure",
+      "max_risk_tier": 1,
+      "path": "skills/media/friday-video-editing/SKILL.md",
+      "version": "0.1.0",
+      "trigger": "Plan cuts, captions and audio for a social video; export manually in CapCut or a verified local editor.",
+      "mock_ready": true,
+      "live_adapter_ready": false,
+      "last_checked": "2026-10-16"
     }
   ]
 }

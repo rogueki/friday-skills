@@ -197,6 +197,19 @@
       "trigger": "Assemble an evidence-backed person and organization context card; not covert profiling."
     },
     {
+      "id": "content-planning",
+      "intents": [
+        "content_planning"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-content-planning"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Plan Content Studio ideas, posting drafts and version 1 plan.json without publishing."
+    },
+    {
       "id": "contract-and-subscription-monitor",
       "intents": [
         "contract_and_subscription_monitor"
@@ -325,6 +338,19 @@
       ],
       "status": "implemented_procedure",
       "trigger": "Group exact and near duplicate archive files without automatically deleting any version."
+    },
+    {
+      "id": "elevenlabs-voice",
+      "intents": [
+        "elevenlabs_voice"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 3,
+      "skills": [
+        "friday-elevenlabs-voice"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Generate an approved MP3 narration with a licensed voice ID through the Content Studio server API."
     },
     {
       "id": "energy-optimizer",
@@ -624,6 +650,19 @@
       ],
       "status": "implemented_procedure",
       "trigger": "Extract and validate supplied invoices, flag duplicates and changed bank details; use before payment preparation."
+    },
+    {
+      "id": "kie-media",
+      "intents": [
+        "kie_media"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 3,
+      "skills": [
+        "friday-kie-media"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Generate an image or five-second clip via the Content Studio kie.ai API after explicit cost confirmation."
     },
     {
       "id": "knowledge-base-curator",
@@ -1209,6 +1248,19 @@
       ],
       "status": "implemented_procedure",
       "trigger": "Plan and render a reviewed family film or highlight reel from authorized media with rights-safe audio."
+    },
+    {
+      "id": "video-editing",
+      "intents": [
+        "video_editing"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 1,
+      "skills": [
+        "friday-video-editing"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Plan cuts, captions and audio for a social video; export manually in CapCut or a verified local editor."
     },
     {
       "id": "voice-command-normalizer",

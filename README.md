@@ -2,7 +2,7 @@
 
 **RogueKI** maintains this independent Hermes Agent skill suite for [rogueki/rogue-friday](https://github.com/rogueki/rogue-friday). F.R.I.D.A.Y. is the successor assistant in this project's own story: a coordinating core calls focused specialists for executive work, communication, finance, home, family, media, research and operations. This project is not affiliated with Marvel.
 
-The [roadmap](registry/roadmap.json) names **100 skills from the implementation plan**. The separate `friday-web-research` procedure extends that plan. The current [registry/skills.json](registry/skills.json) lists 101 packaged procedures, cross-checked against `skills/**/SKILL.md`; [the catalog](docs/SKILL_CATALOG.md) explains categories, triggers and readiness. A procedure marked installable or mock-ready does not imply a live connector.
+The [roadmap](registry/roadmap.json) names **100 skills from the implementation plan**. `friday-web-research` and four Content Studio procedures extend that plan. The current [registry/skills.json](registry/skills.json) lists 105 packaged procedures, cross-checked against `skills/**/SKILL.md`; [the catalog](docs/SKILL_CATALOG.md) explains categories, triggers and readiness. A procedure marked installable or mock-ready does not imply a live connector.
 
 ## What this repository provides
 
@@ -24,6 +24,7 @@ The [roadmap](registry/roadmap.json) names **100 skills from the implementation 
 - A host-owned [one-time approval ledger](docs/APPROVAL_LEDGER.md) for the GMX and CalDAV Python write paths. Grant issuance still requires a real operator decision and trusted host integration.
 - A host-side [input trust helper](docs/INPUT_TRUST_BOUNDARY.md) that binds source provenance to an exact local mock proposal. It requires an authenticating host and does not gate arbitrary Hermes tools.
 - A [parent integration handoff](docs/PARENT_INTEGRATION_HANDOFF.md) pinned to the read-only `rogue-friday` snapshot, covering service authentication, tasks, activity, audit and event replay.
+- Four [Content Studio skills](docs/CONTENT_STUDIO.md) for planning, kie.ai media, ElevenLabs narration and manual video editing. The companion dashboard branch has server-side provider endpoints; these skills need an authenticated Hermes-to-Control-API bridge before they can call those endpoints.
 
 `mock` means synthetic fixtures only. `read_only` permits verified observations through an adapter; the public weather reader needs no account. `live` requires a verified adapter, fresh capability and action-specific approval for higher-risk actions. Mail and calendar writes are implemented as gated Python adapter functions, but no trusted approval gateway or provider account has been connected. The full suite cannot presently perform those writes, operate banking or Loxone, file taxes or publish to the dashboard.
 
