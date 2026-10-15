@@ -1,1 +1,22 @@
-{"product":"F.R.I.D.A.Y.","author":"RogueKI","version":"0.1.0","runtime":"local_mock_only","hermes_registered":false,"components":["policy_preflight","input_inspection","approval_boundary","audit_record","dashboard_mapping","notification_proposal"],"external_delivery":false}
+{
+  "product": "F.R.I.D.A.Y.",
+  "author": "RogueKI",
+  "version": "0.2.0",
+  "runtime": "local_mock_only",
+  "native_hermes_plugin_available": true,
+  "hermes_registered_in_active_profile": false,
+  "optional_plugin_path": "plugins/friday_local",
+  "provides_tools": [
+    "friday_policy_preflight",
+    "friday_fixture_read",
+    "friday_mock_propose",
+    "friday_activity_record"
+  ],
+  "components": [
+    "policy_preflight",
+    "synthetic_fixture_read",
+    "mock_action_proposal",
+    "local_activity_record"
+  ],
+  "external_delivery": false
+}

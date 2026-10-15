@@ -6,9 +6,10 @@ Repository: `friday-skills` at the 0.2.0 procedure-suite stage. Environment: Win
 |---|---|---|
 | `python scripts/validate.py` | PASS | 101 skills; registry, 100-item roadmap, schemas and ignored local files valid. |
 | `python scripts/build_registry.py` | PASS | Generated routing/capability/automation/dashboard registries current. |
-| `python -m unittest discover -s tests -q` | PASS | 24 tests, including policy, mock scenarios, routing, fixtures and packaging. |
+| `python -m unittest discover -s tests -q` | PASS | 29 tests, including policy, mock scenarios, routing, fixtures, packaging and optional plugin contract. |
 | `python scripts/smoke_test.py` | PASS | 101 registered `SKILL.md` files exist. |
 | Isolated `HERMES_HOME` + `hermes skills list` | PASS | 101 `friday-*` rows reported `enabled`. The temporary profile only referenced this checkout via `skills.external_dirs`. |
+| Isolated Hermes v0.20.5 plugin discovery | PASS | Optional `friday-local` loaded with four tools and no load error in a separate test profile; active profile untouched. |
 | 101 per-skill `tests/cases.json` | PASS structural | Every skill has positive, negative and collision examples. These are authored review cases, not executed model routing results. |
 | PowerShell and Bash install / repeat install | PASS local | Worker ran dry run, first copy and second copy into temporary targets; 203 files copied first, 0 changed on repeat. No active Hermes profile was modified. |
 | ZIP export / CRC | PASS local | Deterministic ZIP verified, with local `MEMORY.md`, `SCOPE.md`, ignored plan and secrets excluded. |
@@ -17,4 +18,4 @@ Repository: `friday-skills` at the 0.2.0 procedure-suite stage. Environment: Win
 
 The ten plan workflows are **synthetic local scenario traces**, with assertions for key mock outcomes and forbidden external effects. They are not end-to-end tests of the separate `rogue-friday` application. Policy helpers and hooks are callable local contracts; Hermes does not register them as a live plugin merely because the repository is installed.
 
-The isolated discovery profile remained in the Windows temporary directory after its cleanup command was rejected by automatic approval review. It contains a `config.yaml` referencing this checkout and no credentials: `C:\Users\BYTENI~1\AppData\Local\Temp\friday-skills-hermes-b100b0188edc4981aada7525bac2ee07`.
+The isolated discovery profile remained in the Windows temporary directory after its cleanup command was rejected by automatic approval review: `C:\Users\BYTENI~1\AppData\Local\Temp\friday-skills-hermes-b100b0188edc4981aada7525bac2ee07`. We supplied only `config.yaml` with `skills.external_dirs`; Hermes generated additional profile directories and `SOUL.md` during the command. We did not supply credentials, but did not audit every generated artifact.

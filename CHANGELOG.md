@@ -7,6 +7,7 @@ Changes are recorded for the independent F.R.I.D.A.Y. Skills package by RogueKI.
 - Added procedures and local cases for all 100 plan skills, plus the extra web research skill; live adapters are still unavailable.
 - Add architecture, configuration, routing, capability, approval, security, testing, dashboard, operations, troubleshooting and authoring documentation.
 - Keep the companion `rogue-friday` repository read only while this package evolves.
+- Add an opt-in Hermes v0.20.5 plugin with four local mock tools; verified in an isolated profile. It is not a live adapter or a global policy gate.
 
 ## 0.1.0 — 2026-10-15
 

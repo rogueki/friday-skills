@@ -8,6 +8,7 @@ The [roadmap](registry/roadmap.json) names **100 skills from the implementation 
 
 - Hermes `SKILL.md` decision procedures, examples and local tests.
 - Local schemas and Python policy/mock helpers that an integration must **explicitly call**. Installing skills alone does not enforce approvals, prevent tool calls or emit dashboard events.
+- An optional [native Hermes plugin](plugins/CONTRACT.md) with four local mock tools. It was loaded in an isolated test profile; the active profile is untouched. Its policy tool returns a decision but cannot enforce other Hermes tools or perform external actions.
 - A documented boundary to the separate F.R.I.D.A.Y. application. `rogue-friday` is a read-only companion dependency for this work; this repository does not ship its dashboard, credentials or live adapters.
 
 `mock` means synthetic fixtures only. `read_only` permits authenticated observations through a verified adapter. `live` requires a verified adapter, fresh capability and action-specific approval for higher-risk actions. There is no claim that the full suite can presently send mail, operate banking or Loxone, change calendars, file taxes or publish to the dashboard.

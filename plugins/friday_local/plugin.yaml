@@ -1,0 +1,11 @@
+name: friday-local
+version: 0.1.0
+description: Local synthetic F.R.I.D.A.Y. policy, fixtures, proposals and activity records
+author: RogueKI
+kind: standalone
+manifest_version: 2
+provides_tools:
+  - friday_policy_preflight
+  - friday_fixture_read
+  - friday_mock_propose
+  - friday_activity_record
