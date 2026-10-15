@@ -36,6 +36,8 @@ def approval(action, target, payload, tier=2, **changes):
 class PolicyTests(unittest.TestCase):
     def test_unknown_action_is_hard_tier(self):
         self.assertEqual(risk_tier("surprise_new_mutation"), 3)
+        self.assertEqual(risk_tier("archive_copy"), 2)
+        self.assertEqual(risk_tier("mass_action"), 3)
 
     def test_stale_or_degraded_capability_fails_closed(self):
         self.assertFalse(capability_available(capability(checked_at=(NOW - timedelta(minutes=6)).isoformat()), permission="write", mode="live", now=NOW))
@@ -69,6 +71,23 @@ class PolicyTests(unittest.TestCase):
         with self.assertRaises(PolicyError):
             authorize_action(action, target, payload, mode="live", capability=capability(), approval=approval(action, target, "changed"), idempotency_key="same", now=NOW)
         self.assertEqual(authorize_action(action, target, payload, mode="live", capability=capability(), approval=approval(action, target, payload), idempotency_key="same", now=NOW), 2)
+
+    def test_archive_copy_tier_two_rejects_delete_or_overwrite_payload(self):
+        action, target = "archive_copy", "archive"
+        safe = {"target_root": target, "overwrite": False, "delete_originals": False,
+                "entries": [{"operation": "copy_only_no_overwrite",
+                             "rollback": {"source_preserved": True}}]}
+        self.assertEqual(authorize_action(action, target, safe, mode="live", capability=capability(),
+                                          approval=approval(action, target, safe),
+                                          idempotency_key="archive-1", now=NOW), 2)
+        for changed in ({**safe, "overwrite": True}, {**safe, "delete_originals": True},
+                        {**safe, "entries": [{"operation": "delete",
+                                               "rollback": {"source_preserved": False}}]}):
+            with self.subTest(changed=changed):
+                with self.assertRaisesRegex(PolicyError, "archive copy"):
+                    authorize_action(action, target, changed, mode="live", capability=capability(),
+                                     approval=approval(action, target, changed),
+                                     idempotency_key="archive-1", now=NOW)
 
     def test_tier_three_requires_second_factor_and_expiry(self):
         action, target, payload = "payment", "invoice-7", {"amount": "10.00"}

@@ -1,1 +1,10 @@
-{"files":[{"id":"a","hash":"aaa","valid":true,"planned_for_migration":true},{"id":"b","hash":"bbb","actual_hash":"mismatch","valid":true,"planned_for_migration":true}]}
+{
+  "source_root": "incoming",
+  "target_root": "archive",
+  "destination_free_bytes": 100,
+  "backup": {"verified": true, "snapshot_id": "synthetic-backup-20261015", "observed_at": "2026-10-15T11:00:00Z"},
+  "files": [
+    {"id": "a", "path": "incoming/camera/a.jpg", "content": "PHOTO-A-2024", "sha256": "6cb390c6a44f96b5d46ab5203eae2fac4b6c8d278601ba582fe08b0816455c85", "year": "2024", "readable": true},
+    {"id": "b", "path": "incoming/phone/b.jpg", "content": "PHOTO-A-2024", "sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", "year": "2024", "readable": true}
+  ]
+}

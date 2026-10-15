@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from collections import Counter
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
@@ -189,18 +188,9 @@ def run_scenario(name: str, *, variant: str = "default") -> dict[str, Any]:
 
         run_travel_mock(runtime, result, trace, variant=variant)
     elif name == "photo_archive":
-        files = _fixture("media", "cases", variant, {"bad_hash"})["files"]
-        trace += ["read_only_scan", "inventory"]
-        invalid = [item["id"] for item in files if item.get("planned_for_migration") and (not item["valid"] or item.get("actual_hash", item["hash"]) != item["hash"])]
-        if invalid:
-            result.update(status="blocked", reason="integrity_failure", invalid_ids=invalid)
-        else:
-            counts = Counter(item["hash"] for item in files if item["valid"])
-            groups = sorted(hash_ for hash_, count in counts.items() if count > 1)
-            result["duplicate_hashes"] = groups
-            result["proposal"] = runtime.propose("mass_action", "synthetic-archive", groups, tier=3)
-            result["status"] = "waiting_approval"
-            trace += ["duplicate_groups", "reorganization_plan", "approval_required", "mock_migration_plan"]
+        from adapters.archive_e2e_mock import run_archive_mock
+
+        run_archive_mock(runtime, result, trace, variant=variant)
     elif name == "powerpoint":
         from adapters.presentation_mock import run_mock
 

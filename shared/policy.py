@@ -15,7 +15,7 @@ RISK_TIERS = {
     "observe": 0, "analyze": 0, "search": 0,
     "draft": 1, "local_reversible_write": 1,
     "send_message": 2, "calendar_write": 2, "contact_external": 2,
-    "smart_home_write": 2, "delete_single": 2,
+    "smart_home_write": 2, "delete_single": 2, "archive_copy": 2,
     "payment": 3, "purchase": 3, "booking": 3, "contract": 3,
     "tax_submit": 3, "credential_change": 3, "mass_action": 3,
     "security_critical_change": 3, "mass_delete": 3,
@@ -94,6 +94,16 @@ def capability_available(capability: Mapping[str, Any], *, permission: str, mode
 
 def authorize_action(action: str, target: str, payload: Any, *, mode: str, capability: Mapping[str, Any], approval: Mapping[str, Any] | None = None, idempotency_key: str | None = None, now: datetime | None = None) -> int:
     tier = risk_tier(action)
+    if action == "archive_copy":
+        _require(isinstance(payload, Mapping), "archive copy manifest required")
+        _require(payload.get("target_root") == target and payload.get("overwrite") is False
+                 and payload.get("delete_originals") is False, "archive copy must preserve originals")
+        entries = payload.get("entries")
+        _require(isinstance(entries, list) and bool(entries), "archive copy entries required")
+        _require(all(isinstance(entry, Mapping) and entry.get("operation") == "copy_only_no_overwrite"
+                     and isinstance(entry.get("rollback"), Mapping)
+                     and entry["rollback"].get("source_preserved") is True for entry in entries),
+                 "archive copy entries must be copy only")
     local = action in {"draft", "local_reversible_write"}
     permission = "read" if tier == 0 or local else "write"
     _require(capability_available(capability, permission=permission, mode=mode, now=now), "capability unavailable for mode or permission")

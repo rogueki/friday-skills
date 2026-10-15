@@ -108,8 +108,9 @@ class ScenarioTests(unittest.TestCase):
         self.assertNotIn("proposal", bad)
         self.assertEqual(bad["audit"], [])
         clean = run_scenario("photo_archive")
-        self.assertEqual(clean["duplicate_hashes"], ["aaa"])
-        self.assertEqual(clean["proposal"]["risk_tier"], 3)
+        self.assertEqual(len(clean["duplicate_groups"]), 1)
+        self.assertEqual(clean["proposal"]["risk_tier"], 2)
+        self.assertEqual(clean["status"], "waiting_approval")
 
     def test_loxone_readback_failure_never_reports_success(self):
         bad = run_scenario("loxone", variant="readback_failed")
