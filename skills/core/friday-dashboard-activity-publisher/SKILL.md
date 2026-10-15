@@ -11,11 +11,12 @@ metadata:
 
 # Dashboard activity publication
 
-Use when a task needs a local lifecycle record or a configured trusted Control API adapter. Do not claim that this skill streams events. Inputs: task/skill identity, mode, activity, status, progress, UTC clock, actual task ID and adapter capability.
+Use when a workflow needs a local lifecycle record or a verified Dashboard task update. This skill cannot install a publisher. Inputs: skill invocation, real task ID if any, mode, result status, progress, redacted activity, UTC timestamp and verified adapter capability.
 
-1. Build a **local-only** `friday.skill.started/progress/waiting_approval/completed/failed` record under `shared/schemas/event.schema.json`; require stable ID, UTC timestamp, bounded progress and redacted activity. Never include tokens, private source text or unneeded personal data.
-2. The current rogue-friday AsyncAPI has task lifecycle and `jarvis.activity.appended` events, but no `jarvis.skill.*` event. Read the [pinned contract and mapping boundary](../../../docs/CONTRACTS.md) before designing an adapter. Do not send the local record as a WebSocket event.
-3. If a trusted Control API adapter has actually been implemented and is healthy, map the state to a supported task operation when a real task exists, or a redacted activity operation. Check the real endpoint and payload contract, idempotency and returned acknowledgement. In `mock`, save a fixture; in `read_only`, preview only.
-4. Mark local completion only after result verification and progress 1. Report failure/approval state accurately when work stops.
+1. Create a local `friday.skill.started`, `.progress`, `.waiting_approval`, `.completed` or `.failed` record under `shared/schemas/event.schema.json`. Use a stable event ID, UTC timestamp, progress in `[0,1]`, and brief activity free of secrets and source content. Preserve other internal states in `status`; do not invent an event type.
+2. Apply the [delivery matrix](references/delivery-matrix.md). A local record or `dashboard_mapping(...).publishable=false` is only a proposal. The checked parent contract has `jarvis.task.*` and `jarvis.activity.appended`; it does not accept `friday.skill.*` or `jarvis.skill.*`.
+3. With a real task and a trusted authenticated Control API adapter, update only fields supported by its current POST/PATCH contract. The server owns `jarvis.task.*` events. The checked contract has no activity-append endpoint, so a taskless standalone activity remains local. `mock` and `read_only` never publish.
+4. Record `delivered` only after an authoritative server response and correlation to the same task/version; distinguish accepted mutation from observed Dashboard display. On timeout, 5xx, malformed success or conflict, preserve an `unknown`/`failed` delivery state and reconcile before another write.
+5. Emit local completion only after underlying result verification and no pending approval. A dashboard event never proves the task itself succeeded.
 
-Output a normalized result. If delivery fails or the endpoint is unconfigured, report `event_not_delivered` and retain the event as an artifact. Verify actual delivery with an adapter acknowledgement; a JSON payload alone is not dashboard proof.
+Output the normalized result with local event ID, proposed mapping, task ID if verified, delivery state, acknowledgement reference if any, and remaining verification gaps. Do not include raw mail, financial, family or credential content in activity text.

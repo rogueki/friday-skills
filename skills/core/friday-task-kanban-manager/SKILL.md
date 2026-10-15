@@ -11,11 +11,12 @@ metadata:
 
 # Task and Kanban management
 
-Use for work spanning several steps, sessions or independent deliverables. Do not create a board item for a one-step answer or imply the dashboard has a task adapter. Inputs: requested outcome, owner/board if known, priority, dependencies, artifacts, acceptance tests, mode and `task.write` capability.
+Use for work crossing the configured duration threshold, sessions or independent deliverables. A short one-step answer needs no board item. Inputs: operator objective, acceptance criteria, priority, owner/profile, dependencies, artifacts, mode and actual task capability. If the threshold is unavailable, decide from duration and coordination needs; do not invent a configured value.
 
-1. Define a measurable completion condition before starting. Split independent work into separate tasks; dependencies must point to actual prerequisites.
-2. Check whether a task adapter is healthy and whether the mode permits writes. In `mock`, use fixture IDs only. In `read_only`, produce a proposed task record. In `live`, a task creation may be tier 1 if within the authorized board; user-directed external notifications still use tier 2.
-3. Record status transitions, progress evidence, blockers and artifact references. With an implemented task adapter, use the actual Control API task operations; the server may then emit its existing `jarvis.task.*` events. Do not publish raw WebSocket events from a skill.
-4. Close only after verifying each acceptance criterion against an observed artifact or response. If an external dependency is pending, mark blocked or partial instead.
+1. Write the completion evidence before work starts. Split independent outcomes into tasks with explicit prerequisite IDs. Confirm which board is meant: Hermes Kanban and the parent Dashboard task store are separate; neither ID implies the other exists.
+2. Check capability, health, auth and mode for the chosen store. `mock` uses synthetic records; `read_only` produces a proposal. `live` may create/update a parent task only through the authenticated Control API. Never infer `task.write` from this SKILL.md or an observer hook.
+3. For a parent task, follow [task operations](references/task-operations.md): create with the approved field set and a stable `Idempotency-Key`; update only with a fresh version in `If-Match`. Track local acceptance criteria, dependency links and artifact evidence separately when the API has no corresponding write field. Do not smuggle them into another field.
+4. After each significant transition, read the authoritative task snapshot and compare ID, version, status and evidence. On conflict or unknown mutation outcome, stop further writes and reconcile before retry. A proposed progress comment or local hook is not a parent update.
+5. Set `done` only after all acceptance criteria have observed evidence and no pending approval. Otherwise use a supported nonterminal status and report blockers or partial outcome in the normalized result. Never mark an uncertain or merely drafted action complete.
 
-Output a normalized result plus task ID only when an adapter returned one. On timeout, query by idempotency key before retrying to avoid duplicate tasks. Report uncertain writes as uncertain, not completed.
+Output a normalized result with the authoritative task ID only if the adapter returned it. Link source and artifact IDs, actual actions, proposed actions, verification, and unresolved gaps. The optional Hermes observer writes a local sanitized journal; it does not create or update Dashboard tasks.
