@@ -20,7 +20,7 @@ metadata:
 3. Poll `GET /api/v1/content-studio/kie/tasks/{id}` for that task. A timeout after creation means unknown outcome; use the recorded task ID or investigate before any new paid request.
 4. Inspect result media and usage before adding it to the content plan. HTTPS result links are provider references; local download and media verification require a separate adapter.
 
-**Mode and capability:** mock only describes the request; read_only reviews prompt and status; live needs an authenticated dashboard API bridge, configured key and exact payment confirmation. This Skills repository does not itself ship that bridge. `media.render` and `file.write` are conditional capabilities.
+**Mode and capability:** mock only describes the request; read_only reviews prompt and status; live can use the optional `friday_content_studio` Hermes plugin after it has been explicitly installed with a trusted local Control API binding, configured server key and exact paid-action approval. Without that plugin, no live call is possible. `media.render` and `file.write` are conditional capabilities.
 
 **Output and verification:** Return task ID, model, prompt version, state, consumed credits if reported, result links and review outcome. Verify the returned media independently.
 

@@ -20,7 +20,7 @@ metadata:
 3. Save the returned MP3 to a new reviewed output path. Do not retry automatically after timeout or unknown outcome; a second call may cost money.
 4. Listen from beginning to end; inspect clipping, pronunciation, pauses and duration, then hand the accepted file to the edit plan.
 
-**Mode and capability:** mock produces script and request only; read_only checks text/rights; live requires authenticated dashboard API bridge and configured ElevenLabs key. This Skills repository has no standalone bridge or downloader. `voice.speak` and `file.write` are conditional capabilities.
+**Mode and capability:** mock produces script and request only; read_only checks text/rights; live can use the optional `friday_content_studio` Hermes plugin after installation with a trusted local Control API binding, configured server key, exact paid-action approval and host-selected output directory. Without that plugin, no live call is possible. `voice.speak` and `file.write` are conditional capabilities.
 
 **Output and verification:** Provide approved script, voice ID, response file path only if saved, and playback evidence. Never claim a generated MP3 from a mock.
 

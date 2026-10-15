@@ -24,7 +24,7 @@ The [roadmap](registry/roadmap.json) names **100 skills from the implementation 
 - A host-owned [one-time approval ledger](docs/APPROVAL_LEDGER.md) for the GMX and CalDAV Python write paths. Grant issuance still requires a real operator decision and trusted host integration.
 - A host-side [input trust helper](docs/INPUT_TRUST_BOUNDARY.md) that binds source provenance to an exact local mock proposal. It requires an authenticating host and does not gate arbitrary Hermes tools.
 - A [parent integration handoff](docs/PARENT_INTEGRATION_HANDOFF.md) pinned to the read-only `rogue-friday` snapshot, covering service authentication, tasks, activity, audit and event replay.
-- Four [Content Studio skills](docs/CONTENT_STUDIO.md) for planning, kie.ai media, ElevenLabs narration and manual video editing. The companion dashboard branch has server-side provider endpoints; these skills need an authenticated Hermes-to-Control-API bridge before they can call those endpoints.
+- Four [Content Studio skills](docs/CONTENT_STUDIO.md) for planning, kie.ai media, ElevenLabs narration and manual video editing. An optional host-bound Hermes plugin connects them to the companion dashboard's server-side provider endpoints, gated by exact paid-action approval.
 
 `mock` means synthetic fixtures only. `read_only` permits verified observations through an adapter; the public weather reader needs no account. `live` requires a verified adapter, fresh capability and action-specific approval for higher-risk actions. Mail and calendar writes are implemented as gated Python adapter functions, but no trusted approval gateway or provider account has been connected. The full suite cannot presently perform those writes, operate banking or Loxone, file taxes or publish to the dashboard.
 
