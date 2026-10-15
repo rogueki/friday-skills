@@ -1,0 +1,24 @@
+{
+  "recovered": [
+    {
+      "source": "synthetic:fixtures/system/recovery_timelines.json",
+      "adapter_id": "synthetic-mail",
+      "observed_at": "2026-10-15T11:59:00Z",
+      "capability": {
+        "name": "mail.read", "adapter_id": "synthetic-mail", "mode": "mock",
+        "status": "healthy", "synthetic": true, "authenticated": true,
+        "rate_limited": false, "permissions": ["read"], "checked_at": "2026-10-15T11:59:00Z"
+      }
+    },
+    {
+      "source": "synthetic:fixtures/system/recovery_timelines.json",
+      "adapter_id": "synthetic-mail",
+      "observed_at": "2026-10-15T12:00:00Z",
+      "capability": {
+        "name": "mail.read", "adapter_id": "synthetic-mail", "mode": "mock",
+        "status": "healthy", "synthetic": true, "authenticated": true,
+        "rate_limited": false, "permissions": ["read"], "checked_at": "2026-10-15T12:00:00Z"
+      }
+    }
+  ]
+}

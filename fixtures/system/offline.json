@@ -1,1 +1,1 @@
-{"mail":{"status":"offline"},"weather":{"status":"healthy"},"dashboard":{"status":"unavailable"}}
+{"mail":{"name":"mail.read","adapter_id":"synthetic-mail","mode":"mock","status":"offline","synthetic":true,"authenticated":false,"rate_limited":false,"permissions":["read"],"checked_at":"2026-10-15T11:58:00Z"},"weather":{"status":"healthy"},"dashboard":{"status":"unavailable"}}

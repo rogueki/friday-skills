@@ -209,14 +209,9 @@ def run_scenario(name: str, *, variant: str = "default") -> dict[str, Any]:
 
         run_tax_mock(runtime, result, trace, variant=variant)
     elif name == "system_outage":
-        adapters = _fixture("system", "adapters", variant, {"offline"})
-        mail_status = adapters["mail"]["status"]
-        if mail_status != "healthy":
-            event = runtime.event("friday-capability-and-health-check", "blocked", f"Mail-Adapter {mail_status}", 0)
-            result.update(status="blocked", degraded_capability="mail", dashboard_mapping=dashboard_mapping(event), recovery_plan="inspect_adapter")
-            trace += ["adapter_offline", "capability_degraded", "skill_blocked", "dashboard_warning_local"]
-        else:
-            result["status"] = "completed"
+        from adapters.system_outage_e2e_mock import run_system_outage_mock
+
+        run_system_outage_mock(runtime, result, trace, variant=variant)
     else:
         raise ValueError(f"unknown scenario: {name}")
 
