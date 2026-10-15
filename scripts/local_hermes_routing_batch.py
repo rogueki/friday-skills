@@ -120,16 +120,17 @@ def _trace_observation(root: Path, output: Path, case: dict[str, Any],
         raise ValueError("resume trace hash mismatch")
     session = smoke._single_exported_session(expected_path)
     views = smoke._skill_view_calls(session)
-    if not views:
-        raise ValueError("resume trace has no structured skill_view call")
     session_id = session.get("id", session.get("session_id"))
     if session_id != record.get("session_id") or len(views) != record.get("skill_view_count"):
         raise ValueError("resume trace observation mismatch")
     decision = ("select" if views[0] == case["skill"] else "reject") if len(views) == 1 else None
-    status = ("PARTIAL" if len(views) != 1 or case["expected"] == "defer" else
+    status = ("NOT_RUN" if not views else
+              "PARTIAL" if len(views) != 1 or case["expected"] == "defer" else
               "PASS" if decision == case["expected"] else "FAIL")
     if status != record.get("status") or decision != record.get("observed_decision"):
         raise ValueError("resume status disagrees with structured trace")
+    if (record.get("reason_code") == "no_skill_view") != (not views):
+        raise ValueError("resume reason disagrees with structured trace")
 
 
 def _resume_report(root: Path, path: Path, fresh: dict[str, Any],
@@ -153,7 +154,7 @@ def _resume_report(root: Path, path: Path, fresh: dict[str, Any],
         allowed = set(_record(case)) | {"trace_path", "trace_sha256", "session_id",
                                        "skill_view_count", "observed_decision", "reason_code"}
         if not set(record).issubset(allowed) or record.get("reason_code") not in {
-                None, "no_verified_trace", "attempt_error"}:
+                None, "no_verified_trace", "attempt_error", "no_skill_view"}:
             raise ValueError("resume case fields invalid")
         state = record.get("attempt_state")
         if state not in {"PENDING", "STARTED", "FINISHED"} or record.get("status") not in STATES:
@@ -278,6 +279,8 @@ def evaluate(root: Path = ROOT, *, run: bool, max_cases: int | None = None,
                                    "session_id": result["session_id"],
                                    "skill_view_count": len(result["observed_skill_views"]),
                                    "observed_decision": result.get("observed_decision")})
+                    if not result["observed_skill_views"]:
+                        record["reason_code"] = "no_skill_view"
                     _trace_observation(root, output, case, record)
                 else:
                     record["reason_code"] = "no_verified_trace"

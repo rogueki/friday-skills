@@ -61,6 +61,12 @@ quiet chat mode prints none. A single PASS/FAIL applies only to that case and
 does not update this evaluator's 404-case aggregate. See [runtime verification](HERMES_RUNTIME_VERIFICATION.md)
 for isolation, trace and scoring limits.
 
+With `--trace-output`, a valid one-session redacted export is retained even
+when no structured assistant `skill_view` call occurs. The result then stays
+`NOT_RUN`: `trace_verified` and its SHA-256 attest to the retained session,
+not to a scored routing decision. Review the local trace to diagnose the
+model's tool behavior; the JSON result does not include session contents.
+
 ## Bounded local batch for all authored cases
 
 `scripts/local_hermes_routing_batch.py` enumerates the full authored case set
@@ -89,8 +95,12 @@ identities, statuses, session IDs and trace hashes. Every attempted case first
 gets an atomic `STARTED` reservation. Resume accepts only matching case set,
 model, revision, skill tree and harness sources, then reopens and hashes each retained trace and
 recomputes its status from structured assistant `skill_view` calls. Verified
-cases are never attempted twice by resume. A previously started or finished
-case without verified trace blocks automatic resume; `--retry-unverified`
+zero-view traces are hash- and session-checked on resume, remain `NOT_RUN` with
+`reason_code: no_skill_view`, and are not automatically retried. Use a new
+report path for an intentional fresh attempt while keeping the first report
+and trace for comparison. Verified cases are never attempted twice by resume.
+A previously started or finished case without verified trace blocks automatic
+resume; `--retry-unverified`
 explicitly permits a new attempt. Inspect its report and any trace before
 using that option. `attempted_total` counts distinct cases and
 `attempt_reservations_total` also counts explicit retries. An existing case
@@ -102,5 +112,6 @@ inspect the report before removing that lock manually. Keep reports and traces
 local: Hermes redaction is applied to exported sessions, but traces can still
 contain case text. A `PASS` or `FAIL` reflects only one case's structured
 `skill_view` observation. `PARTIAL` includes defer cases and ambiguous multiple
-views; `NOT_RUN` includes cases without retained evidence. This batch does not
-turn the separate 1,616 individual SKILL.md runtime checks into passing tests.
+views; `NOT_RUN` includes cases without retained evidence and verified sessions
+with zero structured views. This batch does not turn the separate 1,616
+individual SKILL.md runtime checks into passing tests.

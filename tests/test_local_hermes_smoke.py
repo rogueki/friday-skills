@@ -1,5 +1,6 @@
 """Offline checks; these tests never contact Ollama or run Hermes."""
 
+import hashlib
 import json
 from pathlib import Path
 import tempfile
@@ -151,6 +152,38 @@ class LocalHermesSmokeTests(unittest.TestCase):
         self.assertEqual(result["session_id"], session_id)
         self.assertEqual(active_config.read_text(encoding="utf-8"), "active: untouched\n")
         self.assertTrue(trace.is_file())
+
+    @patch.object(smoke, "installed_exact_model", return_value=True)
+    @patch.object(smoke.subprocess, "run")
+    def test_valid_zero_view_session_is_retained_but_unscored(self, process, _model):
+        session_id = "20261015_183401_abcdef"
+
+        class Result:
+            returncode = 0
+            stdout = "Hermes Agent v0.20.5\n"
+            stderr = ""
+
+        def invoke(command, **_kwargs):
+            if command[1:3] == ["sessions", "export"]:
+                Path(command[-1]).write_text(json.dumps({
+                    "id": session_id, "messages": [{"role": "assistant",
+                    "tool_calls": [{"function": {"name": "skills_list",
+                                                  "arguments": '{"category":"friday"}'}}]}]
+                }) + "\n", encoding="utf-8")
+            return Result()
+
+        process.side_effect = invoke
+        trace = self.root / "artifacts" / "zero-view.jsonl"
+        result = smoke.execute(self.root, "friday-a", "positive", run=True,
+                               trace_output=trace)
+        self.assertEqual(result["status"], "NOT_RUN")
+        self.assertTrue(result["trace_verified"])
+        self.assertEqual(result["observed_skill_views"], [])
+        self.assertEqual(result["session_id"], session_id)
+        self.assertEqual(result["trace_sha256"],
+                         hashlib.sha256(trace.read_bytes()).hexdigest())
+        self.assertEqual(result["trace_path"], str(trace.resolve()))
+        self.assertNotIn("messages", json.dumps(result))
 
     @patch.object(smoke, "installed_exact_model", return_value=True)
     @patch.object(smoke.subprocess, "run")

@@ -219,12 +219,10 @@ def execute(root: Path, skill: str, case_id: str, *, run: bool,
             report["session_id"] = session.get("id", session.get("session_id"))
             views = _skill_view_calls(session)
             report["observed_skill_views"] = views
-            if not views:
-                report["reason"] = "no structured assistant skill_view trace found"
-                return report
             if trace_output is None:
-                report["status"] = "PARTIAL"
-                report["reason"] = "trace found but not retained for independent review"
+                report["status"] = "PARTIAL" if views else "NOT_RUN"
+                report["reason"] = ("trace found but not retained for independent review"
+                                    if views else "no structured assistant skill_view trace found")
                 return report
             trace_output = trace_output.resolve()
             if trace_output.is_relative_to(root.resolve()) and not trace_output.is_relative_to((root / "artifacts").resolve()):
@@ -234,6 +232,9 @@ def execute(root: Path, skill: str, case_id: str, *, run: bool,
             report["trace_sha256"] = hashlib.sha256(trace_output.read_bytes()).hexdigest()
             report["trace_path"] = str(trace_output)
             report["trace_verified"] = True
+            if not views:
+                report["reason"] = "no structured assistant skill_view trace found"
+                return report
             # A single selected candidate can be scored; absence or multiple
             # views needs manual inspection of the isolated session trace.
             if len(views) != 1:

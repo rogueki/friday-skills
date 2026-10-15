@@ -1,6 +1,6 @@
 ---
 name: friday-archive-inventory
-description: Inventory allowed archive roots read-only, including coverage, file identity, media dates, errors and backup evidence; do not reorganize files.
+description: Inventory files read-only by type, size and date; flag duplicate suspects, unreadable items and backup evidence without reorganizing files.
 version: 0.1.0
 author: RogueKI
 license: MIT

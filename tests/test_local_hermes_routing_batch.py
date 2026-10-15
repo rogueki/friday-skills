@@ -116,6 +116,49 @@ class LocalHermesRoutingBatchTests(unittest.TestCase):
 
     @patch.object(batch.smoke, "installed_exact_model", return_value=True)
     @patch.object(batch.smoke, "execute")
+    def test_zero_view_trace_is_checked_and_not_retried_on_resume(self, execute, _model):
+        def zero_view(root, skill, case_id, *, run, trace_output):
+            self.assertTrue(run)
+            session = {"id": "20261015_183401_abcdef", "messages": [{
+                "role": "assistant", "tool_calls": [{"function": {
+                    "name": "skills_list", "arguments": '{"category":"friday"}'}}]}]}
+            trace_output.parent.mkdir(parents=True, exist_ok=True)
+            trace_output.write_text(json.dumps(session) + "\n", encoding="utf-8")
+            _, case_hash = batch.smoke.select_case(root, skill, case_id)
+            return {"case_set_sha256": case_hash, "status": "NOT_RUN",
+                    "trace_verified": True,
+                    "trace_sha256": hashlib.sha256(trace_output.read_bytes()).hexdigest(),
+                    "session_id": session["id"], "observed_skill_views": []}
+
+        execute.side_effect = zero_view
+        first = batch.evaluate(self.root, run=True, max_cases=1, output=self.report)
+        self.assertEqual(first["counts"]["NOT_RUN"], 4)
+        self.assertEqual(first["attempted_total"], 1)
+        record = first["cases"][0]
+        self.assertEqual(record["reason_code"], "no_skill_view")
+        self.assertTrue(record["trace_verified"])
+        self.assertEqual(record["skill_view_count"], 0)
+        self.assertTrue(Path(record["trace_path"]).is_file())
+
+        # Resume may continue to another case, but cannot replay the first.
+        resumed = batch.evaluate(self.root, run=True, max_cases=1, output=self.report,
+                                 resume=True, retry_unverified=True)
+        self.assertEqual(execute.call_count, 2)
+        self.assertEqual(resumed["cases"][0], record)
+        saved = json.loads(self.report.read_text(encoding="utf-8"))
+        saved["cases"][0]["session_id"] = "20261015_183401_123abc"
+        self.report.write_text(json.dumps(saved), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "trace observation mismatch"):
+            batch.evaluate(self.root, run=True, max_cases=1, output=self.report, resume=True)
+        self.report.write_text(json.dumps(resumed), encoding="utf-8")
+        trace = Path(record["trace_path"])
+        trace.write_text("tampered\n", encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "trace hash mismatch"):
+            batch.evaluate(self.root, run=True, max_cases=1, output=self.report, resume=True)
+        self.assertEqual(execute.call_count, 2)
+
+    @patch.object(batch.smoke, "installed_exact_model", return_value=True)
+    @patch.object(batch.smoke, "execute")
     def test_existing_report_and_concurrent_lock_prevent_duplicate_attempt(self, execute, _model):
         self.report.parent.mkdir(parents=True)
         self.report.write_text("old", encoding="utf-8")
