@@ -7,3 +7,5 @@
 `variant="stale"` injects an old reference timestamp into the adapter's already parsed synthetic response to exercise the freshness gate. Missing/invalid location, offline capability or adapter, incomplete/invalid adapter response, and weather-plus-briefing or morning-briefing requests yield no weather claim. The fixture describes a **forecast** for 14:00 UTC, never a current observation.
 
 The result contains `voice_answer_text` only after successful validation. `voice_playback` is always `NOT_RUN` with `played=false`. Activity records and `dashboard_mapping` are local, `publishable=false`; `external_effects=0`. No voice hardware, actual Dashboard publisher, GeoSphere network request or Hermes model choice is tested here. `tests/test_weather_e2e_mock.py` exercises the positive and negative contracts.
+
+[GitHub Actions run 38772145653](https://github.com/rogueki/friday-skills/actions/runs/38772145653) passed Windows and Ubuntu. It verifies the offline mock composition, not a weather-provider or audio session.
