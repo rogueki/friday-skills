@@ -105,6 +105,9 @@ class RegistryAndPackageTests(unittest.TestCase):
                 self.assertTrue(any(name.endswith("SKILL.md") for name in names))
                 self.assertIn("friday-skills/pyproject.toml", names)
                 self.assertIn("friday-skills/.github/workflows/ci.yml", names)
+                self.assertIn("friday-skills/adapters/weather.py", names)
+                self.assertIn("friday-skills/plugins/friday_weather/plugin.yaml", names)
+                self.assertIn("friday-skills/plugins/friday_kanban_observer/plugin.yaml", names)
 
 
 if __name__ == "__main__":

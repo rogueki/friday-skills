@@ -6,8 +6,8 @@ The [checked rogue-friday AsyncAPI snapshot](https://github.com/rogueki/rogue-fr
 
 A future trusted adapter should:
 
-1. Correlate a skill invocation with a real task ID if a task was created. For longer work, create/update a real Kanban task through an authenticated Control API operation, not by emitting fabricated WebSocket messages.
-2. Translate verified task progress and completion to the exact current `jarvis.task.*` operation/payload. Append a redacted activity through the actual Control API operation when appropriate. A standalone local skill record without a task remains local until an approved activity mapping exists.
+1. Correlate a skill invocation with a real task ID if a task was created. For longer work, create/update a real Kanban task through an authenticated Control API operation, not by emitting fabricated WebSocket messages. The transport-injected [Task-Client](CONTROL_API_TASKS.md) covers the parent POST/PATCH/GET contract in mock tests only.
+2. Translate verified task progress and completion to the exact current `jarvis.task.*` operation/payload. The checked parent API has no activity-append endpoint; standalone local skill records remain local. The optional [Hermes Kanban observer](KANBAN_OBSERVER.md) journals sanitized metadata locally, but does not publish it.
 3. Keep `queued`, `working`, `waiting`, `waiting_approval`, `completed`, `partial`, `failed` and `blocked` as internal UI/task states only where the server schema permits them. Map unsupported states deliberately rather than inventing protocol values.
 4. Verify server acknowledgement, delivery and correlation before recording `published`. Deduplicate retries with an event/operation key; preserve failure evidence when delivery is uncertain.
 5. Mark completion only after the underlying outcome has verification evidence and no pending approval. A generated JSON file, mapped hint or local mock audit does not prove the dashboard displayed anything.

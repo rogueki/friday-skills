@@ -19,3 +19,5 @@ Keep connector tokens in the adapter's environment or secret store, outside Git.
 To test discovery without changing the active profile, create a temporary `HERMES_HOME` containing only a `config.yaml` pointing to this checkout, run `hermes skills list`, then remove that temporary profile. This verifies parsing/discovery for that Hermes version, not adapter operation.
 
 The separate [optional mock plugin](../plugins/CONTRACT.md) needs its own `plugins.enabled` entry and support-file layout. Do not enable it by merely adding the skill directory above. It has four local tools and no live service access.
+
+The [weather plugin](WEATHER_PLUGIN.md) and [Kanban observer](KANBAN_OBSERVER.md) are separate opt-in plugins with their own support paths. The weather tool uses a public read-only HTTPS endpoint. The observer writes a sanitized journal locally. Neither is activated by `skills.external_dirs`, and none of these plugins provides a global approval gate.

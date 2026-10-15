@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from hashlib import sha256
 import json
 from typing import Any, Mapping
+from urllib.parse import urlsplit
 
 
 MODES = frozenset({"mock", "read_only", "live"})
@@ -58,7 +59,24 @@ def capability_available(capability: Mapping[str, Any], *, permission: str, mode
         return False
     if capability.get("mode") != mode or capability.get("status") != "healthy":
         return False
-    if capability.get("authenticated") is not True or capability.get("rate_limited") is not False:
+    public_weather = False
+    if permission == "read" and mode in {"read_only", "live"} and capability.get("public_read") is True:
+        source = capability.get("source")
+        if isinstance(source, str):
+            try:
+                parsed = urlsplit(source)
+                public_weather = (
+                    capability.get("name") == "weather.read"
+                    and capability.get("adapter_id") == "geosphere-weather"
+                    and parsed.scheme == "https"
+                    and parsed.hostname == "dataset.api.hub.geosphere.at"
+                    and parsed.port is None
+                    and parsed.path == "/v1/timeseries/forecast/nwp-v2-1h-1km"
+                    and parsed.username is None and parsed.password is None
+                )
+            except ValueError:
+                return False
+    if not (capability.get("authenticated") is True or public_weather) or capability.get("rate_limited") is not False:
         return False
     if permission not in capability.get("permissions", []):
         return False

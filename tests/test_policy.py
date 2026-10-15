@@ -42,6 +42,16 @@ class PolicyTests(unittest.TestCase):
         self.assertFalse(capability_available(capability(status="degraded"), permission="read", mode="live", now=NOW))
         self.assertFalse(capability_available(capability(rate_limited=True), permission="read", mode="live", now=NOW))
 
+    def test_public_weather_read_requires_exact_adapter_and_source(self):
+        source = "https://dataset.api.hub.geosphere.at/v1/timeseries/forecast/nwp-v2-1h-1km?parameters=2t"
+        record = capability("read_only", permissions=["read"], name="weather.read",
+                            authenticated=False, public_read=True, adapter_id="geosphere-weather", source=source)
+        self.assertTrue(capability_available(record, permission="read", mode="read_only", now=NOW))
+        self.assertFalse(capability_available({**record, "name": "mail.read"}, permission="read", mode="read_only", now=NOW))
+        self.assertFalse(capability_available({**record, "source": "https://evil.example/weather"}, permission="read", mode="read_only", now=NOW))
+        self.assertFalse(capability_available({**record, "source": "https://dataset.api.hub.geosphere.at:bad/weather"}, permission="read", mode="read_only", now=NOW))
+        self.assertFalse(capability_available(record, permission="write", mode="read_only", now=NOW))
+
     def test_mock_requires_synthetic_and_cannot_write(self):
         self.assertFalse(capability_available(capability("mock", synthetic=False), permission="read", mode="mock", now=NOW))
         with self.assertRaises(PolicyError):

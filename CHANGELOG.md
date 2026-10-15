@@ -2,7 +2,7 @@
 
 Changes are recorded for the independent F.R.I.D.A.Y. Skills package by RogueKI. Entries describe repository content; Hermes discovery and live service readiness require separate verification.
 
-## Unreleased (registry 0.2.0)
+## Unreleased (registry 0.3.0)
 
 - Added procedures and local cases for all 100 plan skills, plus the extra web research skill; live adapters are still unavailable.
 - Add architecture, configuration, routing, capability, approval, security, testing, dashboard, operations, troubleshooting and authoring documentation.
@@ -11,6 +11,8 @@ Changes are recorded for the independent F.R.I.D.A.Y. Skills package by RogueKI.
 - Map 101 skills to 63 logical capabilities, with every live/mock adapter marked unavailable until installed and verified.
 - Add four routing examples and three executable shared contracts per skill; the report separates shared checks from unrun model routing and adapter behavior.
 - Add deterministic negative mock scenarios, a synthetic Austrian grants fixture, Python 3.11 metadata and Windows/Linux CI.
+- Add a bounded public GeoSphere forecast reader and optional Hermes weather tool; one live read-only forecast was verified, with no write path.
+- Add an opt-in Hermes Kanban observer that journals sanitized task metadata locally and a transport-injected Control API task client tested against the pinned parent contract.
 
 ## 0.1.0 — 2026-10-15
 

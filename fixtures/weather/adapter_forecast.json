@@ -1,0 +1,15 @@
+{
+  "type": "FeatureCollection",
+  "reference_time": "2026-10-15T09:00:00+00:00",
+  "timestamps": ["2026-10-15T14:00:00+00:00", "2026-10-15T15:00:00+00:00"],
+  "features": [{
+    "type": "Feature",
+    "geometry": {"type": "Point", "coordinates": [16.3717, 48.204]},
+    "properties": {"parameters": {
+      "2t": {"unit": "degree Celsius", "data": [16.6, 16.4]},
+      "tp": {"unit": "kg m-2", "data": [0.0, 0.2]},
+      "10u": {"unit": "m s-1", "data": [0.0, 3.0]},
+      "10v": {"unit": "m s-1", "data": [-2.0, 4.0]}
+    }}
+  }]
+}

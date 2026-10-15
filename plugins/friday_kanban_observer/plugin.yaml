@@ -1,0 +1,13 @@
+name: friday-kanban-observer
+version: 0.1.0
+description: Opt-in local journal for sanitized Hermes Kanban lifecycle metadata.
+author: RogueKI
+kind: standalone
+provides_hooks:
+  - kanban_task_claimed
+  - kanban_task_completed
+  - kanban_task_blocked
+tags:
+  - friday
+  - kanban
+  - observer

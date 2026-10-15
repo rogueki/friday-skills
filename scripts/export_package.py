@@ -7,7 +7,7 @@ from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 import argparse
 
 ROOT = Path(__file__).resolve().parents[1]
-INCLUDE_DIRS = ("skills", "shared", "registry", "plugins", "tools", "fixtures", "scripts", "tests", "docs", ".github/workflows")
+INCLUDE_DIRS = ("skills", "shared", "registry", "plugins", "adapters", "tools", "fixtures", "scripts", "tests", "docs", ".github/workflows")
 INCLUDE_FILES = ("README.md", "CHANGELOG.md", "LICENSE", ".gitignore", "pyproject.toml")
 EXCLUDED_PARTS = {"__pycache__", ".git", "artifacts", "secrets", ".venv"}
 

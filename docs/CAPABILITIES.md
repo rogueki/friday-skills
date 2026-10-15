@@ -6,6 +6,8 @@ A skill requests a capability; an authenticated adapter reports whether it exist
 
 The current record carries `name`, `mode`, `status`, `authenticated`, `rate_limited`, `permissions` and UTC `checked_at`. Optional `synthetic` identifies mock data; `authorized_workspace` marks a permitted local draft location. The Python helper accepts only `healthy`, authenticated, non-rate-limited records of the requested mode with the required permission, checked within five minutes. `mock` reads require `synthetic: true`; write permission is only available in `live`. An offline, stale, degraded or unknown record fails closed.
 
+The public GeoSphere forecast is a narrow exception to credential-based authentication. A `weather.read` record from `geosphere-weather` may set `authenticated: false` and `public_read: true` only for a read-only HTTPS forecast response from the exact GeoSphere endpoint. The helper still checks mode, freshness, status and read permission; this exception never authorizes a write or any other capability. The weather plugin produces this record only after a successful adapter call. Public access is not a general bypass for other adapters.
+
 ```json
 {"name":"mail.read","mode":"mock","status":"healthy","authenticated":true,"rate_limited":false,"permissions":["read"],"checked_at":"2026-10-15T12:00:00Z","synthetic":true}
 ```

@@ -29,9 +29,9 @@ jobs:
       - name: Install pinned linter
         run: python -m pip install --disable-pip-version-check ruff==0.15.21
       - name: Lint Python
-        run: ruff check scripts shared plugins tools tests
+        run: ruff check scripts shared plugins tools tests adapters
       - name: Compile Python
-        run: python -m compileall -q scripts shared plugins tools tests
+        run: python -m compileall -q scripts shared plugins tools tests adapters
       - name: Check generated registry is current
         run: python scripts/build_registry.py
       - name: Validate package and routing cases
