@@ -37,4 +37,6 @@ Four plan §9 P0 procedures now carry concrete task operation, Dashboard deliver
 
 The other six plan §9 P0 procedures now cover orchestration, routing, approval, memory, capability health and error recovery with explicit abstention and reconciliation rules. All ten P0 skill instructions have been reviewed in this milestone; their actual Hermes selection/execution and the required plugin/host gates remain unverified.
 
+For plan §9.5, a [host-only source binding helper](INPUT_TRUST_BOUNDARY.md) now rejects mismatched source text and action parameters before an in-memory mock proposal. Its seven local tests do not prove an authenticated host, a live input-trust plugin or coverage of other Hermes tools; this P0 integration remains partial.
+
 See [test report](TEST_REPORT.md), [contracts](CONTRACTS.md), and [integration boundaries](ARCHITECTURE.md). The companion [`rogue-friday`](https://github.com/rogueki/rogue-friday) repository was not edited.

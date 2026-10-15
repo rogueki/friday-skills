@@ -44,6 +44,15 @@ guarded synchronously **inside its own handler** and fail closed on policy or
 approval errors. Hermes `pre_tool_call` hooks may fail open on exception or
 timeout and are not an enforcement boundary.
 
+`shared/input_trust.py` is a host-only mock-proposal helper. The four
+model-invokable `friday_local` tools do not accept its `HostRequest` or
+`SourceEnvelope` objects and do not claim authenticated provenance. The
+`friday_mock_propose` tool remains an in-memory advisory proposal, not an
+authorization decision. A future trusted F.R.I.D.A.Y. handler must call the
+binding helper with host-owned objects and separately apply capability,
+approval and idempotency checks before any real effect. Other Hermes tools and
+plugins are outside this boundary.
+
 The local lifecycle type is defined by `shared/schemas/event.schema.json` and
 is not a `rogue-friday` AsyncAPI event. `dashboard_mapping` returns an intended
 task/activity operation with `publishable: false`; no network publishing occurs.
