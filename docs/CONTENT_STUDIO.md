@@ -13,7 +13,7 @@ The companion implementation is on local `rogue-friday` branch `codex/content-st
 
 ## Optional Hermes bridge
 
-`plugins/friday_content_studio` registers three tools: `friday_studio_create_media`, `friday_studio_media_status`, `friday_studio_create_speech`. `adapters/content_studio_control.py` validates a loopback-only Control API origin, sends a host-owned session and CSRF token, bounds requests/responses and never automatically retries paid operations. No provider key enters Hermes; kie.ai and ElevenLabs keys stay on the dashboard server. The plugin does nothing live unless explicitly enabled and bound.
+`plugins/friday_content_studio` registers three tools: `friday_studio_create_media`, `friday_studio_media_status`, `friday_studio_create_speech`. `adapters/content_studio_control.py` validates a loopback-only Control API origin, sends a host-owned session and CSRF token, bounds requests/responses and never automatically retries paid operations. No provider key enters Hermes; kie.ai and ElevenLabs keys stay on the dashboard server, where Settings values are encrypted at rest with a key derived from `auth.key`. The plugin does nothing live unless explicitly enabled and bound.
 
 For a local interactive Hermes session, copy `plugins/friday_content_studio` into an isolated Hermes profile's `plugins/` directory and make this repository's `adapters/` and `shared/` importable through a dedicated support directory, as in [the existing plugin installation pattern](../plugins/CONTRACT.md). Set `FRIDAY_SKILLS_ROOT` to that support directory. Enable `friday-content-studio` in the profile's `plugins.enabled` list. Supply the following values **locally to the Hermes process**, never in a chat or repository:
 
