@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "observed_at": "2026-10-15T11:59:40+00:00",
+  "controls": [
+    {"id": "ctrl-living-temp", "room_id": "room-living", "kind": "temperature", "value": 21.4, "unit": "°C", "updated_at": "2026-10-15T11:59:40+00:00"},
+    {"id": "ctrl-living-humidity", "room_id": "room-living", "kind": "humidity", "value": 46, "unit": "%", "updated_at": "2026-10-15T11:59:40+00:00"},
+    {"id": "ctrl-window-kitchen", "room_id": "room-kitchen", "kind": "window", "value": false, "unit": "boolean", "updated_at": "2026-10-15T11:59:40+00:00"},
+    {"id": "ctrl-pv-power", "room_id": "room-energy", "kind": "pv", "value": 1820, "unit": "W", "updated_at": "2026-10-15T11:59:40+00:00"},
+    {"id": "ctrl-battery-level", "room_id": "room-energy", "kind": "battery", "value": 74, "unit": "%", "updated_at": "2026-10-15T11:59:40+00:00"},
+    {"id": "ctrl-alarm-summary", "room_id": "room-security", "kind": "alarm", "value": false, "unit": "boolean", "updated_at": "2026-10-15T11:59:40+00:00"}
+  ]
+}

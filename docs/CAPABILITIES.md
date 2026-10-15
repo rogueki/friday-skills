@@ -10,6 +10,8 @@ The public GeoSphere forecast is a narrow exception to credential-based authenti
 
 The GMX and CalDAV adapters add explicit transport paths and synthetic fixtures. Their presence does not change the static registry flags: no authenticated provider session, trusted approval gateway or per-account capability reporter has been installed. The mail plugin can read one UID only after operator opt-in and credentials; the calendar plugin currently serves synthetic reads only. Neither plugin exposes a write tool.
 
+The Loxone status plugin exposes only synthetic, read-only fixture data. Its `authenticated: false` marker is intentional; the plugin does not assert a current `loxone.read` capability. A separately authenticated Miniserver provider must satisfy the documented snapshot contract before the static availability flags change.
+
 ```json
 {"name":"mail.read","mode":"mock","status":"healthy","authenticated":true,"rate_limited":false,"permissions":["read"],"checked_at":"2026-10-15T12:00:00Z","synthetic":true}
 ```

@@ -16,6 +16,8 @@ Changes are recorded for the independent F.R.I.D.A.Y. Skills package by RogueKI.
 - Add bounded GMX IMAP reads and a Tier-2-gated SMTP Python adapter with durable send journal. The optional Hermes plugin exposes reading only and defaults to synthetic data.
 - Add bounded CalDAV reads and a Tier-2-gated create/update Python adapter with ETag preconditions and durable replay journal. The optional Hermes plugin remains mock-only until trusted transport wiring exists.
 - Document the read-only parent integration handoff and the remaining service auth, activity and task lifecycle contracts.
+- Add an opt-in, bounded routing evaluation runner that separates synthetic callback checks from claimed model inference; its default reports all 404 decisions as not run.
+- Add a read-only, provider-neutral Loxone status snapshot adapter and synthetic Hermes tool with allowlisted IDs, freshness and unit validation. Native Miniserver interoperability remains unverified.
 
 ## 0.1.0 — 2026-10-15
 
