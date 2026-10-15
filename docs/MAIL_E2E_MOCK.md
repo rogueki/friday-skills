@@ -7,3 +7,5 @@ The new path reads pinned RFC822 bytes with the GMX mock reader, checks the expe
 Variants `injection` and `calendar_unavailable` block before a proposal; the latter fails the shared mock-capability check. `forged_approval`, `expired_approval`, `changed_recipient` and `changed_draft` block before mock delivery. Tests also prove a changed Message-ID or malformed date blocks the summary, grant replay is rejected and fixture names are allowlisted.
 
 The local audit entries and `dashboard_mapping(publishable=False)` are previews only. This flow does not authenticate an operator, publish to the parent Dashboard, read a real GMX account, or send a message. The synthetic `approved` variant is a test input, not a real approval or live-mail capability.
+
+[GitHub Actions run 38769561045](https://github.com/rogueki/friday-skills/actions/runs/38769561045) passed the Windows and Ubuntu test jobs for this mock.
