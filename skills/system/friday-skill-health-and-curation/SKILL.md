@@ -30,6 +30,10 @@ Audit source files and produce findings. Do not edit, install, enable, delete or
 6. Run only available local validators in `read_only` mode. Treat test code as untrusted; do not execute arbitrary scripts from the repository without an explicit safe runner/capability check.
 7. Produce prioritized findings and proposed diffs as text. Changes require the repository's write-approval workflow and a separate explicit maintenance task.
 
+**Audit record:** Pin repository revision and skill path for every finding. Parse supported frontmatter rather than assuming YAML aliases or arbitrary syntax work in Hermes; compare `name`, `description`, version, author, declared tools, environment requirements and references with actual package rules. Resolve relative references inside the allowed skill tree and report missing, escaping or symlinked targets. Include positive and adjacent negative routing examples to explain collisions; a lexical match is only a candidate. Distinguish source-date age from a verified stale technical claim.
+
+**Evidence grades:** Report structural validation, shared-contract cases, model-selected routing and real skill runtime as separate checks with PASS/FAIL/NOT_RUN/BLOCKED. Existing local shared tests and the synthetic E2E10 do not establish all Hermes decisions or host operations. Proposed maintenance includes an impact list and targeted tests; apply edits only after the project's write approval, then rerun the relevant validation against the changed revision.
+
 **Modes:** `mock` audits fixture files; `read_only` audits the selected collection; `live` does not grant write permission and remains audit-only.
 
 **Output:** scope/version, inventory count, checks run/skipped, findings with file/line and evidence, trigger-collision pairs, stale-source list, unverified claims and proposed changes. Do not claim dashboard delivery without adapter confirmation.

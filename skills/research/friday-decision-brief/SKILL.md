@@ -23,3 +23,9 @@ Use when a decision maker needs a short comparison and recommendation from exist
 **Mode/capability:** `mock` uses synthetic options; `read_only` writes an in-chat brief; `live` may save a local brief in an authorized workspace. Analysis is Tier 0, local draft Tier 1; purchase, booking, payment or contract remains Tier 3 with separate approval and capability. Avoid exposing confidential negotiations or private quotes.
 
 **Output:** decision, options, criteria, facts, assumptions, risks, costs, recommendation, uncertainty, next step, sources and normalized result. **Verification/failure:** Check all material figures against the source ledger and sensitivity assumptions; if evidence is missing, mark `partial` and present contingent recommendations.
+
+## Traceable choice
+
+Keep each option, including delay or status quo, on the same time horizon and currency. Show hard constraints and why an option is excluded. In the comparison, separate sourced observations (source ID, URL/page, as-of date), calculations, estimates, assumptions and unknowns. Normalize one-time, recurring and exit costs; show arithmetic rather than a precise score from weak inputs. Numeric weights require the decision owner's stated or explicitly accepted priorities.
+
+Test which plausible change to cost, probability, timing or weight reverses the ranking and state the strongest case against the preferred option. If evidence cannot separate options, propose the smallest reversible evidence-gathering step. Specify the owner and approval needed for the next action. A brief is a recommendation, never authorization to sign, buy, book, pay or contact an external party. The single-page web extraction adapter cannot validate the overall decision or execute it.

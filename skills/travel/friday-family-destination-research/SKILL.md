@@ -25,3 +25,14 @@ metadata:
 **Risk and approval:** Do not infer health needs from family demographics. Respect website terms and rate limits; no anti-bot bypass or account login by default. Booking and payment are separate tier 3 actions.
 
 **Output and verification:** Output comparison table with dated source links, score rationale, missing evidence and recommendation. Verify price and availability at the provider before any booking decision; flag stale source dates. Internal `friday.skill.*` records are local lifecycle drafts, not dashboard publications.
+
+## Research sequence
+
+1. Take the minimal, dated output of `friday-family-travel-profile`. Reconfirm departure area, calendar dates, party ages at departure, budget currency and hard exclusions before searching. Do not silently relax a hard constraint to make a destination rank well.
+2. For each destination, separate official travel/entry advice and medical access from tourism claims. Record country or region, source URL, publisher, retrieval time, validity window and the exact question supported. Check transit countries and seasonal conditions when they alter the trip.
+3. Estimate door-to-door travel burden including transfers and likely waiting, plus weather range, family room fit, child activities, food, mobility, emergency access and cancellation flexibility. Mark unknown values explicitly; use `friday-trip-price-comparator` for offer-level arithmetic.
+4. Show a short ranked set with hard-constraint pass/fail, evidence date, tradeoffs and unresolved checks. An indicative price is never a current quote, and a search result is not proof of inventory.
+
+## Stop and recovery
+
+If current official safety or entry information is unavailable, leave that criterion unverified and do not give an unconditional safety or entry recommendation. If no live offer reader exists, return destination research without a current price or availability claim. Recheck volatile facts before handing an option to booking preparation.

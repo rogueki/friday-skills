@@ -30,6 +30,10 @@ Inspect capacity from verified measurements and report safe options. This skill 
 4. Propose cleanup candidates with exact paths, size evidence, owner/purpose, retention rule, reversibility and risk. Prioritize cache regeneration or aged logs only when policy documents retention.
 5. For backup locations, check that proposed cleanup does not remove the only verified copy. Keep a dry-run list and require separate approval/tooling for deletion or relocation.
 
+**Trend and candidate record:** Compare like-for-like measurements of the same volume or VHD with UTC timestamps, units and source; compute growth rate only when both readings are valid and say when the interval is too short to project exhaustion. Distinguish host free space from WSL guest free space and VHD physical size. For logs, model caches, backups and temporary data, record exact scoped path, measured bytes, owner, last access/modification evidence where available, policy retention and regeneration or restore path. An apparently old, duplicated or temporary file is not automatically safe to remove.
+
+**Escalation:** Report current free bytes, percent, configured warning/critical boundary and estimated time to threshold only with sufficient samples. Flag unknown mount, stale sample, access denial and absent threshold as coverage gaps. Cleanup proposals remain read-only artifacts; no delete, VHD compaction, cache purge or backup pruning is provided by this skill.
+
 **Modes:** `mock` uses fixture inventories; `read_only` measures and proposes; `live` may still only inspect. Any mutation is a separate approved operation outside this skill.
 
 **Output:** timestamped capacity table, scope/coverage, warning threshold source, candidate cleanup plan and items excluded due to unknown retention. No cleanup action is claimed.

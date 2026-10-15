@@ -25,3 +25,14 @@ metadata:
 **Risk and approval:** Financial totals are estimates until checkout. Do not enter payment information or accept terms here. Booking/payment remains tier 3 with exact-price approval.
 
 **Output and verification:** Output itemized totals, source and timestamp per line, exchange rate, cancellation matrix and confidence. Recompute arithmetic and compare provider checkout total before authorization. Internal `friday.skill.*` records are local lifecycle drafts, not dashboard publications.
+
+## Comparable-offer contract
+
+1. Bind each quote to provider, offer ID or URL, retrieval timestamp, travel dates in the relevant local zones, party and child ages, occupancy, fare class, currency, included items, availability and terms source. Reject a quote whose dates, capacity or age band differ from the requested trip.
+2. Build one row per cost: fare, seats, baggage, transfer, accommodation and local tax, meals, parking, activities, insurance, card/payment fees and mandatory surcharges. Mark `included`, sourced amount, estimated amount or `unknown` for each. Do not turn an unknown mandatory line into zero. Sum with decimal currency arithmetic, not binary floats.
+3. If currency differs, show the original total and a dated conversion with rate source and possible exchange/card spread. Compare refundable amount, cancellation cutoff in the provider's timezone, change charges and deposit schedule as separate decision columns.
+4. Recompute line items and state the all-in total only when mandatory costs are known. Sort by verified comparable total, then family fit and flexibility; otherwise show a range or incomplete comparison without a false cheapest winner.
+
+## Recheck gate
+
+Any quote lacking a source or retrieval time, an expired or changed price, missing occupancy, unknown required fee, or unavailable inventory is ineligible for a booking draft. A fresh quote is still a snapshot: `friday-booking-preparation` must independently recheck provider availability, final checkout total and terms. The E2E5 adapter exercises synthetic fixture arithmetic only; it does not contact a provider or validate a real currency conversion.

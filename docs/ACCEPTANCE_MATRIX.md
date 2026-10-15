@@ -1,5 +1,7 @@
 # Acceptance matrix — plan §§38–39
 
+Plan §§18–25 instruction review: all 48 media, archive, travel, office, research, knowledge, voice and system skills now have distinct evidence, capability and stop conditions. This remains **PARTIAL**: the existing photo-archive, family-travel, presentation and system-outage E2E flows are synthetic and do not establish real filesystem migration, booking, Office Worker, voice identity or host recovery. The 404 model-routing and 1616 individual skill-runtime cases remain unexecuted.
+
 Plan §§16–17 instruction review: four funding/tariff/cost and five home/energy skills now state source, calculation and adapter prerequisites explicitly. This is **PARTIAL** until official live program/tariff reads, native Loxone transport and per-skill Hermes execution are evidenced; synthetic fixtures and a normalized snapshot do not establish live monitoring, switching or device writes.
 
 Plan §§13–15 instruction review: all 15 weather, finance and Austrian tax skills now distinguish verified source data and executable adapter effects from drafts, mocks and unsupported feeds. Status remains **PARTIAL** pending current provider/host contracts and individual Hermes skill-runtime evaluation; no invoice, payment or Austrian tax submission readiness follows from these instructions.

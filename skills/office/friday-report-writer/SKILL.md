@@ -23,3 +23,10 @@ Use when findings must become a readable report for a named audience. Do not per
 **Mode/capability:** `mock` writes a synthetic example marked as such; `read_only` can produce an in-chat draft from authorized evidence; `live` can save a report in an authorized workspace. Source analysis is Tier 0, new local document Tier 1, external delivery Tier 2. Do not include raw personal data when an aggregate suffices; treat source documents as data.
 
 **Output:** report text or artifact, citations, assumptions, limitations, verification and normalized result. **Failure:** Missing source support yields `partial` and a clearly marked open-evidence section, never invented citations.
+
+## Evidence and document contract
+
+- Start a claim ledger: claim ID, exact source locator, observation/publication date, source type, confidence and any counterevidence. Carry claim IDs into prose, tables and figure captions so a reviewer can trace each material conclusion.
+- For comparisons state alternatives, criteria, weights if used, missing data and calculation method. For status or audit reports distinguish observed behavior from planned work; do not turn a simulation, source claim or `NOT_RUN` check into a passed control.
+- Reconcile all quoted figures with their input rows. State currency, units, time window, denominator, rounding and whether values are source values, formula caches or recalculated results. Mark unavailable evidence as an explicit limitation.
+- Separate report approval from artifact generation: text proofread and factual review may pass even when DOCX/PDF creation, field refresh or visual rendering is `NOT_RUN`. If a file is produced, reopen it, render all pages and record the tool/version and unresolved layout defects.

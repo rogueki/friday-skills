@@ -25,3 +25,14 @@ metadata:
 **Risk and approval:** Location and family movement are sensitive. Use the least precise location necessary, avoid persistent tracking and do not send whereabouts to unapproved parties. Paid bookings or cancellations require tier 3 approval.
 
 **Output and verification:** Output timestamped day plan, source freshness, routes and fallback. Verify opening hours and weather close to departure; clearly mark any unchecked suggestion. Internal `friday.skill.*` records are local lifecycle drafts, not dashboard publications.
+
+## On-trip check
+
+1. Resolve the user's current **local** date and IANA timezone. Use a coarse location supplied for this request unless the user has explicitly enabled a narrower live location source. Do not keep movement history.
+2. Distinguish confirmed tickets/reservations from a draft itinerary. Read current weather, transport status, venue hours and route duration only through available authorized readers. Record source and observation time for each volatile fact; state when a value is a forecast or estimate.
+3. Build a short day plan with one primary activity, transfer and queue buffers, meal/rest windows, child-friendly fallback and a low-effort indoor option. Flag a late arrival, closure or disruption against fixed reservations, and show the time by which the family must decide.
+4. For urgent safety or medical concerns, provide the relevant local emergency contact only from a verified source and encourage direct local help. Do not invent a provider alert, dispatch or reservation change.
+
+## Stop and recovery
+
+If sources are stale or offline, use the last confirmed reservations and mark route/weather/hours `unverified`; suggest checking the operator or venue directly. Reminders, itinerary edits, cancellations, rebooking and paid activities are separate action proposals with the applicable approval tier. No live tracking or silent notification is part of this skill.

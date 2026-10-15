@@ -1,6 +1,6 @@
 ---
 name: friday-archive-inventory
-description: Inventory disks and folders read-only with file types, sizes, date ranges, duplicates suspicion, damage and backup evidence.
+description: Inventory allowed archive roots read-only, including coverage, file identity, media dates, errors and backup evidence; do not reorganize files.
 version: 0.1.0
 author: RogueKI
 license: MIT
@@ -9,19 +9,26 @@ metadata:
     tags: [friday, archive, files]
 ---
 
-# archive inventory
+# Archive inventory
 
-**Use:** Use for the first survey of an archive or drive. Do not reorganize or delete in this skill.
+Use for the first survey of a disk or archive. This skill produces evidence for `friday-duplicate-detector` and `friday-archive-reorganization-plan`; do not move or delete files.
 
-**Inputs:** Approved root paths, device identifiers, exclusion list, access rights, hash/probe capability, backup inventory and operating mode.
+## Inputs and capability
+
+Require allowed roots and volume identifiers, exclusions, scan time, read capability and report destination. Record whether source can change during scanning. An unknown root or unavailable adapter is blocked, not an empty archive. Start with metadata. Hash or decode content only when scope and adapter permit it. Keep filenames, GPS, faces and private content local unless separate disclosure is authorized. Check backup evidence independently: snapshot ID, covered roots, observation time and restore or sample read. A configured job or old status alone means `backup=unverified`.
 
 ## Procedure
 
-1. Confirm provenance, path scope and capability. Walk only allowed roots without following unexpected junctions or symlinks. Record volume ID, path, size, type, modification time, capture date where present, readable status and errors. Aggregate by directory, type and period. Identify duplicate *suspects* by size/name or hash if explicitly computed. Record backup evidence with its observation date; unknown is not backed up. Keep inaccessible locations in a gap list.
-2. Classify any proposed write through `friday-approval-policy` and bind approval to exact paths and payload before execution.
+1. Walk allowed roots without following symlinks, Windows junctions, mount points or reparse points into another location. Record links and access failures as coverage gaps. Track volume and stable file identity where available; a path alone is unstable across renames.
+2. Record `source_id`, volume, relative path, type, size, modified time and timestamp provenance. Prefer embedded capture time only when parsed and timezone known; keep filesystem time separately. Unknown dates remain unknown.
+3. Mark read errors, changed-during-scan files and unsupported formats. Record successful SHA-256 with algorithm and observation time. Size, name or timestamp coincidences are duplicate suspects only.
+4. Aggregate counts and bytes by root, directory, type and period. Keep skipped, inaccessible, changing and unreadable counts distinct. Flag corruption only with valid read or decoder evidence; unreadable alone does not prove corruption.
+5. Reconcile totals with traversal log and sample source entries. Changed entries need rescan before planning.
 
-**Mode and capability:** mock: synthetic tree; read_only: inventory manifest and summary; live: read adapter may scan but no filesystem writes except approved report. Missing permissions yield partial coverage.
+## Output and verification
 
-**Risk and approval:** Read-only on first pass. Avoid reading private content when metadata suffices; do not transmit filenames, GPS or file content externally without authorization.
+Return `scan_id`, scan window, roots/volumes, exclusions, adapter and coverage, per-item records, counts/bytes, date provenance, errors, link boundaries, duplicate suspects and backup evidence. State `complete`, `partial` or `blocked` and why. Plans must reference the scan ID and recheck stale identities.
 
-**Output and verification:** Output volume coverage, counts, bytes, date ranges, unreadable items, backup status and inventory timestamp. Verify sampled counts against source and report traversal errors; stale backup claims require fresh evidence. Local `friday.skill.*` records are drafts, not published dashboard events.
+## Mode, capability and approval
+
+`mock` uses pinned synthetic fixture only; `read_only` may inspect allowed local data through a real adapter when present. Inventory grants no write permission. A report write needs a separately approved path. `adapters/archive_e2e_mock.py` proves only a three-record in-memory inventory and byte hashes; it does not scan drives, parse EXIF or probe media. Local `friday.skill.*` records are drafts, not published dashboard events.

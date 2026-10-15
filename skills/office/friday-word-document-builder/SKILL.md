@@ -23,3 +23,10 @@ Use when approved text needs a structured Word deliverable. Do not use for fact 
 **Mode/capability:** `mock` yields a sample layout spec; `read_only` checks supplied content/template; `live` writes new local files through an authorized worker. Review is Tier 0, new files Tier 1, external sharing Tier 2. Do not send private material to external converters by default, run macros or overwrite the source.
 
 **Output:** artifact paths, build decisions, visual QA evidence and unresolved compatibility issues. **Failure:** If template or renderer is unavailable, return a draft plus `partial`; a DOCX save alone is not visual QA.
+
+## Field and page acceptance
+
+- Record source/template hashes, template rights, requested paper size, margins, styles, fonts and supported features before building. Inspect tracked changes, comments, macros, linked images and external fields without executing or refreshing external content automatically.
+- Use semantic heading levels and table headers; attach captions, alt text and source references to figures. Preserve section-specific page numbering and header/footer rules. If a tool cannot update a table of contents, cross-reference or page-number field, leave it marked pending and explain how a Word refresh can be verified.
+- Save a distinct output file, reopen DOCX structure, then render every page with an available local Office renderer. Inspect missing glyphs, section breaks, table splits, clipped content, TOC/page references and PDF text/page parity. Record renderer and font substitutions because alternate viewers can paginate differently.
+- No live DOCX writer/Windows Office Worker is established by the repository's E2E7 PPTX mock. When generation, field update or render capability is absent, deliver the approved content/layout specification with `partial` status and the missing checks as `NOT_RUN`.

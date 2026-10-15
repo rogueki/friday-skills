@@ -1,6 +1,6 @@
 ---
 name: friday-duplicate-detector
-description: Group exact and near duplicate archive files without automatically deleting any version.
+description: Distinguish byte-identical files from visually similar image or video variants and prepare review groups without deletion.
 version: 0.1.0
 author: RogueKI
 license: MIT
@@ -9,19 +9,26 @@ metadata:
     tags: [friday, archive, files]
 ---
 
-# duplicate detector
+# Duplicate detector
 
-**Use:** Use when asked to find repeated files or likely duplicate media. Do not decide archive moves or quality rankings alone.
+Use an inventory from `friday-archive-inventory` to identify repeated data. Return review groups; do not remove, hard-link, overwrite or silently select a keeper.
 
-**Inputs:** Inventory manifest, source roots, hash capability, supported image/video similarity tools, allowed compute budget and mode.
+## Inputs and capability
+
+Require inventory scan ID, allowed roots, item identities, supported hash/decoder capabilities, compute budget and privacy scope. Reject stale or changed entries until re-read. Preserve different roots and backup copies as distinct occurrences even when bytes match.
 
 ## Procedure
 
-1. Confirm provenance, path scope and capability. Compare size as a cheap candidate filter, then streaming cryptographic hashes for exact duplicates. Compare metadata, perceptual image hashes and video fingerprints only when adapters exist and mark these as similarity, never equality. Group variants by format, edits, metadata and dimensions; preserve source IDs and confidence. Prepare review groups with a suggested canonical candidate and explain why, including backup location and provenance.
-2. Classify any proposed write through `friday-approval-policy` and bind approval to exact paths and payload before execution.
+1. Partition candidates by byte size. Stream SHA-256 for candidate files when reads are allowed, recording read failures and files changed between stat and hash. Same size or name is a hint only. Group `exact_byte_match` only when current byte counts and cryptographic digests match; rehash before consequential decisions.
+2. Separately, use metadata and supported perceptual image hashes to form `near_image` groups. Record algorithm/version, transformations, threshold and distance per pair. EXIF edits, RAW/JPEG exports, crops and color changes can affect similarity. Do not call these byte duplicates.
+3. If a video adapter exists, compare duration, frame or scene fingerprints and audio tracks with stated tolerances; distinguish re-encoding, excerpt and different edit. Unsupported video remains `not_evaluated`, not unique.
+4. Build review groups with stable IDs, paths, size, dimensions/duration, capture-time provenance, hash or similarity evidence, backup/retention context and uncertainty. A keeper suggestion may cite resolution, intactness or user favorites, but awaits human review.
+5. Include ungrouped errors and ambiguous groups. Archive copies, sidecars and differing metadata may be intentional.
 
-**Mode and capability:** mock: synthetic groups; read_only: duplicate report; live: local analysis only, with no deletion. If perceptual tooling is absent, report exact-hash groups and defer near duplicates.
+## Output and verification
 
-**Risk and approval:** No automatic deletion or dedupe links. A same hash proves byte equality, not that every path is disposable; retention and backup must be reviewed separately.
+Return separate `exact_byte_match`, `near_image`, `near_video`, `candidate_only` and `not_evaluated` collections with method/version, evidence and review status. Never combine similarity scores with cryptographic equality. Include scan ID for revalidation.
 
-**Output and verification:** Output groups, method, hashes or similarity score and unresolved variants. Verify a sample of exact groups by recomputing hashes and do not collapse distinct files based on names or timestamps. Local `friday.skill.*` records are drafts, not published dashboard events.
+## Mode, capability and approval
+
+`mock` exercises exact SHA-256 grouping on synthetic records. The current archive mock has no perceptual image or video comparison; report those as unavailable. `read_only` needs a real local adapter. Deletion, link replacement or metadata edits require exact selection, verified backup and appropriate approval. Local `friday.skill.*` records are drafts, not published dashboard events.

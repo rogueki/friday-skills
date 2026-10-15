@@ -29,6 +29,10 @@ Use this procedure to define backup scope, inspect evidence and plan a restore t
 5. Before calling a backup successful, require a restore drill to an isolated non-production target: restore selected representative items, verify checksums/schema/readability and document cleanup/rollback. A backup with no restore evidence is `backup_created_restore_unverified`.
 6. Never overwrite production during a restore drill. A production restore is a distinct high-impact operation requiring Tier 3 approval, verified target, recovery plan and second factor.
 
+**Coverage evidence:** Build one row per asset class: source and owner, policy/RPO/RTO if defined, latest completed backup ID and UTC time, destination and failure domain, encryption-at-rest and in-transit evidence, retention, integrity manifest, and latest restore-drill ID. Include Skills, Hermes config, Kanban/task data, Dashboard config, encrypted voice profile, sanitized adapter config and policy-included documents. A configured schedule, encrypted filename or successful job exit alone never proves an asset recoverable. Record key custody reference and access test outcome, never key material.
+
+**Restore drill:** Use an isolated target with capacity and access controls; pin a backup ID and expected manifest, restore representative files/configuration and test readability/schema and checksum or another strong integrity check. Record restore start/end, operator, missing objects, errors and cleanup. If the drill cannot be performed, label coverage `backup_created_restore_unverified`; if it fails, label it `failed` and preserve the prior backup. Do not replace the only good copy or assert RPO/RTO compliance from a single sample.
+
 **Output:** asset coverage matrix, backup evidence, restore-test evidence, missing controls, retention issues and status (`verified`, `restore_unverified`, `partial`, `blocked`, `failed`).
 
 **Risk and approval:** Inspection Tier 0. Backup creation Tier 1/2 by policy. Restore that can overwrite or expose data is Tier 3 with hard approval and second factor.

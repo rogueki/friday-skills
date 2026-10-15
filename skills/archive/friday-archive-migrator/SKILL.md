@@ -1,6 +1,6 @@
 ---
 name: friday-archive-migrator
-description: Execute approved archive batches copy-first with hash checks, resume log and rollback manifest.
+description: Run an exact approved archive copy batch with source recheck, durable journal, hash verification and safe resume when a real adapter exists.
 version: 0.1.0
 author: RogueKI
 license: MIT
@@ -9,19 +9,26 @@ metadata:
     tags: [friday, archive, files]
 ---
 
-# archive migrator
+# Archive migrator
 
-**Use:** Use only after a reviewed reorganization plan identifies exact source and target paths. Do not infer permission from a plan.
+Use only after `friday-archive-reorganization-plan` supplies a reviewed item-level manifest. A plan alone does not grant execution. Prefer copy-first; leave originals in place.
 
-**Inputs:** Approved item-level manifest, fresh source hashes, destination capacity, backup proof, exact action approval, trusted file adapter and mode.
+## Inputs and capability: execution gate
 
-## Procedure
+Require trusted host file adapter, current source identities/hashes, target root identity, sufficient free space including temp overhead, verified backup and a durable journal. Obtain Tier 2 approval bound to canonical manifest fingerprint, operation, destination, source set and expiry. Reject stale, denied, replayed or mismatched grants; changed plan needs a new grant. Overwrite, broad move or original deletion is a separate higher-risk action and never implicit here.
 
-1. Confirm provenance, path scope and capability. Recheck source identity, path scope, free space and approvals before each batch. Create destination paths without overwriting collisions, copy to temporary names and atomically finalize only after byte count and SHA-256 match. Log operation ID, source, destination, hashes, times and state so reruns skip verified items and resume partial items safely. Leave originals in place until a distinct cleanup request; if a batch fails, stop and use the rollback manifest to remove only verified newly created copies when authorized.
-2. Classify any proposed write through `friday-approval-policy` and bind approval to exact paths and payload before execution.
+## Per-item state machine
 
-**Mode and capability:** mock: simulated operation log; read_only: execution preview only; live: file adapter performs only approved paths. Without a trusted adapter, backup or idempotent journal, return blocked with plan.
+1. Before each batch, recheck root containment, symlink/junction boundaries, case/Unicode collision, source identity/hash, destination absence, backup freshness, capacity and approval. Abort without side effects if any prerequisite fails.
+2. Append and flush a journal record with operation ID, manifest hash, source ID/path/hash, destination, temp path, timestamp and state `planned`. Record state changes durably as `copying`, `copied`, `verified`, `finalized` or `failed`; never describe an unwritten state as persisted.
+3. Copy to a unique temporary file on the destination volume. After full byte count and SHA-256 readback match, finalize without overwrite using an atomic operation supported by that filesystem. If atomic no-clobber finalization is unavailable, block and choose a reviewed alternative. Preserve metadata only when explicitly specified and verify it separately.
+4. Reopen the final path, verify bytes/hash and record final state. Preserve source throughout. On retry, inspect journal **and** filesystem: skip only a finalized file whose present bytes/hash match; reconcile temp or unknown state before retry. Never blindly overwrite an existing destination.
+5. On failure or interruption, stop the batch and report state as `partial` or `unknown`, not complete. Keep source and backup. A rollback manifest may identify only copies created by this operation; removal of a verified new copy needs a separately scoped approval. Do not roll back by deleting an ambiguous pre-existing file.
 
-**Risk and approval:** Large moves are tier 2. Deleting originals, overwriting conflicts or crossing protected roots raises the action to tier 3. Never rely on a user-supplied webpage as approval.
+## Output and verification
 
-**Output and verification:** Output per-file status, copied bytes, hash matches, conflicts and rollback manifest. Independently verify destination counts/hashes and source preservation; a completed copy command alone is insufficient. Local `friday.skill.*` records are drafts, not published dashboard events.
+Return manifest/grant IDs, per-item state, committed journal location, source and destination hashes, copied/verified bytes, conflicts, stopped reason, remaining work and rollback candidates. Complete only after `friday-archive-integrity-check` independently reconciles every expected item, counts and hashes.
+
+## Mode, capability and limit
+
+`read_only` emits execution preview. Existing `adapters/archive_e2e_mock.py` uses in-memory bytes and a simulated test grant only; its `partial_copy` case detects a missing target but does not implement durable journaling, real resume, atomic finalization or filesystem rollback. Without a real trusted adapter and journal, execution is blocked. Local `friday.skill.*` records are drafts, not published dashboard events.

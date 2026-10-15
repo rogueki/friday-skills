@@ -1,6 +1,6 @@
 ---
 name: friday-media-quality-review
-description: Flag visibly damaged, empty, badly exposed or very similar media for human archive review.
+description: Review archive media readability and measurable quality problems with transparent thresholds and human judgment, without deletion.
 version: 0.1.0
 author: RogueKI
 license: MIT
@@ -9,19 +9,26 @@ metadata:
     tags: [friday, archive, files]
 ---
 
-# media quality review
+# Media quality review
 
-**Use:** Use to assess archive media usability, separate from selecting family highlights or deduplicating byte-identical files.
+Use to prioritize human review of damaged or low-quality archive media. It does not select family highlights, declare variants duplicates or erase source files.
 
-**Inputs:** Inventory IDs, approved local media paths, objective criteria, codec/decoder capability, privacy rules and mode.
+## Inputs and capability
+
+Require inventory IDs and source hashes, approved local paths, available image/video decoders, criteria, privacy scope and mode. Verify current identity before decoding. Unsupported format, inaccessible file and transient read failure are different outcomes.
 
 ## Procedure
 
-1. Confirm provenance, path scope and capability. Probe file readability, duration/frame count for clips and dimensions for images. On local previews, score blur, exposure, blank frames and compression defects with stated thresholds; treat artistic blur and dark scenes as review cases. Link near-identical sequences without asserting identical content. Assign flags and explanations; retain a manual review bucket for unsupported formats and subjective judgments.
-2. Classify any proposed write through `friday-approval-policy` and bind approval to exact paths and payload before execution.
+1. Probe container/readability and record decoder/version, error and byte integrity separately. For still images measure dimensions and decode result; for clips measure duration, frame count, streams and sample timestamps. Empty or truncated content is a technical finding only when probe evidence supports it.
+2. On authorized local previews, calculate blur score, clipping/underexposure percentage, blank frames, compression or silence with declared algorithms and thresholds. State sampled frame positions and coverage. Dark scenes and deliberate soft focus require human review.
+3. Place repeated bursts or related clips in review sets with source IDs and similarity evidence. Do not claim exact duplicates without byte hashes from `friday-duplicate-detector`.
+4. Mark each item `technical_failure`, `quality_review`, `acceptable_on_checked_criteria` or `not_evaluated`. Preserve favorites, edits, RAW originals, sidecars and protected family moments for human judgment. Show possible false positives when privacy permits.
+5. Reconcile queue with inventory IDs and rescan changed items. Negative quality scores cannot remove an item from a migration plan without review.
 
-**Mode and capability:** mock: synthetic flags; read_only: review queue; live: local analysis may create temporary previews in an approved location, then clean them safely. Missing decoder yields unreviewed, not unusable.
+## Output and verification
 
-**Risk and approval:** Do not delete, quarantine or upload. Family faces and locations stay within authorized privacy scope. Quality flags cannot override user favorites.
+Return source ID/hash, codec/decoder, checks run, thresholds, measurements, preview location if approved, coverage, flags, confidence limits and review decision. Keep GPS/faces and thumbnails local; temporary preview cleanup needs a separately controlled action.
 
-**Output and verification:** Output per-item flags, score evidence and limitations. Verify every flagged file path/hash against inventory and sample false-positive candidates with human review. Local `friday.skill.*` records are drafts, not published dashboard events.
+## Mode, capability and approval
+
+`mock` is specification-only unless a quality fixture/decoder exists; current archive E2E mock does no image or video decoding. `read_only` needs a trusted local media adapter. Preview write, quarantine, upload, repair or delete is a separate scoped action and approval. Local `friday.skill.*` records are drafts, not published dashboard events.

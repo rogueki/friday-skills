@@ -29,6 +29,10 @@ Recommend a route only from current configured-model capability data. Names such
 5. In `mock`, use labeled fixture data; in `read_only`, return recommendation only; `live` may select a route only if a real router capability confirms the exact model and accepted request. A recommendation alone is not a model call.
 6. Record actual route/result only from runtime telemetry. Never claim a worker, model, or provider was used based on the recommendation.
 
+**Decision record:** For Local Qwen and each configured Kimi Low/High/Max route, record provider/model identifier, configuration revision, health observation time, usable context budget, required tool support, data residency, latency evidence and marginal price with currency/unit and effective date. Estimate tokens and total cost as a range when inputs justify it; reserve budget for tools and retries. Missing pricing or telemetry remains `unknown`, not zero. Apply privacy, context, tool, quality and hard budget gates before ranking eligible routes. If none qualifies, stop or ask for a policy-compliant human choice; do not silently send local data to a remote tier.
+
+**Observed execution:** Return `recommended_route` separately from `accepted_route` and `observed_route`. Only a trusted router acknowledgement and runtime trace for the same request ID can establish the latter; record actual tokens/cost only if metered. A fallback is a new explicit routing decision after fresh eligibility checks. The 404 declared routing examples in this package are not model-decision evidence, and no current live route adapter is implied here.
+
 **Output:** recommended route, eligible/excluded candidates and reasons, evidence timestamps, known/unknown cost and latency, privacy classification, fallback, and status (`recommended`, `no_eligible_route`, `unknown`).
 
 **Risk and approval:** Route recommendation is Tier 0. Sending sensitive data to an external model must comply with data policy and any required approval. Tier 3 decisions retain separate hard approval and second factor.

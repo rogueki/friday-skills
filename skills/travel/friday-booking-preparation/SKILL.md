@@ -25,3 +25,14 @@ metadata:
 **Risk and approval:** Booking, accepting terms and payment are tier 3 with action-bound approval and second factor immediately before submission. Never infer consent from a prior option choice or stale quote.
 
 **Output and verification:** Output reviewed summary, discrepancies and pending approval state. Verify submitted booking only from a provider confirmation after a separate authorized action; no draft is a booking. Internal `friday.skill.*` records are local lifecycle drafts, not dashboard publications.
+
+## Draft and approval boundary
+
+1. Accept only a selected, source-bound offer from `friday-trip-price-comparator`. Match offer ID, provider, party capacity and ages, dates/timezones, included services, currency, all mandatory costs, payment schedule and cancellation text against the current provider page or authenticated read adapter. Capture the provider's final quote time and terms version. If that read path is absent, produce a checklist marked `provider_recheck_required`.
+2. Compare traveler spelling with information the user supplied for this purpose. Keep names and document details out of logs, generic lifecycle events and comparison files; request sensitive fields only at a trusted checkout boundary. Report missing or mismatched data without fabricating it.
+3. Produce a **non-executable** draft with redacted party, quote ID, provider, dates, itemized total, included/excluded services, cancellation deadline and remaining checks. Do not enter payment data, click reserve, accept terms, hold inventory or send personal data merely to prepare it.
+4. If an execution-capable booking integration is later present, create a separate Tier 3 proposal bound to exact action, target, payload, price, quote and terms, with expiry and second factor. A changed price, date, party or term invalidates the proposal and requires a new review. This skill stops at `waiting_approval`; a proposal is not an authorization or confirmation.
+
+## Verification
+
+Without an authenticated provider confirmation, status remains unreserved. E2E5 currently proves only a synthetic redacted draft and unexecuted Tier 3 proposal (`external_effects=0`); there is no live booking or provider availability proof.

@@ -25,3 +25,10 @@ Use for a brand-consistent presentation template or deck styling. Do not use to 
 For the repository's synthetic E2E7 mock, `adapters/presentation_mock.py` creates a new three-slide editable PPTX from synthetic labels and checks its OOXML parts. If a local LibreOffice/OpenOffice CLI successfully converts that file to PDF, rasterize and inspect all three pages. Missing or failed rendering is `partial`, even when PPTX creation succeeded. This mock does not apply an approved brand template, preserve an existing deck, exercise PowerPoint COM, or verify animations.
 
 **Output:** style rules, new artifact path if created, deviations and visual comparison evidence. **Failure:** Missing template, licensing, font or render capability leaves a design spec or `partial` result, not a verified deck.
+
+## Brand implementation record
+
+- Create a template inventory keyed by master/layout and slide number: slide dimensions, theme color values, named font faces and licensed substitutes, logo file/hash and safe area, margins/grid, chart colors, icons, footer and page-number behavior. Flag missing rights or assets before use.
+- Map every approved rule to the location actually changed. Verify title, body, table/chart and appendix examples on every relevant layout; a change to one slide is not evidence that the master or all layouts changed.
+- Save a new PPTX, reopen it, render all slides and compare with baseline images at the same size. Record missing-font substitutions, overflow, contrast and broken/changed notes, links, charts or media. Preserve the source hash and report unsupported elements as deviations.
+- The repository E2E7 adapter generates synthetic labels with `python-pptx`; its OOXML validation and optional PDF/PNG smoke render do not test this template workflow or Windows Office Worker. If the worker or required fonts are absent, stop at specification/audit status `partial`.
