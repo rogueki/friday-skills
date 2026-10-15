@@ -16,6 +16,7 @@ The [roadmap](registry/roadmap.json) names **100 skills from the implementation 
 - An offline [invoice PDF intake, review and payment preview](docs/INVOICE_ADAPTER.md). The bounded PDF path hashes original digital PDF bytes and records page evidence; a local mock flow composes it with skonto and a masked payment draft. Document authenticity remains unresolved and no payment is made.
 - A bounded [single-page web extractor](docs/WEB_EXTRACTION_ADAPTER.md) for supplied HTML, with optional static and browser Scrapling transports behind a trusted host egress gate. The browser path is explicit and tested offline; no live browser fetch, broad crawl or paid fallback is wired into Hermes.
 - An opt-in [routing evaluator](docs/HERMES_ROUTING_EVAL.md) for all 404 authored cases. It defaults to `NOT_RUN` and needs an explicit, externally budgeted model callback for actual decision evidence.
+- An [offline adapter evaluator](docs/SKILL_ADAPTER_EVAL.md) that executes 18 positive and negative variants across nine local workflows. It reports adapter evidence separately from Hermes routing and individual skill runtime.
 - A host-owned [one-time approval ledger](docs/APPROVAL_LEDGER.md) for the GMX and CalDAV Python write paths. Grant issuance still requires a real operator decision and trusted host integration.
 - A [parent integration handoff](docs/PARENT_INTEGRATION_HANDOFF.md) pinned to the read-only `rogue-friday` snapshot, covering service authentication, tasks, activity, audit and event replay.
 
@@ -30,11 +31,12 @@ On the operator's Windows Hermes v0.20.5 profile, this path is now configured an
 ```powershell
 python scripts/validate.py
 python scripts/run_skill_cases.py
+python scripts/evaluate_skill_adapters.py
 python -m unittest discover -s tests -q
 hermes skills list
 ```
 
-These checks cover different things: structural validity, shared per-skill contracts, local unit/mock behavior and discovery in the selected Hermes profile. Run them against the same revision. The per-skill report explicitly marks unexecuted routing and adapter behavior; these checks do not prove production behavior.
+These checks cover different things: structural validity, shared per-skill contracts, local adapter behavior, unit/mock behavior and discovery in the selected Hermes profile. Run them against the same revision. The per-skill report explicitly marks unexecuted Hermes routing and individual skill runtime; these checks do not prove production behavior.
 
 ## Documentation
 

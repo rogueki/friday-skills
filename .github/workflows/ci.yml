@@ -39,6 +39,8 @@ jobs:
         run: python scripts/build_registry.py
       - name: Validate package and routing cases
         run: python scripts/validate.py
+      - name: Evaluate offline adapter workflows
+        run: python scripts/evaluate_skill_adapters.py
       - name: Run offline unit and mock tests
         run: python -m unittest discover -s tests -q
         env:

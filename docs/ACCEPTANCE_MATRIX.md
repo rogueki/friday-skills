@@ -31,4 +31,6 @@ Status means `PASS` (observed), `PARTIAL` (bounded evidence), `FAIL` (observed u
 | Live adapters and production tests | PARTIAL | One public weather GET was verified. GMX/CalDAV adapter code has offline tests but no provider interoperability or trusted write gateway; Loxone has a read-only snapshot contract without a Miniserver transport. Invoice PDF extraction is synthetic/offline; real invoice layout accuracy, sender authentication and banking remain unverified. Office and Control API runtime integration remain unverified or absent. `rogue-friday` stayed read only. |
 | `v1.0.0` tag | NOT RUN | Deferred until live contract integration and acceptance criteria above are met. |
 
+The separate [offline adapter evaluation](SKILL_ADAPTER_EVAL.md) executes 18 positive and negative variants across nine synthetic workflows with artifact, trace, event, audit and no-external-effect checks. This is additional local adapter evidence; the 404 Hermes routing and 1616 individual skill-runtime cases remain open.
+
 See [test report](TEST_REPORT.md), [contracts](CONTRACTS.md), and [integration boundaries](ARCHITECTURE.md). The companion [`rogue-friday`](https://github.com/rogueki/rogue-friday) repository was not edited.
