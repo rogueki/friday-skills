@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "product": "F.R.I.D.A.Y.",
+  "author": "RogueKI",
+  "status": "first_release_slice",
+  "skills": [
+    {"name":"friday-executive-orchestrator","legacy_plan_name":"jarvis-executive-orchestrator","category":"core","status":"implemented_procedure","max_risk_tier":3},
+    {"name":"friday-intent-and-skill-router","legacy_plan_name":"jarvis-intent-and-skill-router","category":"core","status":"implemented_procedure","max_risk_tier":0},
+    {"name":"friday-task-kanban-manager","legacy_plan_name":"jarvis-task-kanban-manager","category":"core","status":"implemented_procedure","max_risk_tier":1},
+    {"name":"friday-approval-policy","legacy_plan_name":"jarvis-approval-policy","category":"core","status":"implemented_procedure","max_risk_tier":3},
+    {"name":"friday-input-trust-and-injection-defense","legacy_plan_name":"jarvis-input-trust-and-injection-defense","category":"core","status":"implemented_procedure","max_risk_tier":0},
+    {"name":"friday-dashboard-activity-publisher","legacy_plan_name":"jarvis-dashboard-activity-publisher","category":"core","status":"implemented_procedure","max_risk_tier":0},
+    {"name":"friday-audit-and-lineage","legacy_plan_name":"jarvis-audit-and-lineage","category":"core","status":"implemented_procedure","max_risk_tier":0},
+    {"name":"friday-memory-governance","legacy_plan_name":"jarvis-memory-governance","category":"core","status":"implemented_procedure","max_risk_tier":1},
+    {"name":"friday-capability-and-health-check","legacy_plan_name":"jarvis-capability-and-health-check","category":"core","status":"implemented_procedure","max_risk_tier":0},
+    {"name":"friday-error-recovery","legacy_plan_name":"jarvis-error-recovery","category":"core","status":"implemented_procedure","max_risk_tier":0},
+    {"name":"friday-web-research","legacy_plan_name":null,"category":"research","status":"implemented_procedure","max_risk_tier":0}
+  ]
+}

@@ -1,0 +1,606 @@
+{
+    "source":  "JARVIS_HERMES_SKILLS_IMPLEMENTIERUNGSPLAN_CODEX.md sections 9-25 (local excluded plan)",
+    "plan_total":  100,
+    "skills":  [
+                   {
+                       "section":  "9.1",
+                       "plan_name":  "jarvis-executive-orchestrator",
+                       "status":  "implemented",
+                       "implemented_name":  "friday-executive-orchestrator"
+                   },
+                   {
+                       "section":  "9.2",
+                       "plan_name":  "jarvis-intent-and-skill-router",
+                       "status":  "implemented",
+                       "implemented_name":  "friday-intent-and-skill-router"
+                   },
+                   {
+                       "section":  "9.3",
+                       "plan_name":  "jarvis-task-kanban-manager",
+                       "status":  "implemented",
+                       "implemented_name":  "friday-task-kanban-manager"
+                   },
+                   {
+                       "section":  "9.4",
+                       "plan_name":  "jarvis-approval-policy",
+                       "status":  "implemented",
+                       "implemented_name":  "friday-approval-policy"
+                   },
+                   {
+                       "section":  "9.5",
+                       "plan_name":  "jarvis-input-trust-and-injection-defense",
+                       "status":  "implemented",
+                       "implemented_name":  "friday-input-trust-and-injection-defense"
+                   },
+                   {
+                       "section":  "9.6",
+                       "plan_name":  "jarvis-dashboard-activity-publisher",
+                       "status":  "implemented",
+                       "implemented_name":  "friday-dashboard-activity-publisher"
+                   },
+                   {
+                       "section":  "9.7",
+                       "plan_name":  "jarvis-audit-and-lineage",
+                       "status":  "implemented",
+                       "implemented_name":  "friday-audit-and-lineage"
+                   },
+                   {
+                       "section":  "9.8",
+                       "plan_name":  "jarvis-memory-governance",
+                       "status":  "implemented",
+                       "implemented_name":  "friday-memory-governance"
+                   },
+                   {
+                       "section":  "9.9",
+                       "plan_name":  "jarvis-capability-and-health-check",
+                       "status":  "implemented",
+                       "implemented_name":  "friday-capability-and-health-check"
+                   },
+                   {
+                       "section":  "9.10",
+                       "plan_name":  "jarvis-error-recovery",
+                       "status":  "implemented",
+                       "implemented_name":  "friday-error-recovery"
+                   },
+                   {
+                       "section":  "10.1",
+                       "plan_name":  "jarvis-morning-briefing",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "10.2",
+                       "plan_name":  "jarvis-evening-briefing",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "10.3",
+                       "plan_name":  "jarvis-daily-priority-planner",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "10.4",
+                       "plan_name":  "jarvis-follow-up-manager",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "10.5",
+                       "plan_name":  "jarvis-contact-context",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "10.6",
+                       "plan_name":  "jarvis-executive-escalation",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "11.1",
+                       "plan_name":  "jarvis-executive-mail-manager",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "11.2",
+                       "plan_name":  "jarvis-mail-draft-writer",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "11.3",
+                       "plan_name":  "jarvis-mail-attachment-intake",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "11.4",
+                       "plan_name":  "jarvis-telegram-communication",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "11.5",
+                       "plan_name":  "jarvis-whatsapp-communication",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "11.6",
+                       "plan_name":  "jarvis-phone-call-coordinator",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "11.7",
+                       "plan_name":  "jarvis-unified-conversation-summary",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "12.1",
+                       "plan_name":  "jarvis-calendar-manager",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "12.2",
+                       "plan_name":  "jarvis-meeting-request-coordinator",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "12.3",
+                       "plan_name":  "jarvis-meeting-briefing",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "12.4",
+                       "plan_name":  "jarvis-meeting-follow-up",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "12.5",
+                       "plan_name":  "jarvis-deadline-and-reminder-manager",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "13.1",
+                       "plan_name":  "jarvis-weather",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "13.2",
+                       "plan_name":  "jarvis-weather-alerts",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "13.3",
+                       "plan_name":  "jarvis-weather-context-advice",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "14.1",
+                       "plan_name":  "jarvis-invoice-intake",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "14.2",
+                       "plan_name":  "jarvis-payment-preparation",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "14.3",
+                       "plan_name":  "jarvis-skonto-and-due-date-monitor",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "14.4",
+                       "plan_name":  "jarvis-receipt-and-expense-organizer",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "14.5",
+                       "plan_name":  "jarvis-finance-briefing",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "14.6",
+                       "plan_name":  "jarvis-contract-and-subscription-monitor",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "15.1",
+                       "plan_name":  "jarvis-austria-tax-intake",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "15.2",
+                       "plan_name":  "jarvis-finanzonline-preparation",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "15.3",
+                       "plan_name":  "jarvis-family-benefit-optimizer-at",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "15.4",
+                       "plan_name":  "jarvis-commuter-and-work-expense-at",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "15.5",
+                       "plan_name":  "jarvis-tax-deadline-monitor-at",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "15.6",
+                       "plan_name":  "jarvis-tax-review-at",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "16.1",
+                       "plan_name":  "jarvis-austria-funding-scout",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "16.2",
+                       "plan_name":  "jarvis-funding-eligibility-check",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "16.3",
+                       "plan_name":  "jarvis-energy-tariff-scout",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "16.4",
+                       "plan_name":  "jarvis-recurring-cost-optimizer",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "17.1",
+                       "plan_name":  "jarvis-loxone-status",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "17.2",
+                       "plan_name":  "jarvis-loxone-control",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "17.3",
+                       "plan_name":  "jarvis-energy-optimizer",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "17.4",
+                       "plan_name":  "jarvis-home-anomaly-monitor",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "17.5",
+                       "plan_name":  "jarvis-home-scene-manager",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "18.1",
+                       "plan_name":  "jarvis-media-intake",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "18.2",
+                       "plan_name":  "jarvis-photo-curator",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "18.3",
+                       "plan_name":  "jarvis-family-highlight-selector",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "18.4",
+                       "plan_name":  "jarvis-video-creator",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "18.5",
+                       "plan_name":  "jarvis-photo-enhancement",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "18.6",
+                       "plan_name":  "jarvis-photobook-planner",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "18.7",
+                       "plan_name":  "jarvis-media-folder-organizer",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "19.1",
+                       "plan_name":  "jarvis-archive-inventory",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "19.2",
+                       "plan_name":  "jarvis-duplicate-detector",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "19.3",
+                       "plan_name":  "jarvis-media-quality-review",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "19.4",
+                       "plan_name":  "jarvis-archive-reorganization-plan",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "19.5",
+                       "plan_name":  "jarvis-archive-migrator",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "19.6",
+                       "plan_name":  "jarvis-archive-integrity-check",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "20.1",
+                       "plan_name":  "jarvis-family-travel-profile",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "20.2",
+                       "plan_name":  "jarvis-family-destination-research",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "20.3",
+                       "plan_name":  "jarvis-family-itinerary-planner",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "20.4",
+                       "plan_name":  "jarvis-trip-price-comparator",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "20.5",
+                       "plan_name":  "jarvis-booking-preparation",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "20.6",
+                       "plan_name":  "jarvis-trip-companion",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "20.7",
+                       "plan_name":  "jarvis-travel-document-checklist",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "21.1",
+                       "plan_name":  "jarvis-presentation-director",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "21.2",
+                       "plan_name":  "jarvis-powerpoint-ci-builder",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "21.3",
+                       "plan_name":  "jarvis-powerpoint-animation-director",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "21.4",
+                       "plan_name":  "jarvis-powerpoint-enhancer",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "21.5",
+                       "plan_name":  "jarvis-presentation-qa",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "21.6",
+                       "plan_name":  "jarvis-document-intake",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "21.7",
+                       "plan_name":  "jarvis-report-writer",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "21.8",
+                       "plan_name":  "jarvis-word-document-builder",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "21.9",
+                       "plan_name":  "jarvis-excel-analysis",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "22.1",
+                       "plan_name":  "jarvis-deep-research",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "22.2",
+                       "plan_name":  "jarvis-source-verification",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "22.3",
+                       "plan_name":  "jarvis-company-and-shop-investigation",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "22.4",
+                       "plan_name":  "jarvis-market-and-competitor-analysis",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "22.5",
+                       "plan_name":  "jarvis-research-monitor",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "22.6",
+                       "plan_name":  "jarvis-decision-brief",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "23.1",
+                       "plan_name":  "jarvis-file-classifier",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "23.2",
+                       "plan_name":  "jarvis-project-context-builder",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "23.3",
+                       "plan_name":  "jarvis-knowledge-base-curator",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "23.4",
+                       "plan_name":  "jarvis-document-retention",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "24.1",
+                       "plan_name":  "jarvis-voice-interaction-policy",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "24.2",
+                       "plan_name":  "jarvis-speaker-identity-policy",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "24.3",
+                       "plan_name":  "jarvis-voice-command-normalizer",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "25.1",
+                       "plan_name":  "jarvis-system-health",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "25.2",
+                       "plan_name":  "jarvis-service-recovery",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "25.3",
+                       "plan_name":  "jarvis-storage-monitor",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "25.4",
+                       "plan_name":  "jarvis-backup-manager",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "25.5",
+                       "plan_name":  "jarvis-skill-health-and-curation",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   },
+                   {
+                       "section":  "25.6",
+                       "plan_name":  "jarvis-cost-and-model-router",
+                       "status":  "planned",
+                       "implemented_name":  null
+                   }
+               ]
+}

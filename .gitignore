@@ -1,0 +1,15 @@
+MEMORY.md
+SCOPE.md
+JARVIS_HERMES_SKILLS_IMPLEMENTIERUNGSPLAN_CODEX.md
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+*.log
+*.sqlite*
+secrets/
+artifacts/
+*.zip
