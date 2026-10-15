@@ -21,14 +21,16 @@ Inputs: Scene definition/version, exact device IDs and commands, current state, 
 
 ## Procedure
 
-1. Resolve named scene to reviewed version and enumerate every affected device; reject opaque commands, unknown IDs and hidden lock/alarm/access effects.
-2. Read current states and evaluate safe ranges, occupant context and conflicts. Present a complete per-device change preview and rollback.
-3. For definition edits, require review before saving. For activation, require tier 2 action-specific approval and live adapter; apply idempotently and read back each affected state.
+1. Resolve the named scene to a reviewed, versioned definition from a trusted scene store. Enumerate exact controller, control ID, kind, unit, command and target value for every step. Reject opaque macros, unknown controls, conflicting commands and hidden door, lock, alarm or access effects. No scene-definition store or native Loxone write adapter is currently implemented here.
+2. Read fresh pre-state for every target, then check safe ranges, occupants, comfort limits and cross-device conflicts. Preview a per-device before/after table, expected order, partial-failure impact and recovery steps. A room name or generic scene label cannot stand in for the full action list.
+3. Treat definition edit and activation as separate actions. Definition edits need reviewed version change and a real storage adapter. Activation needs an action-bound Tier 2 approval covering the exact scene version and fingerprint of *all* commands; revalidate the version, pre-states, health and grant immediately before dispatch. An approval for an earlier scene version is invalid.
+4. A future host-owned live adapter must dispatch idempotently and retain a per-device journal. After each command, read back that exact device with a newer timestamp. On unknown outcome, stop rather than replay. If any target is unconfirmed, return partial with the list of applied, failed and unknown steps and a safe recovery proposal; never call the whole scene successful from one acknowledgement. Confirm success only when every target matches.
 
 ## Approval and failures
 
 Mock/read_only may preview only. A scene is not approval for unseen changes. Security-critical devices are outside scope.
 Partial execution requires explicit per-device outcome and safe rollback proposal; never report whole scene success on one acknowledgement.
+The E2E8 mock covers one light only; it is not a multi-device scene test or a live-control proof.
 
 ## Output and verification
 

@@ -4,6 +4,7 @@ Changes are recorded for the independent F.R.I.D.A.Y. Skills package by RogueKI.
 
 ## Unreleased (registry 0.3.0)
 
+- Deepen all nine plan §§16–17 funding, tariff and home skills with program-level source checks, comparable total costs, Loxone snapshot boundaries, scene/action verification and missing capability behavior. No provider, tariff or device connector is added.
 - Deepen all 15 plan §§13–15 weather, finance and Austrian tax procedures with bounded source evidence, temporal and monetary checks, explicit missing-adapter behavior, and non-executable finance/tax outputs. Verify official BMF pointers without hardcoding tax amounts or claiming live eligibility.
 - Deepen all 18 plan §§10–12 executive, communication and calendar skills with source coverage, evidence, ambiguity handling, exact action boundaries and verifiable outputs. Document the current GMX/CalDAV limitations and missing messaging, telephony, contacts, reminder and Dashboard integrations without treating drafts as delivery.
 - Add source-provenance and exact action binding for host-owned in-memory mock proposals, with seven negative and positive regression tests. This helper has no live transport or Hermes-wide enforcement.

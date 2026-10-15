@@ -21,14 +21,16 @@ Inputs: Timestamped sensor history, baseline period, sensor health, operating co
 
 ## Procedure
 
-1. Validate device identity, timestamp, unit and sensor health; build comparable baselines by hour, season and occupancy where available.
-2. Test candidate anomalies (unusual load, temperature fall, open window with heating, PV outage, active appliance, battery issue) against multiple signals and duration.
-3. Report severity with evidence, alternative explanations and recommended check. Recurring watch requires configured scheduler/hook, deduplication and quiet-hours policy.
+1. Resolve controller/control IDs against configuration; validate unit, timezone, freshness, sampling gaps and sensor health. The current `loxone_status` adapter supplies only a current bounded snapshot, not history. Require a separately configured time-series source for a trend; do not fabricate one from a single reading.
+2. Build a comparable baseline by hour and, when supported by data, weekday, season, weather and occupancy. Record baseline length, sample count, variance and exclusions. If occupancy is unknown, keep it unknown; do not infer it from a contact or one power spike.
+3. Compare candidate abnormal load, temperature fall, heating with an open window, PV drop, prolonged appliance load or battery fault against explicit threshold and duration. Corroborate with an independent signal or contextual event (for example, irradiance before asserting PV failure). Distinguish physical anomaly from stale sensor, meter reset, network outage or ordinary schedule change.
+4. Report affected control and interval, observation versus baseline, confidence, alternative explanations and one safe manual check. Deduplicate by controller/control, anomaly kind and time window; rate-limit repeats. Recurring observation and delivery require verified `scheduler.run` and `notification.deliver`, which this repository does not provide. Without them return a one-time analysis or a proposed watch, never claim an active alarm.
 
 ## Approval and failures
 
 No panic alert from one outlier; no automatic device writes or emergency calls.
 Sensor outage or missing baseline is a data-quality alert, not proof of physical fault.
+Escalate according to the configured channel and quiet-hour policy only after corroboration; do not call emergency services or issue control writes from this skill.
 
 ## Output and verification
 

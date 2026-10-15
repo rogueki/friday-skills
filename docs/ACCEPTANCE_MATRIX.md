@@ -1,5 +1,7 @@
 # Acceptance matrix — plan §§38–39
 
+Plan §§16–17 instruction review: four funding/tariff/cost and five home/energy skills now state source, calculation and adapter prerequisites explicitly. This is **PARTIAL** until official live program/tariff reads, native Loxone transport and per-skill Hermes execution are evidenced; synthetic fixtures and a normalized snapshot do not establish live monitoring, switching or device writes.
+
 Plan §§13–15 instruction review: all 15 weather, finance and Austrian tax skills now distinguish verified source data and executable adapter effects from drafts, mocks and unsupported feeds. Status remains **PARTIAL** pending current provider/host contracts and individual Hermes skill-runtime evaluation; no invoice, payment or Austrian tax submission readiness follows from these instructions.
 
 Plan §§10–12 instruction review: all 18 executive, communication and calendar skills now contain source/coverage, ambiguity, approval and verification procedures. This is a **PARTIAL** documentation milestone: the local validator and 909 shared checks pass, but 404 Hermes routing expectations and 1616 individual skill-runtime cases remain unexecuted. GMX/CalDAV provider interoperability, Telegram/WhatsApp/telephony, contact and reminder backends, and parent Dashboard delivery are not established by these edits.

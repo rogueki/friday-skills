@@ -21,14 +21,16 @@ Inputs: Time-stamped PV, import/export, battery SoC, load, heating/hot water, we
 
 ## Procedure
 
-1. Align measurements by time zone, interval and unit; identify missing telemetry and avoid comparing instantaneous power with energy.
-2. Estimate self-consumption, peaks and flexible-load windows under explicit weather/tariff assumptions; account for battery reserve and comfort bounds.
-3. Recommend action with expected benefit range, comfort effect, assumptions and optional automation proposal; separate estimate from observed saving.
+1. Identify each meter's measurement boundary (house load, grid import/export, PV inverter, battery charge/discharge), sign convention, interval, unit, timezone and provenance. Reject totals that mix different boundaries or double-count battery flows. The current Loxone status normalizer exposes fresh instantaneous W and percent readings; it does not provide historical kWh, tariff, battery-capacity or native Miniserver data.
+2. For interval measurements, compute energy only from valid matched intervals (`kWh = average kW × hours`), recording gaps and meter resets. Never label a single W sample as consumption over a day. Check whether PV production, self-consumption and grid import are independently measured before calculating a balance; otherwise use a qualitative comparison.
+3. Determine flexible load windows, heating/hot-water and shade effects using dated weather forecast and tariff periods when available. Record source and retrieval time; never treat forecast, tariff estimate or proposed automation as a measured saving. Keep occupant comfort limits, device safe ranges and battery reserve as hard constraints.
+4. Present a ranked recommendation with proposed time, supporting measurement window, expected benefit range or `not quantifiable`, comfort impact, assumptions, data gaps and verification method. Any control recommendation is an `actions_proposed` draft for `friday-loxone-control` or `friday-home-scene-manager`, with its own policy and approval; this skill issues no command.
 
 ## Approval and failures
 
 No device action without separate policy and tier 2 approval through a real adapter. Tariff switching is outside scope.
 Sparse or stale telemetry yields qualitative advice; do not invent precise savings or a successful automation.
+If import/export direction, meter boundary or tariff validity is unknown, omit numerical cost or self-consumption claims. Do not promise a scheduled change: no home scheduler or gateway is connected.
 
 ## Output and verification
 
