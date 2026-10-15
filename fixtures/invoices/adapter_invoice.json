@@ -1,0 +1,26 @@
+{
+  "invoice": {
+    "synthetic": true,
+    "supplier_id": "S-17",
+    "supplier": "Example Supplies GmbH",
+    "invoice_number": "RE-2026-0042",
+    "issue_date": "2026-10-01",
+    "due_date": "2026-10-31",
+    "net": "100.00",
+    "tax": "19.00",
+    "gross": "119.00",
+    "tax_rate_percent": "19",
+    "currency": "EUR",
+    "iban": "DE89370400440532013000",
+    "discount_percent": "2",
+    "discount_base": "gross",
+    "discount_deadline": "2026-10-20"
+  },
+  "trusted_supplier": {
+    "source_kind": "independent_supplier_record",
+    "supplier_id": "S-17",
+    "supplier": "Example Supplies GmbH",
+    "iban": "DE89370400440532013000"
+  },
+  "prior_invoice_keys": []
+}

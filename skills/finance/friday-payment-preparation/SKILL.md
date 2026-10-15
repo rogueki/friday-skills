@@ -19,11 +19,15 @@ Use for payment-field drafts and skonto calculations. Do not use to log in to a 
 
 Inputs: Reviewed invoice, independent beneficiary/IBAN evidence, intended date, currency and documented discount terms. Required logical capability: document.read for reviewed invoice evidence; an independently supplied beneficiary record can be checked locally. payment.prepare means a local draft only. No banking adapter is present by implication; a hypothetical payment.execute adapter and separate tier 3 gate belong to another workflow. mock uses synthetic payees, read_only produces a local draft, and live mode still performs no transfer here.
 
+`adapters.invoice.prepare_payment(...)` implements a bounded offline preview from structured fields and an independently supplied supplier record and duplicate index. It reruns invoice review and refuses the preview unless that review is `completed`. The output masks the IBAN and has no SEPA XML, banking instruction, login, provider transport or transfer action. See `docs/INVOICE_ADAPTER.md`.
+
 ## Procedure
 
 1. Cross-check payee, IBAN, amount, currency and reference against invoice and trusted beneficiary record; flag discrepancies.
 2. Calculate discount only from explicit rate, qualifying base and deadline, showing the formula and date assumptions.
 3. Produce a masked approval preview and local draft, with unresolved checks stated.
+
+For the offline contract, `discount_percent`, `discount_base` (`net` or `gross`) and `discount_deadline` must all be present together. An intended date before the invoice issue date blocks preparation. Otherwise it qualifies through the discount deadline inclusively; discount is rounded to cents, then subtracted from gross. After the deadline, the full gross amount appears. A date after the invoice due date yields `partial` with a warning.
 
 ## Approval and failures
 

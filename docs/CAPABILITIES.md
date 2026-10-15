@@ -12,6 +12,8 @@ The GMX and CalDAV adapters add explicit transport paths and synthetic fixtures.
 
 The Loxone status plugin exposes only synthetic, read-only fixture data. Its `authenticated: false` marker is intentional; the plugin does not assert a current `loxone.read` capability. A separately authenticated Miniserver provider must satisfy the documented snapshot contract before the static availability flags change.
 
+The invoice adapter reviews caller-supplied structured fields in `mock` or `read_only` mode and can create a masked local payment preview. It does not implement `document.read`, `finance.invoice-ledger.read` or any banking capability. A trusted host must supply original-document extraction, an independent duplicate index and a supplier record before treating the review as complete. See [invoice adapter](INVOICE_ADAPTER.md).
+
 For GMX and CalDAV writes, a fresh capability record is checked alongside a host-owned one-time grant. This local record still does not authenticate the operator or prove provider permission by itself; the host must establish both independently before issuing a grant.
 
 ```json
