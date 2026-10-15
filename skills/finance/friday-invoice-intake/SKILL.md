@@ -19,7 +19,9 @@ Use for invoice extraction and review. Do not use for receipts without an invoic
 
 Inputs: Original invoice, source channel, hash, prior invoice index and independent supplier details where available. Required logical capabilities: document.read for the original PDF/image and, for duplicate checks, finance.invoice-ledger.read; supplier-record lookup is optional but required before calling changed bank details verified. These IDs describe needed adapters, not installed connectivity. mock uses synthetic invoices; read_only reads authorized originals; live adds no payment permission.
 
-The executable offline contract is `adapters.invoice.review_invoice(fields, trusted_supplier=..., prior_invoice_keys=...)`; see `docs/INVOICE_ADAPTER.md`. It accepts **caller-supplied structured fields only**, not PDF, image, OCR or mail text. `mock` requires an explicit synthetic marker; `read_only` rejects that marker. The caller must establish source authenticity, document-to-field provenance, ledger completeness and independent supplier-record provenance. The returned `urn:sha256` covers the structured input, not the original invoice.
+For a digitally generated PDF, call `adapters.invoice_document.review_invoice_pdf(original_pdf_bytes, supplier_id=..., trusted_supplier=..., prior_invoice_keys=...)`; see `docs/INVOICE_ADAPTER.md`. It hashes the original PDF bytes, extracts unique labelled lines, records page/line evidence and runs the structured checks. In `read_only`, PDF review remains at most `partial` even when all extracted fields check out, because text extraction does not authenticate the sender or prove the document legitimate. The explicit `mock` path can return `completed` only for the exact pinned synthetic `valid-skonto.pdf` bytes with matching synthetic supplier record and empty invoice-key index. That status describes the fixture test, not a real invoice approval. Image-only scans need a separate OCR and human verification path; this adapter does not claim OCR. Supply the supplier ID from an independent host record, never from the invoice text.
+
+For already structured data, `adapters.invoice.review_invoice(fields, trusted_supplier=..., prior_invoice_keys=...)` remains available. Its `urn:sha256` covers only the supplied fields, not an original document. `mock` requires a synthetic marker; `read_only` rejects it. The caller must establish source authenticity, ledger completeness and independent supplier-record provenance. Do not treat a completed structured check as permission to pay.
 
 ## Procedure
 
@@ -33,7 +35,7 @@ For this offline adapter, require supplier ID/name, invoice number, issue/due da
 
 No payment or bank action. Changed payee details need independent confirmation.
 Unreadable pages yield partial extraction; absent prior index makes duplicate status unknown.
-The offline adapter cannot detect unreadable pages because it has no document parser; the host must mark extraction confidence and source-page evidence separately. Do not represent its structured-field checks as original-document verification.
+The PDF adapter marks missing or ambiguous labels and returns page/line evidence for recognized fields. It supports bounded digital text only: 2 MB PDF, eight pages, 1 MB decoded page stream and bounded extracted text. It rejects encrypted or malformed PDFs and does not inspect attachments, run embedded actions or execute payment. A PDF hash identifies bytes, not the sender. Human comparison with the visual document and independent supplier/ledger records remains necessary. The structured-field adapter alone has no document parser.
 
 ## Output and verification
 
