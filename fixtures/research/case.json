@@ -1,0 +1,60 @@
+{
+  "case_id": "synthetic-document-index-choice-v1",
+  "question": "Which document indexing pilot should be investigated for the next 12 months?",
+  "as_of_utc": "2026-10-15T12:00:00Z",
+  "period": "2026-10-15/2027-10-14",
+  "currency": "EUR",
+  "options": ["local", "hosted", "status_quo"],
+  "owner_priorities": null,
+  "sources": [
+    {
+      "id": "local-quote",
+      "file": "local_cost.html",
+      "url": "https://local.example.invalid/quote",
+      "publisher": "Synthetic Local Team",
+      "type": "primary",
+      "independence_group": "local-team",
+      "published_at": "2026-10-10",
+      "retrieved_at_utc": "2026-10-15T11:00:00Z",
+      "sha256": "8d2bd16944ca8508a15370bf21bc16dd02d88b8ac60000829e729f108f37ce41",
+      "locators": ["local-cost", "local-control"]
+    },
+    {
+      "id": "finance-review",
+      "file": "finance_cost.html",
+      "url": "https://finance.example.invalid/review",
+      "publisher": "Synthetic Finance Team",
+      "type": "primary",
+      "independence_group": "finance-team",
+      "published_at": "2026-10-12",
+      "retrieved_at_utc": "2026-10-15T11:01:00Z",
+      "sha256": "4708b8b08acb1213ecbf1bd0d50772ed6951d3e295447c75757abe7b31ec63c8",
+      "locators": ["finance-cost"]
+    },
+    {
+      "id": "hosted-quote",
+      "file": "hosted_cost.html",
+      "url": "https://hosted.example.invalid/quote",
+      "publisher": "Synthetic Hosted Vendor",
+      "type": "primary",
+      "independence_group": "hosted-vendor",
+      "published_at": "2026-10-11",
+      "retrieved_at_utc": "2026-10-15T11:02:00Z",
+      "sha256": "ce8dc88605b88bbaa998d94f9758a0012cedc335f9b068201c2cf18963233e07",
+      "locators": ["hosted-cost"]
+    },
+    {
+      "id": "old-syndication",
+      "file": "syndicated_cost.html",
+      "url": "https://digest.example.invalid/2024-quote",
+      "publisher": "Synthetic Digest",
+      "type": "secondary",
+      "independence_group": "hosted-vendor",
+      "derived_from": "hosted-quote",
+      "published_at": "2024-01-10",
+      "retrieved_at_utc": "2026-10-15T11:03:00Z",
+      "sha256": "e866254dc245cf30fcddc27f947ff4aba54a0bc22a3e3930685a04c79dd91f6a",
+      "locators": ["syndicated-cost"]
+    }
+  ]
+}

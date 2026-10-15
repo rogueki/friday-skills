@@ -1,5 +1,7 @@
 # Test report — 2026-10-15
 
+Isolated Hermes sample and research composition: the real 101-skill dry run of `local_hermes_smoke.py` reported `NOT_RUN` without a model call. Its seven tests and the six pinned synthetic research tests passed. The full current local run passed 236 unit tests (one optional renderer skip), 101-skill validation, 909 shared checks, all 106 offline adapter variants, Ruff and compileall. The 404 Hermes routing and 1616 individual skill-runtime cases remain `NOT_RUN`.
+
 Offline adapter evaluator expansion: all 106 declared variants across nine synthetic scenarios passed with no source-variant coverage gap. Eight focused evaluator tests and 223 total unit tests passed (one optional renderer skip). The evaluator checks scenario-specific refusals, artifacts, approval boundaries, source hashes/counts/bytes and no external effect. These are local mock executions; 404 Hermes routing and 1616 individual skill-runtime cases remain `NOT_RUN`.
 
 Local archive reader milestone: eight new temporary-file tests exercise actual read-only SHA-256 inventory, exact grouping, symlink/depth/size bounds, changed files and inaccessible reads. Full local run: 101-skill validator, current registry, 909 shared checks, 220 unit tests (one optional renderer skip), 18 offline adapter variants, Ruff, compileall, smoke test and `git diff --check` passed. No live archive, Hermes model, write action or parent Dashboard was exercised; 404 routing and 1616 individual skill-runtime cases remain `NOT_RUN`.

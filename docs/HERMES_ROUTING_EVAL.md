@@ -36,3 +36,25 @@ Omit `evidence` or use `{"kind": "synthetic"}` for scripted/offline callbacks. T
 The JSON report includes a SHA-256 digest of the case set and catalog. Each case record includes candidate, source case file, case ID, expectation, observed decision, selected canonical skills, evidence class, elapsed time, and `PASS`/`FAIL`/`NOT_RUN`. It omits raw requests, responses, provider errors, credentials and trace content. A callback exception records only its exception type and leaves that case `NOT_RUN`. Remaining cases stay `NOT_RUN` after the cap. The CLI exits nonzero if any scored case fails. A green synthetic harness test is **not** evidence that Hermes selected the right skill.
 
 Hermes v0.20.5 `hermes skills` exposes installation/discovery commands, not a deterministic automatic routing oracle. A real callback must invoke a deliberately configured Hermes/model session, observe the actual skill selection or `skill_view` tool call, and return only that observed result. A mocked tool call can test Hermes plumbing but must use `synthetic`. Until such a callback and verified provider traces exist, the established 404 routing expectations remain `DECLARED` in `run_skill_cases.py` and `NOT_RUN` for model inference here.
+
+## Optional local Hermes sample
+
+Run a single authored case without a model call first:
+
+```powershell
+python scripts/local_hermes_smoke.py --skill friday-archive-inventory --case-id positive --dry-run
+```
+
+Once local Ollama actually lists `qwen3:4b`, opt into one bounded model run:
+
+```powershell
+python scripts/local_hermes_smoke.py --skill friday-archive-inventory --case-id positive --run --output artifacts/local-routing-result.json --trace-output artifacts/local-routing-trace.jsonl
+```
+
+The harness uses a temporary profile and a **copy** of all packaged skills.
+This matters because Hermes' `skills` toolset includes `skill_manage` alongside
+`skill_view`. It never uses `-z`/YOLO or preloads `--skills`. It returns
+`NOT_RUN`/`PARTIAL` unless the structured `skill_view` call is found and a
+redacted trace is retained. A single PASS/FAIL applies only to that case and
+does not update this evaluator's 404-case aggregate. See [runtime verification](HERMES_RUNTIME_VERIFICATION.md)
+for isolation, trace and scoring limits.
