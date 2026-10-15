@@ -14,7 +14,7 @@ Repository: `friday-skills` at the 0.2.0 procedure-suite stage. Environment: Win
 | Isolated `HERMES_HOME` + `hermes skills list` | PASS | 101 `friday-*` rows reported `enabled`. The temporary profile only referenced this checkout via `skills.external_dirs`. |
 | Isolated Hermes v0.20.5 plugin discovery | PASS | Optional `friday-local` loaded with four tools and no load error in a separate test profile; active profile untouched. |
 | 101 per-skill `tests/cases.json` | PASS structural | Every skill has positive, negative, ambiguity and collision examples plus three §31 shared contracts. Routing outcomes are authored expectations, not executed model decisions. |
-| `pyproject.toml` and GitHub Actions | PRESENT / NOT RUN remote | Python 3.11 project metadata and Windows/Linux CI workflow added. GitHub-hosted CI result has not yet been observed. |
+| `pyproject.toml` and GitHub Actions | PASS remote | Python 3.11 project metadata and [CI run 38747133211](https://github.com/rogueki/friday-skills/actions/runs/38747133211) on commit `6110222`: Windows and Ubuntu jobs both passed. |
 | PowerShell and Bash install / repeat install | PASS local | Worker ran dry run, first copy and second copy into temporary targets; 203 files copied first, 0 changed on repeat. No active Hermes profile was modified. |
 | ZIP export / CRC | PASS local | The 0.2.0 testkit ZIP has 286 entries and passed CRC verification; local `MEMORY.md`, `SCOPE.md`, ignored plan and secrets are excluded. The final artifact hash is recorded in local `MEMORY.md`. |
 | `hermes skills audit` | NOT APPLICABLE | Local Hermes command reported `No hub-installed skills to audit`; it did not audit these `external_dirs` skills. |

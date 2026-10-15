@@ -14,7 +14,7 @@ Status means `PASS` (observed), `PARTIAL` (bounded local evidence), `BLOCKED` (d
 | Mail injection, weather route, invoice no payment | PARTIAL | Synthetic negative variants and regression tests pass; no live mail/weather/finance adapters tested. |
 | Tax never auto-submits, booking never auto-executes, archive not auto-deleted, Loxone write gated | PARTIAL | Procedures and mock traces enforce these boundaries; provider-side behavior remains untested. |
 | PowerPoint worker flow | PARTIAL | Synthetic brief/render fixture and QA trace; no Windows Office Worker connection or rendered production deck. |
-| Capability registry, documentation, 15 automations and CI | PASS | 63 logical IDs mapped to 101 skills; all adapters unavailable. Required docs/catalog and Python CI are present; automations intentionally disabled. |
+| Capability registry, documentation, 15 automations and CI | PASS | 63 logical IDs mapped to 101 skills; all adapters unavailable. Required docs/catalog present; Windows and Ubuntu CI passed on `6110222`; automations intentionally disabled. |
 | Repeatable install and ZIP export | PASS | PowerShell/Bash repeat install and deterministic ZIP/CRC checked locally. |
 | Skill write approval active in operator profile | NOT RUN | Configuration example sets `skills.write_approval: true`; the active Hermes profile was not changed. |
 | Optional Hermes local plugin | PASS | Isolated Hermes v0.20.5 profile loaded `friday-local` with four mock tools; it remains disabled in the active profile and provides no global policy gate. |
