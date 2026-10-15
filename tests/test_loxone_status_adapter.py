@@ -32,6 +32,18 @@ class SnapshotProvider:
 
 
 class LoxoneStatusAdapterTests(unittest.TestCase):
+    def test_injected_mock_snapshot_is_normalized_without_provider_or_timestamp_rewrite(self):
+        synthetic = snapshot()
+        synthetic["controls"] = [synthetic["controls"][0]]
+        synthetic["observed_at"] = (NOW - timedelta(seconds=35)).isoformat()
+        result = read_status([IDS[0]], now=NOW, mock_snapshot=synthetic)
+        self.assertEqual(result["source"], "synthetic:injected-mock-snapshot")
+        self.assertEqual(result["observed_at"], synthetic["observed_at"])
+        self.assertTrue(result["synthetic"])
+        with self.assertRaises(LoxoneStatusError) as context:
+            read_status([IDS[0]], mode="read_only", now=NOW, mock_snapshot=synthetic)
+        self.assertEqual(context.exception.code, "invalid_snapshot")
+
     def test_mock_is_labelled_and_returns_only_allowlisted_controls(self):
         result = read_status(IDS, now=NOW)
         self.assertTrue(result["synthetic"])

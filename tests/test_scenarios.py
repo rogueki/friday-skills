@@ -115,8 +115,9 @@ class ScenarioTests(unittest.TestCase):
     def test_loxone_readback_failure_never_reports_success(self):
         bad = run_scenario("loxone", variant="readback_failed")
         self.assertEqual((bad["status"], bad["reason"]), ("blocked", "readback_failed"))
-        self.assertNotIn("proposal", bad)
-        self.assertEqual(bad["audit"], [])
+        self.assertFalse(bad["proposal"]["executed"])
+        self.assertTrue(all(not record["executed"] for record in bad["audit"]))
+        self.assertNotIn("read_status_mock_readback_verified", bad["trace"])
         clean = run_scenario("loxone")
         self.assertEqual(clean["status"], "waiting_approval")
         self.assertEqual(clean["verification"], "not_executed")

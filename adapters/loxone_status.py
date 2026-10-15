@@ -150,6 +150,7 @@ def read_status(
     now: datetime | None = None,
     timeout: float = 5.0,
     transport: AuthenticatedTransport | None = None,
+    mock_snapshot: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Read a normalized, allowlisted snapshot. No direct Loxone protocol is used.
 
@@ -173,15 +174,22 @@ def read_status(
     if mode == "mock":
         if transport is not None:
             raise LoxoneStatusError("invalid_transport", "mock mode cannot use an external transport")
-        path = Path(__file__).resolve().parents[1] / "fixtures" / "loxone" / "adapter_status.json"
-        snapshot = json.loads(path.read_text(encoding="utf-8"))
-        snapshot["controls"] = [row for row in snapshot["controls"] if row["id"] in set(allowlist)]
-        # Keep the fixture deterministic while exercising freshness checks.
-        snapshot["observed_at"] = (current - timedelta(seconds=20)).isoformat()
-        for record in snapshot["controls"]:
-            record["updated_at"] = (current - timedelta(seconds=20)).isoformat()
-        source = "synthetic:fixtures/loxone/adapter_status.json"
+        if mock_snapshot is None:
+            path = Path(__file__).resolve().parents[1] / "fixtures" / "loxone" / "adapter_status.json"
+            snapshot = json.loads(path.read_text(encoding="utf-8"))
+            snapshot["controls"] = [row for row in snapshot["controls"] if row["id"] in set(allowlist)]
+            # Keep the default fixture deterministic while exercising freshness checks.
+            snapshot["observed_at"] = (current - timedelta(seconds=20)).isoformat()
+            for record in snapshot["controls"]:
+                record["updated_at"] = (current - timedelta(seconds=20)).isoformat()
+            source = "synthetic:fixtures/loxone/adapter_status.json"
+        else:
+            # Caller-owned synthetic data is normalized without a provider or timestamp rewrite.
+            snapshot = mock_snapshot
+            source = "synthetic:injected-mock-snapshot"
     else:
+        if mock_snapshot is not None:
+            raise LoxoneStatusError("invalid_snapshot", "mock_snapshot is only allowed in mock mode")
         if transport is None or getattr(transport, "authenticated", False) is not True:
             raise LoxoneStatusError("transport_required", "read_only mode requires an explicitly authenticated transport")
         try:

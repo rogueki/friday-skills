@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "observed_at": "2026-10-15T11:59:40+00:00",
+  "controls": [
+    {
+      "id": "ctrl-light-office",
+      "room_id": "room-office",
+      "kind": "light",
+      "value": 0,
+      "unit": "%",
+      "updated_at": "2026-10-15T11:59:40+00:00"
+    }
+  ]
+}

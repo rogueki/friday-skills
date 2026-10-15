@@ -201,17 +201,9 @@ def run_scenario(name: str, *, variant: str = "default") -> dict[str, Any]:
         if presentation.get("rendered"):
             trace += ["office_cli_render", "all_pdf_pages_rasterized", "nonblank_pages_checked"]
     elif name == "loxone":
-        device = _fixture("loxone", "status", variant, {"readback_failed"})
-        trace.append("status_read")
-        result["original_state"] = device["state"]
-        if not device["online"] or device.get("readback_ok") is False:
-            result.update(status="blocked", reason="readback_failed")
-        elif device["allow_mock_write"]:
-            result["proposal"] = runtime.propose("smart_home_write", device["device"], {"state": "on"}, tier=2)
-            result.update(status="waiting_approval", verification="not_executed")
-            trace += ["state_answer", "switch_request", "policy_review", "approval_required", "mock_write_proposal"]
-        else:
-            result.update(status="blocked", reason="write_not_allowed")
+        from adapters.loxone_e2e_mock import run_loxone_mock
+
+        run_loxone_mock(runtime, result, trace, variant=variant)
     elif name == "austria_tax":
         cases = _fixture("tax", "cases", variant, {"unknown_rule"})["cases"]
         missing = [x["kind"] for x in cases if x.get("document_present") is False or not x.get("source_date") or x.get("rule_known") is False]
