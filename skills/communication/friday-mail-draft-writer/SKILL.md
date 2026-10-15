@@ -21,6 +21,7 @@ Use to write a context-grounded reply draft with no invented commitments. Inputs
 2. List points requiring answers and unknowns; ask for missing price, delivery date or authorization rather than fabricating them.
 3. Compose subject and reply with verified details and attachment references only when the attachment exists.
 4. Present full recipient, subject, body and attachment preview for review; send is a separate live mail.send action with tier-2 approval and idempotency.
+5. In the synthetic E2E1 mock, keep the recipient, subject and body in the exact approval preview. A consumed local test grant produces only a simulated record with `delivered=false`; it never invokes SMTP or proves that a human approved the draft.
 
 ## Output and verification
 

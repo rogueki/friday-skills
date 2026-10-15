@@ -1,0 +1,21 @@
+{
+  "expected_message_id": "<briefing-71@example.invalid>",
+  "expected_sender": "coordinator@example.invalid",
+  "recipient": "coordinator@example.invalid",
+  "priority_policy": "P1 when sender is in this synthetic fixture and subject says urgent",
+  "calendar_endpoint": "https://calendar.example.invalid/calendars/friday/",
+  "calendar_host": "calendar.example.invalid",
+  "calendar_account": "friday@example.invalid",
+  "calendar_capability": {
+    "name": "calendar.read",
+    "mode": "mock",
+    "status": "healthy",
+    "authenticated": true,
+    "rate_limited": false,
+    "permissions": ["read"],
+    "synthetic": true,
+    "checked_at": "2026-10-15T12:00:00Z"
+  },
+  "window_start": "2026-10-15T11:45:00Z",
+  "window_end": "2026-10-15T12:45:00Z"
+}

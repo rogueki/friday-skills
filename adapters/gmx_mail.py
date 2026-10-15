@@ -33,6 +33,7 @@ MAX_ATTACHMENT_BYTES = 2_000_000
 ALLOWED_ATTACHMENTS = frozenset({"application/pdf", "text/plain", "image/png", "image/jpeg"})
 _UID = re.compile(r"[1-9][0-9]{0,9}\Z")
 _KEY = re.compile(r"[A-Za-z0-9_-]{16,128}\Z")
+_MESSAGE_ID = re.compile(r"<[A-Za-z0-9._+-]{1,120}@[A-Za-z0-9.-]{1,120}>\Z")
 _INJECTION = re.compile(r"ignore (?:all |previous |prior )?instructions|system prompt|developer message|tool call|send (?:this |an )?email|übergehe .*anweisung", re.I)
 
 
@@ -123,6 +124,7 @@ def read_message(
     mailbox: str, uid: str | int, *, mode: str = "mock",
     credentials: GMXCredentials | None = None, transport: ReadTransport | None = None,
     use_stdlib_transport: bool = False, timeout: float = 8.0,
+    mock_fixture: str = "adapter_message",
 ) -> dict[str, Any]:
     """Read one selected UID without marking it seen; never execute HTML or attachments."""
     if mode not in {"mock", "read_only", "live"}:
@@ -132,12 +134,16 @@ def read_message(
     if mode == "mock":
         if transport is not None or use_stdlib_transport or credentials is not None:
             raise MailAdapterError("invalid_transport", "mock mode has no external transport")
-        fixture = Path(__file__).resolve().parents[1] / "fixtures" / "mail" / "adapter_message.json"
+        if not isinstance(mock_fixture, str) or mock_fixture not in {"adapter_message", "e2e_important", "e2e_injection"}:
+            raise MailAdapterError("invalid_fixture", "unknown synthetic message fixture")
+        fixture = Path(__file__).resolve().parents[1] / "fixtures" / "mail" / f"{mock_fixture}.json"
         sample = json.loads(fixture.read_text(encoding="utf-8"))
         if selected_mailbox != sample["mailbox"] or selected_uid != sample["uid"]:
             raise MailAdapterError("message_unavailable", "synthetic UID unavailable")
         raw = sample["rfc822"].encode("utf-8")
     else:
+        if mock_fixture != "adapter_message":
+            raise MailAdapterError("invalid_fixture", "synthetic fixture only applies in mock mode")
         if credentials is None or not isinstance(credentials, GMXCredentials):
             raise MailAdapterError("credentials_missing", "explicit GMX credentials required")
         if (transport is None) == (not use_stdlib_transport):
@@ -170,10 +176,13 @@ def read_message(
             except LookupError:
                 body = payload.decode("utf-8", errors="replace")[: MAX_BODY_CHARS + 1]
     suspicious = bool(_INJECTION.search("\n".join((body, str(message.get("From", "")), str(message.get("Subject", ""))))))
+    raw_message_id = str(message.get("Message-ID", "")).strip()
+    message_id = raw_message_id if len(raw_message_id) <= 254 and _MESSAGE_ID.fullmatch(raw_message_id) else ""
     return {
         "status": "partial" if len(body) > MAX_BODY_CHARS else "completed", "mode": mode,
-        "source": "synthetic:fixtures/mail/adapter_message.json" if mode == "mock" else "gmx:imap",
+        "source": f"synthetic:fixtures/mail/{mock_fixture}.json" if mode == "mock" else "gmx:imap",
         "mailbox": selected_mailbox, "uid": selected_uid,
+        "message_id": message_id,
         "from": str(message.get("From", ""))[:254], "subject": str(message.get("Subject", ""))[:300],
         "date": str(message.get("Date", ""))[:120], "body_text_untrusted": body[:MAX_BODY_CHARS],
         "suspicious_instructions": suspicious, "attachments": attachments[:20],

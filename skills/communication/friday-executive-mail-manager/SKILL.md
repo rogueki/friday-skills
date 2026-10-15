@@ -21,6 +21,7 @@ Use to classify and prioritize inbox threads, detect action intents and propose 
 2. Classify critical, important, customer, supplier, invoice, appointment, authority, tax, private, newsletter, spam or information with confidence and evidence.
 3. Summarize the thread, owner, deadline and next action; delegate deep attachment extraction or reply wording to their focused skills.
 4. Deduplicate across runs. A reply is only a draft; real send needs exact preview, mail.send health, live mode, tier-2 approval and idempotency.
+5. For the synthetic E2E1 path, `important_mail_e2e` reads a pinned RFC822 fixture through `adapters/gmx_mail.py`, ties P1 and the thread summary to its parsed UID, Message-ID, body and date, and looks up calendar context through `adapters/caldav_calendar.py` with an explicit UTC window and mock capability check. Comparing a From header to the expected fixture address is not sender authentication. Its dashboard alert is a local, nonpublishable mapping.
 
 ## Output and verification
 

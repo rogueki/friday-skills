@@ -17,5 +17,6 @@ Use before a proposed write or when an approval request is pending. Do not use f
 2. Show an approval preview with action, recipient/target, financial or data impact, source, exact draft, expiry and authentication requirement. Support revise/reject without treating a changed draft as previously approved.
 3. A trusted adapter must bind approval to the fingerprint of action + target + payload. Immediately before execution recheck capability, mode, fingerprint, expiry, tier and second factor. Use an idempotency key for external writes.
 4. Output `waiting_approval` and a proposed action until the gate is valid. `mock` cannot execute a real write. `read_only` cannot execute one even with approval.
+5. The E2E1 test harness issues only synthetic, one-use grants in a temporary local ledger. Forged, expired or payload/recipient-mismatched grants block its simulated delivery. These grants are not authenticated operator decisions or permission for the live mail adapter.
 
 If approval service is absent, expired or unverifiable, block. Verify execution from the adapter's authoritative response; do not infer success from the approval itself.

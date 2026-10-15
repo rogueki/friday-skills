@@ -114,7 +114,11 @@ def run_scenario(name: str, *, variant: str = "default") -> dict[str, Any]:
     trace: list[str] = []
     result: dict[str, Any] = {"scenario": name, "variant": variant, "mode": "mock", "external_effects": 0}
 
-    if name == "important_mail":
+    if name == "important_mail_e2e":
+        from adapters.mail_e2e_mock import run_important_mail_e2e
+
+        run_important_mail_e2e(runtime, result, trace, variant)
+    elif name == "important_mail":
         data = _fixture("mail", "messages", variant, {"injection"})
         mail = data["messages"][0] if variant != "default" else next(x for x in data["messages"] if x["kind"] == "delivery_problem")
         trace.append("mail_received")
