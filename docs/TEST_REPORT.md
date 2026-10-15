@@ -22,9 +22,9 @@ Repository: `friday-skills` at the 0.3.0 integration stage. Environment: Windows
 | `python scripts/evaluate_hermes_routing.py` | NOT RUN model routing | The opt-in evaluator parsed 404 authored cases and reported `404 NOT_RUN` without a provider; six offline unit tests passed for its scoring/reporting code. No Hermes/model selection was observed. |
 | Active Hermes skill write approval | FAIL current state | Read-only `hermes config get skills.write_approval` resolved to `false` on v0.20.5. Active profile unchanged; see [runtime verification boundary](HERMES_RUNTIME_VERIFICATION.md). |
 | 101 per-skill `tests/cases.json` | PASS structural | Every skill has positive, negative, ambiguity and collision examples plus three §31 shared contracts. Routing outcomes are authored expectations, not executed model decisions. |
-| `pyproject.toml` and GitHub Actions | PASS remote | Python 3.11 project metadata and [CI run 38756053533](https://github.com/rogueki/friday-skills/actions/runs/38756053533) on approval commit `1812f80`: Windows and Ubuntu jobs both passed. |
+| `pyproject.toml` and GitHub Actions | PASS remote | Python 3.11 project metadata and [CI run 38757629343](https://github.com/rogueki/friday-skills/actions/runs/38757629343) on invoice commit `6f7225c`: Windows and Ubuntu jobs both passed. |
 | PowerShell and Bash install / repeat install | PASS local | Worker ran dry run, first copy and second copy into temporary targets; 203 files copied first, 0 changed on repeat. No active Hermes profile was modified. |
-| ZIP export / CRC | PASS local | The 0.3.0 approval preview ZIP contains 331 source files; CRC passed and local memory, scope and the ignored plan were excluded. Final ZIP/hash is recorded in local `MEMORY.md`. |
+| ZIP export / CRC | PASS local | The 0.3.0 invoice preview ZIP contains 335 source files; CRC passed and local memory, scope and the ignored plan were excluded. Final ZIP/hash is recorded in local `MEMORY.md`. |
 | `hermes skills audit` | NOT APPLICABLE | Local Hermes command reported `No hub-installed skills to audit`; it did not audit these `external_dirs` skills. |
 | Real GMX/CalDAV/Loxone/banking/Office/Control API actions | NOT RUN | No live authenticated service call or mutation was invoked. The separate weather GET is the only live provider call in this milestone. |
 
