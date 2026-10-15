@@ -1,3 +1,4 @@
+import json
 import unittest
 
 from shared.scenarios import run_scenario
@@ -36,6 +37,46 @@ class ScenarioTests(unittest.TestCase):
         self.assertEqual(set(suspicious["reasons"]), {"duplicate_invoice", "bank_details_changed"})
         self.assertNotIn("payment_draft", suspicious)
         self.assertEqual(suspicious["audit"], [])
+
+    def test_invoice_pdf_e2e_composes_real_local_adapters_without_payment_execution(self):
+        for variant, amount, discount, applied in (("default", "116.62", "2.38", True),
+                                                   ("after_discount_deadline", "119.00", "0.00", False)):
+            with self.subTest(variant=variant):
+                result = run_scenario("invoice_pdf_to_payment_draft", variant=variant)
+                self.assertEqual(result["status"], "completed")
+                self.assertEqual(result["pdf_review"]["status"], "completed")
+                self.assertEqual(result["payment_draft"]["amount"], amount)
+                self.assertEqual(result["payment_draft"]["discount"], discount)
+                self.assertEqual(result["payment_draft"]["currency"], "EUR")
+                self.assertEqual(result["payment_draft"]["type"], "non_executable_payment_preview")
+                self.assertEqual(result["invoice_facts"]["due_date"], "2026-10-31")
+                self.assertEqual(result["invoice_facts"]["discount_deadline"], "2026-10-20")
+                self.assertEqual(result["invoice_facts"]["discount_applied"], applied)
+                self.assertEqual([event["status"] for event in result["events"]],
+                                 ["working", "completed", "working", "completed"])
+                self.assertTrue(all(not mapping["publishable"] for mapping in result["dashboard_mapping"]))
+                self.assertEqual(result["external_effects"], 0)
+                self.assertEqual(result["audit"], [])
+                exposed = json.dumps((result["events"], result["audit"], result["payment_draft"]), ensure_ascii=False)
+                self.assertNotIn("DE89370400440532013000", exposed)
+                self.assertNotIn("Supplier: Example Supplies GmbH", exposed)
+                self.assertNotIn("payment.execute", json.dumps(result, ensure_ascii=False))
+
+    def test_invoice_pdf_e2e_blocks_untrusted_document_or_reference_data(self):
+        for variant in ("altered_pdf", "duplicate_invoice", "changed_supplier_bank",
+                        "missing_invoice_index", "missing_supplier_record"):
+            with self.subTest(variant=variant):
+                result = run_scenario("invoice_pdf_to_payment_draft", variant=variant)
+                self.assertEqual(result["status"], "blocked")
+                self.assertEqual(result["reason"], "invoice_review_incomplete")
+                self.assertNotIn("payment_draft", result)
+                self.assertEqual([event["status"] for event in result["events"]], ["working", "blocked"])
+                self.assertTrue(all(not mapping["publishable"] for mapping in result["dashboard_mapping"]))
+                self.assertEqual(result["external_effects"], 0)
+                self.assertEqual(result["audit"], [])
+                self.assertNotIn("payment.execute", json.dumps(result, ensure_ascii=False))
+        self.assertIn("mock_requires_pinned_pdf_and_synthetic_records",
+                      run_scenario("invoice_pdf_to_payment_draft", variant="altered_pdf")["pdf_review"]["errors"])
 
     def test_calendar_timezone_conflict_is_detected_in_utc(self):
         result = run_scenario("meeting", variant="timezone_conflict")

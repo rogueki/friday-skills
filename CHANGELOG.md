@@ -5,6 +5,7 @@ Changes are recorded for the independent F.R.I.D.A.Y. Skills package by RogueKI.
 ## Unreleased (registry 0.3.0)
 
 - Added bounded digital PDF invoice extraction with original-byte SHA-256 and page/line evidence. The exact pinned synthetic `valid-skonto.pdf` and synthetic reference records can complete §31's mock case; read-only PDF review stays partial. No OCR, sender authentication, Dashboard publication or payment execution.
+- Compose the pinned PDF intake, invoice review, skonto calculation and masked payment preview in a local §32 mock scenario with blocked negative variants and non-publishable lifecycle events.
 - Added procedures and local cases for all 100 plan skills, plus the extra web research skill; authenticated live integrations remain unverified.
 - Add architecture, configuration, routing, capability, approval, security, testing, dashboard, operations, troubleshooting and authoring documentation.
 - Keep the companion `rogue-friday` repository read only while this package evolves.

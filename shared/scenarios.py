@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal, InvalidOperation
+from pathlib import Path
 from typing import Any
 
 from shared.runtime import MockRuntime, load_fixture, route_request, untrusted_text, dashboard_mapping
@@ -22,6 +23,90 @@ def _fixture(kind: str, default_name: str, variant: str, allowed: set[str]) -> d
     if variant not in allowed | {"default"}:
         raise ValueError(f"unknown {kind} variant: {variant}")
     return load_fixture(kind, default_name if variant == "default" else variant)
+
+
+def _invoice_pdf_to_payment_draft(runtime: MockRuntime, result: dict[str, Any], trace: list[str], variant: str) -> None:
+    """Compose the real local PDF and payment adapters over pinned synthetic inputs."""
+    allowed = {"default", "after_discount_deadline", "altered_pdf", "duplicate_invoice",
+               "changed_supplier_bank", "missing_invoice_index", "missing_supplier_record"}
+    if variant not in allowed:
+        raise ValueError(f"unknown invoice_pdf_to_payment_draft variant: {variant}")
+
+    # pypdf is an optional dependency; other scenarios must remain importable without it.
+    try:
+        from adapters.invoice_document import InvoiceDocumentError, review_invoice_pdf
+    except ModuleNotFoundError as exc:
+        if exc.name != "pypdf":
+            raise
+        result.update(status="blocked", reason="pdf_parser_unavailable")
+        event = runtime.event("friday-invoice-intake", "blocked", "Local PDF parser unavailable", 0)
+        result["dashboard_mapping"] = [dashboard_mapping(event)]
+        return
+    from adapters.invoice import duplicate_key, prepare_payment
+
+    source = load_fixture("invoices", "adapter_invoice")
+    supplier = dict(source["trusted_supplier"])
+    prior_keys = set(source["prior_invoice_keys"])
+    if variant == "changed_supplier_bank":
+        supplier["iban"] = "DE75512108001245126199"
+    elif variant == "missing_supplier_record":
+        supplier = None
+    if variant == "duplicate_invoice":
+        independent_invoice = source["invoice"]
+        prior_keys.add(duplicate_key(independent_invoice["supplier_id"], independent_invoice["invoice_number"]))
+    elif variant == "missing_invoice_index":
+        prior_keys = None
+
+    pdf_bytes = (Path(__file__).resolve().parents[1] / "fixtures" / "invoices" / "valid-skonto.pdf").read_bytes()
+    if variant == "altered_pdf":
+        pdf_bytes += b"\n% altered-copy\n"
+    trace.extend(["original_pdf_bytes_loaded", "independent_synthetic_records_loaded"])
+    runtime.event("friday-invoice-intake", "working", "Local invoice PDF review started", 0)
+    try:
+        review = review_invoice_pdf(pdf_bytes, supplier_id=source["invoice"]["supplier_id"],
+                                    trusted_supplier=supplier, prior_invoice_keys=prior_keys,
+                                    mode="mock", now=runtime.now)
+    except InvoiceDocumentError as exc:
+        result.update(status="blocked", reason=exc.code)
+        runtime.event("friday-invoice-intake", "blocked", "Local invoice PDF review blocked", 0)
+        result["dashboard_mapping"] = [dashboard_mapping(record) for record in runtime.records]
+        return
+
+    extraction = review["artifacts"][0]
+    result["pdf_review"] = {"status": review["status"], "pdf_sha256": extraction["pdf_sha256"],
+                            "page_count": extraction["page_count"], "errors": review["errors"],
+                            "warnings": review["warnings"]}
+    if review["status"] != "completed":
+        result.update(status="blocked", reason="invoice_review_incomplete")
+        runtime.event("friday-invoice-intake", "blocked", "Local invoice PDF review blocked", 0)
+        trace.append("pdf_review_blocked")
+        result["dashboard_mapping"] = [dashboard_mapping(record) for record in runtime.records]
+        return
+
+    # The payment adapter receives fields extracted from the reviewed PDF, not from the structured fixture.
+    fields = dict(extraction["fields"])
+    fields.update(supplier_id=source["invoice"]["supplier_id"], synthetic=True)
+    trace.extend(["pdf_extracted", "invoice_review_completed"])
+    runtime.event("friday-invoice-intake", "completed", "Local invoice PDF review completed", 1)
+    runtime.event("friday-payment-preparation", "working", "Local payment preview started", 0)
+    intended_date = "2026-10-21" if variant == "after_discount_deadline" else "2026-10-15"
+    payment = prepare_payment(fields, trusted_supplier=supplier, prior_invoice_keys=prior_keys,
+                              intended_date=intended_date, mode="mock", now=runtime.now)
+    if payment["status"] != "completed" or payment["actions_proposed"] or payment["approvals_required"]:
+        result.update(status="blocked", reason="payment_preview_incomplete", payment_errors=payment["errors"])
+        runtime.event("friday-payment-preparation", "blocked", "Local payment preview blocked", 0)
+    else:
+        draft = payment["artifacts"][0]
+        if draft["type"] != "non_executable_payment_preview":
+            raise ValueError("payment adapter returned an unexpected artifact")
+        discount = review["artifacts"][1]["review"]["artifacts"][0]["discount"]
+        result.update(status="completed", payment_draft=draft,
+                      invoice_facts={"due_date": fields["due_date"], "discount_deadline": discount["deadline"],
+                                     "discount_percent": discount["percent"], "discount_base": discount["base"],
+                                     "discount_applied": draft["discount"] != "0.00"})
+        trace.extend(["skonto_checked", "due_date_checked", "masked_payment_draft"])
+        runtime.event("friday-payment-preparation", "completed", "Local masked payment preview completed", 1)
+    result["dashboard_mapping"] = [dashboard_mapping(record) for record in runtime.records]
 
 
 def run_scenario(name: str, *, variant: str = "default") -> dict[str, Any]:
@@ -77,6 +162,8 @@ def run_scenario(name: str, *, variant: str = "default") -> dict[str, Any]:
             trace += ["amount_extracted", "skonto_calculated", "due_date_checked", "payment_draft"]
             runtime.event("friday-invoice-intake", "completed", "Rechnung vorbereitet", 1)
             result["status"] = "completed"
+    elif name == "invoice_pdf_to_payment_draft":
+        _invoice_pdf_to_payment_draft(runtime, result, trace, variant)
     elif name == "meeting":
         data = _fixture("calendar", "events", variant, {"timezone_conflict"})
         if variant == "default":
