@@ -4,6 +4,8 @@ Changes are recorded for the independent F.R.I.D.A.Y. Skills package by RogueKI.
 
 ## Unreleased (registry 0.3.0)
 
+- Correct isolated Hermes session scoring for native v0.20.5 IDs and quiet chat output: exactly one exported JSONL session is required before a structured `skill_view` can score.
+- Add plan E2E7 PowerPoint as the 107th offline adapter case. Windows without a renderer reports `PARTIAL`; Ubuntu CI requires an actual three-page PDF and three checked PNGs.
 - Add an isolated, opt-in one-case Hermes routing smoke harness with a temporary skill copy and local Ollama model gate. Dry run and seven offline checks passed; no model routing evidence yet.
 - Add a pinned four-source synthetic research workflow, claim ledger, cautious decision brief and six negative/positive tests. No live research or Hermes skill execution is claimed.
 - Expand the offline adapter evaluation from 18 to all 106 declared variants across nine synthetic workflows, with source-variant coverage checks and scenario-specific risk assertions. Hermes routing and individual skill execution remain untested.

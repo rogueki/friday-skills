@@ -49,10 +49,15 @@ never passed to the model subprocess.
 
 With `--trace-output artifacts/local-routing-trace.jsonl`, a Hermes-redacted
 session export is retained for review; this file may still contain case text
-and stays local under ignored `artifacts/`. The harness records Hermes version,
-case-set SHA, session ID when available, trace hash, observed `skill_view`
+and stays local under ignored `artifacts/`. Hermes v0.20.5 JSONL export contains
+one full session per line. The harness exports by `--source` from the new
+temporary home and requires exactly one row with a native
+`YYYYMMDD_HHMMSS_<6 hex>` session ID. It never infers an ID from chat stdout,
+which `-Q` may suppress. Zero, multiple, malformed or conflicting session IDs
+cannot be scored. The harness records Hermes version,
+case-set SHA, the ID from that row, trace hash, observed `skill_view`
 names, elapsed time and exit status. It does not print raw model output. A
-missing model, process failure or missing structured assistant tool call remains
+missing model, process failure, invalid session export or missing structured assistant tool call remains
 `NOT_RUN`. An unretained or ambiguous trace is `PARTIAL`. A retained single
 `skill_view` can score select/reject for that one case; defer remains `PARTIAL`
 because tool selection alone cannot establish why the model deferred. Inspect

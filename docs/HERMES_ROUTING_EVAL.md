@@ -55,6 +55,8 @@ The harness uses a temporary profile and a **copy** of all packaged skills.
 This matters because Hermes' `skills` toolset includes `skill_manage` alongside
 `skill_view`. It never uses `-z`/YOLO or preloads `--skills`. It returns
 `NOT_RUN`/`PARTIAL` unless the structured `skill_view` call is found and a
-redacted trace is retained. A single PASS/FAIL applies only to that case and
+redacted trace is retained. It requires exactly one full session in the isolated
+Hermes JSONL export and takes the native session ID from that record, even if
+quiet chat mode prints none. A single PASS/FAIL applies only to that case and
 does not update this evaluator's 404-case aggregate. See [runtime verification](HERMES_RUNTIME_VERIFICATION.md)
 for isolation, trace and scoring limits.

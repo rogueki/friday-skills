@@ -1,6 +1,6 @@
 # Test report — 2026-10-15
 
-Isolated Hermes sample and research composition: the real 101-skill dry run of `local_hermes_smoke.py` reported `NOT_RUN` without a model call. Its seven tests and the six pinned synthetic research tests passed. The full current local run passed 236 unit tests (one optional renderer skip), 101-skill validation, 909 shared checks, all 106 offline adapter variants, Ruff and compileall. The 404 Hermes routing and 1616 individual skill-runtime cases remain `NOT_RUN`.
+Current local verification: the corrected 101-skill Hermes dry run reported `NOT_RUN` without a model call; nine focused smoke tests passed. The PowerPoint E2E7 adapter case checks an actual local PPTX and reports `PARTIAL: renderer_unavailable` on this Windows host. The other 106 offline cases passed. The full local run passed 241 unit tests (one optional renderer skip), 101-skill validation, 909 shared checks, Ruff and compileall. Ubuntu CI must still prove the required PowerPoint PDF and PNG render. The 404 Hermes routing and 1616 individual skill-runtime cases remain `NOT_RUN`.
 
 Offline adapter evaluator expansion: all 106 declared variants across nine synthetic scenarios passed with no source-variant coverage gap. Eight focused evaluator tests and 223 total unit tests passed (one optional renderer skip). The evaluator checks scenario-specific refusals, artifacts, approval boundaries, source hashes/counts/bytes and no external effect. These are local mock executions; 404 Hermes routing and 1616 individual skill-runtime cases remain `NOT_RUN`.
 

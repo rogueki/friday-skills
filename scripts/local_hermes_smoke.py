@@ -27,7 +27,7 @@ MODEL = "qwen3:4b"
 OLLAMA_TAGS = "http://127.0.0.1:11434/api/tags"
 OLLAMA_BASE = "http://127.0.0.1:11434/v1"
 CASE_IDS = frozenset({"positive", "negative", "collision", "ambiguity"})
-SESSION_ID = re.compile(r"\b[0-9a-f]{8}-[0-9a-f-]{27,36}\b", re.I)
+SESSION_ID = re.compile(r"[0-9]{8}_[0-9]{6}_[0-9a-f]{6}", re.I)
 
 
 def select_case(root: Path, skill: str, case_id: str) -> tuple[dict[str, Any], str]:
@@ -102,38 +102,56 @@ def _command(query_file: Path) -> list[str]:
             "--source", "friday-local-routing-smoke"]
 
 
-def _skill_view_calls(export_path: Path, session_id: str | None = None) -> list[str]:
+def _single_exported_session(export_path: Path) -> dict[str, Any]:
+    """Require the one full-session JSONL row produced in the isolated home."""
+    rows: list[dict[str, Any]] = []
+    for line in export_path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        try:
+            row = json.loads(line)
+        except json.JSONDecodeError as exc:
+            raise ValueError("session export contains invalid JSONL") from exc
+        if not isinstance(row, dict):
+            raise ValueError("session export contains a non-session row")
+        rows.append(row)
+    if len(rows) != 1:
+        raise ValueError("session export must contain exactly one session")
+    session = rows[0]
+    session_id = session.get("id", session.get("session_id"))
+    if (not isinstance(session_id, str) or not SESSION_ID.fullmatch(session_id)
+            or ("id" in session and "session_id" in session
+                and session["id"] != session["session_id"])):
+        raise ValueError("session export has no valid Hermes session ID")
+    return session
+
+
+def _skill_view_calls(session: dict[str, Any]) -> list[str]:
     """Accept assistant tool-call objects only, never prose mentioning a tool."""
     found: list[str] = []
-    for line in export_path.read_text(encoding="utf-8").splitlines():
-        try:
-            record = json.loads(line)
-        except json.JSONDecodeError:
+    messages = session.get("messages")
+    if not isinstance(messages, list):
+        return found
+    for message in messages:
+        if not isinstance(message, dict) or message.get("role") != "assistant":
             continue
-        if not isinstance(record, dict):
+        calls = message.get("tool_calls")
+        if not isinstance(calls, list):
             continue
-        if session_id and record.get("id", record.get("session_id")) != session_id:
-            continue
-        messages = record.get("messages")
-        if not isinstance(messages, list):
-            continue
-        for message in messages:
-            if not isinstance(message, dict) or message.get("role") != "assistant":
+        for call in calls:
+            if not isinstance(call, dict):
                 continue
-            for call in message.get("tool_calls", []):
-                if not isinstance(call, dict):
+            function = call.get("function", call)
+            if not isinstance(function, dict) or function.get("name") != "skill_view":
+                continue
+            args = function.get("arguments", {})
+            if isinstance(args, str):
+                try:
+                    args = json.loads(args)
+                except json.JSONDecodeError:
                     continue
-                function = call.get("function", call)
-                if not isinstance(function, dict) or function.get("name") != "skill_view":
-                    continue
-                args = function.get("arguments", {})
-                if isinstance(args, str):
-                    try:
-                        args = json.loads(args)
-                    except json.JSONDecodeError:
-                        continue
-                if isinstance(args, dict) and isinstance(args.get("name"), str):
-                    found.append(args["name"])
+            if isinstance(args, dict) and isinstance(args.get("name"), str):
+                found.append(args["name"])
     return found
 
 
@@ -184,28 +202,25 @@ def execute(root: Path, skill: str, case_id: str, *, run: bool,
             if invocation.returncode != 0:
                 report["reason"] = "Hermes process exited unsuccessfully; output suppressed"
                 return report
-            session = SESSION_ID.search(invocation.stdout + "\n" + invocation.stderr)
-            if session:
-                report["session_id"] = session.group(0)
             export = work / "session.jsonl"
             export_command = ["hermes", "sessions", "export", "--format", "jsonl",
                               "--redact", "--yes", "--source", "friday-local-routing-smoke"]
-            if session:
-                export_command.extend(["--session-id", session.group(0)])
             export_command.append(str(export))
             exported = subprocess.run(export_command, cwd=work, env=env,
                                       capture_output=True, text=True, timeout=20, check=False)
             if exported.returncode != 0 or not export.is_file():
                 report["reason"] = "session export unavailable; routing unverified"
                 return report
-            views = _skill_view_calls(export, session.group(0) if session else None)
+            try:
+                session = _single_exported_session(export)
+            except ValueError as exc:
+                report["reason"] = str(exc)
+                return report
+            report["session_id"] = session.get("id", session.get("session_id"))
+            views = _skill_view_calls(session)
             report["observed_skill_views"] = views
             if not views:
                 report["reason"] = "no structured assistant skill_view trace found"
-                return report
-            if not session:
-                report["status"] = "PARTIAL"
-                report["reason"] = "skill_view trace found but session identity unverified"
                 return report
             if trace_output is None:
                 report["status"] = "PARTIAL"

@@ -7,9 +7,12 @@ import ast
 from collections import Counter
 import hashlib
 import json
+import os
 from pathlib import Path
 import sys
+import tempfile
 from typing import Any, Callable
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -216,6 +219,68 @@ def _variant_oracle(case: dict[str, Any], result: dict[str, Any]) -> None:
             _require(result["recovery_status"] == "not_verified", "unverified recovery")
 
 
+def _presentation_oracle(case: dict[str, Any], result: dict[str, Any], directory: Path,
+                         *, require_render: bool) -> str:
+    """Check retained deck bytes and, when available, the real render artifacts."""
+    from adapters.presentation_mock import validate_deck
+    from pptx import Presentation
+    from io import BytesIO
+
+    _require(result.get("scenario") == "powerpoint" and result.get("variant") == "default", "presentation identity")
+    _require(result.get("mode") == "mock" and result.get("external_effects") == 0, "presentation offline boundary")
+    _require(result.get("events") == [] and result.get("audit") == [], "presentation external event or audit")
+    trace = result.get("trace")
+    _require(isinstance(trace, list) and set(case["required_trace"]) <= set(trace), "presentation structural trace")
+    deck_path = Path(result["deck_path"]).resolve()
+    _require(deck_path.is_relative_to(directory.resolve()) and deck_path.is_file() and
+             deck_path.suffix.lower() == ".pptx", "presentation deck outside isolated workspace")
+    deck_bytes = deck_path.read_bytes()
+    _require(hashlib.sha256(deck_bytes).hexdigest() == result.get("deck_sha256"), "presentation deck hash")
+    validate_deck(deck_bytes, expected_slides=3)
+    deck = Presentation(BytesIO(deck_bytes))
+    headings = ("F.R.I.D.A.Y.", "Arbeitsfluss", "Prüfgrenzen")
+    for slide, heading in zip(deck.slides, headings, strict=True):
+        _require(any(heading in shape.text for shape in slide.shapes if shape.has_text_frame),
+                 "presentation storyline missing")
+    _require(result.get("slides") == 3, "presentation slide count")
+    if result.get("status") == "partial":
+        _require(result.get("rendered") is False and result.get("reason") == "renderer_unavailable",
+                 "presentation renderer failed rather than unavailable")
+        _require(not any(key in result for key in ("pdf_path", "slide_images", "pdf_sha256")),
+                 "presentation claimed render artifacts without render")
+        _require(not set(case["render_trace"]) & set(trace), "presentation render trace without artifacts")
+        _require(not require_render, "presentation renderer required")
+        return "PARTIAL"
+
+    _require(result.get("status") == "completed" and result.get("rendered") is True,
+             "presentation not rendered")
+    _require(set(case["render_trace"]) <= set(trace), "presentation render trace")
+    _require(isinstance(result.get("renderer"), str) and bool(result["renderer"]), "presentation renderer identity")
+    pdf_path = Path(result["pdf_path"]).resolve()
+    _require(pdf_path.is_relative_to(directory.resolve()) and pdf_path.is_file() and pdf_path.stat().st_size > 0,
+             "presentation PDF missing or outside workspace")
+    _require(hashlib.sha256(pdf_path.read_bytes()).hexdigest() == result.get("pdf_sha256"), "presentation PDF hash")
+    images = result.get("slide_images")
+    _require(isinstance(images, list) and len(images) == 3 and len(set(images)) == 3,
+             "presentation needs three distinct PNGs")
+    import fitz
+
+    with fitz.open(pdf_path) as pdf:
+        _require(len(pdf) == 3, "presentation PDF page count")
+        for index, (page, image) in enumerate(zip(pdf, images, strict=True), start=1):
+            _require(headings[index - 1] in page.get_text(), "presentation rendered storyline missing")
+            path = Path(image).resolve()
+            _require(path.is_relative_to(directory.resolve()) and path.is_file() and path.suffix.lower() == ".png",
+                     "presentation PNG missing or outside workspace")
+            pix = fitz.Pixmap(str(path))
+            samples = pix.samples
+            stride = max(pix.n, (len(samples) // 12000 // pix.n) * pix.n)
+            colors = {samples[offset:offset + pix.n] for offset in range(0, len(samples) - pix.n, stride)}
+            _require(pix.width >= 500 and pix.height >= 300 and len(colors) > 1,
+                     "presentation PNG blank or too small")
+    return "PASS"
+
+
 def _source_hashes(root: Path, case: dict[str, Any], skill_paths: dict[str, str]) -> dict[str, str]:
     paths = [case["source"], "shared/scenarios.py", *case["fixtures"],
              *case.get("additional_sources", [])]
@@ -231,6 +296,14 @@ def _source_hashes(root: Path, case: dict[str, Any], skill_paths: dict[str, str]
 
 def _declared_variants(source: Path, scenario: str) -> set[str]:
     """Read the adapter's current variant declaration without executing source text."""
+    if scenario == "powerpoint":
+        tree = ast.parse(source.read_text(encoding="utf-8"), filename=str(source))
+        functions = [node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == "run_mock"]
+        if len(functions) != 1 or any(arg.arg == "variant" for arg in
+                                      [*functions[0].args.posonlyargs, *functions[0].args.args,
+                                       *functions[0].args.kwonlyargs]):
+            raise ValueError("presentation variant inventory changed")
+        return {"default"}
     target = "allowed" if scenario == "invoice_pdf_to_payment_draft" else (
         "variants" if scenario == "weather" else "VARIANTS")
     tree = ast.parse(source.read_text(encoding="utf-8"), filename=str(source))
@@ -248,7 +321,10 @@ def _declared_variants(source: Path, scenario: str) -> set[str]:
     raise ValueError(f"missing variant inventory: {scenario}")
 
 
-def evaluate(root: Path = ROOT, *, runner: Callable[..., dict[str, Any]] = run_scenario) -> dict[str, Any]:
+def evaluate(root: Path = ROOT, *, runner: Callable[..., dict[str, Any]] = run_scenario,
+             require_presentation_render: bool | None = None) -> dict[str, Any]:
+    if require_presentation_render is None:
+        require_presentation_render = os.environ.get("FRIDAY_REQUIRE_PRESENTATION_RENDER") == "1"
     manifest_path = root / "registry/skill_adapter_bindings.json"
     manifest_bytes = manifest_path.read_bytes()
     manifest = json.loads(manifest_bytes)
@@ -267,6 +343,25 @@ def evaluate(root: Path = ROOT, *, runner: Callable[..., dict[str, Any]] = run_s
             _require(bool(case["skills"]) and all(name in skill_paths for name in case["skills"]),
                      "unknown related skill")
             record["source_sha256"] = _source_hashes(root, case, skill_paths)
+            if case["scenario"] == "powerpoint":
+                from adapters.presentation_mock import run_mock
+
+                with tempfile.TemporaryDirectory(prefix="friday-presentation-eval-") as temporary:
+                    directory = Path(temporary)
+
+                    def isolated_run(brief: dict[str, Any]) -> dict[str, Any]:
+                        return run_mock(brief, output_root=directory)
+
+                    with patch("adapters.presentation_mock.run_mock", side_effect=isolated_run):
+                        result = runner(case["scenario"], variant=case["variant"])
+                    status = _presentation_oracle(case, result, directory,
+                                                  require_render=require_presentation_render)
+                record.update(status=status, observed_status=result["status"],
+                              trace_sha256=hashlib.sha256(json.dumps(result["trace"], sort_keys=True).encode()).hexdigest())
+                if status == "PARTIAL":
+                    record["reason"] = result["reason"]
+                records.append(record)
+                continue
             result = runner(case["scenario"], variant=case["variant"])
             if (case["scenario"] == "invoice_pdf_to_payment_draft" and
                     result.get("reason") == "pdf_parser_unavailable"):
@@ -301,6 +396,7 @@ def evaluate(root: Path = ROOT, *, runner: Callable[..., dict[str, Any]] = run_s
         "total": len(records), "counts": dict(counts), "cases": records,
         "scenario_coverage": coverage,
         "coverage_gaps": coverage_gaps,
+        "presentation_render_required": require_presentation_render,
         "hermes_routing": "NOT_RUN", "individual_skill_runtime": "NOT_RUN",
         "limitations": "Scenarios execute local synthetic adapters, not SKILL.md through a Hermes model; audit and mapping prove only local records.",
     }
