@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections import Counter
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
@@ -185,17 +185,9 @@ def run_scenario(name: str, *, variant: str = "default") -> dict[str, Any]:
 
         run_weather_mock(runtime, result, trace, variant=variant)
     elif name == "family_travel":
-        travel = _fixture("travel", "cases", variant, {"stale_quote"})
-        available = [x for x in travel["options"] if x["available"]]
-        result["party"] = travel["party"]
-        fresh = [x for x in available if "quoted_at" not in x or runtime.now - _instant(x["quoted_at"]) <= timedelta(hours=24)]
-        if not fresh:
-            result.update(status="partial", reason="no_current_quote")
-        else:
-            best = min(fresh, key=lambda x: x["price_eur"])
-            result["proposal"] = runtime.propose("booking", "synthetic-trip", best, tier=3)
-            result["status"] = "waiting_approval"
-            trace += ["profile", "mock_research", "comparison", "itinerary", "booking_draft", "hard_approval_required"]
+        from adapters.travel_e2e_mock import run_travel_mock
+
+        run_travel_mock(runtime, result, trace, variant=variant)
     elif name == "photo_archive":
         files = _fixture("media", "cases", variant, {"bad_hash"})["files"]
         trace += ["read_only_scan", "inventory"]
