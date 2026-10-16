@@ -55,7 +55,7 @@ SETUP = {
     "tariff_source": ("Region und aktuellen Tarif-/Vertragsanbieter auswählen; öffentliche Preise ersetzen keinen persönlichen Vertrag.", "docs/CAPABILITIES.md", "Host: Tarifquelle und ggf. Anbieter-Konto"),
     "task_store": ("Task-Backend und Identitätsbindung im Host einrichten; Control-API-Client ist nur mit authentifiziertem Transport nutzbar.", "docs/CONTROL_API_TASKS.md", "Host: Task-Backend/Control API"),
     "telegram_gateway": ("Telegram-Bot oder Benutzeranbindung und verifizierte Owner-ID wählen; ein operativer Friday-Gateway-Adapter fehlt.", "skills/communication/friday-telegram-communication/SKILL.md", "Host: Telegram-Kanal noch offen"),
-    "telephony": ("Telefonanbieter, eigene Rufnummer, verifizierte Ziele und Anrufberechtigung festlegen; ein Dial-Adapter fehlt.", "skills/communication/friday-phone-call-coordinator/SKILL.md", "Host: Telefonie-Provider noch offen"),
+    "telephony": ("Für echte Anrufe Telefonanbieter, eigene Rufnummer, verifizierte Ziele und Anrufberechtigung festlegen; ein Dial-Adapter fehlt. Ein Kontaktkonto allein schaltet keine Anrufe frei.", "skills/communication/friday-phone-call-coordinator/SKILL.md", "Host: Telefonie-Provider und Dial-Adapter noch offen"),
     "weather": ("Öffentlichen Wetterleser bei Bedarf separat als Hermes-Plugin aktivieren; kein Konto nötig.", "docs/WEATHER_PLUGIN.md", "Hermes: optionales Wetter-Plugin"),
     "web_fetch": ("Erlaubte Webquellen und Host-Egress konfigurieren; Zugriff je Quelle prüfen.", "docs/WEB_EXTRACTION_ADAPTER.md", "Host: Web-Egress-Allowlist"),
     "whatsapp_gateway": ("WhatsApp-Konto/Business-Kanal, Einwilligung und Empfängerbindung klären; ein operativer Friday-Gateway-Adapter fehlt.", "skills/communication/friday-whatsapp-communication/SKILL.md", "Host: WhatsApp-Provider noch offen"),
@@ -89,8 +89,8 @@ EXTRA_SETUP = {
     "elevenlabs": ("ElevenLabs-Konto, Server-Key und Voice-ID in den Dashboard-Einstellungen hinterlegen; Anfrage einzeln bestätigen.", "docs/CONTENT_STUDIO.md", "required", "Dashboard Settings → Content Studio → ElevenLabs"),
     "video_editor": ("CapCut oder lokalen Videoeditor für manuellen Handoff bereitstellen; keine Editor-Automation voraussetzen.", "docs/CONTENT_STUDIO.md", "none", "lokaler Editor"),
     "obsidian": ("Optionalen lokalen Vault-Pfad freigeben; Hermes-Bundleskill nutzt Dateitools und benötigt kein Cloud-Konto.", "skills/knowledge/friday-knowledge-base-curator/SKILL.md", "none", "Hermes: OBSIDIAN_VAULT_PATH"),
-    "coding_cli": ("Für Codeaufgaben optional OpenCode, Codex oder Claude Code lokal installieren und deren eigene Modell-Anmeldung prüfen.", "skills/knowledge/friday-project-context-builder/SKILL.md", "conditional", "lokale CLI/Projektkonfiguration"),
-    "computer_use": ("Optionales Hermes-Computer-Use-Werkzeug und lokale Desktop-Berechtigungen prüfen; kein externes Konto nötig.", "skills/knowledge/friday-file-classifier/SKILL.md", "none", "Hermes: computer_use/doctor"),
+    "coding_cli": ("Für Codeaufgaben optional OpenCode, Codex oder Claude Code im Hermes-Laufzeitkontext bereitstellen; CLI-Version, eigene Modell-Anmeldung und Projektzugriff vor einem Auftrag prüfen.", "docs/HERMES_WORKFLOWS.md", "conditional", "Hermes-Laufzeit: Coding-CLI und Provider-Anmeldung"),
+    "computer_use": ("Hermes-Computer-Use-Werkzeug und Desktop-Treiber im aktiven Laufzeitkontext prüfen; ein installierter Skill beweist keine benutzbare GUI-Verbindung.", "docs/HERMES_WORKFLOWS.md", "none", "Hermes: computer_use und lokaler Desktop-Treiber"),
     "powerpoint_playback": ("Zielversion von PowerPoint für Animations-Playback und Sichtprüfung bereitstellen.", "skills/office/friday-powerpoint-animation-director/SKILL.md", "none", "lokaler Windows-Office-Worker"),
 }
 
@@ -131,6 +131,9 @@ def build() -> dict:
             setup += " Optional: " + first_step(conditional[0]) + "."
             if len(conditional) > 1:
                 setup += " Weitere optionale Aktionen stehen in der Integrationsliste."
+        if name == "friday-phone-call-coordinator":
+            setup = ("Gesprächsplan ohne Konto möglich. Für einen echten Anruf zuerst Telefonie-Provider, "
+                     "Rufnummer, Dial-Adapter und Anrufberechtigung einrichten; CardDAV ist nur eine optionale Kontaktquelle.")
         records[name] = {"required_capabilities": record["required"], "conditional_capabilities": record["conditional"],
                          "required_integrations": required, "conditional_integrations": conditional,
                          "account": account, "setup_de": setup.strip(),

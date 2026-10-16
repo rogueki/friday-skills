@@ -47,6 +47,13 @@ class SetupCatalogTests(unittest.TestCase):
         changed["integrations"]["banking"]["setup_de"] = "Schnittstelle konfigurieren."
         self.assertTrue(any("generated source" in error for error in validate(changed)))
 
+    def test_phone_setup_keeps_dial_provider_separate_from_contacts(self):
+        phone = self.catalog["skills"]["friday-phone-call-coordinator"]
+        self.assertEqual(phone["account"], "conditional")
+        self.assertEqual(phone["conditional_integrations"], ["carddav", "telephony"])
+        self.assertLess(phone["setup_de"].index("Telefonie-Provider"), phone["setup_de"].index("CardDAV"))
+        self.assertIn("Dial-Adapter", self.catalog["integrations"]["telephony"]["setup_de"])
+
 
 if __name__ == "__main__":
     unittest.main()

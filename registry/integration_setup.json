@@ -258,9 +258,9 @@
     },
     "telephony": {
       "account": "required",
-      "setup_de": "Telefonanbieter, eigene Rufnummer, verifizierte Ziele und Anrufberechtigung festlegen; ein Dial-Adapter fehlt.",
+      "setup_de": "Für echte Anrufe Telefonanbieter, eigene Rufnummer, verifizierte Ziele und Anrufberechtigung festlegen; ein Dial-Adapter fehlt. Ein Kontaktkonto allein schaltet keine Anrufe frei.",
       "reference": "skills/communication/friday-phone-call-coordinator/SKILL.md",
-      "settings_target": "Host: Telefonie-Provider noch offen",
+      "settings_target": "Host: Telefonie-Provider und Dial-Adapter noch offen",
       "auth_kind": "provider_account"
     },
     "weather": {
@@ -321,16 +321,16 @@
     },
     "coding_cli": {
       "account": "conditional",
-      "setup_de": "Für Codeaufgaben optional OpenCode, Codex oder Claude Code lokal installieren und deren eigene Modell-Anmeldung prüfen.",
-      "reference": "skills/knowledge/friday-project-context-builder/SKILL.md",
-      "settings_target": "lokale CLI/Projektkonfiguration",
+      "setup_de": "Für Codeaufgaben optional OpenCode, Codex oder Claude Code im Hermes-Laufzeitkontext bereitstellen; CLI-Version, eigene Modell-Anmeldung und Projektzugriff vor einem Auftrag prüfen.",
+      "reference": "docs/HERMES_WORKFLOWS.md",
+      "settings_target": "Hermes-Laufzeit: Coding-CLI und Provider-Anmeldung",
       "auth_kind": "none_or_optional"
     },
     "computer_use": {
       "account": "none",
-      "setup_de": "Optionales Hermes-Computer-Use-Werkzeug und lokale Desktop-Berechtigungen prüfen; kein externes Konto nötig.",
-      "reference": "skills/knowledge/friday-file-classifier/SKILL.md",
-      "settings_target": "Hermes: computer_use/doctor",
+      "setup_de": "Hermes-Computer-Use-Werkzeug und Desktop-Treiber im aktiven Laufzeitkontext prüfen; ein installierter Skill beweist keine benutzbare GUI-Verbindung.",
+      "reference": "docs/HERMES_WORKFLOWS.md",
+      "settings_target": "Hermes: computer_use und lokaler Desktop-Treiber",
       "auth_kind": "none_or_optional"
     },
     "powerpoint_playback": {
@@ -752,7 +752,7 @@
         "telephony"
       ],
       "account": "conditional",
-      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Kontaktanbieter, CardDAV-URL und Konto erst wählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "setup_de": "Gesprächsplan ohne Konto möglich. Für einen echten Anruf zuerst Telefonie-Provider, Rufnummer, Dial-Adapter und Anrufberechtigung einrichten; CardDAV ist nur eine optionale Kontaktquelle.",
       "live_status": "unknown"
     },
     "friday-unified-conversation-summary": {
@@ -1867,7 +1867,7 @@
         "document_parser"
       ],
       "account": "none",
-      "setup_de": "Für den Grundablauf: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen. Optional: Optionales Hermes-Computer-Use-Werkzeug und lokale Desktop-Berechtigungen prüfen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "setup_de": "Für den Grundablauf: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen. Optional: Hermes-Computer-Use-Werkzeug und Desktop-Treiber im aktiven Laufzeitkontext prüfen. Weitere optionale Aktionen stehen in der Integrationsliste.",
       "live_status": "unknown"
     },
     "friday-project-context-builder": {
@@ -1885,7 +1885,7 @@
         "obsidian"
       ],
       "account": "conditional",
-      "setup_de": "Für den Grundablauf: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen. Optional: Für Codeaufgaben optional OpenCode, Codex oder Claude Code lokal installieren und deren eigene Modell-Anmeldung prüfen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "setup_de": "Für den Grundablauf: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen. Optional: Für Codeaufgaben optional OpenCode, Codex oder Claude Code im Hermes-Laufzeitkontext bereitstellen. Weitere optionale Aktionen stehen in der Integrationsliste.",
       "live_status": "unknown"
     },
     "friday-knowledge-base-curator": {

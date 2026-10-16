@@ -20,6 +20,8 @@ Use for acceptance review of an actual deck or export. Do not claim QA complete 
 3. If animations exist, check reveal order, speaker logic and reduced-motion/static export using actual playback capability. Test the target export and reopen the produced artifact where possible.
 4. Log each defect with slide number, severity, evidence and suggested fix. Recheck repaired slides and dependent layouts before closure.
 
+**Hermes handoff:** When present, the bundled `powerpoint` skill's `pptx_read.py` can supply a structured outline and `pptx_render.py` can render slides. The latter reports an unrendered result if LibreOffice or Poppler is missing; treat that as `NOT_RUN` for visual checks. Inspect every output slide and retain separate native playback checks for animation. See [Hermes workflows](../../../docs/HERMES_WORKFLOWS.md).
+
 **Mode/capability:** `mock` uses sample artifacts and labels limits; `read_only` reviews without edit; `live` may save an authorized QA report or revised export but not alter the original. Reads are Tier 0; local report/export Tier 1; external distribution Tier 2. Do not upload confidential decks to unapproved renderers.
 
 For the local synthetic E2E7 adapter, distinguish OOXML package checks from rendered-slide checks. Its PDF page count, extracted text and sampled pixel variance are automated smoke checks, not human visual review, accessibility review or native PowerPoint playback. A failed or unavailable renderer leaves the scenario `partial` and the missing QA items `NOT_RUN`.
