@@ -91,6 +91,20 @@
       "mode": "approval_required",
       "permission": "write"
     },
+    "discord.receive": {
+      "adapter": "discord_gateway",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "read_only",
+      "permission": "read"
+    },
+    "discord.send": {
+      "adapter": "discord_gateway",
+      "live_available": false,
+      "mock_available": false,
+      "mode": "approval_required",
+      "permission": "write"
+    },
     "document.read": {
       "adapter": "document_parser",
       "live_available": false,
@@ -616,6 +630,13 @@
         "file.write",
         "official-web.read",
         "web.read"
+      ],
+      "required": []
+    },
+    "friday-discord-communication": {
+      "conditional": [
+        "discord.receive",
+        "discord.send"
       ],
       "required": []
     },

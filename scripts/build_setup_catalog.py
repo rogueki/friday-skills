@@ -13,7 +13,7 @@ except ModuleNotFoundError:  # direct scripts/validate.py invocation
 # Account requirements describe the named service, not current authentication.
 ACCOUNT_REQUIRED = {
     "banking", "caldav", "carddav", "finance", "finanzonline",
-    "imap_smtp_mail", "loxone", "messaging_gateway", "telegram_gateway", "telephony",
+    "discord_gateway", "imap_smtp_mail", "loxone", "messaging_gateway", "telegram_gateway", "telephony",
     "whatsapp_gateway",
 }
 ACCOUNT_CONDITIONAL = {"backup", "notification_gateway", "tariff_source"}
@@ -58,7 +58,8 @@ SETUP = {
     "telephony": ("Für echte Anrufe Telefonanbieter, eigene Rufnummer, verifizierte Ziele und Anrufberechtigung festlegen; ein Dial-Adapter fehlt. Ein Kontaktkonto allein schaltet keine Anrufe frei.", "skills/communication/friday-phone-call-coordinator/SKILL.md", "Host: Telefonie-Provider und Dial-Adapter noch offen"),
     "weather": ("Öffentlichen Wetterleser bei Bedarf separat als Hermes-Plugin aktivieren; kein Konto nötig.", "docs/WEATHER_PLUGIN.md", "Hermes: optionales Wetter-Plugin"),
     "web_fetch": ("Erlaubte Webquellen und Host-Egress konfigurieren; Zugriff je Quelle prüfen.", "docs/WEB_EXTRACTION_ADAPTER.md", "Host: Web-Egress-Allowlist"),
-    "whatsapp_gateway": ("WhatsApp-Konto/Business-Kanal, Einwilligung und Empfängerbindung klären; ein operativer Friday-Gateway-Adapter fehlt.", "skills/communication/friday-whatsapp-communication/SKILL.md", "Host: WhatsApp-Provider noch offen"),
+    "whatsapp_gateway": ("Im Friday Dashboard unter Einstellungen > Skill-Konten > WhatsApp das lokale Hermes-Dashboard zur QR-Kopplung öffnen; danach Modus und erlaubte Telefonnummer mit Ländervorwahl ohne + einrichten. Friday zeigt die Session-Datei und Gateway-Konfiguration, keine bestätigte Verbindung oder Nachrichtenzustellung.", "skills/communication/friday-whatsapp-communication/SKILL.md", "Friday Dashboard > Einstellungen > Skill-Konten > WhatsApp"),
+    "discord_gateway": ("Im Friday Dashboard unter Einstellungen > Skill-Konten > Discord Bot-Token, numerische erlaubte User-ID und optional Kanal-IDs einrichten. Discord Developer Portal: Message Content Intent aktivieren und Bot einladen. Gespeicherte Konfiguration beweist weder Verbindung noch Nachrichtenzustellung.", "skills/communication/friday-discord-communication/SKILL.md", "Friday Dashboard > Einstellungen > Skill-Konten > Discord"),
     "windows_worker": ("Lokalen Office-Renderer samt Fonts bereitstellen und Ausgabe visuell prüfen; PowerPoint-Playback gesondert testen.", "docs/PRESENTATION_MOCK_WORKER.md", "Host: lokaler Office-Renderer"),
 }
 

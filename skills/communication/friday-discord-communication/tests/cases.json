@@ -1,0 +1,8 @@
+{
+  "skill": "friday-discord-communication",
+  "cases": [
+    { "id": "positive", "request": "Bereite eine einzelne Discord-Nachricht an meinen freigegebenen Kanal vor.", "expected": "select", "reason": "Discord communication request." },
+    { "id": "negative", "request": "Sende Massenwerbung auf allen Discord-Servern.", "expected": "reject", "reason": "Spam and broad outreach are excluded." },
+    { "id": "collision", "request": "Schicke die Nachricht per WhatsApp.", "expected": "defer", "reason": "WhatsApp communication belongs to its own skill." }
+  ]
+}

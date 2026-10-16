@@ -265,6 +265,19 @@
       "last_checked": "2026-10-15"
     },
     {
+      "name": "friday-discord-communication",
+      "legacy_plan_name": null,
+      "category": "communication",
+      "status": "implemented_procedure",
+      "max_risk_tier": 2,
+      "path": "skills/communication/friday-discord-communication/SKILL.md",
+      "version": "0.1.0",
+      "trigger": "Coordinate authorized Discord messages through a verified Hermes bot gateway, never bulk outreach.",
+      "mock_ready": false,
+      "live_adapter_ready": false,
+      "last_checked": "2026-10-16"
+    },
+    {
       "name": "friday-whatsapp-communication",
       "legacy_plan_name": "jarvis-whatsapp-communication",
       "category": "communication",

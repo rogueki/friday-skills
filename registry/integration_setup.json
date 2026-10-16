@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "inventory_source": "registry/skills.json",
-  "inventory_count": 105,
+  "inventory_count": 106,
   "status_semantics": "unknown bedeutet: keine aktuelle Hermes- oder Anbieterprüfung durch diesen Katalog.",
   "integrations": {
     "adapter_registry": {
@@ -66,6 +66,13 @@
       "reference": "docs/CONTENT_STUDIO.md",
       "settings_target": "Hermes-Prozess: FRIDAY_CONTROL_API_ORIGIN/SESSION/CSRF",
       "auth_kind": "local_session"
+    },
+    "discord_gateway": {
+      "account": "required",
+      "setup_de": "Im Friday Dashboard unter Einstellungen > Skill-Konten > Discord Bot-Token, numerische erlaubte User-ID und optional Kanal-IDs einrichten. Discord Developer Portal: Message Content Intent aktivieren und Bot einladen. Gespeicherte Konfiguration beweist weder Verbindung noch Nachrichtenzustellung.",
+      "reference": "skills/communication/friday-discord-communication/SKILL.md",
+      "settings_target": "Friday Dashboard > Einstellungen > Skill-Konten > Discord",
+      "auth_kind": "provider_account"
     },
     "document_parser": {
       "account": "none",
@@ -279,9 +286,9 @@
     },
     "whatsapp_gateway": {
       "account": "required",
-      "setup_de": "WhatsApp-Konto/Business-Kanal, Einwilligung und Empfängerbindung klären; ein operativer Friday-Gateway-Adapter fehlt.",
+      "setup_de": "Im Friday Dashboard unter Einstellungen > Skill-Konten > WhatsApp das lokale Hermes-Dashboard zur QR-Kopplung öffnen; danach Modus und erlaubte Telefonnummer mit Ländervorwahl ohne + einrichten. Friday zeigt die Session-Datei und Gateway-Konfiguration, keine bestätigte Verbindung oder Nachrichtenzustellung.",
       "reference": "skills/communication/friday-whatsapp-communication/SKILL.md",
-      "settings_target": "Host: WhatsApp-Provider noch offen",
+      "settings_target": "Friday Dashboard > Einstellungen > Skill-Konten > WhatsApp",
       "auth_kind": "provider_account"
     },
     "windows_worker": {
@@ -743,6 +750,20 @@
       "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Im Friday Dashboard unter Einstellungen > Skill-Konten > Telegram BotFather-Token und numerische erlaubte User-ID einrichten. Das installierte Hermes-Gateway kann Telegram-Nachrichten verarbeiten.",
       "live_status": "unknown"
     },
+    "friday-discord-communication": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "discord.receive",
+        "discord.send"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "discord_gateway"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Im Friday Dashboard unter Einstellungen > Skill-Konten > Discord Bot-Token, numerische erlaubte User-ID und optional Kanal-IDs einrichten. Discord Developer Portal: Message Content Intent aktivieren und Bot einladen. Gespeicherte Konfiguration beweist weder Verbindung noch Nachrichtenzustellung.",
+      "live_status": "unknown"
+    },
     "friday-whatsapp-communication": {
       "required_capabilities": [],
       "conditional_capabilities": [
@@ -754,7 +775,7 @@
         "whatsapp_gateway"
       ],
       "account": "conditional",
-      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: WhatsApp-Konto/Business-Kanal, Einwilligung und Empfängerbindung klären.",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Im Friday Dashboard unter Einstellungen > Skill-Konten > WhatsApp das lokale Hermes-Dashboard zur QR-Kopplung öffnen.",
       "live_status": "unknown"
     },
     "friday-phone-call-coordinator": {

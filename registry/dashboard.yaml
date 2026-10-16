@@ -162,6 +162,13 @@
       "icon": "research",
       "progress_strategy": "indeterminate"
     },
+    "friday-discord-communication": {
+      "category": "communication",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "communication",
+      "progress_strategy": "indeterminate"
+    },
     "friday-document-intake": {
       "category": "office",
       "default_orb_mode": "working",

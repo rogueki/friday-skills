@@ -80,6 +80,8 @@ CAPABILITIES = {
     "task.write": ("task_store", "approval_required"),
     "telegram.receive": ("telegram_gateway", "read_only"),
     "telegram.send": ("telegram_gateway", "approval_required"),
+    "discord.receive": ("discord_gateway", "read_only"),
+    "discord.send": ("discord_gateway", "approval_required"),
     "telephony.call": ("telephony", "approval_required"),
     "voice.hear": ("local_voice", "read_only"),
     "voice.speak": ("local_voice", "draft_only"),

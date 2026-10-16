@@ -712,6 +712,13 @@
         "telegram.send"
       ]
     },
+    "friday-discord-communication": {
+      "required": [],
+      "conditional": [
+        "discord.receive",
+        "discord.send"
+      ]
+    },
     "friday-travel-document-checklist": {
       "required": [],
       "conditional": [

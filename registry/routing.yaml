@@ -301,6 +301,19 @@
       "trigger": "Run multi-question research with a source strategy, evidence matrix, contradiction checks and explicit limits."
     },
     {
+      "id": "discord-communication",
+      "intents": [
+        "discord_communication"
+      ],
+      "preferred_model": "configured",
+      "risk_tier": 2,
+      "skills": [
+        "friday-discord-communication"
+      ],
+      "status": "implemented_procedure",
+      "trigger": "Coordinate authorized Discord messages through a verified Hermes bot gateway, never bulk outreach."
+    },
+    {
       "id": "document-intake",
       "intents": [
         "document_intake"
