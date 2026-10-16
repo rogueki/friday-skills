@@ -35,6 +35,17 @@ SCHEMAS = {
         "text": {"type": "string", "maxLength": 2500}, "voice_id": {"type": "string"},
         "idempotency_key": {"type": "string", "description": "Stable unique key for this exact user intent, 8-128 characters"},
     }, ["text", "voice_id", "idempotency_key"]),
+    "friday_studio_create_production": _schema("friday_studio_create_production", "After explicit host approval, start one paid Content Studio production job for an idea in the current server plan. Never claim the job is finished until its status says completed.", {
+        "idea_id": {"type": "string", "maxLength": 100}, "plan_revision": {"type": "integer", "minimum": 1},
+        "voice_id": {"type": "string", "description": "Optional configured ElevenLabs voice ID"},
+        "idempotency_key": {"type": "string", "description": "Stable unique key for this exact user intent, 8-128 characters"},
+    }, ["idea_id", "plan_revision", "idempotency_key"]),
+    "friday_studio_production_status": _schema("friday_studio_production_status", "Read a production job state; provider_unknown and speech_unknown require operator review, not automatic retry.", {
+        "job_id": {"type": "string", "description": "UUID from friday_studio_create_production"},
+    }, ["job_id"]),
+    "friday_studio_cancel_production": _schema("friday_studio_cancel_production", "Stop further local work and provider requests for a production job. Already submitted provider requests may have incurred charges.", {
+        "job_id": {"type": "string", "description": "UUID from friday_studio_create_production"},
+    }, ["job_id"]),
 }
 
 
@@ -142,5 +153,36 @@ def register(ctx, *, host: StudioHostBinding | None = None, output_dir: Path | N
         except Exception:
             return _blocked("bridge_failure")
 
-    for name, handler in (("friday_studio_read_plan", read_plan), ("friday_studio_write_plan", write_plan), ("friday_studio_create_media", create_media), ("friday_studio_media_status", media_status), ("friday_studio_create_speech", create_speech)):
+    def create_production(params: dict, **_kwargs) -> str:
+        if not isinstance(params, dict) or not {"idea_id", "plan_revision", "idempotency_key"} <= set(params) or set(params) - {"idea_id", "plan_revision", "voice_id", "idempotency_key"}:
+            return _blocked("invalid_request")
+        try:
+            job = client().create_production(idea_id=params["idea_id"], plan_revision=params["plan_revision"], voice_id=params.get("voice_id"), idempotency_key=params["idempotency_key"])
+            return json.dumps({"status": "accepted", "job": job, "write_effect": True}, ensure_ascii=False)
+        except StudioError as exc:
+            return _blocked(exc.code)
+        except Exception:
+            return _blocked("bridge_failure")
+
+    def production_status(params: dict, **_kwargs) -> str:
+        if not isinstance(params, dict) or set(params) != {"job_id"}:
+            return _blocked("invalid_request")
+        try:
+            return json.dumps({"status": "completed", "job": client().get_production(params["job_id"]), "write_effect": False}, ensure_ascii=False)
+        except StudioError as exc:
+            return _blocked(exc.code)
+        except Exception:
+            return _blocked("bridge_failure")
+
+    def cancel_production(params: dict, **_kwargs) -> str:
+        if not isinstance(params, dict) or set(params) != {"job_id"}:
+            return _blocked("invalid_request")
+        try:
+            return json.dumps({"status": "completed", "job": client().cancel_production(params["job_id"]), "write_effect": True}, ensure_ascii=False)
+        except StudioError as exc:
+            return _blocked(exc.code)
+        except Exception:
+            return _blocked("bridge_failure")
+
+    for name, handler in (("friday_studio_read_plan", read_plan), ("friday_studio_write_plan", write_plan), ("friday_studio_create_media", create_media), ("friday_studio_media_status", media_status), ("friday_studio_create_speech", create_speech), ("friday_studio_create_production", create_production), ("friday_studio_production_status", production_status), ("friday_studio_cancel_production", cancel_production)):
         ctx.register_tool(name=name, toolset="friday_content_studio", schema=SCHEMAS[name], handler=handler)

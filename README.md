@@ -4,13 +4,21 @@
 
 The [roadmap](registry/roadmap.json) names **100 skills from the implementation plan**. `friday-web-research` and four Content Studio procedures extend that plan. The current [registry/skills.json](registry/skills.json) lists 105 packaged procedures, cross-checked against `skills/**/SKILL.md`; [the catalog](docs/SKILL_CATALOG.md) explains categories, triggers and readiness. A procedure marked installable or mock-ready does not imply a live connector.
 
+## Start here for the public beta
+
+The [rogue-friday framework](https://github.com/rogueki/rogue-friday) runs the assistant, dashboard and services. This repository adds 105 focused Hermes decision procedures and offline checks. They cover executive planning and mail, calendar and weather, finance and Austrian tax, Loxone and energy, family media and travel, Office documents and PowerPoint, research, local knowledge, voice and system operations. For example, `friday-executive-mail-manager` proposes inbox priorities, `friday-calendar-manager` structures calendar work, `friday-loxone-status` describes bounded device reads, and `friday-kie-media` prepares a reviewed media request.
+
+To make the procedures discoverable, clone this repository and point Hermes `skills.external_dirs` at its `skills` subdirectory; then run `hermes skills list` and compare IDs with `registry/skills.json`. See [installation](docs/INSTALLATION.md) and [configuration](docs/CONFIGURATION.md). Optional plugins and provider accounts have their own setup. The [integration catalog](docs/SETUP_CATALOG.md) explains which skill paths need an account, where settings belong and what is still unimplemented. GMX, CalDAV, Kie.ai and ElevenLabs require separate host/server setup for their live paths; Obsidian and local Computer Use do not require external accounts.
+
+Beta readiness is per capability and per host. The package contains procedures and local mock tests, while many live provider transports, approval gateways and full Hermes runtime checks remain open. The static setup catalog reports `live_status: unknown` for every skill; check the actual Hermes profile and provider connection before relying on an action.
+
 ## What this repository provides
 
 - Hermes `SKILL.md` decision procedures, examples and local tests.
 - Local schemas and Python policy/mock helpers that an integration must **explicitly call**. Installing skills alone does not enforce approvals, prevent tool calls or emit dashboard events.
 - An optional [native Hermes plugin](plugins/CONTRACT.md) with four local mock tools. It was loaded in an isolated test profile and is not enabled in the active profile. Its policy tool returns a decision but cannot enforce other Hermes tools or perform external actions.
 - An optional [GeoSphere weather tool](docs/WEATHER_PLUGIN.md) backed by a bounded public read adapter, and a separate [Kanban observer](docs/KANBAN_OBSERVER.md). All three plugins passed isolated Hermes v0.20.5 registration checks; none is enabled in the active profile.
-- A [Control API task client](docs/CONTROL_API_TASKS.md) with injected transport and mock tests. The companion `rogue-friday` repository stays read only; this package does not ship its dashboard or credentials.
+- A [Control API task client](docs/CONTROL_API_TASKS.md) with injected transport and mock tests. The companion `rogue-friday` repository supplies the dashboard and Control API; this package does not ship their credentials.
 - Optional [GMX mail](docs/GMX_MAIL_ADAPTER.md) and [CalDAV calendar](docs/CALDAV_ADAPTER.md) adapters with bounded synthetic and explicit read paths. Their Hermes plugins expose read tools only; CalDAV can use a host-bound authenticated transport. Python write functions require a trusted approval gateway and durable replay journal; no real account was connected.
 - A bounded [Loxone status snapshot](docs/LOXONE_STATUS_ADAPTER.md) contract with a synthetic Hermes default and an optional host-bound authenticated read tool. It has no native Miniserver client or control command.
 - An offline [invoice PDF intake, review and payment preview](docs/INVOICE_ADAPTER.md). The bounded PDF path hashes original digital PDF bytes and records page evidence; a local mock flow composes it with skonto and a masked payment draft. Document authenticity remains unresolved and no payment is made.
@@ -30,9 +38,9 @@ The [roadmap](registry/roadmap.json) names **100 skills from the implementation 
 
 ## Local use
 
-On Windows, the source folder is `C:\Users\ByteNinja\Downloads\JARVIS_Installer\Skills`. Point Hermes `skills.external_dirs` at its `skills` child and enable `skills.write_approval: true`; see [installation](docs/INSTALLATION.md) and [configuration](docs/CONFIGURATION.md). A WSL Hermes process needs its Linux view of the same path.
+On Windows, choose an installation folder for this repository. Point Hermes `skills.external_dirs` at its `skills` child and enable `skills.write_approval: true`; see [installation](docs/INSTALLATION.md) and [configuration](docs/CONFIGURATION.md). A WSL Hermes process needs its Linux view of the same path. The `rogue-friday` installer places this repository under `<InstallRoot>\skills\friday-skills` and configures discovery automatically.
 
-On the operator's Windows Hermes v0.20.5 profile, this path is now configured and all 101 `friday-*` skills appear enabled. Skill write approval and the agent-created content scanner are enabled. This does not enable any optional plugin or verify model routing.
+On the development installation, Hermes v0.22.2 discovered the current 105 Friday-Skills alongside 53 bundled skills. Your installation may differ; run `hermes skills list` in the same profile that runs Friday. See the [setup catalog](docs/SETUP_CATALOG.md) for account requirements. Discovery and activation do not establish live provider readiness.
 
 ```powershell
 python scripts/validate.py

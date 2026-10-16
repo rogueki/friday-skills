@@ -5,9 +5,10 @@
 Example from the repository root:
 
 ```python
+from pathlib import Path
 from adapters.local_archive_reader import scan_archive
 
-result = scan_archive(r"C:\Users\ByteNinja\Pictures", max_files=5000,
+result = scan_archive(str(Path.home() / "Pictures"), max_files=5000,
                       max_bytes=20 * 1024**3, max_entries=10000, max_depth=16)
 if result["status"] != "complete":
     print(result["errors"])

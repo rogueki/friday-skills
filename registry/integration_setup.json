@@ -1,0 +1,2152 @@
+{
+  "schema_version": 1,
+  "inventory_source": "registry/skills.json",
+  "inventory_count": 105,
+  "status_semantics": "unknown bedeutet: keine aktuelle Hermes- oder Anbieterprüfung durch diesen Katalog.",
+  "integrations": {
+    "adapter_registry": {
+      "account": "none",
+      "setup_de": "Host muss installierte Adapter mit Zeitstempel und Health-Prüfung melden; Paketliste genügt dafür nicht.",
+      "reference": "docs/CAPABILITIES.md",
+      "settings_target": "Host: Adapter-Registry",
+      "auth_kind": "none_or_optional"
+    },
+    "alerts": {
+      "account": "none",
+      "setup_de": "Für echte Warnungen eine datierte Alert-Quelle anbinden; hier ist kein allgemeiner Live-Alert-Feed enthalten.",
+      "reference": "docs/CAPABILITIES.md",
+      "settings_target": "Host: Alert-Quelle",
+      "auth_kind": "none_or_optional"
+    },
+    "approval_store": {
+      "account": "none",
+      "setup_de": "Vertrauenswürdige Betreiberidentität und einmalige aktionsgebundene Freigaben hostseitig bereitstellen.",
+      "reference": "docs/APPROVAL_LEDGER.md",
+      "settings_target": "Host: Freigabe-Gateway",
+      "auth_kind": "none_or_optional"
+    },
+    "audit_store": {
+      "account": "none",
+      "setup_de": "Audit-Speicher mit unveränderlichen Ereignis-IDs und Schreibrechten des Hosts wählen; Live-Publisher fehlt.",
+      "reference": "docs/DASHBOARD_EVENTS.md",
+      "settings_target": "Host: Audit-Speicher",
+      "auth_kind": "none_or_optional"
+    },
+    "backup": {
+      "account": "conditional",
+      "setup_de": "Lokales oder externes Sicherungsziel, Aufbewahrung und Restore-Probe festlegen; kein allgemeiner Backup-Adapter enthalten.",
+      "reference": "docs/CAPABILITIES.md",
+      "settings_target": "Host: Backup-Ziel",
+      "auth_kind": "none_or_optional"
+    },
+    "banking": {
+      "account": "required",
+      "setup_de": "Bankanbieter und autorisierten Zahlungsweg erst nach eigener Gateway-Implementierung festlegen; hier existiert nur ein nicht ausführbarer Zahlungsentwurf.",
+      "reference": "docs/INVOICE_ADAPTER.md",
+      "settings_target": "Bank-Gateway: Anbieter noch offen",
+      "auth_kind": "provider_account"
+    },
+    "caldav": {
+      "account": "required",
+      "setup_de": "CalDAV-Konto und HTTPS-Kalender-URL im Host binden; authentifizierten Transport und Rechte prüfen.",
+      "reference": "docs/CALDAV_ADAPTER.md",
+      "settings_target": "Host: CalDAV-Endpunkt und Secret-Store",
+      "auth_kind": "provider_account"
+    },
+    "carddav": {
+      "account": "required",
+      "setup_de": "Kontaktanbieter, CardDAV-URL und Konto erst wählen; ein produktiver Kontakt-Reader ist noch nicht implementiert.",
+      "reference": "skills/executive/friday-contact-context/SKILL.md",
+      "settings_target": "Host: CardDAV-Provider noch offen",
+      "auth_kind": "provider_account"
+    },
+    "control_api": {
+      "account": "none",
+      "setup_de": "Lokale Dashboard-Owner-Session und CSRF an den Host binden, Bridge separat aktivieren; dies ist lokale Anmeldung, kein zusätzliches externes Konto.",
+      "reference": "docs/CONTENT_STUDIO.md",
+      "settings_target": "Hermes-Prozess: FRIDAY_CONTROL_API_ORIGIN/SESSION/CSRF",
+      "auth_kind": "local_session"
+    },
+    "document_parser": {
+      "account": "none",
+      "setup_de": "Freigegebene Dokumentpfade und Parser je Dateityp auswählen; der vorhandene PDF-Parser deckt nur begrenzte Rechnungsfälle ab.",
+      "reference": "docs/INVOICE_ADAPTER.md",
+      "settings_target": "Host: Dokumentleser und erlaubte Pfade",
+      "auth_kind": "none_or_optional"
+    },
+    "document_worker": {
+      "account": "none",
+      "setup_de": "Lokalen Dokument-Worker und Ausgabeordner bereitstellen; erzeugte Seiten rendern und prüfen.",
+      "reference": "docs/CONFIGURATION.md",
+      "settings_target": "Host: lokaler Dokument-Worker",
+      "auth_kind": "none_or_optional"
+    },
+    "energy_telemetry": {
+      "account": "none",
+      "setup_de": "Zählerquelle, Messgrenzen, Einheit und Zeitstempel festlegen; kein allgemeiner Live-Telemetrieadapter enthalten.",
+      "reference": "docs/CAPABILITIES.md",
+      "settings_target": "Host: Energie-Messquelle",
+      "auth_kind": "none_or_optional"
+    },
+    "finance": {
+      "account": "required",
+      "setup_de": "Finanzdatenquelle und berechtigte Konto-/Ledger-Lesewege hostseitig auswählen; hier gibt es keinen allgemeinen Live-Finanzadapter.",
+      "reference": "docs/CAPABILITIES.md",
+      "settings_target": "Host: Finanz-Ledger/Provider noch offen",
+      "auth_kind": "provider_account"
+    },
+    "finanzonline": {
+      "account": "required",
+      "setup_de": "FinanzOnline-Zugang und zulässigen Einreichungsweg erst separat prüfen; dieses Paket hat keinen Submit-Adapter.",
+      "reference": "docs/CAPABILITIES.md",
+      "settings_target": "Host: FinanzOnline-Anbindung noch offen",
+      "auth_kind": "provider_account"
+    },
+    "gmx": {
+      "account": "required",
+      "setup_de": "GMX-Konto: IMAP aktivieren, bei 2FA ein App-Passwort erzeugen; Zugang nur im Host-Secret-Store hinterlegen.",
+      "reference": "docs/GMX_MAIL_ADAPTER.md",
+      "settings_target": "Host: GMX-IMAP/SMTP und Secret-Store",
+      "auth_kind": "provider_account"
+    },
+    "home_telemetry": {
+      "account": "none",
+      "setup_de": "Haus-Sensorquelle und erlaubte Geräte hostseitig wählen; keine allgemeine Live-Haus-Telemetrie vorhanden.",
+      "reference": "docs/LOXONE_STATUS_ADAPTER.md",
+      "settings_target": "Host: Sensor-Provider",
+      "auth_kind": "none_or_optional"
+    },
+    "local_voice": {
+      "account": "none",
+      "setup_de": "Lokale Sprachpipeline und gegebenenfalls Sprecherprüfung am Host testen.",
+      "reference": "docs/CONFIGURATION.md",
+      "settings_target": "Host: lokale Voice-Konfiguration",
+      "auth_kind": "none_or_optional"
+    },
+    "loxone": {
+      "account": "required",
+      "setup_de": "Miniserver-Zugang und erlaubte Control-IDs im Host konfigurieren; Provider-Transport gegen echte Hardware prüfen.",
+      "reference": "docs/LOXONE_STATUS_ADAPTER.md",
+      "settings_target": "Host: Miniserver und Control-Allowlist",
+      "auth_kind": "provider_account"
+    },
+    "media_worker": {
+      "account": "none",
+      "setup_de": "Lokales Medienwerkzeug mit freigegebenen Ein- und Ausgabepfaden bereitstellen; Renderfähigkeit je Format prüfen.",
+      "reference": "docs/CONTENT_STUDIO.md",
+      "settings_target": "Host: Medien-Worker",
+      "auth_kind": "none_or_optional"
+    },
+    "memory_store": {
+      "account": "none",
+      "setup_de": "Lokalen Memory-Speicher und zulässige Schreibpfade wählen; Projektdateien nicht als aktuellen Live-Zustand ausgeben.",
+      "reference": "docs/CAPABILITIES.md",
+      "settings_target": "Host: lokaler Memory-Speicher",
+      "auth_kind": "none_or_optional"
+    },
+    "messaging_gateway": {
+      "account": "required",
+      "setup_de": "Kanal und Anbieter für Nachrichten getrennt wählen; ein allgemeines authentifiziertes Messaging-Gateway fehlt hier.",
+      "reference": "docs/CAPABILITIES.md",
+      "settings_target": "Host: Messaging-Provider noch offen",
+      "auth_kind": "provider_account"
+    },
+    "meter": {
+      "account": "none",
+      "setup_de": "Konkreten Strom-/Verbrauchszähler, Einheit und Zeitquelle binden; kein universeller Meter-Reader enthalten.",
+      "reference": "docs/CAPABILITIES.md",
+      "settings_target": "Host: Zähler-Provider",
+      "auth_kind": "none_or_optional"
+    },
+    "model_registry": {
+      "account": "none",
+      "setup_de": "Installierte Modelle und Kosten aus dem laufenden Host auslesen; statische Modellnamen sind kein Verfügbarkeitsnachweis.",
+      "reference": "docs/CAPABILITIES.md",
+      "settings_target": "Host: Modell-Registry",
+      "auth_kind": "none_or_optional"
+    },
+    "notification_gateway": {
+      "account": "conditional",
+      "setup_de": "Für Push oder andere Zustellung Kanal, Empfänger und Berechtigung wählen; kein allgemeines Zustell-Gateway enthalten.",
+      "reference": "docs/CAPABILITIES.md",
+      "settings_target": "Host: Benachrichtigungs-Provider noch offen",
+      "auth_kind": "none_or_optional"
+    },
+    "official_weather": {
+      "account": "none",
+      "setup_de": "Amtliche Warnquelle für die Region und Aktualitätsfenster festlegen; Vorhersage-Plugin deckt Warnungen nicht automatisch ab.",
+      "reference": "docs/WEATHER_PLUGIN.md",
+      "settings_target": "Host: amtliche Warnquelle",
+      "auth_kind": "none_or_optional"
+    },
+    "official_web_fetch": {
+      "account": "none",
+      "setup_de": "Amtliche URL-Liste und Abrufzeitpunkt je Quelle prüfen; kein Provider-Konto pauschal nötig.",
+      "reference": "docs/WEB_EXTRACTION_ADAPTER.md",
+      "settings_target": "Host: erlaubte amtliche URLs",
+      "auth_kind": "none_or_optional"
+    },
+    "profile_store": {
+      "account": "none",
+      "setup_de": "Lokalen Profil-Speicher und erlaubte Felder festlegen; keine persönlichen Profile in die Skill-Dateien schreiben.",
+      "reference": "docs/CONFIGURATION.md",
+      "settings_target": "Host: lokaler Profil-Speicher",
+      "auth_kind": "none_or_optional"
+    },
+    "reminder_store": {
+      "account": "none",
+      "setup_de": "Reminder-Speicher und auslösenden Scheduler getrennt einrichten; CalDAV-Termine allein lösen keine Erinnerung aus.",
+      "reference": "docs/CALDAV_ADAPTER.md",
+      "settings_target": "Host: Reminder-Backend noch offen",
+      "auth_kind": "none_or_optional"
+    },
+    "scheduler": {
+      "account": "none",
+      "setup_de": "Zeitplan, Zeitzone und Laufzeitprozess einrichten; deklarierte Automationen sind standardmäßig deaktiviert.",
+      "reference": "docs/OPERATIONS.md",
+      "settings_target": "Host: Scheduler-Konfiguration",
+      "auth_kind": "none_or_optional"
+    },
+    "scoped_filesystem": {
+      "account": "none",
+      "setup_de": "Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "reference": "docs/CONFIGURATION.md",
+      "settings_target": "Host: erlaubte Dateipfade",
+      "auth_kind": "none_or_optional"
+    },
+    "service_control": {
+      "account": "none",
+      "setup_de": "Erlaubte Dienst-IDs, Neustartverfahren und Rollback-Checks hostseitig definieren; kein globaler Restart-Zugriff folgt aus dem Skill.",
+      "reference": "docs/CAPABILITIES.md",
+      "settings_target": "Host: Service-Allowlist",
+      "auth_kind": "none_or_optional"
+    },
+    "service_probes": {
+      "account": "none",
+      "setup_de": "Health-Endpunkte und Frischegrenzen pro Dienst festlegen; Status erst nach echter Probe anzeigen.",
+      "reference": "docs/CAPABILITIES.md",
+      "settings_target": "Host: Health-Probes",
+      "auth_kind": "none_or_optional"
+    },
+    "storage_probe": {
+      "account": "none",
+      "setup_de": "Freigegebene Laufwerke/Volumes und Messzeitpunkt festlegen; keine Profil- oder Geheimnispfade pauschal scannen.",
+      "reference": "docs/CAPABILITIES.md",
+      "settings_target": "Host: Speicher-Probes",
+      "auth_kind": "none_or_optional"
+    },
+    "tariff_source": {
+      "account": "conditional",
+      "setup_de": "Region und aktuellen Tarif-/Vertragsanbieter auswählen; öffentliche Preise ersetzen keinen persönlichen Vertrag.",
+      "reference": "docs/CAPABILITIES.md",
+      "settings_target": "Host: Tarifquelle und ggf. Anbieter-Konto",
+      "auth_kind": "none_or_optional"
+    },
+    "task_store": {
+      "account": "none",
+      "setup_de": "Task-Backend und Identitätsbindung im Host einrichten; Control-API-Client ist nur mit authentifiziertem Transport nutzbar.",
+      "reference": "docs/CONTROL_API_TASKS.md",
+      "settings_target": "Host: Task-Backend/Control API",
+      "auth_kind": "none_or_optional"
+    },
+    "telegram_gateway": {
+      "account": "required",
+      "setup_de": "Telegram-Bot oder Benutzeranbindung und verifizierte Owner-ID wählen; ein operativer Friday-Gateway-Adapter fehlt.",
+      "reference": "skills/communication/friday-telegram-communication/SKILL.md",
+      "settings_target": "Host: Telegram-Kanal noch offen",
+      "auth_kind": "provider_account"
+    },
+    "telephony": {
+      "account": "required",
+      "setup_de": "Telefonanbieter, eigene Rufnummer, verifizierte Ziele und Anrufberechtigung festlegen; ein Dial-Adapter fehlt.",
+      "reference": "skills/communication/friday-phone-call-coordinator/SKILL.md",
+      "settings_target": "Host: Telefonie-Provider noch offen",
+      "auth_kind": "provider_account"
+    },
+    "weather": {
+      "account": "none",
+      "setup_de": "Öffentlichen Wetterleser bei Bedarf separat als Hermes-Plugin aktivieren; kein Konto nötig.",
+      "reference": "docs/WEATHER_PLUGIN.md",
+      "settings_target": "Hermes: optionales Wetter-Plugin",
+      "auth_kind": "none_or_optional"
+    },
+    "web_fetch": {
+      "account": "none",
+      "setup_de": "Erlaubte Webquellen und Host-Egress konfigurieren; Zugriff je Quelle prüfen.",
+      "reference": "docs/WEB_EXTRACTION_ADAPTER.md",
+      "settings_target": "Host: Web-Egress-Allowlist",
+      "auth_kind": "none_or_optional"
+    },
+    "whatsapp_gateway": {
+      "account": "required",
+      "setup_de": "WhatsApp-Konto/Business-Kanal, Einwilligung und Empfängerbindung klären; ein operativer Friday-Gateway-Adapter fehlt.",
+      "reference": "skills/communication/friday-whatsapp-communication/SKILL.md",
+      "settings_target": "Host: WhatsApp-Provider noch offen",
+      "auth_kind": "provider_account"
+    },
+    "windows_worker": {
+      "account": "none",
+      "setup_de": "Lokalen Office-Renderer samt Fonts bereitstellen und Ausgabe visuell prüfen; PowerPoint-Playback gesondert testen.",
+      "reference": "docs/PRESENTATION_MOCK_WORKER.md",
+      "settings_target": "Host: lokaler Office-Renderer",
+      "auth_kind": "none_or_optional"
+    },
+    "kie_ai": {
+      "account": "required",
+      "setup_de": "Kie.ai-Konto und Server-Key in den Dashboard-Einstellungen hinterlegen; kostenpflichtige Anfrage einzeln bestätigen.",
+      "reference": "docs/CONTENT_STUDIO.md",
+      "settings_target": "Dashboard Settings → Content Studio → kie.ai",
+      "auth_kind": "provider_account"
+    },
+    "elevenlabs": {
+      "account": "required",
+      "setup_de": "ElevenLabs-Konto, Server-Key und Voice-ID in den Dashboard-Einstellungen hinterlegen; Anfrage einzeln bestätigen.",
+      "reference": "docs/CONTENT_STUDIO.md",
+      "settings_target": "Dashboard Settings → Content Studio → ElevenLabs",
+      "auth_kind": "provider_account"
+    },
+    "video_editor": {
+      "account": "none",
+      "setup_de": "CapCut oder lokalen Videoeditor für manuellen Handoff bereitstellen; keine Editor-Automation voraussetzen.",
+      "reference": "docs/CONTENT_STUDIO.md",
+      "settings_target": "lokaler Editor",
+      "auth_kind": "none_or_optional"
+    },
+    "obsidian": {
+      "account": "none",
+      "setup_de": "Optionalen lokalen Vault-Pfad freigeben; Hermes-Bundleskill nutzt Dateitools und benötigt kein Cloud-Konto.",
+      "reference": "skills/knowledge/friday-knowledge-base-curator/SKILL.md",
+      "settings_target": "Hermes: OBSIDIAN_VAULT_PATH",
+      "auth_kind": "none_or_optional"
+    },
+    "coding_cli": {
+      "account": "conditional",
+      "setup_de": "Für Codeaufgaben optional OpenCode, Codex oder Claude Code lokal installieren und deren eigene Modell-Anmeldung prüfen.",
+      "reference": "skills/knowledge/friday-project-context-builder/SKILL.md",
+      "settings_target": "lokale CLI/Projektkonfiguration",
+      "auth_kind": "none_or_optional"
+    },
+    "computer_use": {
+      "account": "none",
+      "setup_de": "Optionales Hermes-Computer-Use-Werkzeug und lokale Desktop-Berechtigungen prüfen; kein externes Konto nötig.",
+      "reference": "skills/knowledge/friday-file-classifier/SKILL.md",
+      "settings_target": "Hermes: computer_use/doctor",
+      "auth_kind": "none_or_optional"
+    },
+    "powerpoint_playback": {
+      "account": "none",
+      "setup_de": "Zielversion von PowerPoint für Animations-Playback und Sichtprüfung bereitstellen.",
+      "reference": "skills/office/friday-powerpoint-animation-director/SKILL.md",
+      "settings_target": "lokaler Windows-Office-Worker",
+      "auth_kind": "none_or_optional"
+    }
+  },
+  "hermes_compatibility": {
+    "powerpoint": {
+      "distribution": "bundled",
+      "official_url": "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/productivity/productivity-powerpoint",
+      "setup_de": "PPTX-Arbeit; Render-Abhängigkeiten separat prüfen",
+      "installed_status": "unknown",
+      "friday_requirement": "optional"
+    },
+    "computer-use": {
+      "distribution": "bundled",
+      "official_url": "https://hermes-agent.nousresearch.com/docs/user-guide/features/computer-use",
+      "setup_de": "Desktop-Werkzeug; lokalen Treiber und Rechte separat prüfen",
+      "installed_status": "unknown",
+      "friday_requirement": "optional"
+    },
+    "obsidian": {
+      "distribution": "bundled",
+      "official_url": "https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/note-taking/note-taking-obsidian",
+      "setup_de": "Lokaler Vault-Pfad; kein Obsidian-Cloud-Konto nötig",
+      "installed_status": "unknown",
+      "friday_requirement": "optional"
+    },
+    "opencode": {
+      "distribution": "bundled",
+      "official_url": "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog",
+      "setup_de": "Optionale Coding-CLI; CLI und eigene Modell-Anmeldung separat prüfen",
+      "installed_status": "unknown",
+      "friday_requirement": "optional"
+    },
+    "codex": {
+      "distribution": "bundled",
+      "official_url": "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog",
+      "setup_de": "Optionale Coding-CLI; CLI und eigene Modell-Anmeldung separat prüfen",
+      "installed_status": "unknown",
+      "friday_requirement": "optional"
+    },
+    "claude-code": {
+      "distribution": "bundled",
+      "official_url": "https://hermes-agent.nousresearch.com/docs/reference/skills-catalog",
+      "setup_de": "Optionale Coding-CLI; CLI und eigene Modell-Anmeldung separat prüfen",
+      "installed_status": "unknown",
+      "friday_requirement": "optional"
+    },
+    "telephony": {
+      "distribution": "not_bundled",
+      "official_url": "https://hermes-agent.nousresearch.com/docs/reference/toolsets-reference",
+      "setup_de": "Kein hier belegtes eingebautes Dial-Tool; Provider und Adapter separat nötig",
+      "installed_status": "unknown",
+      "friday_requirement": "optional"
+    }
+  },
+  "skills": {
+    "friday-executive-orchestrator": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "adapter.health.read",
+        "task.read",
+        "task.write"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "adapter_registry",
+        "task_store"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Host muss installierte Adapter mit Zeitstempel und Health-Prüfung melden. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-intent-and-skill-router": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "adapter.health.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "adapter_registry"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Host muss installierte Adapter mit Zeitstempel und Health-Prüfung melden.",
+      "live_status": "unknown"
+    },
+    "friday-task-kanban-manager": {
+      "required_capabilities": [
+        "task.read"
+      ],
+      "conditional_capabilities": [
+        "task.write"
+      ],
+      "required_integrations": [
+        "task_store"
+      ],
+      "conditional_integrations": [],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Task-Backend und Identitätsbindung im Host einrichten.",
+      "live_status": "unknown"
+    },
+    "friday-approval-policy": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "adapter.health.read",
+        "approval.read",
+        "approval.write"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "adapter_registry",
+        "approval_store"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Host muss installierte Adapter mit Zeitstempel und Health-Prüfung melden. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-input-trust-and-injection-defense": {
+      "required_capabilities": [],
+      "conditional_capabilities": [],
+      "required_integrations": [],
+      "conditional_integrations": [],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen.",
+      "live_status": "unknown"
+    },
+    "friday-dashboard-activity-publisher": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "dashboard.write",
+        "task.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "control_api",
+        "task_store"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Lokale Dashboard-Owner-Session und CSRF an den Host binden, Bridge separat aktivieren. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-audit-and-lineage": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "audit.read",
+        "audit.write"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "audit_store"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Audit-Speicher mit unveränderlichen Ereignis-IDs und Schreibrechten des Hosts wählen.",
+      "live_status": "unknown"
+    },
+    "friday-memory-governance": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "memory.read",
+        "memory.write"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "memory_store"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Lokalen Memory-Speicher und zulässige Schreibpfade wählen.",
+      "live_status": "unknown"
+    },
+    "friday-capability-and-health-check": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "adapter.health.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "adapter_registry"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Host muss installierte Adapter mit Zeitstempel und Health-Prüfung melden.",
+      "live_status": "unknown"
+    },
+    "friday-error-recovery": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "adapter.health.read",
+        "audit.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "adapter_registry",
+        "audit_store"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Host muss installierte Adapter mit Zeitstempel und Health-Prüfung melden. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-morning-briefing": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "alert.read",
+        "calendar.read",
+        "mail.read",
+        "notification.deliver",
+        "scheduler.run",
+        "task.read",
+        "weather.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "alerts",
+        "caldav",
+        "gmx",
+        "notification_gateway",
+        "scheduler",
+        "task_store",
+        "weather"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Für echte Warnungen eine datierte Alert-Quelle anbinden. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-evening-briefing": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "alert.read",
+        "approval.read",
+        "calendar.read",
+        "mail.read",
+        "notification.deliver",
+        "scheduler.run",
+        "task.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "alerts",
+        "approval_store",
+        "caldav",
+        "gmx",
+        "notification_gateway",
+        "scheduler",
+        "task_store"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Für echte Warnungen eine datierte Alert-Quelle anbinden. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-daily-priority-planner": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "calendar.read",
+        "task.read",
+        "task.write"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "caldav",
+        "task_store"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Konto und HTTPS-Kalender-URL im Host binden. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-follow-up-manager": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "mail.read",
+        "mail.send",
+        "notification.deliver",
+        "scheduler.run",
+        "task.read",
+        "task.write"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "gmx",
+        "notification_gateway",
+        "scheduler",
+        "task_store"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: GMX-Konto: IMAP aktivieren, bei 2FA ein App-Passwort erzeugen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-contact-context": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "calendar.read",
+        "contact.read",
+        "mail.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "caldav",
+        "carddav",
+        "gmx"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Konto und HTTPS-Kalender-URL im Host binden. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-executive-escalation": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "alert.read",
+        "messaging.send",
+        "notification.deliver",
+        "notification.send",
+        "telephony.call"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "alerts",
+        "messaging_gateway",
+        "notification_gateway",
+        "telephony"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Für echte Warnungen eine datierte Alert-Quelle anbinden. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-executive-mail-manager": {
+      "required_capabilities": [
+        "mail.read"
+      ],
+      "conditional_capabilities": [
+        "mail.send",
+        "task.write"
+      ],
+      "required_integrations": [
+        "gmx"
+      ],
+      "conditional_integrations": [
+        "task_store"
+      ],
+      "account": "required",
+      "setup_de": "Für den Grundablauf: GMX-Konto: IMAP aktivieren, bei 2FA ein App-Passwort erzeugen. Optional: Task-Backend und Identitätsbindung im Host einrichten.",
+      "live_status": "unknown"
+    },
+    "friday-mail-draft-writer": {
+      "required_capabilities": [
+        "mail.read"
+      ],
+      "conditional_capabilities": [
+        "file.write",
+        "mail.send"
+      ],
+      "required_integrations": [
+        "gmx"
+      ],
+      "conditional_integrations": [
+        "scoped_filesystem"
+      ],
+      "account": "required",
+      "setup_de": "Für den Grundablauf: GMX-Konto: IMAP aktivieren, bei 2FA ein App-Passwort erzeugen. Optional: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-mail-attachment-intake": {
+      "required_capabilities": [
+        "document.read",
+        "mail.read"
+      ],
+      "conditional_capabilities": [
+        "file.write"
+      ],
+      "required_integrations": [
+        "document_parser",
+        "gmx"
+      ],
+      "conditional_integrations": [
+        "scoped_filesystem"
+      ],
+      "account": "required",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Weitere benötigte Quellen stehen in der Integrationsliste. Optional: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-telegram-communication": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "telegram.receive",
+        "telegram.send"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "telegram_gateway"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Telegram-Bot oder Benutzeranbindung und verifizierte Owner-ID wählen.",
+      "live_status": "unknown"
+    },
+    "friday-whatsapp-communication": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "whatsapp.receive",
+        "whatsapp.send"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "whatsapp_gateway"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: WhatsApp-Konto/Business-Kanal, Einwilligung und Empfängerbindung klären.",
+      "live_status": "unknown"
+    },
+    "friday-phone-call-coordinator": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "contact.read",
+        "telephony.call"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "carddav",
+        "telephony"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Kontaktanbieter, CardDAV-URL und Konto erst wählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-unified-conversation-summary": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "calendar.read",
+        "mail.read",
+        "messaging.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "caldav",
+        "gmx",
+        "messaging_gateway"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Konto und HTTPS-Kalender-URL im Host binden. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-calendar-manager": {
+      "required_capabilities": [
+        "calendar.read"
+      ],
+      "conditional_capabilities": [
+        "calendar.write"
+      ],
+      "required_integrations": [
+        "caldav"
+      ],
+      "conditional_integrations": [],
+      "account": "required",
+      "setup_de": "Für den Grundablauf: CalDAV-Konto und HTTPS-Kalender-URL im Host binden.",
+      "live_status": "unknown"
+    },
+    "friday-meeting-request-coordinator": {
+      "required_capabilities": [
+        "calendar.read",
+        "contact.read"
+      ],
+      "conditional_capabilities": [
+        "calendar.write",
+        "mail.send"
+      ],
+      "required_integrations": [
+        "caldav",
+        "carddav"
+      ],
+      "conditional_integrations": [
+        "gmx"
+      ],
+      "account": "required",
+      "setup_de": "Für den Grundablauf: CalDAV-Konto und HTTPS-Kalender-URL im Host binden. Weitere benötigte Quellen stehen in der Integrationsliste. Optional: GMX-Konto: IMAP aktivieren, bei 2FA ein App-Passwort erzeugen.",
+      "live_status": "unknown"
+    },
+    "friday-meeting-briefing": {
+      "required_capabilities": [
+        "calendar.read"
+      ],
+      "conditional_capabilities": [
+        "document.read",
+        "mail.read",
+        "task.read"
+      ],
+      "required_integrations": [
+        "caldav"
+      ],
+      "conditional_integrations": [
+        "document_parser",
+        "gmx",
+        "task_store"
+      ],
+      "account": "required",
+      "setup_de": "Für den Grundablauf: CalDAV-Konto und HTTPS-Kalender-URL im Host binden. Optional: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-meeting-follow-up": {
+      "required_capabilities": [
+        "calendar.read"
+      ],
+      "conditional_capabilities": [
+        "calendar.write",
+        "mail.send",
+        "task.write"
+      ],
+      "required_integrations": [
+        "caldav"
+      ],
+      "conditional_integrations": [
+        "gmx",
+        "task_store"
+      ],
+      "account": "required",
+      "setup_de": "Für den Grundablauf: CalDAV-Konto und HTTPS-Kalender-URL im Host binden. Optional: GMX-Konto: IMAP aktivieren, bei 2FA ein App-Passwort erzeugen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-deadline-and-reminder-manager": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "calendar.read",
+        "calendar.write",
+        "finance.invoice-ledger.read",
+        "mail.read",
+        "reminder.write",
+        "scheduler.run",
+        "task.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "caldav",
+        "finance",
+        "gmx",
+        "reminder_store",
+        "scheduler",
+        "task_store"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Konto und HTTPS-Kalender-URL im Host binden. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-weather": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "weather.read",
+        "web.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "weather",
+        "web_fetch"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Öffentlichen Wetterleser bei Bedarf separat als Hermes-Plugin aktivieren. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-weather-alerts": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "notification.send",
+        "weather.warning.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "notification_gateway",
+        "official_weather"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Für Push oder andere Zustellung Kanal, Empfänger und Berechtigung wählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-weather-context-advice": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "weather.read",
+        "weather.warning.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "official_weather",
+        "weather"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Amtliche Warnquelle für die Region und Aktualitätsfenster festlegen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-invoice-intake": {
+      "required_capabilities": [
+        "document.read"
+      ],
+      "conditional_capabilities": [
+        "finance.invoice-ledger.read"
+      ],
+      "required_integrations": [
+        "document_parser"
+      ],
+      "conditional_integrations": [
+        "finance"
+      ],
+      "account": "conditional",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Optional: Finanzdatenquelle und berechtigte Konto-/Ledger-Lesewege hostseitig auswählen.",
+      "live_status": "unknown"
+    },
+    "friday-payment-preparation": {
+      "required_capabilities": [
+        "document.read"
+      ],
+      "conditional_capabilities": [
+        "payment.prepare"
+      ],
+      "required_integrations": [
+        "document_parser"
+      ],
+      "conditional_integrations": [
+        "finance"
+      ],
+      "account": "conditional",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Optional: Finanzdatenquelle und berechtigte Konto-/Ledger-Lesewege hostseitig auswählen.",
+      "live_status": "unknown"
+    },
+    "friday-skonto-and-due-date-monitor": {
+      "required_capabilities": [
+        "finance.invoice-ledger.read"
+      ],
+      "conditional_capabilities": [
+        "notification.deliver",
+        "scheduler.run"
+      ],
+      "required_integrations": [
+        "finance"
+      ],
+      "conditional_integrations": [
+        "notification_gateway",
+        "scheduler"
+      ],
+      "account": "required",
+      "setup_de": "Für den Grundablauf: Finanzdatenquelle und berechtigte Konto-/Ledger-Lesewege hostseitig auswählen. Optional: Für Push oder andere Zustellung Kanal, Empfänger und Berechtigung wählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-receipt-and-expense-organizer": {
+      "required_capabilities": [
+        "document.read"
+      ],
+      "conditional_capabilities": [
+        "file.write",
+        "finance.expense-ledger.read"
+      ],
+      "required_integrations": [
+        "document_parser"
+      ],
+      "conditional_integrations": [
+        "finance",
+        "scoped_filesystem"
+      ],
+      "account": "conditional",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Optional: Finanzdatenquelle und berechtigte Konto-/Ledger-Lesewege hostseitig auswählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-finance-briefing": {
+      "required_capabilities": [
+        "finance.invoice-ledger.read",
+        "finance.receipt-index.read",
+        "finance.subscription-ledger.read"
+      ],
+      "conditional_capabilities": [],
+      "required_integrations": [
+        "finance"
+      ],
+      "conditional_integrations": [],
+      "account": "required",
+      "setup_de": "Für den Grundablauf: Finanzdatenquelle und berechtigte Konto-/Ledger-Lesewege hostseitig auswählen.",
+      "live_status": "unknown"
+    },
+    "friday-contract-and-subscription-monitor": {
+      "required_capabilities": [
+        "document.read",
+        "finance.subscription-ledger.read"
+      ],
+      "conditional_capabilities": [
+        "notification.deliver",
+        "scheduler.run"
+      ],
+      "required_integrations": [
+        "document_parser",
+        "finance"
+      ],
+      "conditional_integrations": [
+        "notification_gateway",
+        "scheduler"
+      ],
+      "account": "required",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Weitere benötigte Quellen stehen in der Integrationsliste. Optional: Für Push oder andere Zustellung Kanal, Empfänger und Berechtigung wählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-austria-tax-intake": {
+      "required_capabilities": [
+        "document.read"
+      ],
+      "conditional_capabilities": [
+        "file.write"
+      ],
+      "required_integrations": [
+        "document_parser"
+      ],
+      "conditional_integrations": [
+        "scoped_filesystem"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Optional: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-finanzonline-preparation": {
+      "required_capabilities": [
+        "document.read"
+      ],
+      "conditional_capabilities": [
+        "official-web.read"
+      ],
+      "required_integrations": [
+        "document_parser"
+      ],
+      "conditional_integrations": [
+        "official_web_fetch"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Optional: Amtliche URL-Liste und Abrufzeitpunkt je Quelle prüfen.",
+      "live_status": "unknown"
+    },
+    "friday-family-benefit-optimizer-at": {
+      "required_capabilities": [
+        "official-web.read"
+      ],
+      "conditional_capabilities": [
+        "document.read"
+      ],
+      "required_integrations": [
+        "official_web_fetch"
+      ],
+      "conditional_integrations": [
+        "document_parser"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Amtliche URL-Liste und Abrufzeitpunkt je Quelle prüfen. Optional: Freigegebene Dokumentpfade und Parser je Dateityp auswählen.",
+      "live_status": "unknown"
+    },
+    "friday-commuter-and-work-expense-at": {
+      "required_capabilities": [
+        "official-web.read"
+      ],
+      "conditional_capabilities": [
+        "document.read"
+      ],
+      "required_integrations": [
+        "official_web_fetch"
+      ],
+      "conditional_integrations": [
+        "document_parser"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Amtliche URL-Liste und Abrufzeitpunkt je Quelle prüfen. Optional: Freigegebene Dokumentpfade und Parser je Dateityp auswählen.",
+      "live_status": "unknown"
+    },
+    "friday-tax-deadline-monitor-at": {
+      "required_capabilities": [
+        "document.read",
+        "official-web.read"
+      ],
+      "conditional_capabilities": [
+        "notification.deliver",
+        "scheduler.run"
+      ],
+      "required_integrations": [
+        "document_parser",
+        "official_web_fetch"
+      ],
+      "conditional_integrations": [
+        "notification_gateway",
+        "scheduler"
+      ],
+      "account": "conditional",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Weitere benötigte Quellen stehen in der Integrationsliste. Optional: Für Push oder andere Zustellung Kanal, Empfänger und Berechtigung wählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-tax-review-at": {
+      "required_capabilities": [
+        "document.read"
+      ],
+      "conditional_capabilities": [
+        "official-web.read"
+      ],
+      "required_integrations": [
+        "document_parser"
+      ],
+      "conditional_integrations": [
+        "official_web_fetch"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Optional: Amtliche URL-Liste und Abrufzeitpunkt je Quelle prüfen.",
+      "live_status": "unknown"
+    },
+    "friday-austria-funding-scout": {
+      "required_capabilities": [
+        "official-web.read"
+      ],
+      "conditional_capabilities": [],
+      "required_integrations": [
+        "official_web_fetch"
+      ],
+      "conditional_integrations": [],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Amtliche URL-Liste und Abrufzeitpunkt je Quelle prüfen.",
+      "live_status": "unknown"
+    },
+    "friday-funding-eligibility-check": {
+      "required_capabilities": [
+        "official-web.read"
+      ],
+      "conditional_capabilities": [
+        "document.read"
+      ],
+      "required_integrations": [
+        "official_web_fetch"
+      ],
+      "conditional_integrations": [
+        "document_parser"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Amtliche URL-Liste und Abrufzeitpunkt je Quelle prüfen. Optional: Freigegebene Dokumentpfade und Parser je Dateityp auswählen.",
+      "live_status": "unknown"
+    },
+    "friday-energy-tariff-scout": {
+      "required_capabilities": [
+        "official-web.read"
+      ],
+      "conditional_capabilities": [
+        "document.read",
+        "meter.read",
+        "tariff.read"
+      ],
+      "required_integrations": [
+        "official_web_fetch"
+      ],
+      "conditional_integrations": [
+        "document_parser",
+        "meter",
+        "tariff_source"
+      ],
+      "account": "conditional",
+      "setup_de": "Für den Grundablauf: Amtliche URL-Liste und Abrufzeitpunkt je Quelle prüfen. Optional: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-recurring-cost-optimizer": {
+      "required_capabilities": [
+        "document.read"
+      ],
+      "conditional_capabilities": [
+        "finance.subscription-ledger.read",
+        "official-web.read"
+      ],
+      "required_integrations": [
+        "document_parser"
+      ],
+      "conditional_integrations": [
+        "finance",
+        "official_web_fetch"
+      ],
+      "account": "conditional",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Optional: Finanzdatenquelle und berechtigte Konto-/Ledger-Lesewege hostseitig auswählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-loxone-status": {
+      "required_capabilities": [
+        "loxone.read"
+      ],
+      "conditional_capabilities": [],
+      "required_integrations": [
+        "loxone"
+      ],
+      "conditional_integrations": [],
+      "account": "required",
+      "setup_de": "Für den Grundablauf: Miniserver-Zugang und erlaubte Control-IDs im Host konfigurieren.",
+      "live_status": "unknown"
+    },
+    "friday-loxone-control": {
+      "required_capabilities": [
+        "loxone.read"
+      ],
+      "conditional_capabilities": [
+        "loxone.write"
+      ],
+      "required_integrations": [
+        "loxone"
+      ],
+      "conditional_integrations": [],
+      "account": "required",
+      "setup_de": "Für den Grundablauf: Miniserver-Zugang und erlaubte Control-IDs im Host konfigurieren.",
+      "live_status": "unknown"
+    },
+    "friday-energy-optimizer": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "energy.telemetry.read",
+        "loxone.read",
+        "loxone.write",
+        "tariff.read",
+        "weather.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "energy_telemetry",
+        "loxone",
+        "tariff_source",
+        "weather"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Zählerquelle, Messgrenzen, Einheit und Zeitstempel festlegen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-home-anomaly-monitor": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "home.telemetry.read",
+        "loxone.read",
+        "notification.deliver",
+        "scheduler.run"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "home_telemetry",
+        "loxone",
+        "notification_gateway",
+        "scheduler"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Haus-Sensorquelle und erlaubte Geräte hostseitig wählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-home-scene-manager": {
+      "required_capabilities": [
+        "loxone.read"
+      ],
+      "conditional_capabilities": [
+        "loxone.write"
+      ],
+      "required_integrations": [
+        "loxone"
+      ],
+      "conditional_integrations": [],
+      "account": "required",
+      "setup_de": "Für den Grundablauf: Miniserver-Zugang und erlaubte Control-IDs im Host konfigurieren.",
+      "live_status": "unknown"
+    },
+    "friday-media-intake": {
+      "required_capabilities": [
+        "media.read"
+      ],
+      "conditional_capabilities": [
+        "file.write"
+      ],
+      "required_integrations": [
+        "media_worker"
+      ],
+      "conditional_integrations": [
+        "scoped_filesystem"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Lokales Medienwerkzeug mit freigegebenen Ein- und Ausgabepfaden bereitstellen. Optional: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-photo-curator": {
+      "required_capabilities": [
+        "media.read"
+      ],
+      "conditional_capabilities": [
+        "file.write"
+      ],
+      "required_integrations": [
+        "media_worker"
+      ],
+      "conditional_integrations": [
+        "scoped_filesystem"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Lokales Medienwerkzeug mit freigegebenen Ein- und Ausgabepfaden bereitstellen. Optional: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-family-highlight-selector": {
+      "required_capabilities": [
+        "media.read"
+      ],
+      "conditional_capabilities": [
+        "file.write"
+      ],
+      "required_integrations": [
+        "media_worker"
+      ],
+      "conditional_integrations": [
+        "scoped_filesystem"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Lokales Medienwerkzeug mit freigegebenen Ein- und Ausgabepfaden bereitstellen. Optional: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-video-creator": {
+      "required_capabilities": [
+        "media.read"
+      ],
+      "conditional_capabilities": [
+        "file.write",
+        "media.render"
+      ],
+      "required_integrations": [
+        "media_worker"
+      ],
+      "conditional_integrations": [
+        "scoped_filesystem"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Lokales Medienwerkzeug mit freigegebenen Ein- und Ausgabepfaden bereitstellen. Optional: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-photo-enhancement": {
+      "required_capabilities": [
+        "media.read"
+      ],
+      "conditional_capabilities": [
+        "file.write",
+        "media.render"
+      ],
+      "required_integrations": [
+        "media_worker"
+      ],
+      "conditional_integrations": [
+        "scoped_filesystem"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Lokales Medienwerkzeug mit freigegebenen Ein- und Ausgabepfaden bereitstellen. Optional: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-photobook-planner": {
+      "required_capabilities": [
+        "media.read"
+      ],
+      "conditional_capabilities": [
+        "file.write",
+        "media.render"
+      ],
+      "required_integrations": [
+        "media_worker"
+      ],
+      "conditional_integrations": [
+        "scoped_filesystem"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Lokales Medienwerkzeug mit freigegebenen Ein- und Ausgabepfaden bereitstellen. Optional: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-media-folder-organizer": {
+      "required_capabilities": [
+        "file.read"
+      ],
+      "conditional_capabilities": [
+        "file.write"
+      ],
+      "required_integrations": [
+        "scoped_filesystem"
+      ],
+      "conditional_integrations": [],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-archive-inventory": {
+      "required_capabilities": [
+        "file.read"
+      ],
+      "conditional_capabilities": [],
+      "required_integrations": [
+        "scoped_filesystem"
+      ],
+      "conditional_integrations": [],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-duplicate-detector": {
+      "required_capabilities": [
+        "file.read"
+      ],
+      "conditional_capabilities": [
+        "media.read"
+      ],
+      "required_integrations": [
+        "scoped_filesystem"
+      ],
+      "conditional_integrations": [
+        "media_worker"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen. Optional: Lokales Medienwerkzeug mit freigegebenen Ein- und Ausgabepfaden bereitstellen.",
+      "live_status": "unknown"
+    },
+    "friday-media-quality-review": {
+      "required_capabilities": [
+        "media.read"
+      ],
+      "conditional_capabilities": [],
+      "required_integrations": [
+        "media_worker"
+      ],
+      "conditional_integrations": [],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Lokales Medienwerkzeug mit freigegebenen Ein- und Ausgabepfaden bereitstellen.",
+      "live_status": "unknown"
+    },
+    "friday-archive-reorganization-plan": {
+      "required_capabilities": [
+        "file.read"
+      ],
+      "conditional_capabilities": [],
+      "required_integrations": [
+        "scoped_filesystem"
+      ],
+      "conditional_integrations": [],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-archive-migrator": {
+      "required_capabilities": [
+        "file.read"
+      ],
+      "conditional_capabilities": [
+        "file.write"
+      ],
+      "required_integrations": [
+        "scoped_filesystem"
+      ],
+      "conditional_integrations": [],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-archive-integrity-check": {
+      "required_capabilities": [
+        "file.read"
+      ],
+      "conditional_capabilities": [],
+      "required_integrations": [
+        "scoped_filesystem"
+      ],
+      "conditional_integrations": [],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-family-travel-profile": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "profile.read",
+        "profile.write"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "profile_store"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Lokalen Profil-Speicher und erlaubte Felder festlegen.",
+      "live_status": "unknown"
+    },
+    "friday-family-destination-research": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "official-web.read",
+        "weather.read",
+        "web.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "official_web_fetch",
+        "weather",
+        "web_fetch"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Amtliche URL-Liste und Abrufzeitpunkt je Quelle prüfen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-family-itinerary-planner": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "calendar.write",
+        "weather.read",
+        "web.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "caldav",
+        "weather",
+        "web_fetch"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Konto und HTTPS-Kalender-URL im Host binden. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-trip-price-comparator": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "tariff.read",
+        "web.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "tariff_source",
+        "web_fetch"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Region und aktuellen Tarif-/Vertragsanbieter auswählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-booking-preparation": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "web.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "web_fetch"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Erlaubte Webquellen und Host-Egress konfigurieren.",
+      "live_status": "unknown"
+    },
+    "friday-trip-companion": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "calendar.read",
+        "weather.read",
+        "web.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "caldav",
+        "weather",
+        "web_fetch"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Konto und HTTPS-Kalender-URL im Host binden. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-travel-document-checklist": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "document.read",
+        "official-web.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "document_parser",
+        "official_web_fetch"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-presentation-director": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "document.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "document_parser"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Freigegebene Dokumentpfade und Parser je Dateityp auswählen.",
+      "live_status": "unknown"
+    },
+    "friday-powerpoint-ci-builder": {
+      "required_capabilities": [
+        "document.read"
+      ],
+      "conditional_capabilities": [
+        "document.write",
+        "office.render"
+      ],
+      "required_integrations": [
+        "document_parser"
+      ],
+      "conditional_integrations": [
+        "document_worker",
+        "windows_worker"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Optional: Lokalen Dokument-Worker und Ausgabeordner bereitstellen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-powerpoint-animation-director": {
+      "required_capabilities": [
+        "document.read"
+      ],
+      "conditional_capabilities": [
+        "document.write",
+        "office.render"
+      ],
+      "required_integrations": [
+        "document_parser"
+      ],
+      "conditional_integrations": [
+        "document_worker",
+        "powerpoint_playback",
+        "windows_worker"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Optional: Lokalen Dokument-Worker und Ausgabeordner bereitstellen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-powerpoint-enhancer": {
+      "required_capabilities": [
+        "document.read"
+      ],
+      "conditional_capabilities": [
+        "document.write",
+        "office.render"
+      ],
+      "required_integrations": [
+        "document_parser"
+      ],
+      "conditional_integrations": [
+        "document_worker",
+        "windows_worker"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Optional: Lokalen Dokument-Worker und Ausgabeordner bereitstellen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-presentation-qa": {
+      "required_capabilities": [
+        "document.read"
+      ],
+      "conditional_capabilities": [
+        "office.render"
+      ],
+      "required_integrations": [
+        "document_parser"
+      ],
+      "conditional_integrations": [
+        "powerpoint_playback",
+        "windows_worker"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Optional: Zielversion von PowerPoint für Animations-Playback und Sichtprüfung bereitstellen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-document-intake": {
+      "required_capabilities": [
+        "document.read"
+      ],
+      "conditional_capabilities": [
+        "file.write"
+      ],
+      "required_integrations": [
+        "document_parser"
+      ],
+      "conditional_integrations": [
+        "scoped_filesystem"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Optional: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-report-writer": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "document.read",
+        "document.write",
+        "office.render"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "document_parser",
+        "document_worker",
+        "windows_worker"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-word-document-builder": {
+      "required_capabilities": [
+        "document.read"
+      ],
+      "conditional_capabilities": [
+        "document.write",
+        "office.render"
+      ],
+      "required_integrations": [
+        "document_parser"
+      ],
+      "conditional_integrations": [
+        "document_worker",
+        "windows_worker"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Optional: Lokalen Dokument-Worker und Ausgabeordner bereitstellen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-excel-analysis": {
+      "required_capabilities": [
+        "document.read"
+      ],
+      "conditional_capabilities": [
+        "document.write"
+      ],
+      "required_integrations": [
+        "document_parser"
+      ],
+      "conditional_integrations": [
+        "document_worker"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Optional: Lokalen Dokument-Worker und Ausgabeordner bereitstellen.",
+      "live_status": "unknown"
+    },
+    "friday-deep-research": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "file.write",
+        "official-web.read",
+        "web.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "official_web_fetch",
+        "scoped_filesystem",
+        "web_fetch"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Amtliche URL-Liste und Abrufzeitpunkt je Quelle prüfen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-source-verification": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "document.read",
+        "official-web.read",
+        "web.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "document_parser",
+        "official_web_fetch",
+        "web_fetch"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-company-and-shop-investigation": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "official-web.read",
+        "web.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "official_web_fetch",
+        "web_fetch"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Amtliche URL-Liste und Abrufzeitpunkt je Quelle prüfen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-market-and-competitor-analysis": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "official-web.read",
+        "web.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "official_web_fetch",
+        "web_fetch"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Amtliche URL-Liste und Abrufzeitpunkt je Quelle prüfen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-research-monitor": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "notification.deliver",
+        "official-web.read",
+        "scheduler.run",
+        "web.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "notification_gateway",
+        "official_web_fetch",
+        "scheduler",
+        "web_fetch"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Für Push oder andere Zustellung Kanal, Empfänger und Berechtigung wählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-decision-brief": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "document.read",
+        "document.write"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "document_parser",
+        "document_worker"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-file-classifier": {
+      "required_capabilities": [
+        "file.read"
+      ],
+      "conditional_capabilities": [
+        "document.read"
+      ],
+      "required_integrations": [
+        "scoped_filesystem"
+      ],
+      "conditional_integrations": [
+        "computer_use",
+        "document_parser"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen. Optional: Optionales Hermes-Computer-Use-Werkzeug und lokale Desktop-Berechtigungen prüfen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-project-context-builder": {
+      "required_capabilities": [
+        "file.read"
+      ],
+      "conditional_capabilities": [
+        "file.write"
+      ],
+      "required_integrations": [
+        "scoped_filesystem"
+      ],
+      "conditional_integrations": [
+        "coding_cli",
+        "obsidian"
+      ],
+      "account": "conditional",
+      "setup_de": "Für den Grundablauf: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen. Optional: Für Codeaufgaben optional OpenCode, Codex oder Claude Code lokal installieren und deren eigene Modell-Anmeldung prüfen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-knowledge-base-curator": {
+      "required_capabilities": [
+        "file.read"
+      ],
+      "conditional_capabilities": [
+        "file.write",
+        "scheduler.run"
+      ],
+      "required_integrations": [
+        "scoped_filesystem"
+      ],
+      "conditional_integrations": [
+        "obsidian",
+        "scheduler"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen. Optional: Optionalen lokalen Vault-Pfad freigeben. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-document-retention": {
+      "required_capabilities": [
+        "file.read"
+      ],
+      "conditional_capabilities": [
+        "file.write",
+        "official-web.read"
+      ],
+      "required_integrations": [
+        "scoped_filesystem"
+      ],
+      "conditional_integrations": [
+        "official_web_fetch"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen. Optional: Amtliche URL-Liste und Abrufzeitpunkt je Quelle prüfen.",
+      "live_status": "unknown"
+    },
+    "friday-voice-interaction-policy": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "voice.hear",
+        "voice.speak",
+        "voice.verify-speaker"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "local_voice"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Lokale Sprachpipeline und gegebenenfalls Sprecherprüfung am Host testen.",
+      "live_status": "unknown"
+    },
+    "friday-speaker-identity-policy": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "approval.read",
+        "voice.verify-speaker"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "approval_store",
+        "local_voice"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Vertrauenswürdige Betreiberidentität und einmalige aktionsgebundene Freigaben hostseitig bereitstellen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-voice-command-normalizer": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "adapter.health.read",
+        "voice.hear"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "adapter_registry",
+        "local_voice"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Host muss installierte Adapter mit Zeitstempel und Health-Prüfung melden. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-system-health": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "adapter.health.read",
+        "service.health.read",
+        "storage.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "adapter_registry",
+        "service_probes",
+        "storage_probe"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Host muss installierte Adapter mit Zeitstempel und Health-Prüfung melden. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-service-recovery": {
+      "required_capabilities": [
+        "service.health.read"
+      ],
+      "conditional_capabilities": [
+        "service.restart"
+      ],
+      "required_integrations": [
+        "service_probes"
+      ],
+      "conditional_integrations": [
+        "service_control"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Health-Endpunkte und Frischegrenzen pro Dienst festlegen. Optional: Erlaubte Dienst-IDs, Neustartverfahren und Rollback-Checks hostseitig definieren.",
+      "live_status": "unknown"
+    },
+    "friday-storage-monitor": {
+      "required_capabilities": [
+        "storage.read"
+      ],
+      "conditional_capabilities": [
+        "file.write"
+      ],
+      "required_integrations": [
+        "storage_probe"
+      ],
+      "conditional_integrations": [
+        "scoped_filesystem"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene Laufwerke/Volumes und Messzeitpunkt festlegen. Optional: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-backup-manager": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "backup.read",
+        "backup.write",
+        "file.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "backup",
+        "scoped_filesystem"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Lokales oder externes Sicherungsziel, Aufbewahrung und Restore-Probe festlegen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-skill-health-and-curation": {
+      "required_capabilities": [
+        "file.read"
+      ],
+      "conditional_capabilities": [],
+      "required_integrations": [
+        "scoped_filesystem"
+      ],
+      "conditional_integrations": [],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "live_status": "unknown"
+    },
+    "friday-cost-and-model-router": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "model.inventory.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "model_registry"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Installierte Modelle und Kosten aus dem laufenden Host auslesen.",
+      "live_status": "unknown"
+    },
+    "friday-web-research": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "file.write",
+        "official-web.read",
+        "web.read"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "official_web_fetch",
+        "scoped_filesystem",
+        "web_fetch"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Amtliche URL-Liste und Abrufzeitpunkt je Quelle prüfen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-content-planning": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "file.read",
+        "file.write"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "control_api",
+        "scoped_filesystem"
+      ],
+      "account": "none",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Lokale Dashboard-Owner-Session und CSRF an den Host binden, Bridge separat aktivieren. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-kie-media": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "media.render",
+        "file.write"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "control_api",
+        "kie_ai",
+        "media_worker",
+        "scoped_filesystem"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Lokale Dashboard-Owner-Session und CSRF an den Host binden, Bridge separat aktivieren. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-elevenlabs-voice": {
+      "required_capabilities": [],
+      "conditional_capabilities": [
+        "voice.speak",
+        "file.write"
+      ],
+      "required_integrations": [],
+      "conditional_integrations": [
+        "control_api",
+        "elevenlabs",
+        "local_voice",
+        "scoped_filesystem"
+      ],
+      "account": "conditional",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: Lokale Dashboard-Owner-Session und CSRF an den Host binden, Bridge separat aktivieren. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    },
+    "friday-video-editing": {
+      "required_capabilities": [
+        "media.read"
+      ],
+      "conditional_capabilities": [
+        "media.render",
+        "file.write"
+      ],
+      "required_integrations": [
+        "media_worker"
+      ],
+      "conditional_integrations": [
+        "scoped_filesystem",
+        "video_editor"
+      ],
+      "account": "none",
+      "setup_de": "Für den Grundablauf: Lokales Medienwerkzeug mit freigegebenen Ein- und Ausgabepfaden bereitstellen. Optional: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "live_status": "unknown"
+    }
+  }
+}

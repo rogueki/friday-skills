@@ -6,6 +6,8 @@ import re
 import sys
 
 from build_registry import build
+from build_setup_catalog import build as build_setup_catalog
+from validate_setup_catalog import validate as validate_setup_catalog
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -17,6 +19,13 @@ except ImportError:
 
 def validate() -> list[str]:
     errors: list[str] = []
+    try:
+        setup = json.loads((ROOT / "registry/integration_setup.json").read_text(encoding="utf-8"))
+        errors.extend(validate_setup_catalog(setup))
+        if setup != build_setup_catalog():
+            errors.append("integration setup catalog out of date")
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"integration setup catalog missing or invalid: {exc}")
     registry = json.loads((ROOT / "registry/skills.json").read_text(encoding="utf-8"))
     names = [entry["name"] for entry in registry["skills"]]
     if len(names) != len(set(names)):

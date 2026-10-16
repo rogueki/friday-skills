@@ -1,6 +1,6 @@
 # Skill catalog
 
-**Inventory snapshot:** `registry/skills.json` version 0.2.0; 101 packaged procedures, comprising all 100 plan skills and the extra `friday-web-research`. This table was generated from that registry and checked against the on-disk `SKILL.md` paths. A later edit must regenerate/reconcile it.
+**Inventory snapshot:** `registry/skills.json` version 0.2.0; 105 packaged procedures, comprising all 100 plan skills, `friday-web-research` and four Content Studio skills. Use the [setup catalog](SETUP_CATALOG.md) for current account requirements and integration guidance.
 
 `Installable` means a packaged SKILL.md file exists; discovery of the full set in Hermes is a separate check. `Mock ready` is the registry declaration for synthetic/local cases, not proof that every scenario was executed. `Live adapter ready` is false throughout this snapshot. The tools column states the **needed class of tool or adapter**, not something installed or authenticated. Tests marked `cases` are case files, not passing automated tests. `last_checked` comes from registry metadata; it is not an individual Hermes runtime check. See [testing](TESTING.md) and [capabilities](CAPABILITIES.md).
 
@@ -107,5 +107,9 @@
 | 25.5 | [friday-skill-health-and-curation](../skills/system/friday-skill-health-and-curation/SKILL.md) | system | procedure | Audit a F.R.I.D.A.Y. skill collection for format, references, trigger collisions, stale claims, test coverage and security issues; use before a proposed skill maintenance release. | system / backup adapter | 1 | cases | yes | yes | no | 0.1.0 | 2026-10-15 |
 | 25.6 | [friday-cost-and-model-router](../skills/system/friday-cost-and-model-router/SKILL.md) | system | procedure | Recommend a model route from task complexity, risk, context, latency, cost and tool needs; use when selecting among configured local Qwen and Kimi quality tiers. | system / backup adapter | 1 | cases | yes | yes | no | 0.1.0 | 2026-10-15 |
 | extra | [friday-web-research](../skills/research/friday-web-research/SKILL.md) | research | procedure | Public web research with source attribution and bounded extraction. | web research tools | 0 | cases | yes | yes | no | 0.1.0 | 2026-10-15 |
+| extra | [friday-content-planning](../skills/media/friday-content-planning/SKILL.md) | media | procedure | Plan and revise Content Studio posts. | Control API plan bridge | 1 | cases | yes | yes | no | 0.1.0 | 2026-10-16 |
+| extra | [friday-kie-media](../skills/media/friday-kie-media/SKILL.md) | media | procedure | Prepare reviewed Kie.ai image or video generation. | optional Content Studio bridge | 3 | cases | yes | yes | no | 0.1.0 | 2026-10-16 |
+| extra | [friday-elevenlabs-voice](../skills/media/friday-elevenlabs-voice/SKILL.md) | media | procedure | Prepare reviewed ElevenLabs narration. | optional Content Studio bridge | 3 | cases | yes | yes | no | 0.1.0 | 2026-10-16 |
+| extra | [friday-video-editing](../skills/media/friday-video-editing/SKILL.md) | media | procedure | Prepare edit decisions and manual video-editor handoff. | local media/editor tools | 1 | cases | yes | yes | no | 0.1.0 | 2026-10-16 |
 
 The original `jarvis-*` planning names and section numbers are preserved in [roadmap.json](../registry/roadmap.json). The corresponding `friday-*` names are the installable Hermes identifiers. Risk tier is the maximum declared by the registry, not the tier of every possible use; classify each actual action independently. Further integration requirements are in [architecture](ARCHITECTURE.md) and [dashboard events](DASHBOARD_EVENTS.md).

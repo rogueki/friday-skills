@@ -91,7 +91,7 @@ class HermesWeatherRuntimeParserTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             home = Path(tmp)
             skills, support = runtime._stage(runtime.ROOT, home)
-            self.assertEqual(len(list(skills.rglob("SKILL.md"))), 101)
+            self.assertEqual(len(list(skills.rglob("SKILL.md"))), 105)
             staged_plugin = (home / "plugins/friday_weather/__init__.py").read_text()
             staged_adapter = (support / "adapters/weather.py").read_text()
             self.assertIn('"enum": ["mock"]', staged_plugin)

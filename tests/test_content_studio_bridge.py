@@ -6,6 +6,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
+from uuid import UUID
 
 from adapters.content_studio_control import Response, StudioHostBinding
 from plugins.friday_content_studio import SCHEMAS, register
@@ -27,6 +28,8 @@ class FakeControlApi:
         self.requests = []
         self.tasks = {}
         self.plan_state = {"revision": 0, "plan": None, "updatedAt": None}
+        self.production_id = "123e4567-e89b-42d3-a456-426614174000"
+        self.production_job = None
 
     def __call__(self, method, url, headers, body, timeout):
         self.requests.append((method, url, headers, body, timeout))
@@ -40,6 +43,18 @@ class FakeControlApi:
             plan = json.loads(body)
             self.plan_state = {"revision": self.plan_state["revision"] + 1, "plan": plan, "updatedAt": "2026-10-16T12:00:00.000Z"}
             return Response(200, {"content-type": "application/json"}, json.dumps({"contractVersion": "2.0.0", "data": self.plan_state}).encode())
+        if url.endswith("/content-studio/production-jobs") and method == "POST":
+            payload = json.loads(body)
+            if payload.get("confirmed") is not True or payload.get("planRevision") != self.plan_state["revision"] or not headers.get("Idempotency-Key"):
+                return Response(422, {}, b"")
+            self.production_job = {"id": self.production_id, "ideaId": payload["ideaId"], "kind": "video", "state": "queued", "providerTaskId": None, "artifactReady": False, "errorCode": None, "createdAt": "2026-10-16T12:00:00.000Z", "updatedAt": "2026-10-16T12:00:00.000Z"}
+            return Response(202, {}, json.dumps({"contractVersion": "2.0.0", "data": self.production_job, "freshness": {"state": "fresh", "asOf": "2026-10-16T12:00:00.000Z"}}).encode())
+        if self.production_job and f"/content-studio/production-jobs/{self.production_id}" in url:
+            if url.endswith("/cancel") and method == "POST":
+                self.production_job["state"] = "cancelled"
+            elif method != "GET":
+                return Response(405, {}, b"")
+            return Response(200, {}, json.dumps({"contractVersion": "2.0.0", "data": self.production_job, "freshness": {"state": "fresh", "asOf": "2026-10-16T12:00:00.000Z"}}).encode())
         if method == "POST" and url.endswith("/kie/tasks"):
             payload = json.loads(body)
             if payload.get("confirmed") is not True:
@@ -195,6 +210,51 @@ class ContentStudioBridgeTests(unittest.TestCase):
         result = self.call(ctx, "friday_studio_create_speech", {"text": "Hallo", "voice_id": "voice123", "idempotency_key": "intent-speech-123"})
         self.assertEqual(result["error"]["code"], "output_dir_required")
         self.assertEqual(self.transport.requests, [])
+
+    def test_production_uses_plan_preview_approval_job_status_and_cancel(self):
+        idea = {"id": "idea-1", "titel": "Film", "format": "Reel", "beschreibung": "Skript"}
+        self.transport.plan_state = {"revision": 2, "plan": {"version": 1, "content": [idea], "postings": []}, "updatedAt": "2026-10-16T12:00:00.000Z"}
+        ctx = self.plugin()
+        args = {"idea_id": "idea-1", "plan_revision": 2, "voice_id": "voice123", "idempotency_key": "intent-production-123"}
+        started = self.call(ctx, "friday_studio_create_production", args)
+        self.assertEqual(started["status"], "accepted")
+        self.assertEqual(started["job"]["state"], "queued")
+        self.assertEqual(self.approvals, [("content.production", {"request": {"ideaId": "idea-1", "planRevision": 2, "voiceId": "voice123", "confirmed": True}, "idea": idea})])
+        self.assertEqual([request[0] for request in self.transport.requests], ["GET", "POST"])
+        self.assertEqual(self.transport.requests[1][2]["Idempotency-Key"], "intent-production-123")
+        self.assertEqual(self.transport.requests[1][2]["X-CSRF-Token"], "csrf-test")
+        job_id = started["job"]["id"]
+        self.assertEqual(str(UUID(job_id)), job_id)
+        self.assertEqual(self.call(ctx, "friday_studio_production_status", {"job_id": job_id})["job"]["state"], "queued")
+        stopped = self.call(ctx, "friday_studio_cancel_production", {"job_id": job_id})
+        self.assertEqual(stopped["job"]["state"], "cancelled")
+        self.assertNotIn("Idempotency-Key", self.transport.requests[-1][2])
+        self.assertEqual(self.transport.requests[-1][2]["X-CSRF-Token"], "csrf-test")
+
+    def test_production_rejects_stale_or_unapproved_without_post(self):
+        self.transport.plan_state = {"revision": 2, "plan": {"version": 1, "content": [{"id": "idea-1", "titel": "Film"}], "postings": []}, "updatedAt": "2026-10-16T12:00:00.000Z"}
+        args = {"idea_id": "idea-1", "plan_revision": 1, "idempotency_key": "intent-production-123"}
+        ctx = self.plugin()
+        self.assertEqual(self.call(ctx, "friday_studio_create_production", args)["error"]["code"], "revision_conflict")
+        self.assertEqual(self.call(ctx, "friday_studio_create_production", {**args, "plan_revision": 2, "idea_id": "other"})["error"]["code"], "idea_not_found")
+        denied = self.plugin(approved=False)
+        self.assertEqual(self.call(denied, "friday_studio_create_production", {**args, "plan_revision": 2})["error"]["code"], "paid_action_not_approved")
+        self.assertTrue(all(request[0] == "GET" for request in self.transport.requests))
+        self.assertEqual(self.call(ctx, "friday_studio_cancel_production", {"job_id": "invalid"})["error"]["code"], "invalid_job_id")
+
+    def test_production_timeout_never_retries_paid_post(self):
+        self.transport.plan_state = {"revision": 1, "plan": {"version": 1, "content": [{"id": "idea-1", "titel": "Film"}], "postings": []}, "updatedAt": "2026-10-16T12:00:00.000Z"}
+        calls = []
+        def lost_response(method, url, headers, body, timeout):
+            calls.append(method)
+            if method == "POST":
+                raise TimeoutError()
+            return self.transport(method, url, headers, body, timeout)
+        ctx = Context()
+        register(ctx, host=StudioHostBinding("http://127.0.0.1:8384", "session-test", "csrf-test", lambda *_: True, lost_response, True))
+        result = self.call(ctx, "friday_studio_create_production", {"idea_id": "idea-1", "plan_revision": 1, "idempotency_key": "intent-production-123"})
+        self.assertEqual(result["error"]["code"], "unknown_production_outcome")
+        self.assertEqual(calls, ["GET", "POST"])
 
 
 if __name__ == "__main__":
