@@ -1,10 +1,12 @@
 name: friday-content-studio
-version: 0.1.0
+version: 0.2.0
 description: Optional host-bound Hermes bridge to the F.R.I.D.A.Y. Content Studio Control API.
 author: RogueKI
 kind: standalone
 manifest_version: 2
 provides_tools:
+  - friday_studio_read_plan
+  - friday_studio_write_plan
   - friday_studio_create_media
   - friday_studio_media_status
   - friday_studio_create_speech

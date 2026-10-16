@@ -23,6 +23,7 @@ TASK_ID = re.compile(r"^[A-Za-z0-9_-]{1,128}$")
 VOICE_ID = re.compile(r"^[A-Za-z0-9_-]{1,128}$")
 IDEMPOTENCY = re.compile(r"^[A-Za-z0-9_-]{8,128}$")
 MAX_RESPONSE = 10 * 1024 * 1024
+MAX_PLAN_REQUEST = 2_000_000
 
 
 class _NoRedirect(HTTPRedirectHandler):
@@ -71,24 +72,34 @@ class ContentStudioClient:
             raise StudioError("invalid_host_binding")
         self.host = host
 
-    def _send(self, method: str, path: str, body: dict[str, Any] | None = None, key: str | None = None) -> Response:
+    def _send(self, method: str, path: str, body: dict[str, Any] | None = None, key: str | None = None, revision: int | None = None) -> Response:
         headers = {"Cookie": f"friday_session={self.host.session}", "Accept": "application/json"}
-        if method == "POST":
+        if method in {"POST", "PUT"}:
             headers.update({"X-CSRF-Token": self.host.csrf, "Content-Type": "application/json"})
+        if method == "POST":
             if not key or not IDEMPOTENCY.fullmatch(key):
                 raise StudioError("invalid_idempotency_key")
             headers["Idempotency-Key"] = key
-        encoded = json.dumps(body, ensure_ascii=False).encode("utf-8") if body is not None else None
-        if encoded is not None and len(encoded) > 4096:
+        if method == "PUT":
+            if type(revision) is not int or revision < 0:
+                raise StudioError("invalid_revision")
+            headers["If-Match"] = str(revision)
+        try:
+            encoded = json.dumps(body, ensure_ascii=False).encode("utf-8") if body is not None else None
+        except (TypeError, ValueError, UnicodeEncodeError) as exc:
+            raise StudioError("invalid_request") from exc
+        if encoded is not None and len(encoded) > (MAX_PLAN_REQUEST if method == "PUT" else 4096):
             raise StudioError("request_too_large")
         try:
             response = self.host.transport(method, self.origin + path, headers, encoded, 30.0)
         except StudioError:
             raise
         except Exception as exc:
-            raise StudioError("unknown_provider_outcome" if method == "POST" else "transport_unavailable") from exc
+            raise StudioError("unknown_provider_outcome" if method == "POST" else "unknown_plan_outcome" if method == "PUT" else "transport_unavailable") from exc
         if not isinstance(response, Response) or not isinstance(response.body, bytes) or len(response.body) > MAX_RESPONSE:
             raise StudioError("invalid_response")
+        if method == "PUT" and response.status == 409:
+            raise StudioError("revision_conflict", 409)
         if response.status not in {200, 202}:
             raise StudioError("control_api_rejected", response.status)
         return response
@@ -104,6 +115,32 @@ class ContentStudioClient:
         if not isinstance(value, dict) or not isinstance(value.get("data"), dict):
             raise StudioError("invalid_envelope")
         return value["data"]
+
+    @staticmethod
+    def _plan_state(data: dict[str, Any]) -> dict[str, Any]:
+        revision = data.get("revision")
+        plan = data.get("plan")
+        updated_at = data.get("updatedAt")
+        if type(revision) is not int or revision < 0 or (plan is not None and not isinstance(plan, dict)):
+            raise StudioError("invalid_plan_response")
+        if plan is not None and (type(plan.get("version")) is not int or plan["version"] != 1 or not isinstance(plan.get("content"), list) or not isinstance(plan.get("postings"), list)):
+            raise StudioError("invalid_plan_response")
+        if (revision == 0) != (plan is None) or (updated_at is None) != (plan is None) or (updated_at is not None and not isinstance(updated_at, str)):
+            raise StudioError("invalid_plan_response")
+        return {"revision": revision, "plan": plan, "updatedAt": updated_at}
+
+    def get_plan(self) -> dict[str, Any]:
+        return self._plan_state(self._envelope(self._send("GET", "/api/v1/content-studio/plan"), 200))
+
+    def put_plan(self, *, plan: dict[str, Any], expected_revision: int) -> dict[str, Any]:
+        if not isinstance(plan, dict) or type(plan.get("version")) is not int or plan["version"] != 1 or not isinstance(plan.get("content"), list) or not isinstance(plan.get("postings"), list):
+            raise StudioError("invalid_plan")
+        if type(expected_revision) is not int or expected_revision < 0:
+            raise StudioError("invalid_revision")
+        state = self._plan_state(self._envelope(self._send("PUT", "/api/v1/content-studio/plan", plan, revision=expected_revision), 200))
+        if state["revision"] != expected_revision + 1:
+            raise StudioError("invalid_plan_response")
+        return state
 
     def create_kie(self, *, kind: str, prompt: str, aspect_ratio: str, idempotency_key: str) -> dict[str, Any]:
         if kind not in {"image", "video"} or aspect_ratio not in {"1:1", "16:9"} or not isinstance(prompt, str) or not 1 <= len(prompt.strip()) <= 2000:

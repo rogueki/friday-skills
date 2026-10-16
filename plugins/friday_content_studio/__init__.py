@@ -18,6 +18,11 @@ def _schema(name: str, description: str, properties: dict, required: list[str]) 
 
 
 SCHEMAS = {
+    "friday_studio_read_plan": _schema("friday_studio_read_plan", "Read the authoritative F.R.I.D.A.Y. Content Studio plan and its current revision. No publishing occurs.", {}, []),
+    "friday_studio_write_plan": _schema("friday_studio_write_plan", "Replace the Content Studio plan only when expected_revision matches the current server revision. A conflict requires user review; never retry automatically. No publishing occurs.", {
+        "plan": {"type": "object", "description": "Complete version 1 Content Studio plan with content and postings arrays"},
+        "expected_revision": {"type": "integer", "minimum": 0, "description": "Revision returned by friday_studio_read_plan"},
+    }, ["plan", "expected_revision"]),
     "friday_studio_create_media": _schema("friday_studio_create_media", "Request an approved paid kie.ai image or video through the local F.R.I.D.A.Y. Control API.", {
         "kind": {"type": "string", "enum": ["image", "video"]}, "prompt": {"type": "string", "maxLength": 2000},
         "aspect_ratio": {"type": "string", "enum": ["1:1", "16:9"]},
@@ -88,6 +93,26 @@ def register(ctx, *, host: StudioHostBinding | None = None, output_dir: Path | N
         except Exception:
             return _blocked("bridge_failure")
 
+    def read_plan(params: dict, **_kwargs) -> str:
+        if not isinstance(params, dict) or params:
+            return _blocked("invalid_request")
+        try:
+            return json.dumps({"status": "completed", "state": client().get_plan(), "write_effect": False}, ensure_ascii=False)
+        except StudioError as exc:
+            return _blocked(exc.code)
+        except Exception:
+            return _blocked("bridge_failure")
+
+    def write_plan(params: dict, **_kwargs) -> str:
+        if not isinstance(params, dict) or set(params) != {"plan", "expected_revision"}:
+            return _blocked("invalid_request")
+        try:
+            return json.dumps({"status": "completed", "state": client().put_plan(plan=params["plan"], expected_revision=params["expected_revision"]), "write_effect": True}, ensure_ascii=False)
+        except StudioError as exc:
+            return _blocked(exc.code)
+        except Exception:
+            return _blocked("bridge_failure")
+
     def media_status(params: dict, **_kwargs) -> str:
         if not isinstance(params, dict) or set(params) != {"task_id"}:
             return _blocked("invalid_request")
@@ -117,5 +142,5 @@ def register(ctx, *, host: StudioHostBinding | None = None, output_dir: Path | N
         except Exception:
             return _blocked("bridge_failure")
 
-    for name, handler in (("friday_studio_create_media", create_media), ("friday_studio_media_status", media_status), ("friday_studio_create_speech", create_speech)):
+    for name, handler in (("friday_studio_read_plan", read_plan), ("friday_studio_write_plan", write_plan), ("friday_studio_create_media", create_media), ("friday_studio_media_status", media_status), ("friday_studio_create_speech", create_speech)):
         ctx.register_tool(name=name, toolset="friday_content_studio", schema=SCHEMAS[name], handler=handler)
