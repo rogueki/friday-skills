@@ -13,7 +13,10 @@ class SetupCatalogTests(unittest.TestCase):
 
     def test_exact_inventory_and_capability_parity(self):
         self.assertEqual(self.catalog, build())
-        self.assertEqual(len(self.catalog["skills"]), 105)
+        registry = json.loads((ROOT / "registry/skills.json").read_text(encoding="utf-8"))
+        registered_names = {item["name"] for item in registry["skills"]}
+        self.assertEqual(set(self.catalog["skills"]), registered_names)
+        self.assertEqual(len(self.catalog["skills"]), len(registered_names))
         self.assertEqual(validate(self.catalog), [])
         self.assertTrue(all(item["live_status"] == "unknown" for item in self.catalog["skills"].values()))
 

@@ -13,11 +13,18 @@ class SkillCaseTests(unittest.TestCase):
     def test_all_skill_contracts_and_matrix(self):
         report, errors = run()
         self.assertEqual(errors, [])
-        self.assertEqual(report["skills"], 105)
+        registry = json.loads((ROOT / "registry/skills.json").read_text(encoding="utf-8"))
+        registered_names = {item["name"] for item in registry["skills"]}
+        case_names = {
+            path.parents[1].name for path in (ROOT / "skills").rglob("tests/cases.json")
+        }
+        self.assertEqual(case_names, registered_names)
+        self.assertEqual(report["skills"], len(registered_names))
         self.assertEqual({category: len(checks) for category, checks in MATRIX.items()},
                          {"trigger": 4, "functional": 8, "security": 7,
                           "policy": 5, "output": 5})
-        self.assertEqual(sum(report["counts"].values()), 105 * 29)
+        self.assertEqual(sum(report["counts"].values()),
+                         len(registered_names) * sum(map(len, MATRIX.values())))
         self.assertGreater(report["counts"]["NOT_RUN"], report["counts"]["PASS"])
         self.assertEqual(report["live_skill_runtime"], "NOT_RUN")
 
