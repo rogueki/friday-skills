@@ -4,12 +4,14 @@ RogueKI's F.R.I.D.A.Y. Content Studio skills live in this separate `friday-skill
 
 | Skill | Purpose | Runtime readiness |
 | --- | --- | --- |
-| `friday-content-planning` | Ideas, posting drafts and version 1 `plan.json` | Procedure and offline cases |
+| `friday-content-planning` | Ideas, posting drafts and version 1 `plan.json` with selectable Instagram, Facebook, TikTok and YouTube targets | Procedure and offline cases |
 | `friday-kie-media` | Reviewed kie.ai image/video task request and result checks | Procedure plus optional Hermes Control API bridge |
 | `friday-elevenlabs-voice` | Reviewed script and MP3 speech generation | Procedure plus optional Hermes Control API bridge |
 | `friday-video-editing` | Edit decision list and manual CapCut handoff | Procedure only; no verified CapCut automation API |
 
-The companion implementation is on local `rogue-friday` branch `codex/content-studio-oct15`. Its `docs/CONTENT_STUDIO.md` describes server routes, key handling and tests. Neither branch is published yet. A Hermes runtime can discover these SKILL.md files through `skills.external_dirs` pointing to this repository's `skills` directory. Discovery alone does not enable a Control API connection. Do not pass provider keys through skills, prompts or `plan.json`; the companion Control API keeps them server-side.
+The companion implementation is on local `rogue-friday` branch `codex/friday-main-refresh-20261016`. Its `docs/CONTENT_STUDIO.md` describes server routes, key handling and tests; `docs/CONTENT_STUDIO_PUBLISHING.md` tracks the social publishing contract. A Hermes runtime can discover these SKILL.md files through `skills.external_dirs` pointing to this repository's `skills` directory. Discovery alone does not enable a Control API connection. Do not pass provider keys through skills, prompts or `plan.json`; the companion Control API keeps them server-side.
+
+A voice request to upload a Story can prepare a draft and ask for the exact asset and destinations. The skill must not call it published: the dashboard currently has no Meta, TikTok or YouTube account connection or publishing adapter. The optional kie.ai and ElevenLabs bridge is only for media creation, not social posting. The dashboard removed paid-action checkboxes in favor of a current request preview and explicit start button; an eventual Hermes voice action needs its own bound spoken confirmation.
 
 ## Optional Hermes bridge
 
