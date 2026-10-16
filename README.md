@@ -42,7 +42,7 @@ The companion [rogue-friday dashboard](https://github.com/rogueki/rogue-friday) 
 
 On Windows, choose an installation folder for this repository. Point Hermes `skills.external_dirs` at its `skills` child and enable `skills.write_approval: true`; see [installation](docs/INSTALLATION.md) and [configuration](docs/CONFIGURATION.md). A WSL Hermes process needs its Linux view of the same path. The `rogue-friday` installer places this repository under `<InstallRoot>\skills\friday-skills` and configures discovery automatically.
 
-On the development installation, Hermes v0.22.2 discovered the current 105 Friday-Skills alongside 53 bundled skills. Your installation may differ; run `hermes skills list` in the same profile that runs Friday. See the [setup catalog](docs/SETUP_CATALOG.md) for account requirements. Discovery and activation do not establish live provider readiness.
+On the development installation, Hermes v0.22.2 discovered the current 105 Friday-Skills alongside 53 bundled skills. Your installation may differ; run `hermes skills list` in the same profile that runs Friday. See the [setup catalog](docs/SETUP_CATALOG.md) for account requirements. Discovery and activation do not establish live provider readiness. The framework installer also applies the reviewed [Himalaya v2 compatibility overlay](compat/hermes/himalaya-v2/SKILL.md) when its optional Himalaya 2.2.1 CLI and the known Hermes v1 mail skill are present. It backs up the original and refuses unknown upstream changes; no mailbox is contacted during installation.
 
 ```powershell
 python scripts/validate.py
