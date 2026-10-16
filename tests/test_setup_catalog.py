@@ -53,10 +53,19 @@ class SetupCatalogTests(unittest.TestCase):
     def test_phone_setup_keeps_dial_provider_separate_from_contacts(self):
         phone = self.catalog["skills"]["friday-phone-call-coordinator"]
         self.assertEqual(phone["account"], "conditional")
-        self.assertEqual(phone["conditional_integrations"], ["carddav", "telephony"])
-        self.assertLess(phone["setup_de"].index("Asterisk-SIP-Adapter"), phone["setup_de"].index("CardDAV"))
+        self.assertEqual(phone["conditional_integrations"], ["carddav", "cloudtalk_api", "telephony"])
+        self.assertIn("CloudTalk-API-Konto", phone["setup_de"])
+        self.assertIn("keinen autonomen Wählzugriff", phone["setup_de"])
         self.assertIn("Asterisk-SIP-Adapter", self.catalog["integrations"]["telephony"]["setup_de"])
         self.assertIn("SIP-Trunk", self.catalog["integrations"]["telephony"]["setup_de"])
+        cloudtalk = self.catalog["integrations"]["cloudtalk_api"]
+        self.assertEqual(cloudtalk["account"], "required")
+        self.assertEqual(cloudtalk["settings_target"], "/settings?area=skillAccounts#cloudtalk-setup-title")
+        self.assertIn("Access Key ID und Secret", cloudtalk["setup_de"])
+        self.assertIn("Agent-ID", cloudtalk["setup_de"])
+        self.assertIn("weder API-Erreichbarkeit", cloudtalk["setup_de"])
+        self.assertIn("ct+tel", cloudtalk["setup_de"])
+        self.assertIn("weder Gesprächsaudio noch Status oder Auflegen", cloudtalk["setup_de"])
 
     def test_calendar_uses_local_baseline_with_optional_caldav(self):
         calendar = self.catalog["skills"]["friday-calendar-manager"]

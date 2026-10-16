@@ -55,7 +55,7 @@ SETUP = {
     "tariff_source": ("Region und aktuellen Tarif-/Vertragsanbieter auswählen; öffentliche Preise ersetzen keinen persönlichen Vertrag.", "docs/CAPABILITIES.md", "Host: Tarifquelle und ggf. Anbieter-Konto"),
     "task_store": ("Task-Backend und Identitätsbindung im Host einrichten; Control-API-Client ist nur mit authentifiziertem Transport nutzbar.", "docs/CONTROL_API_TASKS.md", "Host: Task-Backend/Control API"),
     "telegram_gateway": ("Im Friday Dashboard unter Einstellungen > Skill-Konten > Telegram BotFather-Token und numerische erlaubte User-ID einrichten. Das installierte Hermes-Gateway kann Telegram-Nachrichten verarbeiten; gespeicherte Werte und laufender Dienst belegen noch keine erfolgreiche Bot-Verbindung oder Empfängeridentität.", "skills/communication/friday-telegram-communication/SKILL.md", "Friday Dashboard > Einstellungen > Skill-Konten > Telegram"),
-    "telephony": ("Im Friday Dashboard unter Einstellungen > Skill-Konten > Telefonie den optionalen Asterisk-SIP-Adapter einrichten. Lokale Nebenstellen benötigen zwei eigene SIP-Endpunkte; externe Nummern zusätzlich einen registrierten SIP-Trunk, eigene Rufnummer, verifizierte Ziele und eine Bestätigung je Anruf. Ohne bereiten Adapter bleibt Telefonie gesperrt. Fridays Sprachdialog ist noch nicht mit dem Telefon verbunden.", "skills/communication/friday-phone-call-coordinator/SKILL.md", "Friday Dashboard > Einstellungen > Skill-Konten > Telefonie"),
+    "telephony": ("Den optionalen Asterisk-SIP-Adapter im Friday Dashboard unter Einstellungen > Skill-Konten > Telefonie einrichten. Lokale Nebenstellen benötigen eigene SIP-Endpunkte; externe Nummern zusätzlich einen registrierten SIP-Trunk und bestätigte Ziele. Adapterstatus und SIP-Trunk separat prüfen.", "skills/communication/friday-phone-call-coordinator/SKILL.md", "Friday Dashboard > Einstellungen > Skill-Konten > Telefonie"),
     "weather": ("Öffentlichen Wetterleser bei Bedarf separat als Hermes-Plugin aktivieren; kein Konto nötig.", "docs/WEATHER_PLUGIN.md", "Hermes: optionales Wetter-Plugin"),
     "web_fetch": ("Erlaubte Webquellen und Host-Egress konfigurieren; Zugriff je Quelle prüfen.", "docs/WEB_EXTRACTION_ADAPTER.md", "Host: Web-Egress-Allowlist"),
     "whatsapp_gateway": ("Im Friday Dashboard unter Einstellungen > Skill-Konten > WhatsApp das lokale Hermes-Dashboard zur QR-Kopplung öffnen; danach Modus und erlaubte Telefonnummer mit Ländervorwahl ohne + einrichten. Friday zeigt die Session-Datei und Gateway-Konfiguration, keine bestätigte Verbindung oder Nachrichtenzustellung.", "skills/communication/friday-whatsapp-communication/SKILL.md", "Friday Dashboard > Einstellungen > Skill-Konten > WhatsApp"),
@@ -74,6 +74,7 @@ HERMES_COMPATIBILITY = {
 }
 
 EXTRA = {
+    "friday-phone-call-coordinator": ["cloudtalk_api"],
     "friday-executive-mail-manager": ["gmx"],
     "friday-mail-attachment-intake": ["gmx"],
     "friday-mail-draft-writer": ["gmx"],
@@ -89,6 +90,7 @@ EXTRA = {
 }
 
 EXTRA_SETUP = {
+    "cloudtalk_api": ("Für den optionalen CloudTalk-API-Anrufweg im Friday Dashboard unter Einstellungen > Skill-Konten > CloudTalk Desktop und API ein Admin-API-Zugangsschlüsselpaar (Access Key ID und Secret) sowie die CloudTalk Agent-ID einrichten. CloudTalk API-Zugang setzt einen dafür berechtigten Tarif (Essential oder höher) voraus. Gespeicherte Zugangsdaten bestätigen weder API-Erreichbarkeit noch Anrufannahme oder Erreichbarkeit des Ziels. Der Desktop-Handoff über ct+tel benötigt keine API-Zugangsdaten; er öffnet nur die CloudTalk-App und liefert Friday weder Gesprächsaudio noch Status oder Auflegen.", "skills/communication/friday-phone-call-coordinator/SKILL.md", "required", "/settings?area=skillAccounts#cloudtalk-setup-title"),
     "gmx": ("Den eigenständigen Friday-Skills-GMX-Adapter mit einem GMX-Postfach und authentifizierter Host-Bindung bereitstellen. Das Dashboard-Postfach richtet diesen Adapter nicht automatisch ein; Mailbox-Suche, vollständige Threads, Anhangsbytes und ein live verifizierter Versand sind damit nicht belegt.", "docs/GMX_MAIL_ADAPTER.md", "required", "Host: separater Friday-Skills-GMX-Adapter"),
     "friday_local_calendar": ("Den lokalen Kalender im Friday Dashboard mit Owner-Anmeldung ohne externes Anbieterkonto öffnen; dort lassen sich Termine lesen und verwalten. Der separate Hermes-Kalenderleser kann lokale Termine über die Dashboard-Bridge nur lesen und bleibt schreibgeschützt.", "skills/calendar/friday-calendar-manager/SKILL.md", "none", "/calendar"),
     "kie_ai": ("Kie.ai-Konto und Server-Key in den Dashboard-Einstellungen hinterlegen; kostenpflichtige Anfrage einzeln bestätigen.", "docs/CONTENT_STUDIO.md", "required", "Dashboard Settings → Content Studio → kie.ai"),
@@ -143,9 +145,11 @@ def build() -> dict:
             if len(conditional) > 1:
                 setup += " Weitere optionale Aktionen stehen in der Integrationsliste."
         if name == "friday-phone-call-coordinator":
-            setup = ("Gesprächsplan ohne Konto möglich. Für einen Owner-bestätigten Anruf den optionalen Asterisk-SIP-Adapter "
-                     "im Friday Dashboard einrichten und dessen Bereitschaft prüfen. Externe Nummern benötigen einen eigenen registrierten SIP-Trunk; "
-                     "CardDAV ist nur eine optionale Kontaktquelle. Der Skill erhält keinen autonomen Wählzugriff.")
+            setup = ("Gesprächsplan ohne Konto möglich. Anrufe erfordern einen separat eingerichteten Telefonieweg: optional CloudTalk-API-Konto "
+                     "(Admin-API-Schlüsselpaar und Agent-ID, berechtigter Tarif) oder Asterisk/SIP-Adapter mit registriertem SIP-Trunk. "
+                     "CloudTalk-Desktop-Handoff benötigt keine API-Zugangsdaten, übergibt nur die Nummer an die App und liefert Friday kein Audio oder Anrufstatus. "
+                     "Eingerichtete Zugangsdaten beweisen weder Provider-Verbindung noch Zielannahme. CardDAV ist nur eine optionale Kontaktquelle; "
+                     "der Skill selbst führt keine Gespräche und erhält keinen autonomen Wählzugriff.")
         records[name] = {"required_capabilities": record["required"], "conditional_capabilities": record["conditional"],
                          "required_integrations": required, "conditional_integrations": conditional,
                          "account": account, "setup_de": setup.strip(),
