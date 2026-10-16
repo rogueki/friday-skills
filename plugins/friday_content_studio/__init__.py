@@ -168,7 +168,7 @@ def register(ctx, *, host: StudioHostBinding | None = None, output_dir: Path | N
         if not isinstance(params, dict) or set(params) != {"job_id"}:
             return _blocked("invalid_request")
         try:
-            return json.dumps({"status": "completed", "job": client().get_production(params["job_id"]), "write_effect": False}, ensure_ascii=False)
+            return json.dumps({"status": "observed", "job": client().get_production(params["job_id"]), "write_effect": False}, ensure_ascii=False)
         except StudioError as exc:
             return _blocked(exc.code)
         except Exception:
@@ -178,7 +178,7 @@ def register(ctx, *, host: StudioHostBinding | None = None, output_dir: Path | N
         if not isinstance(params, dict) or set(params) != {"job_id"}:
             return _blocked("invalid_request")
         try:
-            return json.dumps({"status": "completed", "job": client().cancel_production(params["job_id"]), "write_effect": True}, ensure_ascii=False)
+            return json.dumps({"status": "cancel_processed", "job": client().cancel_production(params["job_id"]), "write_effect": True}, ensure_ascii=False)
         except StudioError as exc:
             return _blocked(exc.code)
         except Exception:

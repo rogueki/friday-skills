@@ -225,8 +225,11 @@ class ContentStudioBridgeTests(unittest.TestCase):
         self.assertEqual(self.transport.requests[1][2]["X-CSRF-Token"], "csrf-test")
         job_id = started["job"]["id"]
         self.assertEqual(str(UUID(job_id)), job_id)
-        self.assertEqual(self.call(ctx, "friday_studio_production_status", {"job_id": job_id})["job"]["state"], "queued")
+        observed = self.call(ctx, "friday_studio_production_status", {"job_id": job_id})
+        self.assertEqual(observed["status"], "observed")
+        self.assertEqual(observed["job"]["state"], "queued")
         stopped = self.call(ctx, "friday_studio_cancel_production", {"job_id": job_id})
+        self.assertEqual(stopped["status"], "cancel_processed")
         self.assertEqual(stopped["job"]["state"], "cancelled")
         self.assertNotIn("Idempotency-Key", self.transport.requests[-1][2])
         self.assertEqual(self.transport.requests[-1][2]["X-CSRF-Token"], "csrf-test")
