@@ -10,14 +10,16 @@ Der Katalog ist **Paketmetadatenbestand**. Sein `live_status` ist durchgehend `u
 
 | Bereich | Einrichtung | Grenze |
 | --- | --- | --- |
-| GMX | IMAP und gegebenenfalls App-Passwort im Host einrichten; [GMX-Anleitung](GMX_MAIL_ADAPTER.md). | Python-Lese-/Schreibpfade und optionales Lesetool; kein verbundenes Konto nachgewiesen. |
-| CalDAV | HTTPS-Kalender-URL, Account und authentifizierten Transport hostseitig binden; [CalDAV-Anleitung](CALDAV_ADAPTER.md). | Optionales Hermes-Lesetool, kein Hermes-Schreibtool. |
+| E-Mail | Friday Dashboard > Einstellungen > Skill-Konten: IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort eintragen. | Das Owner-Panel liest Nachrichten; Dashboard-Mailversand ist nicht verfügbar. Hermes liest über Himalaya v2. Kein echtes Anbieterpostfach ist verifiziert. [Friday-Skills GMX-Adapter](GMX_MAIL_ADAPTER.md) beschreibt separat den GMX-spezifischen Hermes/Python-Adapter. |
+| Kalender | Friday Dashboard > Einstellungen > Adapter: CalDAV-Server-URL, Benutzername und App-Passwort eintragen. | CalDAV ist der generische Kontopfad. Direkte Google-CalDAV-Anmeldung mit OAuth und Outlook Graph sind nicht abgedeckt. Google- oder Outlook-Kalender lassen sich alternativ per veröffentlichter ICS-URL nur lesend einbinden. Der Adapter dieser Skillsammlung ist optional und braucht einen hostgebundenen authentifizierten Transport; [CalDAV-Details](CALDAV_ADAPTER.md). |
 | Kie.ai / ElevenLabs | Anbieter-Keys nur serverseitig in Dashboard Settings → Content Studio setzen; lokale Owner-Session und CSRF für die [optionale Bridge](CONTENT_STUDIO.md) binden. | Kostenpflichtige Anfragen brauchen Einzelbestätigung; kein bezahlter Live-Aufruf belegt. |
 | Loxone | Miniserver-Zugang und erlaubte Control-IDs hostseitig konfigurieren; [Statusvertrag](LOXONE_STATUS_ADAPTER.md). | Kein nativer Miniserver-Client oder Schreibadapter in diesem Paket. |
 | Telefonie | Für echte Anrufe Anbieter, eigene Rufnummer, Dial-Adapter, verifizierte Ziele und Anrufberechtigung konfigurieren. CardDAV ist nur eine optionale Kontaktquelle. | Der [Telefon-Skill](../skills/communication/friday-phone-call-coordinator/SKILL.md) kann ohne Konto einen Plan erstellen, aber keinen Anruf auslösen. |
 | Obsidian | Optional einen autorisierten lokalen Vault-Pfad freigeben; ein Cloud-Konto ist für Dateizugriff nicht nötig. | Allgemeiner KB-Merge-/Indexadapter fehlt; Vault ist kein Live-Statusbeleg. |
 | PowerPoint | Lokalen Renderer, Fonts und für Animationen Ziel-PowerPoint bereitstellen; [Rendervertrag](PRESENTATION_MOCK_WORKER.md). | Synthetischer PPTX-/PDF-Test ersetzt keine visuelle QA oder Playback. |
 | Computer Use / Coding-CLIs | Optionale Hostwerkzeuge und Projekt-/UI-Berechtigungen lokal konfigurieren. Computer Use benötigt kein externes Konto; Coding-CLIs können eine eigene Modell-Anmeldung brauchen. | Hierfür sind keine eigenständigen Friday-Adapter fertiggestellt. |
+
+Die E-Mail- und Kalenderpfade oben beschreiben die aktuelle Verbindung zum rogue-friday-Dashboard. Skill-Metadaten listen benötigte Konten und Einstellungsziele auf; sie belegen keine angemeldeten Konten oder erfolgreichen Providerzugriffe. Das `live_status`-Feld bleibt daher `unknown`.
 
 ## Hermes-Kompatibilität
 
