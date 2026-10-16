@@ -1,0 +1,8 @@
+name: friday-dashboard-calendar
+version: 0.1.0
+description: Read Friday's configured calendar through its loopback Control API.
+author: RogueKI
+kind: standalone
+manifest_version: 2
+provides_tools:
+  - friday_calendar_events

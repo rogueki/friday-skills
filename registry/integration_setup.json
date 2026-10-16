@@ -48,7 +48,7 @@
     },
     "caldav": {
       "account": "required",
-      "setup_de": "CalDAV-Server-URL der Kalendersammlung (mit abschließendem /), Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen; der Dashboard-Kalender liest CalDAV und kann nach Vorschau und ausdrücklicher Besitzerbestätigung einen neuen Termin anlegen. Ein ICS-Feed bleibt lesend. Der separate Friday-Skills-CalDAV-Adapter benötigt weiterhin eine eigene authentifizierte Host-Bindung und stellt Hermes keinen Schreibzugriff bereit. Google-CalDAV mit direkter OAuth-Anmeldung und Outlook Graph sind hier nicht abgedeckt. Für Google/Outlook kann eine veröffentlichte ICS-URL lesend genutzt werden.",
+      "setup_de": "CalDAV-Server-URL der Kalendersammlung (mit abschließendem /), Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen; der Dashboard-Kalender liest CalDAV und kann nach Vorschau und ausdrücklicher Besitzerbestätigung einen neuen Termin anlegen. Ein ICS-Feed bleibt lesend. Der Installer richtet für Hermes einen separaten lokalen Kalenderleser ein, der die im Dashboard konfigurierte Quelle ohne eigene Anbieter-Credentials liest. Er stellt keinen Schreibzugriff bereit. Der ältere separate Friday-Skills-CalDAV-Adapter benötigt weiterhin eine eigene authentifizierte Host-Bindung. Google-CalDAV mit direkter OAuth-Anmeldung und Outlook Graph sind hier nicht abgedeckt. Für Google/Outlook kann eine veröffentlichte ICS-URL lesend genutzt werden.",
       "reference": "docs/CALDAV_ADAPTER.md",
       "settings_target": "/settings?area=adapters#calendar-setup-title",
       "auth_kind": "provider_account"

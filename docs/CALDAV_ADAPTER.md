@@ -2,6 +2,8 @@
 
 This optional adapter belongs to the separate RogueKI F.R.I.D.A.Y. skill package. It has not been connected to `rogueki/rogue-friday` or a real calendar account.
 
+The Friday installer separately enables `plugins/friday_dashboard_calendar`. That plugin calls only the local Dashboard calendar list route using a calendar-specific private key; it reads the ICS or CalDAV source already configured in Dashboard and does not receive provider credentials. Its model inputs are only timezone-aware start/end times within 31 days. Results are bounded to 100 items, include the oldest validated `fetched_at` timestamp across returned pages, and omit source URLs and descriptions. Invalid or missing fetch times block the result. It does not create, edit or delete events. This bridge does not change the standalone `friday-caldav` adapter contract below.
+
 ## Scope
 
 - `adapters/caldav_calendar.py` implements a bounded `calendar-query` `REPORT` for one explicitly named HTTPS calendar collection and account. It requests `DAV:getetag` and `CALDAV:calendar-data`, a VEVENT time range of at most 31 days, and accepts at most 100 calendar objects and 1 MB of response data.
