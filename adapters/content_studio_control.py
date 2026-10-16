@@ -72,7 +72,7 @@ class ContentStudioClient:
         self.host = host
 
     def _send(self, method: str, path: str, body: dict[str, Any] | None = None, key: str | None = None) -> Response:
-        headers = {"Cookie": f"jarvis_session={self.host.session}", "Accept": "application/json"}
+        headers = {"Cookie": f"friday_session={self.host.session}", "Accept": "application/json"}
         if method == "POST":
             headers.update({"X-CSRF-Token": self.host.csrf, "Content-Type": "application/json"})
             if not key or not IDEMPOTENCY.fullmatch(key):

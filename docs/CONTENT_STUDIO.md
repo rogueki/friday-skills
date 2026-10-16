@@ -22,7 +22,7 @@ For a local interactive Hermes session, copy `plugins/friday_content_studio` int
 | Variable | Meaning |
 | --- | --- |
 | `FRIDAY_CONTROL_API_ORIGIN` | Local Control API origin, for example `http://127.0.0.1:8384` |
-| `FRIDAY_CONTROL_API_SESSION` | Current owner `jarvis_session` cookie value |
+| `FRIDAY_CONTROL_API_SESSION` | Current owner `friday_session` cookie value |
 | `FRIDAY_CONTROL_API_CSRF` | Current session's CSRF token |
 | `FRIDAY_CONTENT_STUDIO_OUTPUT_DIR` | Existing trusted directory for generated MP3 files |
 | `FRIDAY_CONTENT_STUDIO_INTERACTIVE_APPROVAL=1` | Enables a local terminal prompt for each exact paid request |

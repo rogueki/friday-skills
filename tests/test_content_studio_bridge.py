@@ -29,7 +29,7 @@ class FakeControlApi:
 
     def __call__(self, method, url, headers, body, timeout):
         self.requests.append((method, url, headers, body, timeout))
-        if headers.get("Cookie") != "jarvis_session=session-test" or (method == "POST" and headers.get("X-CSRF-Token") != "csrf-test"):
+        if headers.get("Cookie") != "friday_session=session-test" or (method == "POST" and headers.get("X-CSRF-Token") != "csrf-test"):
             return Response(403, {}, b"")
         if method == "POST" and url.endswith("/kie/tasks"):
             payload = json.loads(body)
@@ -88,7 +88,7 @@ class ContentStudioBridgeTests(unittest.TestCase):
             self.assertTrue(url.startswith("http://127.0.0.1:8384/api/v1/content-studio/"))
             self.assertNotIn("session-test", str(media) + str(status) + str(speech))
             self.assertNotIn("csrf-test", str(media) + str(status) + str(speech))
-            self.assertEqual(headers["Cookie"], "jarvis_session=session-test")
+            self.assertEqual(headers["Cookie"], "friday_session=session-test")
 
     def test_paid_requests_fail_closed_without_trusted_host_approval(self):
         for approved, authorized, expected in ((False, True, "paid_action_not_approved"), (True, False, "host_authorization_required")):
