@@ -14,7 +14,7 @@ Diese Übergaben beziehen sich auf die lokal gelesenen gebündelten `SKILL.md` v
 
 Under **Skills → Coding mit Hermes**, the companion `rogue-friday` framework lets the owner select Codex, OpenCode or Claude Code, a Git repository and a task. Friday starts the selected native CLI through its bounded runner in Friday-Ubuntu, then shows run status/output and a stop control. Voice coding uses a configured project alias and requires speaker-verified confirmation after Friday reads back the task. This is a direct Friday feature; it does not use Hermes `terminal`/`process` or the Hermes CLI skills.
 
-The dashboard checks that the selected skill is enabled, the native CLI can run in Friday-Ubuntu and Linux Git can access the repository. A launched process does not prove provider authentication, a successful model response or a code change. In the current install, native Codex 0.163.0 is present, while native OpenCode and Claude Code are absent; authentication and a real task have not been verified. The older shell observation below records Windows shims and must not be read as a test of this newer runner.
+The dashboard checks that the selected skill is enabled, the native CLI can run in Friday-Ubuntu and Linux Git can access the repository. A launched process does not prove provider authentication, a successful model response or a code change. A fresh installer status check on 2026-10-16 reported native OpenCode 1.19.2, Codex 0.163.0 and Claude Code 2.1.301 as runnable in Friday-Ubuntu. Subscription authentication and a real coding task have not been verified. The older shell observation below records Windows shims and must not be read as a test of this newer runner.
 
 ## Beobachtung der lokalen Installation
 
