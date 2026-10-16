@@ -106,6 +106,13 @@
       "icon": "executive",
       "progress_strategy": "indeterminate"
     },
+    "friday-content-planning": {
+      "category": "media",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "media",
+      "progress_strategy": "indeterminate"
+    },
     "friday-contract-and-subscription-monitor": {
       "category": "finance",
       "default_orb_mode": "working",
@@ -174,6 +181,13 @@
       "default_orb_mode": "working",
       "detail_route": "/tasks/{task_id}",
       "icon": "archive",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-elevenlabs-voice": {
+      "category": "media",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "media",
       "progress_strategy": "indeterminate"
     },
     "friday-energy-optimizer": {
@@ -335,6 +349,13 @@
       "default_orb_mode": "working",
       "detail_route": "/tasks/{task_id}",
       "icon": "finance",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-kie-media": {
+      "category": "media",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "media",
       "progress_strategy": "indeterminate"
     },
     "friday-knowledge-base-curator": {
@@ -646,6 +667,13 @@
       "progress_strategy": "indeterminate"
     },
     "friday-video-creator": {
+      "category": "media",
+      "default_orb_mode": "working",
+      "detail_route": "/tasks/{task_id}",
+      "icon": "media",
+      "progress_strategy": "indeterminate"
+    },
+    "friday-video-editing": {
       "category": "media",
       "default_orb_mode": "working",
       "detail_route": "/tasks/{task_id}",

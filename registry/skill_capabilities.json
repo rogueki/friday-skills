@@ -810,6 +810,36 @@
         "document.write",
         "office.render"
       ]
+    },
+    "friday-content-planning": {
+      "required": [],
+      "conditional": [
+        "file.read",
+        "file.write"
+      ]
+    },
+    "friday-kie-media": {
+      "required": [],
+      "conditional": [
+        "media.render",
+        "file.write"
+      ]
+    },
+    "friday-elevenlabs-voice": {
+      "required": [],
+      "conditional": [
+        "voice.speak",
+        "file.write"
+      ]
+    },
+    "friday-video-editing": {
+      "required": [
+        "media.read"
+      ],
+      "conditional": [
+        "media.render",
+        "file.write"
+      ]
     }
   }
 }

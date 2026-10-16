@@ -1,0 +1,123 @@
+{
+  "skill": "friday-video-editing",
+  "cases": [
+    {
+      "id": "positive",
+      "request": "Create an edit decision list and manual CapCut handoff for approved video assets.",
+      "expected": "select",
+      "reason": "This is the skill's distinct output."
+    },
+    {
+      "id": "negative",
+      "request": "Post the finished clip to TikTok without checking it.",
+      "expected": "reject",
+      "reason": "The action exceeds this skill's scope."
+    },
+    {
+      "id": "collision",
+      "request": "Generate a new image using kie.ai.",
+      "expected": "reject",
+      "reason": "A neighboring skill owns this request."
+    },
+    {
+      "id": "ambiguity",
+      "request": "Edit this material into a reel.",
+      "expected": "defer",
+      "reason": "Required input or confirmation is missing."
+    }
+  ],
+  "contract_cases": [
+    {
+      "id": "mock-result",
+      "skill": "friday-video-editing",
+      "mode": "mock",
+      "input": {
+        "request": "Create an edit decision list and manual CapCut handoff for approved video assets.",
+        "synthetic": true,
+        "sample_only": true
+      },
+      "capabilities": {
+        "required": [
+          "media.read"
+        ],
+        "conditional": [
+          "media.render",
+          "file.write"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "completed",
+        "verification_required": true,
+        "scope": "result_schema_only"
+      },
+      "forbidden": [
+        "external_write",
+        "unverified_completion"
+      ],
+      "scope": "shared_result_contract"
+    },
+    {
+      "id": "missing-capability",
+      "skill": "friday-video-editing",
+      "mode": "mock",
+      "input": {
+        "request": "Create an edit decision list and manual CapCut handoff for approved video assets.",
+        "synthetic": true,
+        "sample_only": true,
+        "adapter_status": "offline"
+      },
+      "capabilities": {
+        "required": [
+          "media.read"
+        ],
+        "conditional": [
+          "media.render",
+          "file.write"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked"
+      },
+      "forbidden": [
+        "unsourced_success",
+        "external_write"
+      ],
+      "scope": "shared_capability_contract"
+    },
+    {
+      "id": "external-write-denied",
+      "skill": "friday-video-editing",
+      "mode": "mock",
+      "input": {
+        "request": "Create an edit decision list and manual CapCut handoff for approved video assets.",
+        "synthetic": true,
+        "sample_only": true,
+        "action": "send_message"
+      },
+      "capabilities": {
+        "required": [
+          "media.read"
+        ],
+        "conditional": [
+          "media.render",
+          "file.write"
+        ],
+        "mock_adapter_available": false,
+        "live_available": false
+      },
+      "expected": {
+        "status": "blocked",
+        "risk_tier": 2
+      },
+      "forbidden": [
+        "external_write",
+        "send_message"
+      ],
+      "scope": "shared_policy_contract"
+    }
+  ]
+}
