@@ -596,7 +596,7 @@
         "task_store"
       ],
       "account": "conditional",
-      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Server-URL, Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Server-URL der Kalendersammlung (mit abschließendem /), Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Weitere optionale Aktionen stehen in der Integrationsliste.",
       "live_status": "unknown"
     },
     "friday-follow-up-manager": {
@@ -634,7 +634,7 @@
         "gmx"
       ],
       "account": "conditional",
-      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Server-URL, Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Server-URL der Kalendersammlung (mit abschließendem /), Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Weitere optionale Aktionen stehen in der Integrationsliste.",
       "live_status": "unknown"
     },
     "friday-executive-escalation": {
@@ -769,7 +769,7 @@
         "messaging_gateway"
       ],
       "account": "conditional",
-      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Server-URL, Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Server-URL der Kalendersammlung (mit abschließendem /), Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Weitere optionale Aktionen stehen in der Integrationsliste.",
       "live_status": "unknown"
     },
     "friday-calendar-manager": {
@@ -784,7 +784,7 @@
       ],
       "conditional_integrations": [],
       "account": "required",
-      "setup_de": "Für den Grundablauf: CalDAV-Server-URL, Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen.",
+      "setup_de": "Für den Grundablauf: CalDAV-Server-URL der Kalendersammlung (mit abschließendem /), Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen.",
       "live_status": "unknown"
     },
     "friday-meeting-request-coordinator": {
@@ -804,7 +804,7 @@
         "gmx"
       ],
       "account": "required",
-      "setup_de": "Für den Grundablauf: CalDAV-Server-URL, Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Weitere benötigte Quellen stehen in der Integrationsliste. Optional: E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel kann über das verwaltete Himalaya-v2-Postfach lesen und nach ausdrücklicher Bestätigung eine Textmail per SMTP senden.",
+      "setup_de": "Für den Grundablauf: CalDAV-Server-URL der Kalendersammlung (mit abschließendem /), Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Weitere benötigte Quellen stehen in der Integrationsliste. Optional: E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel kann über das verwaltete Himalaya-v2-Postfach lesen und nach ausdrücklicher Bestätigung eine Textmail per SMTP senden.",
       "live_status": "unknown"
     },
     "friday-meeting-briefing": {
@@ -825,7 +825,7 @@
         "task_store"
       ],
       "account": "required",
-      "setup_de": "Für den Grundablauf: CalDAV-Server-URL, Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Optional: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "setup_de": "Für den Grundablauf: CalDAV-Server-URL der Kalendersammlung (mit abschließendem /), Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Optional: Freigegebene Dokumentpfade und Parser je Dateityp auswählen. Weitere optionale Aktionen stehen in der Integrationsliste.",
       "live_status": "unknown"
     },
     "friday-meeting-follow-up": {
@@ -845,7 +845,7 @@
         "task_store"
       ],
       "account": "required",
-      "setup_de": "Für den Grundablauf: CalDAV-Server-URL, Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Optional: E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel kann über das verwaltete Himalaya-v2-Postfach lesen und nach ausdrücklicher Bestätigung eine Textmail per SMTP senden. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "setup_de": "Für den Grundablauf: CalDAV-Server-URL der Kalendersammlung (mit abschließendem /), Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Optional: E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel kann über das verwaltete Himalaya-v2-Postfach lesen und nach ausdrücklicher Bestätigung eine Textmail per SMTP senden. Weitere optionale Aktionen stehen in der Integrationsliste.",
       "live_status": "unknown"
     },
     "friday-deadline-and-reminder-manager": {
@@ -869,7 +869,7 @@
         "task_store"
       ],
       "account": "conditional",
-      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Server-URL, Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Server-URL der Kalendersammlung (mit abschließendem /), Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Weitere optionale Aktionen stehen in der Integrationsliste.",
       "live_status": "unknown"
     },
     "friday-weather": {
@@ -1532,7 +1532,7 @@
         "web_fetch"
       ],
       "account": "conditional",
-      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Server-URL, Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Server-URL der Kalendersammlung (mit abschließendem /), Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Weitere optionale Aktionen stehen in der Integrationsliste.",
       "live_status": "unknown"
     },
     "friday-trip-price-comparator": {
@@ -1577,7 +1577,7 @@
         "web_fetch"
       ],
       "account": "conditional",
-      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Server-URL, Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: CalDAV-Server-URL der Kalendersammlung (mit abschließendem /), Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Weitere optionale Aktionen stehen in der Integrationsliste.",
       "live_status": "unknown"
     },
     "friday-travel-document-checklist": {
