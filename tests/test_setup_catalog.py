@@ -54,8 +54,9 @@ class SetupCatalogTests(unittest.TestCase):
         phone = self.catalog["skills"]["friday-phone-call-coordinator"]
         self.assertEqual(phone["account"], "conditional")
         self.assertEqual(phone["conditional_integrations"], ["carddav", "telephony"])
-        self.assertLess(phone["setup_de"].index("Telefonie-Provider"), phone["setup_de"].index("CardDAV"))
-        self.assertIn("Dial-Adapter", self.catalog["integrations"]["telephony"]["setup_de"])
+        self.assertLess(phone["setup_de"].index("Asterisk-SIP-Adapter"), phone["setup_de"].index("CardDAV"))
+        self.assertIn("Asterisk-SIP-Adapter", self.catalog["integrations"]["telephony"]["setup_de"])
+        self.assertIn("SIP-Trunk", self.catalog["integrations"]["telephony"]["setup_de"])
 
     def test_calendar_uses_local_baseline_with_optional_caldav(self):
         calendar = self.catalog["skills"]["friday-calendar-manager"]
