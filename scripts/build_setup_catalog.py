@@ -85,6 +85,7 @@ EXTRA = {
 }
 
 EXTRA_SETUP = {
+    "friday_local_calendar": ("Den lokalen Kalender im Friday Dashboard mit Owner-Anmeldung ohne externes Anbieterkonto öffnen; dort lassen sich Termine lesen und verwalten. Der separate Hermes-Kalenderleser kann lokale Termine über die Dashboard-Bridge nur lesen und bleibt schreibgeschützt.", "skills/calendar/friday-calendar-manager/SKILL.md", "none", "/calendar"),
     "kie_ai": ("Kie.ai-Konto und Server-Key in den Dashboard-Einstellungen hinterlegen; kostenpflichtige Anfrage einzeln bestätigen.", "docs/CONTENT_STUDIO.md", "required", "Dashboard Settings → Content Studio → kie.ai"),
     "elevenlabs": ("ElevenLabs-Konto, Server-Key und Voice-ID in den Dashboard-Einstellungen hinterlegen; Anfrage einzeln bestätigen.", "docs/CONTENT_STUDIO.md", "required", "Dashboard Settings → Content Studio → ElevenLabs"),
     "video_editor": ("CapCut oder lokalen Videoeditor für manuellen Handoff bereitstellen; keine Editor-Automation voraussetzen.", "docs/CONTENT_STUDIO.md", "none", "lokaler Editor"),
@@ -116,6 +117,11 @@ def build() -> dict:
         record = capabilities[name]
         required = sorted({CAPABILITIES[cap][0] for cap in record["required"]})
         conditional = sorted(({CAPABILITIES[cap][0] for cap in record["conditional"]} | set(EXTRA.get(name, []))) - set(required))
+        if name == "friday-calendar-manager":
+            # The default calendar capability points to CalDAV for other skills;
+            # this manager can start with Friday's local calendar instead.
+            required = ["friday_local_calendar"]
+            conditional = sorted(set(conditional) | {"caldav"})
         account = "required" if any(integrations[item]["account"] == "required" for item in required) else (
             "conditional" if any(integrations[item]["account"] != "none" for item in required + conditional) else "none")
         def first_step(item: str) -> str:

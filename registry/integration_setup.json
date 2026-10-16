@@ -291,6 +291,13 @@
       "settings_target": "Host: lokaler Office-Renderer",
       "auth_kind": "none_or_optional"
     },
+    "friday_local_calendar": {
+      "account": "none",
+      "setup_de": "Den lokalen Kalender im Friday Dashboard mit Owner-Anmeldung ohne externes Anbieterkonto öffnen; dort lassen sich Termine lesen und verwalten. Der separate Hermes-Kalenderleser kann lokale Termine über die Dashboard-Bridge nur lesen und bleibt schreibgeschützt.",
+      "reference": "skills/calendar/friday-calendar-manager/SKILL.md",
+      "settings_target": "/calendar",
+      "auth_kind": "none_or_optional"
+    },
     "kie_ai": {
       "account": "required",
       "setup_de": "Kie.ai-Konto und Server-Key in den Dashboard-Einstellungen hinterlegen; kostenpflichtige Anfrage einzeln bestätigen.",
@@ -780,11 +787,13 @@
         "calendar.write"
       ],
       "required_integrations": [
+        "friday_local_calendar"
+      ],
+      "conditional_integrations": [
         "caldav"
       ],
-      "conditional_integrations": [],
-      "account": "required",
-      "setup_de": "Für den Grundablauf: CalDAV-Server-URL der Kalendersammlung (mit abschließendem /), Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen.",
+      "account": "conditional",
+      "setup_de": "Für den Grundablauf: Den lokalen Kalender im Friday Dashboard mit Owner-Anmeldung ohne externes Anbieterkonto öffnen. Optional: CalDAV-Server-URL der Kalendersammlung (mit abschließendem /), Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen.",
       "live_status": "unknown"
     },
     "friday-meeting-request-coordinator": {

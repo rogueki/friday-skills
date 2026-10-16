@@ -54,6 +54,14 @@ class SetupCatalogTests(unittest.TestCase):
         self.assertLess(phone["setup_de"].index("Telefonie-Provider"), phone["setup_de"].index("CardDAV"))
         self.assertIn("Dial-Adapter", self.catalog["integrations"]["telephony"]["setup_de"])
 
+    def test_calendar_uses_local_baseline_with_optional_caldav(self):
+        calendar = self.catalog["skills"]["friday-calendar-manager"]
+        self.assertEqual(calendar["required_integrations"], ["friday_local_calendar"])
+        self.assertEqual(calendar["conditional_integrations"], ["caldav"])
+        self.assertEqual(calendar["account"], "conditional")
+        self.assertEqual(self.catalog["integrations"]["friday_local_calendar"]["account"], "none")
+        self.assertIn("ohne externes Anbieterkonto", calendar["setup_de"])
+
     def test_dashboard_setup_links_and_mail_capability_are_precise(self):
         integrations = self.catalog["integrations"]
         self.assertEqual(integrations["caldav"]["settings_target"], "/settings?area=adapters#calendar-setup-title")
