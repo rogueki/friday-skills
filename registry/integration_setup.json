@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "inventory_source": "registry/skills.json",
   "inventory_count": 106,
   "status_semantics": "unknown bedeutet: keine aktuelle Hermes- oder Anbieterprüfung durch diesen Katalog.",
@@ -9,364 +9,1305 @@
       "setup_de": "Host muss installierte Adapter mit Zeitstempel und Health-Prüfung melden; Paketliste genügt dafür nicht.",
       "reference": "docs/CAPABILITIES.md",
       "settings_target": "Host: Adapter-Registry",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "alerts": {
       "account": "none",
       "setup_de": "Für echte Warnungen eine datierte Alert-Quelle anbinden; hier ist kein allgemeiner Live-Alert-Feed enthalten.",
       "reference": "docs/CAPABILITIES.md",
       "settings_target": "Host: Alert-Quelle",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "approval_store": {
       "account": "none",
       "setup_de": "Vertrauenswürdige Betreiberidentität und einmalige aktionsgebundene Freigaben hostseitig bereitstellen.",
       "reference": "docs/APPROVAL_LEDGER.md",
       "settings_target": "Host: Freigabe-Gateway",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "audit_store": {
       "account": "none",
       "setup_de": "Audit-Speicher mit unveränderlichen Ereignis-IDs und Schreibrechten des Hosts wählen; Live-Publisher fehlt.",
       "reference": "docs/DASHBOARD_EVENTS.md",
       "settings_target": "Host: Audit-Speicher",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "backup": {
       "account": "conditional",
       "setup_de": "Lokales oder externes Sicherungsziel, Aufbewahrung und Restore-Probe festlegen; kein allgemeiner Backup-Adapter enthalten.",
       "reference": "docs/CAPABILITIES.md",
       "settings_target": "Host: Backup-Ziel",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [
+          {
+            "kind": "provider_account",
+            "status": "optional",
+            "notice": "Nur erforderlich, wenn diese optionale Integration verwendet wird."
+          }
+        ],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+      }
     },
     "banking": {
       "account": "required",
       "setup_de": "Bankanbieter und autorisierten Zahlungsweg erst nach eigener Gateway-Implementierung festlegen; hier existiert nur ein nicht ausführbarer Zahlungsentwurf.",
       "reference": "docs/INVOICE_ADAPTER.md",
       "settings_target": "Bank-Gateway: Anbieter noch offen",
-      "auth_kind": "provider_account"
+      "auth_kind": "provider_account",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "provider_account",
+            "status": "required",
+            "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+      }
     },
     "caldav": {
       "account": "required",
       "setup_de": "CalDAV-Server-URL der Kalendersammlung (mit abschließendem /), Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen; der Dashboard-Kalender liest CalDAV und kann nach Vorschau und ausdrücklicher Besitzerbestätigung einen neuen Termin anlegen. Ein ICS-Feed bleibt lesend. Der Installer richtet für Hermes einen separaten lokalen Kalenderleser ein, der die im Dashboard konfigurierte Quelle ohne eigene Anbieter-Credentials liest. Er stellt keinen Schreibzugriff bereit. Der ältere separate Friday-Skills-CalDAV-Adapter benötigt weiterhin eine eigene authentifizierte Host-Bindung. Google-CalDAV mit direkter OAuth-Anmeldung und Outlook Graph sind hier nicht abgedeckt. Für Google/Outlook kann eine veröffentlichte ICS-URL lesend genutzt werden.",
       "reference": "docs/CALDAV_ADAPTER.md",
       "settings_target": "/settings?area=adapters#calendar-setup-title",
-      "auth_kind": "provider_account"
+      "auth_kind": "provider_account",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "provider_account",
+            "status": "required",
+            "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+      }
     },
     "carddav": {
       "account": "required",
       "setup_de": "Kontaktanbieter, CardDAV-URL und Konto erst wählen; ein produktiver Kontakt-Reader ist noch nicht implementiert.",
       "reference": "skills/executive/friday-contact-context/SKILL.md",
       "settings_target": "Host: CardDAV-Provider noch offen",
-      "auth_kind": "provider_account"
+      "auth_kind": "provider_account",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "provider_account",
+            "status": "required",
+            "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+      }
     },
     "control_api": {
       "account": "none",
       "setup_de": "Lokale Dashboard-Owner-Session und CSRF an den Host binden, Bridge separat aktivieren; dies ist lokale Anmeldung, kein zusätzliches externes Konto.",
       "reference": "docs/CONTENT_STUDIO.md",
       "settings_target": "Hermes-Prozess: FRIDAY_CONTROL_API_ORIGIN/SESSION/CSRF",
-      "auth_kind": "local_session"
+      "auth_kind": "local_session",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "local_session",
+            "status": "required",
+            "notice": "Erforderlich sind eine vom Host authentifizierte Owner-Sitzung und deren CSRF-Schutz."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "discord_gateway": {
       "account": "required",
       "setup_de": "Im Friday Dashboard unter Einstellungen > Skill-Konten > Discord Bot-Token, numerische erlaubte User-ID und optional Kanal-IDs einrichten. Discord Developer Portal: Message Content Intent aktivieren und Bot einladen. Gespeicherte Konfiguration beweist weder Verbindung noch Nachrichtenzustellung.",
       "reference": "skills/communication/friday-discord-communication/SKILL.md",
       "settings_target": "Friday Dashboard > Einstellungen > Skill-Konten > Discord",
-      "auth_kind": "provider_account"
+      "auth_kind": "provider_account",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "provider_account",
+            "status": "required",
+            "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+      }
     },
     "document_parser": {
       "account": "none",
       "setup_de": "Freigegebene Dokumentpfade und Parser je Dateityp auswählen; der vorhandene PDF-Parser deckt nur begrenzte Rechnungsfälle ab.",
       "reference": "docs/INVOICE_ADAPTER.md",
       "settings_target": "Host: Dokumentleser und erlaubte Pfade",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "document_worker": {
       "account": "none",
       "setup_de": "Lokalen Dokument-Worker und Ausgabeordner bereitstellen; erzeugte Seiten rendern und prüfen.",
       "reference": "docs/CONFIGURATION.md",
       "settings_target": "Host: lokaler Dokument-Worker",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "energy_telemetry": {
       "account": "none",
       "setup_de": "Zählerquelle, Messgrenzen, Einheit und Zeitstempel festlegen; kein allgemeiner Live-Telemetrieadapter enthalten.",
       "reference": "docs/CAPABILITIES.md",
       "settings_target": "Host: Energie-Messquelle",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "finance": {
       "account": "required",
       "setup_de": "Finanzdatenquelle und berechtigte Konto-/Ledger-Lesewege hostseitig auswählen; hier gibt es keinen allgemeinen Live-Finanzadapter.",
       "reference": "docs/CAPABILITIES.md",
       "settings_target": "Host: Finanz-Ledger/Provider noch offen",
-      "auth_kind": "provider_account"
+      "auth_kind": "provider_account",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "provider_account",
+            "status": "required",
+            "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+      }
     },
     "finanzonline": {
       "account": "required",
       "setup_de": "FinanzOnline-Zugang und zulässigen Einreichungsweg erst separat prüfen; dieses Paket hat keinen Submit-Adapter.",
       "reference": "docs/CAPABILITIES.md",
       "settings_target": "Host: FinanzOnline-Anbindung noch offen",
-      "auth_kind": "provider_account"
+      "auth_kind": "provider_account",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "provider_account",
+            "status": "required",
+            "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+      }
     },
     "home_telemetry": {
       "account": "none",
       "setup_de": "Haus-Sensorquelle und erlaubte Geräte hostseitig wählen; keine allgemeine Live-Haus-Telemetrie vorhanden.",
       "reference": "docs/LOXONE_STATUS_ADAPTER.md",
       "settings_target": "Host: Sensor-Provider",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "imap_smtp_mail": {
       "account": "required",
       "setup_de": "E-Mail-Postfach eines passenden Anbieters mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel kann über das verwaltete Himalaya-v2-Postfach lesen und nach ausdrücklicher Bestätigung eine Textmail per SMTP senden. Diese Dashboard-Konfiguration bindet die Friday-Skills-Mail-Capabilities nicht automatisch an Hermes oder einen Anbieteradapter; der Skill-Laufzeitstatus bleibt ohne separate Host-Bindung und Prüfung unbekannt.",
       "reference": "docs/SETUP_CATALOG.md",
       "settings_target": "/settings?area=skillAccounts#himalaya-account-title",
-      "auth_kind": "provider_account"
+      "auth_kind": "provider_account",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "provider_account",
+            "status": "required",
+            "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+      }
     },
     "local_voice": {
       "account": "none",
       "setup_de": "Lokale Sprachpipeline und gegebenenfalls Sprecherprüfung am Host testen.",
       "reference": "docs/CONFIGURATION.md",
       "settings_target": "Host: lokale Voice-Konfiguration",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "loxone": {
       "account": "required",
       "setup_de": "Miniserver-Zugang und erlaubte Control-IDs im Host konfigurieren; Provider-Transport gegen echte Hardware prüfen.",
       "reference": "docs/LOXONE_STATUS_ADAPTER.md",
       "settings_target": "Host: Miniserver und Control-Allowlist",
-      "auth_kind": "provider_account"
+      "auth_kind": "provider_account",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "provider_account",
+            "status": "required",
+            "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+      }
     },
     "media_worker": {
       "account": "none",
       "setup_de": "Lokales Medienwerkzeug mit freigegebenen Ein- und Ausgabepfaden bereitstellen; Renderfähigkeit je Format prüfen.",
       "reference": "docs/CONTENT_STUDIO.md",
       "settings_target": "Host: Medien-Worker",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "memory_store": {
       "account": "none",
       "setup_de": "Lokalen Memory-Speicher und zulässige Schreibpfade wählen; Projektdateien nicht als aktuellen Live-Zustand ausgeben.",
       "reference": "docs/CAPABILITIES.md",
       "settings_target": "Host: lokaler Memory-Speicher",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "messaging_gateway": {
       "account": "required",
       "setup_de": "Kanal und Anbieter für Nachrichten getrennt wählen; ein allgemeines authentifiziertes Messaging-Gateway fehlt hier.",
       "reference": "docs/CAPABILITIES.md",
       "settings_target": "Host: Messaging-Provider noch offen",
-      "auth_kind": "provider_account"
+      "auth_kind": "provider_account",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "provider_account",
+            "status": "required",
+            "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+      }
     },
     "meter": {
       "account": "none",
       "setup_de": "Konkreten Strom-/Verbrauchszähler, Einheit und Zeitquelle binden; kein universeller Meter-Reader enthalten.",
       "reference": "docs/CAPABILITIES.md",
       "settings_target": "Host: Zähler-Provider",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "model_registry": {
       "account": "none",
       "setup_de": "Installierte Modelle und Kosten aus dem laufenden Host auslesen; statische Modellnamen sind kein Verfügbarkeitsnachweis.",
       "reference": "docs/CAPABILITIES.md",
       "settings_target": "Host: Modell-Registry",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "notification_gateway": {
       "account": "conditional",
       "setup_de": "Für Push oder andere Zustellung Kanal, Empfänger und Berechtigung wählen; kein allgemeines Zustell-Gateway enthalten.",
       "reference": "docs/CAPABILITIES.md",
       "settings_target": "Host: Benachrichtigungs-Provider noch offen",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [
+          {
+            "kind": "provider_account",
+            "status": "optional",
+            "notice": "Nur erforderlich, wenn diese optionale Integration verwendet wird."
+          }
+        ],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+      }
     },
     "official_weather": {
       "account": "none",
       "setup_de": "Amtliche Warnquelle für die Region und Aktualitätsfenster festlegen; Vorhersage-Plugin deckt Warnungen nicht automatisch ab.",
       "reference": "docs/WEATHER_PLUGIN.md",
       "settings_target": "Host: amtliche Warnquelle",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "official_web_fetch": {
       "account": "none",
       "setup_de": "Amtliche URL-Liste und Abrufzeitpunkt je Quelle prüfen; kein Provider-Konto pauschal nötig.",
       "reference": "docs/WEB_EXTRACTION_ADAPTER.md",
       "settings_target": "Host: erlaubte amtliche URLs",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "host_resources",
+        "notice": "Der Abruf nutzt Netzwerk- und Hostressourcen. Kosten für ausgewählte Quellen oder Hosting hängen vom Anbieter und der Umgebung ab."
+      }
     },
     "profile_store": {
       "account": "none",
       "setup_de": "Lokalen Profil-Speicher und erlaubte Felder festlegen; keine persönlichen Profile in die Skill-Dateien schreiben.",
       "reference": "docs/CONFIGURATION.md",
       "settings_target": "Host: lokaler Profil-Speicher",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "reminder_store": {
       "account": "none",
       "setup_de": "Reminder-Speicher und auslösenden Scheduler getrennt einrichten; CalDAV-Termine allein lösen keine Erinnerung aus.",
       "reference": "docs/CALDAV_ADAPTER.md",
       "settings_target": "Host: Reminder-Backend noch offen",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "scheduler": {
       "account": "none",
       "setup_de": "Zeitplan, Zeitzone und Laufzeitprozess einrichten; deklarierte Automationen sind standardmäßig deaktiviert.",
       "reference": "docs/OPERATIONS.md",
       "settings_target": "Host: Scheduler-Konfiguration",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "scoped_filesystem": {
       "account": "none",
       "setup_de": "Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
       "reference": "docs/CONFIGURATION.md",
       "settings_target": "Host: erlaubte Dateipfade",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "service_control": {
       "account": "none",
       "setup_de": "Erlaubte Dienst-IDs, Neustartverfahren und Rollback-Checks hostseitig definieren; kein globaler Restart-Zugriff folgt aus dem Skill.",
       "reference": "docs/CAPABILITIES.md",
       "settings_target": "Host: Service-Allowlist",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "service_probes": {
       "account": "none",
       "setup_de": "Health-Endpunkte und Frischegrenzen pro Dienst festlegen; Status erst nach echter Probe anzeigen.",
       "reference": "docs/CAPABILITIES.md",
       "settings_target": "Host: Health-Probes",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "storage_probe": {
       "account": "none",
       "setup_de": "Freigegebene Laufwerke/Volumes und Messzeitpunkt festlegen; keine Profil- oder Geheimnispfade pauschal scannen.",
       "reference": "docs/CAPABILITIES.md",
       "settings_target": "Host: Speicher-Probes",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "tariff_source": {
       "account": "conditional",
       "setup_de": "Region und aktuellen Tarif-/Vertragsanbieter auswählen; öffentliche Preise ersetzen keinen persönlichen Vertrag.",
       "reference": "docs/CAPABILITIES.md",
       "settings_target": "Host: Tarifquelle und ggf. Anbieter-Konto",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [
+          {
+            "kind": "provider_account",
+            "status": "optional",
+            "notice": "Nur erforderlich, wenn diese optionale Integration verwendet wird."
+          }
+        ],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+      }
     },
     "task_store": {
       "account": "none",
       "setup_de": "Task-Backend und Identitätsbindung im Host einrichten; Control-API-Client ist nur mit authentifiziertem Transport nutzbar.",
       "reference": "docs/CONTROL_API_TASKS.md",
       "settings_target": "Host: Task-Backend/Control API",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "telegram_gateway": {
       "account": "required",
       "setup_de": "Im Friday Dashboard unter Einstellungen > Skill-Konten > Telegram BotFather-Token und numerische erlaubte User-ID einrichten. Das installierte Hermes-Gateway kann Telegram-Nachrichten verarbeiten; gespeicherte Werte und laufender Dienst belegen noch keine erfolgreiche Bot-Verbindung oder Empfängeridentität.",
       "reference": "skills/communication/friday-telegram-communication/SKILL.md",
       "settings_target": "Friday Dashboard > Einstellungen > Skill-Konten > Telegram",
-      "auth_kind": "provider_account"
+      "auth_kind": "provider_account",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "provider_account",
+            "status": "required",
+            "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+      }
     },
     "telephony": {
       "account": "required",
       "setup_de": "Den optionalen Asterisk-SIP-Adapter im Friday Dashboard unter Einstellungen > Skill-Konten > Telefonie einrichten. Lokale Nebenstellen benötigen eigene SIP-Endpunkte; externe Nummern zusätzlich einen registrierten SIP-Trunk und bestätigte Ziele. Adapterstatus und SIP-Trunk separat prüfen.",
       "reference": "skills/communication/friday-phone-call-coordinator/SKILL.md",
       "settings_target": "Friday Dashboard > Einstellungen > Skill-Konten > Telefonie",
-      "auth_kind": "provider_account"
+      "auth_kind": "provider_account",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "provider_account",
+            "status": "required",
+            "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+      }
     },
     "weather": {
       "account": "none",
       "setup_de": "Öffentlichen Wetterleser bei Bedarf separat als Hermes-Plugin aktivieren; kein Konto nötig.",
       "reference": "docs/WEATHER_PLUGIN.md",
       "settings_target": "Hermes: optionales Wetter-Plugin",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "not_required",
+        "scope_notice": "Für diesen beschriebenen Ablauf ist kein externer Anbieter-OAuth-/API-Scope erforderlich. Hostzugriff und Einschränkungen der gewählten Quellen gelten weiterhin."
+      },
+      "cost": {
+        "model": "host_resources",
+        "notice": "Der mitgelieferte öffentliche Wetterleser benötigt kein Anbieter-Konto. Friday nutzt weiterhin Netzwerk- und Hostressourcen; mögliche Hostingkosten hängen von der Umgebung ab."
+      }
     },
     "web_fetch": {
       "account": "none",
       "setup_de": "Erlaubte Webquellen und Host-Egress konfigurieren; Zugriff je Quelle prüfen.",
       "reference": "docs/WEB_EXTRACTION_ADAPTER.md",
       "settings_target": "Host: Web-Egress-Allowlist",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "host_resources",
+        "notice": "Der Abruf nutzt Netzwerk- und Hostressourcen. Kosten für ausgewählte Quellen oder Hosting hängen vom Anbieter und der Umgebung ab."
+      }
     },
     "whatsapp_gateway": {
       "account": "required",
       "setup_de": "Im Friday Dashboard unter Einstellungen > Skill-Konten > WhatsApp das lokale Hermes-Dashboard zur QR-Kopplung öffnen; danach Modus und erlaubte Telefonnummer mit Ländervorwahl ohne + einrichten. Friday zeigt die Session-Datei und Gateway-Konfiguration, keine bestätigte Verbindung oder Nachrichtenzustellung.",
       "reference": "skills/communication/friday-whatsapp-communication/SKILL.md",
       "settings_target": "Friday Dashboard > Einstellungen > Skill-Konten > WhatsApp",
-      "auth_kind": "provider_account"
+      "auth_kind": "provider_account",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "provider_account",
+            "status": "required",
+            "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+      }
     },
     "windows_worker": {
       "account": "none",
       "setup_de": "Lokalen Office-Renderer samt Fonts bereitstellen und Ausgabe visuell prüfen; PowerPoint-Playback gesondert testen.",
       "reference": "docs/PRESENTATION_MOCK_WORKER.md",
       "settings_target": "Host: lokaler Office-Renderer",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+      }
     },
     "cloudtalk_api": {
       "account": "required",
       "setup_de": "Für den optionalen CloudTalk-API-Anrufweg im Friday Dashboard unter Einstellungen > Skill-Konten > CloudTalk Desktop und API ein Admin-API-Zugangsschlüsselpaar (Access Key ID und Secret) sowie die CloudTalk Agent-ID einrichten. CloudTalk API-Zugang setzt einen dafür berechtigten Tarif (Essential oder höher) voraus. Gespeicherte Zugangsdaten bestätigen weder API-Erreichbarkeit noch Anrufannahme oder Erreichbarkeit des Ziels. Der Desktop-Handoff über ct+tel benötigt keine API-Zugangsdaten; er öffnet nur die CloudTalk-App und liefert Friday weder Gesprächsaudio noch Status oder Auflegen.",
       "reference": "skills/communication/friday-phone-call-coordinator/SKILL.md",
       "settings_target": "/settings?area=skillAccounts#cloudtalk-setup-title",
-      "auth_kind": "provider_account"
+      "auth_kind": "provider_account",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "provider_account",
+            "status": "required",
+            "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Tarifberechtigung und Gesprächskosten hängen vom CloudTalk-Konto und Ziel ab; konkrete Preise werden hier nicht angegeben."
+      }
     },
     "gmx": {
       "account": "required",
       "setup_de": "Den eigenständigen Friday-Skills-GMX-Adapter mit einem GMX-Postfach und authentifizierter Host-Bindung bereitstellen. Das Dashboard-Postfach richtet diesen Adapter nicht automatisch ein; Mailbox-Suche, vollständige Threads, Anhangsbytes und ein live verifizierter Versand sind damit nicht belegt.",
       "reference": "docs/GMX_MAIL_ADAPTER.md",
       "settings_target": "Host: separater Friday-Skills-GMX-Adapter",
-      "auth_kind": "provider_account"
+      "auth_kind": "provider_account",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "provider_account",
+            "status": "required",
+            "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+      }
     },
     "friday_local_calendar": {
       "account": "none",
       "setup_de": "Den lokalen Kalender im Friday Dashboard mit Owner-Anmeldung ohne externes Anbieterkonto öffnen; dort lassen sich Termine lesen und verwalten. Der separate Hermes-Kalenderleser kann lokale Termine über die Dashboard-Bridge nur lesen und bleibt schreibgeschützt.",
       "reference": "skills/calendar/friday-calendar-manager/SKILL.md",
       "settings_target": "/calendar",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "not_required",
+        "scope_notice": "Für diesen beschriebenen Ablauf ist kein externer Anbieter-OAuth-/API-Scope erforderlich. Hostzugriff und Einschränkungen der gewählten Quellen gelten weiterhin."
+      },
+      "cost": {
+        "model": "host_resources",
+        "notice": "Der lokale Friday-Kalender nutzt Host- und Speicherressourcen; für diesen Pfad ist kein externes Kalenderkonto erforderlich."
+      }
     },
     "kie_ai": {
       "account": "required",
       "setup_de": "Kie.ai-Konto und Server-Key in den Dashboard-Einstellungen hinterlegen; kostenpflichtige Anfrage einzeln bestätigen.",
       "reference": "docs/CONTENT_STUDIO.md",
       "settings_target": "Dashboard Settings → Content Studio → kie.ai",
-      "auth_kind": "provider_account"
+      "auth_kind": "provider_account",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "provider_account",
+            "status": "required",
+            "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "provider_usage",
+        "notice": "Für Anfragen können nutzungsabhängige Anbietergebühren anfallen. Aktuelle Kontopreise und Guthaben wurden hier nicht geprüft."
+      }
     },
     "elevenlabs": {
       "account": "required",
       "setup_de": "ElevenLabs-Konto, Server-Key und Voice-ID in den Dashboard-Einstellungen hinterlegen; Anfrage einzeln bestätigen.",
       "reference": "docs/CONTENT_STUDIO.md",
       "settings_target": "Dashboard Settings → Content Studio → ElevenLabs",
-      "auth_kind": "provider_account"
+      "auth_kind": "provider_account",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          },
+          {
+            "kind": "provider_account",
+            "status": "required",
+            "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "provider_usage",
+        "notice": "Es können nutzungsabhängige Anbietergebühren oder Tarifgrenzen gelten. Aktuelle Kontopreise und Guthaben wurden hier nicht geprüft."
+      }
     },
     "video_editor": {
       "account": "none",
       "setup_de": "CapCut oder lokalen Videoeditor für manuellen Handoff bereitstellen; keine Editor-Automation voraussetzen.",
       "reference": "docs/CONTENT_STUDIO.md",
       "settings_target": "lokaler Editor",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Der gewählte Editor kann ein Abo oder eine Lizenz erfordern; die konkrete Ausgabe ist hier nicht festgelegt."
+      }
     },
     "obsidian": {
       "account": "none",
       "setup_de": "Optionalen lokalen Vault-Pfad freigeben; Hermes-Bundleskill nutzt Dateitools und benötigt kein Cloud-Konto.",
       "reference": "skills/knowledge/friday-knowledge-base-curator/SKILL.md",
       "settings_target": "Hermes: OBSIDIAN_VAULT_PATH",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "not_required",
+        "scope_notice": "Für diesen beschriebenen Ablauf ist kein externer Anbieter-OAuth-/API-Scope erforderlich. Hostzugriff und Einschränkungen der gewählten Quellen gelten weiterhin."
+      },
+      "cost": {
+        "model": "host_resources",
+        "notice": "Der lokale Vault nutzt Datei- und Speicherressourcen des Hosts; für diesen Ablauf ist kein Obsidian-Cloud-Abo erforderlich."
+      }
     },
     "coding_cli": {
       "account": "conditional",
       "setup_de": "Für Codeaufgaben optional OpenCode, Codex oder Claude Code im Hermes-Laufzeitkontext bereitstellen; CLI-Version, eigene Modell-Anmeldung und Projektzugriff vor einem Auftrag prüfen.",
       "reference": "docs/HERMES_WORKFLOWS.md",
       "settings_target": "/settings?area=skillAccounts#coding-cli-setup-title",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [
+          {
+            "kind": "provider_account",
+            "status": "optional",
+            "notice": "Nur erforderlich, wenn diese optionale Integration verwendet wird."
+          }
+        ],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "CLI-Lizenz, Modellnutzung und Hostressourcen hängen von OpenCode, Codex oder Claude Code und deren Einrichtung ab."
+      }
     },
     "computer_use": {
       "account": "none",
       "setup_de": "Hermes-Computer-Use-Werkzeug und Desktop-Treiber im aktiven Laufzeitkontext prüfen; ein installierter Skill beweist keine benutzbare GUI-Verbindung.",
       "reference": "docs/HERMES_WORKFLOWS.md",
       "settings_target": "Hermes: computer_use und lokaler Desktop-Treiber",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "Kosten für Desktop-Software, Betriebssystemlizenz und Hostressourcen hängen von der gewählten Laufzeitumgebung ab."
+      }
     },
     "powerpoint_playback": {
       "account": "none",
       "setup_de": "Zielversion von PowerPoint für Animations-Playback und Sichtprüfung bereitstellen.",
       "reference": "skills/office/friday-powerpoint-animation-director/SKILL.md",
       "settings_target": "lokaler Windows-Office-Worker",
-      "auth_kind": "none_or_optional"
+      "auth_kind": "none_or_optional",
+      "permissions": {
+        "required_prerequisites": [
+          {
+            "kind": "host_access",
+            "status": "required",
+            "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."
+          }
+        ],
+        "optional_prerequisites": [],
+        "scope_status": "unknown",
+        "scope_notice": "Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte."
+      },
+      "cost": {
+        "model": "unknown",
+        "notice": "PowerPoint-Lizenz und Hostressourcen hängen von der installierten Office-Version und deren Lizenz ab."
+      }
     }
   },
   "hermes_compatibility": {

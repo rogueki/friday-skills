@@ -102,6 +102,68 @@ EXTRA_SETUP = {
     "powerpoint_playback": ("Zielversion von PowerPoint für Animations-Playback und Sichtprüfung bereitstellen.", "skills/office/friday-powerpoint-animation-director/SKILL.md", "none", "lokaler Windows-Office-Worker"),
 }
 
+# Diese Hinweise beschreiben Einrichtungsvoraussetzungen und mögliche Kosten,
+# keine aktuelle Berechtigung oder Anbieterpreise. Scopes werden nie aus einem
+# Konto oder Zugangsschlüssel abgeleitet.
+COST_PROFILES = {
+    "weather": ("host_resources", "Der mitgelieferte öffentliche Wetterleser benötigt kein Anbieter-Konto. Friday nutzt weiterhin Netzwerk- und Hostressourcen; mögliche Hostingkosten hängen von der Umgebung ab."),
+    "official_web_fetch": ("host_resources", "Der Abruf nutzt Netzwerk- und Hostressourcen. Kosten für ausgewählte Quellen oder Hosting hängen vom Anbieter und der Umgebung ab."),
+    "web_fetch": ("host_resources", "Der Abruf nutzt Netzwerk- und Hostressourcen. Kosten für ausgewählte Quellen oder Hosting hängen vom Anbieter und der Umgebung ab."),
+    "friday_local_calendar": ("host_resources", "Der lokale Friday-Kalender nutzt Host- und Speicherressourcen; für diesen Pfad ist kein externes Kalenderkonto erforderlich."),
+    "obsidian": ("host_resources", "Der lokale Vault nutzt Datei- und Speicherressourcen des Hosts; für diesen Ablauf ist kein Obsidian-Cloud-Abo erforderlich."),
+    "computer_use": ("unknown", "Kosten für Desktop-Software, Betriebssystemlizenz und Hostressourcen hängen von der gewählten Laufzeitumgebung ab."),
+    "powerpoint_playback": ("unknown", "PowerPoint-Lizenz und Hostressourcen hängen von der installierten Office-Version und deren Lizenz ab."),
+    "video_editor": ("unknown", "Der gewählte Editor kann ein Abo oder eine Lizenz erfordern; die konkrete Ausgabe ist hier nicht festgelegt."),
+    "coding_cli": ("unknown", "CLI-Lizenz, Modellnutzung und Hostressourcen hängen von OpenCode, Codex oder Claude Code und deren Einrichtung ab."),
+    "cloudtalk_api": ("unknown", "Tarifberechtigung und Gesprächskosten hängen vom CloudTalk-Konto und Ziel ab; konkrete Preise werden hier nicht angegeben."),
+    "kie_ai": ("provider_usage", "Für Anfragen können nutzungsabhängige Anbietergebühren anfallen. Aktuelle Kontopreise und Guthaben wurden hier nicht geprüft."),
+    "elevenlabs": ("provider_usage", "Es können nutzungsabhängige Anbietergebühren oder Tarifgrenzen gelten. Aktuelle Kontopreise und Guthaben wurden hier nicht geprüft."),
+}
+
+
+def permission_and_cost(adapter: str, account: str, auth_kind: str) -> dict:
+    """Erzeugt statische Hinweise, ohne einem Konto API-Scopes zuzuschreiben."""
+    required = [{"kind": "host_access", "status": "required",
+                 "notice": "Bei Aktivierung muss der Host nur die lokalen Ressourcen oder ausgehenden Netzwerkzugriffe bereitstellen, die diese Integration benötigt. Die genauen Freigaben hängen von der gewählten Implementierung ab."}]
+    optional = []
+    if auth_kind == "local_session":
+        required.append({"kind": "local_session", "status": "required",
+                         "notice": "Erforderlich sind eine vom Host authentifizierte Owner-Sitzung und deren CSRF-Schutz."})
+    elif account == "required":
+        required.append({"kind": "provider_account", "status": "required",
+                         "notice": "Bei Nutzung dieser Integration muss das oben beschriebene Konto beim gewählten Anbieter eingerichtet sein."})
+    elif account == "conditional":
+        optional.append({"kind": "provider_account", "status": "optional",
+                         "notice": "Nur erforderlich, wenn diese optionale Integration verwendet wird."})
+
+    # Bei den meisten Einträgen sind Anbieter und Host nicht festgelegt. Auch
+    # mit Zugangsdaten müssen die tatsächlich gewährten Rechte separat geprüft werden.
+    scope_status = "unknown"
+    scope_notice = ("Die konkreten Anbieter-/API-Scopes und Host-Freigaben sind in diesem Katalog nicht festgelegt. Nur die vom gewählten Anbieter und Host unterstützten Mindestberechtigungen einrichten und prüfen. Ein Konto oder Zugangsschlüssel belegt keine erteilten Rechte.")
+    if adapter in {"weather", "friday_local_calendar", "obsidian"}:
+        scope_status = "not_required"
+        scope_notice = "Für diesen beschriebenen Ablauf ist kein externer Anbieter-OAuth-/API-Scope erforderlich. Hostzugriff und Einschränkungen der gewählten Quellen gelten weiterhin."
+
+    profile = COST_PROFILES.get(adapter)
+    if profile:
+        cost_model, cost_notices = profile
+    elif account != "none":
+        cost_model = "unknown"
+        cost_notices = "Anbietergebühren, Abos/Lizenzen und enthaltene Kontingente hängen vom gewählten Anbieter und Konto ab. Dieser Katalog behauptet weder konkrete Preise noch Tarifansprüche."
+    else:
+        cost_model = "unknown"
+        cost_notices = "Zusätzliche Kosten für Ressourcen, Softwarelizenzen oder Dienste hängen von der gewählten Implementierung und dem Host ab."
+
+    return {
+        "permissions": {
+            "required_prerequisites": required,
+            "optional_prerequisites": optional,
+            "scope_status": scope_status,
+            "scope_notice": scope_notice,
+        },
+        "cost": {"model": cost_model, "notice": cost_notices},
+    }
+
 
 def build() -> dict:
     skills = json.loads((ROOT / "registry/skills.json").read_text(encoding="utf-8"))["skills"]
@@ -113,11 +175,15 @@ def build() -> dict:
     for adapter in sorted(adapters):
         instruction, reference, target = SETUP[adapter]
         account = "required" if adapter in ACCOUNT_REQUIRED else "conditional" if adapter in ACCOUNT_CONDITIONAL else "none"
+        auth_kind = "local_session" if adapter == "control_api" else "provider_account" if account == "required" else "none_or_optional"
         integrations[adapter] = {"account": account, "setup_de": instruction, "reference": reference,
-                                 "settings_target": target, "auth_kind": "local_session" if adapter == "control_api" else "provider_account" if account == "required" else "none_or_optional"}
+                                 "settings_target": target, "auth_kind": auth_kind,
+                                 **permission_and_cost(adapter, account, auth_kind)}
     for name, (instruction, reference, account, target) in EXTRA_SETUP.items():
+        auth_kind = "provider_account" if account == "required" else "none_or_optional"
         integrations[name] = {"account": account, "setup_de": instruction, "reference": reference,
-                              "settings_target": target, "auth_kind": "provider_account" if account == "required" else "none_or_optional"}
+                              "settings_target": target, "auth_kind": auth_kind,
+                              **permission_and_cost(name, account, auth_kind)}
     records = {}
     for entry in skills:
         name = entry["name"]
@@ -157,7 +223,7 @@ def build() -> dict:
     compatibility = {name: {"distribution": distribution, "official_url": url, "setup_de": guidance,
                             "installed_status": "unknown", "friday_requirement": "optional"}
                      for name, (distribution, url, guidance) in HERMES_COMPATIBILITY.items()}
-    return {"schema_version": 1, "inventory_source": "registry/skills.json", "inventory_count": len(skills),
+    return {"schema_version": 2, "inventory_source": "registry/skills.json", "inventory_count": len(skills),
             "status_semantics": "unknown bedeutet: keine aktuelle Hermes- oder Anbieterprüfung durch diesen Katalog.",
             "integrations": integrations, "hermes_compatibility": compatibility, "skills": records}
 

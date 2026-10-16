@@ -19,6 +19,21 @@ class SetupCatalogTests(unittest.TestCase):
         self.assertEqual(len(self.catalog["skills"]), len(registered_names))
         self.assertEqual(validate(self.catalog), [])
         self.assertTrue(all(item["live_status"] == "unknown" for item in self.catalog["skills"].values()))
+        self.assertEqual(self.catalog["schema_version"], 2)
+        referenced = {
+            integration
+            for skill in self.catalog["skills"].values()
+            for integration in skill["required_integrations"] + skill["conditional_integrations"]
+        }
+        self.assertTrue(referenced <= set(self.catalog["integrations"]))
+        for integration in referenced:
+            setup = self.catalog["integrations"][integration]
+            self.assertIn(setup["permissions"]["scope_status"], {"unknown", "not_required"})
+            self.assertTrue(setup["permissions"]["scope_notice"])
+            self.assertIsInstance(setup["permissions"]["required_prerequisites"], list)
+            self.assertIsInstance(setup["permissions"]["optional_prerequisites"], list)
+            self.assertIn(setup["cost"]["model"], {"host_resources", "provider_usage", "subscription_license", "none", "unknown"})
+            self.assertTrue(setup["cost"]["notice"])
 
     def test_missing_skill_and_invalid_references_fail(self):
         changed = copy.deepcopy(self.catalog)
@@ -39,9 +54,26 @@ class SetupCatalogTests(unittest.TestCase):
         changed["integrations"]["gmx"]["setup_de"] += " api_key=abc12345"
         self.assertTrue(any("secret" in error for error in validate(changed)))
 
+    def test_permission_and_cost_schema_fail_closed(self):
+        changed = copy.deepcopy(self.catalog)
+        del changed["integrations"]["gmx"]["permissions"]
+        self.assertTrue(any("permission notice missing" in error for error in validate(changed)))
+        changed = copy.deepcopy(self.catalog)
+        changed["integrations"]["gmx"]["permissions"]["required_prerequisites"][0]["status"] = "optional"
+        self.assertTrue(any("invalid required permission prerequisite" in error for error in validate(changed)))
+        changed = copy.deepcopy(self.catalog)
+        changed["integrations"]["gmx"]["cost"]["model"] = "free"
+        self.assertTrue(any("invalid cost notice" in error for error in validate(changed)))
+
     def test_account_and_hermes_compatibility_semantics(self):
         self.assertEqual(self.catalog["integrations"]["control_api"]["account"], "none")
         self.assertEqual(self.catalog["integrations"]["control_api"]["auth_kind"], "local_session")
+        self.assertIn("local_session", {item["kind"] for item in self.catalog["integrations"]["control_api"]["permissions"]["required_prerequisites"]})
+        self.assertEqual(self.catalog["integrations"]["gmx"]["permissions"]["scope_status"], "unknown")
+        self.assertIn("belegt keine erteilten Rechte", self.catalog["integrations"]["gmx"]["permissions"]["scope_notice"])
+        self.assertEqual(self.catalog["integrations"]["weather"]["cost"]["model"], "host_resources")
+        for name in ("web_fetch", "official_web_fetch"):
+            self.assertEqual(self.catalog["integrations"][name]["permissions"]["scope_status"], "unknown")
         for name in ("obsidian", "computer_use"):
             self.assertEqual(self.catalog["integrations"][name]["account"], "none")
         self.assertEqual(self.catalog["hermes_compatibility"]["telephony"]["distribution"], "not_bundled")
