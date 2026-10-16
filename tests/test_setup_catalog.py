@@ -66,10 +66,25 @@ class SetupCatalogTests(unittest.TestCase):
         integrations = self.catalog["integrations"]
         self.assertEqual(integrations["caldav"]["settings_target"], "/settings?area=adapters#calendar-setup-title")
         self.assertIn("Host-Bindung", integrations["caldav"]["setup_de"])
-        self.assertEqual(integrations["gmx"]["settings_target"], "/settings?area=skillAccounts#himalaya-account-title")
-        self.assertIn("ausdrücklicher Bestätigung", integrations["gmx"]["setup_de"])
-        self.assertIn("weder automatisch angebunden noch live verifiziert", integrations["gmx"]["setup_de"])
+        self.assertEqual(integrations["imap_smtp_mail"]["settings_target"], "/settings?area=skillAccounts#himalaya-account-title")
+        self.assertIn("eines passenden Anbieters", integrations["imap_smtp_mail"]["setup_de"])
+        self.assertIn("nicht automatisch", integrations["imap_smtp_mail"]["setup_de"])
+        self.assertEqual(integrations["gmx"]["settings_target"], "Host: separater Friday-Skills-GMX-Adapter")
+        self.assertIn("eigenständigen", integrations["gmx"]["setup_de"])
         self.assertEqual(integrations["coding_cli"]["settings_target"], "/settings?area=skillAccounts#coding-cli-setup-title")
+
+    def test_mail_capabilities_use_generic_account_and_gmx_remains_optional(self):
+        mail_skills = {
+            name: item for name, item in self.catalog["skills"].items()
+            if {"mail.read", "mail.send"} & set(item["required_capabilities"] + item["conditional_capabilities"])
+        }
+        self.assertEqual(len(mail_skills), 12)
+        for item in mail_skills.values():
+            self.assertIn("imap_smtp_mail", item["required_integrations"] + item["conditional_integrations"])
+            self.assertNotIn("gmx", item["required_integrations"])
+            self.assertEqual(item["live_status"], "unknown")
+        for name in ("friday-executive-mail-manager", "friday-mail-attachment-intake", "friday-mail-draft-writer"):
+            self.assertIn("gmx", mail_skills[name]["conditional_integrations"])
 
 
 if __name__ == "__main__":

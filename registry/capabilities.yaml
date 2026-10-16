@@ -183,14 +183,14 @@
       "permission": "write"
     },
     "mail.read": {
-      "adapter": "gmx",
+      "adapter": "imap_smtp_mail",
       "live_available": false,
       "mock_available": false,
       "mode": "read_only",
       "permission": "read"
     },
     "mail.send": {
-      "adapter": "gmx",
+      "adapter": "imap_smtp_mail",
       "live_available": false,
       "mock_available": false,
       "mode": "approval_required",

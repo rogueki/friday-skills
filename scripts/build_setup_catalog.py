@@ -13,7 +13,7 @@ except ModuleNotFoundError:  # direct scripts/validate.py invocation
 # Account requirements describe the named service, not current authentication.
 ACCOUNT_REQUIRED = {
     "banking", "caldav", "carddav", "finance", "finanzonline",
-    "gmx", "loxone", "messaging_gateway", "telegram_gateway", "telephony",
+    "imap_smtp_mail", "loxone", "messaging_gateway", "telegram_gateway", "telephony",
     "whatsapp_gateway",
 }
 ACCOUNT_CONDITIONAL = {"backup", "notification_gateway", "tariff_source"}
@@ -33,7 +33,7 @@ SETUP = {
     "energy_telemetry": ("Zählerquelle, Messgrenzen, Einheit und Zeitstempel festlegen; kein allgemeiner Live-Telemetrieadapter enthalten.", "docs/CAPABILITIES.md", "Host: Energie-Messquelle"),
     "finance": ("Finanzdatenquelle und berechtigte Konto-/Ledger-Lesewege hostseitig auswählen; hier gibt es keinen allgemeinen Live-Finanzadapter.", "docs/CAPABILITIES.md", "Host: Finanz-Ledger/Provider noch offen"),
     "finanzonline": ("FinanzOnline-Zugang und zulässigen Einreichungsweg erst separat prüfen; dieses Paket hat keinen Submit-Adapter.", "docs/CAPABILITIES.md", "Host: FinanzOnline-Anbindung noch offen"),
-    "gmx": ("E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel kann über das verwaltete Himalaya-v2-Postfach lesen und nach ausdrücklicher Bestätigung eine Textmail per SMTP senden; ein unklarer Versand wird nicht automatisch wiederholt. Der separate Friday-Skills-GMX-Adapter ist dadurch weder automatisch angebunden noch live verifiziert; kein echtes Anbieterpostfach ist verifiziert.", "docs/SETUP_CATALOG.md", "/settings?area=skillAccounts#himalaya-account-title"),
+    "imap_smtp_mail": ("E-Mail-Postfach eines passenden Anbieters mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel kann über das verwaltete Himalaya-v2-Postfach lesen und nach ausdrücklicher Bestätigung eine Textmail per SMTP senden. Diese Dashboard-Konfiguration bindet die Friday-Skills-Mail-Capabilities nicht automatisch an Hermes oder einen Anbieteradapter; der Skill-Laufzeitstatus bleibt ohne separate Host-Bindung und Prüfung unbekannt.", "docs/SETUP_CATALOG.md", "/settings?area=skillAccounts#himalaya-account-title"),
     "home_telemetry": ("Haus-Sensorquelle und erlaubte Geräte hostseitig wählen; keine allgemeine Live-Haus-Telemetrie vorhanden.", "docs/LOXONE_STATUS_ADAPTER.md", "Host: Sensor-Provider"),
     "local_voice": ("Lokale Sprachpipeline und gegebenenfalls Sprecherprüfung am Host testen.", "docs/CONFIGURATION.md", "Host: lokale Voice-Konfiguration"),
     "loxone": ("Miniserver-Zugang und erlaubte Control-IDs im Host konfigurieren; Provider-Transport gegen echte Hardware prüfen.", "docs/LOXONE_STATUS_ADAPTER.md", "Host: Miniserver und Control-Allowlist"),
@@ -73,6 +73,9 @@ HERMES_COMPATIBILITY = {
 }
 
 EXTRA = {
+    "friday-executive-mail-manager": ["gmx"],
+    "friday-mail-attachment-intake": ["gmx"],
+    "friday-mail-draft-writer": ["gmx"],
     "friday-content-planning": ["control_api"],
     "friday-kie-media": ["control_api", "kie_ai"],
     "friday-elevenlabs-voice": ["control_api", "elevenlabs"],
@@ -85,6 +88,7 @@ EXTRA = {
 }
 
 EXTRA_SETUP = {
+    "gmx": ("Den eigenständigen Friday-Skills-GMX-Adapter mit einem GMX-Postfach und authentifizierter Host-Bindung bereitstellen. Das Dashboard-Postfach richtet diesen Adapter nicht automatisch ein; Mailbox-Suche, vollständige Threads, Anhangsbytes und ein live verifizierter Versand sind damit nicht belegt.", "docs/GMX_MAIL_ADAPTER.md", "required", "Host: separater Friday-Skills-GMX-Adapter"),
     "friday_local_calendar": ("Den lokalen Kalender im Friday Dashboard mit Owner-Anmeldung ohne externes Anbieterkonto öffnen; dort lassen sich Termine lesen und verwalten. Der separate Hermes-Kalenderleser kann lokale Termine über die Dashboard-Bridge nur lesen und bleibt schreibgeschützt.", "skills/calendar/friday-calendar-manager/SKILL.md", "none", "/calendar"),
     "kie_ai": ("Kie.ai-Konto und Server-Key in den Dashboard-Einstellungen hinterlegen; kostenpflichtige Anfrage einzeln bestätigen.", "docs/CONTENT_STUDIO.md", "required", "Dashboard Settings → Content Studio → kie.ai"),
     "elevenlabs": ("ElevenLabs-Konto, Server-Key und Voice-ID in den Dashboard-Einstellungen hinterlegen; Anfrage einzeln bestätigen.", "docs/CONTENT_STUDIO.md", "required", "Dashboard Settings → Content Studio → ElevenLabs"),
