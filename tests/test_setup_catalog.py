@@ -54,6 +54,15 @@ class SetupCatalogTests(unittest.TestCase):
         self.assertLess(phone["setup_de"].index("Telefonie-Provider"), phone["setup_de"].index("CardDAV"))
         self.assertIn("Dial-Adapter", self.catalog["integrations"]["telephony"]["setup_de"])
 
+    def test_dashboard_setup_links_and_mail_capability_are_precise(self):
+        integrations = self.catalog["integrations"]
+        self.assertEqual(integrations["caldav"]["settings_target"], "/settings?area=adapters#calendar-setup-title")
+        self.assertIn("Host-Bindung", integrations["caldav"]["setup_de"])
+        self.assertEqual(integrations["gmx"]["settings_target"], "/settings?area=skillAccounts#himalaya-account-title")
+        self.assertIn("ausdrücklicher Bestätigung", integrations["gmx"]["setup_de"])
+        self.assertIn("weder automatisch angebunden noch live verifiziert", integrations["gmx"]["setup_de"])
+        self.assertEqual(integrations["coding_cli"]["settings_target"], "/settings?area=skillAccounts#coding-cli-setup-title")
+
 
 if __name__ == "__main__":
     unittest.main()

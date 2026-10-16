@@ -48,9 +48,9 @@
     },
     "caldav": {
       "account": "required",
-      "setup_de": "CalDAV-Server-URL, Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen; Google-CalDAV mit direkter OAuth-Anmeldung und Outlook Graph sind hier nicht abgedeckt. Für Google/Outlook kann eine veröffentlichte ICS-URL lesend genutzt werden.",
+      "setup_de": "CalDAV-Server-URL, Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen; der Dashboard-Kalender liest kompatible CalDAV-Server oder einen ICS-Feed. Der separate Friday-Skills-CalDAV-Adapter benötigt weiterhin eine eigene authentifizierte Host-Bindung. Google-CalDAV mit direkter OAuth-Anmeldung und Outlook Graph sind hier nicht abgedeckt. Für Google/Outlook kann eine veröffentlichte ICS-URL lesend genutzt werden.",
       "reference": "docs/CALDAV_ADAPTER.md",
-      "settings_target": "Friday Dashboard > Einstellungen > Adapter > CalDAV",
+      "settings_target": "/settings?area=adapters#calendar-setup-title",
       "auth_kind": "provider_account"
     },
     "carddav": {
@@ -104,9 +104,9 @@
     },
     "gmx": {
       "account": "required",
-      "setup_de": "E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel liest nur; Hermes kann das eingerichtete Postfach mit Himalaya v2 lesen. Versand im Dashboard ist nicht verfügbar; kein echtes Anbieterpostfach ist verifiziert.",
+      "setup_de": "E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel kann über das verwaltete Himalaya-v2-Postfach lesen und nach ausdrücklicher Bestätigung eine Textmail per SMTP senden; ein unklarer Versand wird nicht automatisch wiederholt. Der separate Friday-Skills-GMX-Adapter ist dadurch weder automatisch angebunden noch live verifiziert; kein echtes Anbieterpostfach ist verifiziert.",
       "reference": "docs/SETUP_CATALOG.md",
-      "settings_target": "Friday Dashboard > Einstellungen > Skill-Konten > E-Mail",
+      "settings_target": "/settings?area=skillAccounts#himalaya-account-title",
       "auth_kind": "provider_account"
     },
     "home_telemetry": {
@@ -323,7 +323,7 @@
       "account": "conditional",
       "setup_de": "Für Codeaufgaben optional OpenCode, Codex oder Claude Code im Hermes-Laufzeitkontext bereitstellen; CLI-Version, eigene Modell-Anmeldung und Projektzugriff vor einem Auftrag prüfen.",
       "reference": "docs/HERMES_WORKFLOWS.md",
-      "settings_target": "Hermes-Laufzeit: Coding-CLI und Provider-Anmeldung",
+      "settings_target": "/settings?area=skillAccounts#coding-cli-setup-title",
       "auth_kind": "none_or_optional"
     },
     "computer_use": {
@@ -617,7 +617,7 @@
         "task_store"
       ],
       "account": "conditional",
-      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel liest nur. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "setup_de": "Der Grundablauf kann mit bereitgestellten oder lokalen Daten beginnen. Optional: E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel kann über das verwaltete Himalaya-v2-Postfach lesen und nach ausdrücklicher Bestätigung eine Textmail per SMTP senden. Weitere optionale Aktionen stehen in der Integrationsliste.",
       "live_status": "unknown"
     },
     "friday-contact-context": {
@@ -672,7 +672,7 @@
         "task_store"
       ],
       "account": "required",
-      "setup_de": "Für den Grundablauf: E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel liest nur. Optional: Task-Backend und Identitätsbindung im Host einrichten.",
+      "setup_de": "Für den Grundablauf: E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel kann über das verwaltete Himalaya-v2-Postfach lesen und nach ausdrücklicher Bestätigung eine Textmail per SMTP senden. Optional: Task-Backend und Identitätsbindung im Host einrichten.",
       "live_status": "unknown"
     },
     "friday-mail-draft-writer": {
@@ -690,7 +690,7 @@
         "scoped_filesystem"
       ],
       "account": "required",
-      "setup_de": "Für den Grundablauf: E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel liest nur. Optional: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
+      "setup_de": "Für den Grundablauf: E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel kann über das verwaltete Himalaya-v2-Postfach lesen und nach ausdrücklicher Bestätigung eine Textmail per SMTP senden. Optional: Freigegebene lokale Pfade und Lese-/Schreibrechte im Host begrenzen.",
       "live_status": "unknown"
     },
     "friday-mail-attachment-intake": {
@@ -804,7 +804,7 @@
         "gmx"
       ],
       "account": "required",
-      "setup_de": "Für den Grundablauf: CalDAV-Server-URL, Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Weitere benötigte Quellen stehen in der Integrationsliste. Optional: E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel liest nur.",
+      "setup_de": "Für den Grundablauf: CalDAV-Server-URL, Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Weitere benötigte Quellen stehen in der Integrationsliste. Optional: E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel kann über das verwaltete Himalaya-v2-Postfach lesen und nach ausdrücklicher Bestätigung eine Textmail per SMTP senden.",
       "live_status": "unknown"
     },
     "friday-meeting-briefing": {
@@ -845,7 +845,7 @@
         "task_store"
       ],
       "account": "required",
-      "setup_de": "Für den Grundablauf: CalDAV-Server-URL, Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Optional: E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel liest nur. Weitere optionale Aktionen stehen in der Integrationsliste.",
+      "setup_de": "Für den Grundablauf: CalDAV-Server-URL, Benutzername und App-Passwort unter Friday Dashboard > Einstellungen > Adapter eintragen. Optional: E-Mail-Postfach mit IMAP- und SMTP-Server, Ports/TLS, Benutzername und Passwort oder App-Passwort unter Friday Dashboard > Einstellungen > Skill-Konten einrichten. Das Owner-Panel kann über das verwaltete Himalaya-v2-Postfach lesen und nach ausdrücklicher Bestätigung eine Textmail per SMTP senden. Weitere optionale Aktionen stehen in der Integrationsliste.",
       "live_status": "unknown"
     },
     "friday-deadline-and-reminder-manager": {
