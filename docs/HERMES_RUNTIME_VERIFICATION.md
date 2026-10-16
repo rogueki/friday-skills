@@ -36,9 +36,14 @@ The `--run` mode first requires an exact `qwen3:4b` entry from local Ollama's
 `127.0.0.1:11434/api/tags`; it has no cloud fallback. It starts Hermes from a
 new temporary working directory with a scrubbed subprocess environment,
 `--provider custom --model qwen3:4b --toolsets skills --max-turns 2
---run-budget 120 --ignore-rules -Q`. The query is passed through a file without
-the expected decision or target skill name. Python also applies a 150-second
-subprocess timeout.
+--run-budget 420 --ignore-rules -Q`. The query is passed through a file without
+the expected decision or target skill name. Python applies a 480-second chat
+subprocess timeout by default, with separate 30-second limits for version
+probe and session export. The isolated config requests both
+`model.context_length` and `model.ollama_num_ctx` at 65,536; this does not
+verify that Ollama allocated the requested context. The local memory estimate
+and the decision to defer another model attempt are recorded in
+[routing evaluation](HERMES_ROUTING_EVAL.md).
 
 `--toolsets skills` exposes `skill_manage` as well as `skill_view` in this Hermes
 version. The copied tree is the only external skill directory in that run, so

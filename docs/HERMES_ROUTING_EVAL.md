@@ -66,6 +66,21 @@ local runtime separately before interpreting a model result. The optional
 exceed the run budget by 30–180 seconds and cannot exceed 780 seconds.
 The large requested window may exceed available host/GPU memory; it is not
 evidence that Ollama allocated that window or that the model can answer.
+On 2026-10-15, the local `qwen3:4b` metadata reported 36 layers, eight
+key/value heads, and 128 dimensions for both keys and values. At 65,536
+tokens, an unquantized 16-bit KV cache alone would require 9.0 GiB
+(`36 * 65536 * 8 * (128 + 128) * 2` bytes). The model file is 2.5 GB.
+At that check, `nvidia-smi` showed only 3,531 MiB free on the 12,282 MiB
+GPU, Windows reported 8,775,116 KiB free physical RAM, and `ollama ps`
+showed no loaded model. The combined free GPU/RAM is barely above the
+estimated cache plus model weights, before runtime, graph and host overhead;
+the memory pools are not interchangeable. KV quantization or flash attention
+could change the actual requirement, but neither was verified as active.
+For that reason no new 65,536-token Hermes inference was attempted on this
+host. The revised archive-positive routing result remains unobserved; the
+earlier archive-to-storage misroute remains the only scored sample. Recheck
+resources and effective Ollama context on a host with sufficient headroom
+before running the command above.
 This matters because Hermes' `skills` toolset includes `skill_manage` alongside
 `skill_view`. It never uses `-z`/YOLO or preloads `--skills`. It returns
 `NOT_RUN`/`PARTIAL` unless the structured `skill_view` call is found and a
