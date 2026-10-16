@@ -1,0 +1,10 @@
+name: friday-dashboard-mail
+version: 0.1.0
+description: Read the Friday-managed IMAP mailbox through a private loopback Control API key.
+author: RogueKI
+kind: standalone
+manifest_version: 2
+provides_tools:
+  - friday_mailboxes
+  - friday_mail_envelopes
+  - friday_mail_message
