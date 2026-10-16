@@ -1,6 +1,10 @@
 # F.R.I.D.A.Y. Skills
 
-**RogueKI** maintains this independent Hermes Agent skill suite for [rogueki/rogue-friday](https://github.com/rogueki/rogue-friday). F.R.I.D.A.Y. is the successor assistant in this project's own story: a coordinating core calls focused specialists for executive work, communication, finance, home, family, media, research and operations. This project is not affiliated with Marvel.
+**Give F.R.I.D.A.Y. the skills for your work.** This is the official companion repository for the [F.R.I.D.A.Y. framework](https://github.com/rogueki/rogue-friday): 105 focused Hermes procedures for office work, research, communication, home, media and operations. The framework supplies the installer, voice assistant, dashboard and service integrations; this repository extends what Friday can guide and automate. Both repositories are MIT licensed, so you can adapt skills and build a connector for a provider your setup needs.
+
+**Get started:** [Install the framework](https://github.com/rogueki/rogue-friday#schnellstart) · [Browse the 105 skills](docs/SKILL_CATALOG.md) · [Connect accounts and tools](docs/SETUP_CATALOG.md) · [Create a custom skill](docs/SKILL_AUTHORING.md). Optional provider integrations are configured per installation; the catalog explains what is ready and what needs a connector or account.
+
+**RogueKI** maintains this independent Hermes Agent skill suite. F.R.I.D.A.Y. is the successor assistant in this project's own story: a coordinating core calls focused specialists for executive work, communication, finance, home, family, media, research and operations. This project is not affiliated with Marvel.
 
 The [roadmap](registry/roadmap.json) names **100 skills from the implementation plan**. `friday-web-research` and four Content Studio procedures extend that plan. The current [registry/skills.json](registry/skills.json) lists 105 packaged procedures, cross-checked against `skills/**/SKILL.md`; [the catalog](docs/SKILL_CATALOG.md) explains categories, triggers and readiness. A procedure marked installable or mock-ready does not imply a live connector.
 
