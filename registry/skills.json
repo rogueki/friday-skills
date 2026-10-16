@@ -297,11 +297,11 @@
       "status": "implemented_procedure",
       "max_risk_tier": 2,
       "path": "skills/communication/friday-phone-call-coordinator/SKILL.md",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "trigger": "Prepare and coordinate an authorized call or owner alert through telephony; not text messaging.",
       "mock_ready": true,
       "live_adapter_ready": false,
-      "last_checked": "2026-10-15"
+      "last_checked": "2026-10-16"
     },
     {
       "name": "friday-unified-conversation-summary",

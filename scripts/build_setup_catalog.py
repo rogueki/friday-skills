@@ -55,7 +55,7 @@ SETUP = {
     "tariff_source": ("Region und aktuellen Tarif-/Vertragsanbieter auswählen; öffentliche Preise ersetzen keinen persönlichen Vertrag.", "docs/CAPABILITIES.md", "Host: Tarifquelle und ggf. Anbieter-Konto"),
     "task_store": ("Task-Backend und Identitätsbindung im Host einrichten; Control-API-Client ist nur mit authentifiziertem Transport nutzbar.", "docs/CONTROL_API_TASKS.md", "Host: Task-Backend/Control API"),
     "telegram_gateway": ("Im Friday Dashboard unter Einstellungen > Skill-Konten > Telegram BotFather-Token und numerische erlaubte User-ID einrichten. Das installierte Hermes-Gateway kann Telegram-Nachrichten verarbeiten; gespeicherte Werte und laufender Dienst belegen noch keine erfolgreiche Bot-Verbindung oder Empfängeridentität.", "skills/communication/friday-telegram-communication/SKILL.md", "Friday Dashboard > Einstellungen > Skill-Konten > Telegram"),
-    "telephony": ("Für echte Anrufe Telefonanbieter, eigene Rufnummer, verifizierte Ziele und Anrufberechtigung festlegen; ein Dial-Adapter fehlt. Ein Kontaktkonto allein schaltet keine Anrufe frei.", "skills/communication/friday-phone-call-coordinator/SKILL.md", "Host: Telefonie-Provider und Dial-Adapter noch offen"),
+    "telephony": ("Im Friday Dashboard unter Einstellungen > Skill-Konten > Telefonie den optionalen Asterisk-SIP-Adapter einrichten. Lokale Nebenstellen benötigen zwei eigene SIP-Endpunkte; externe Nummern zusätzlich einen registrierten SIP-Trunk, eigene Rufnummer, verifizierte Ziele und eine Bestätigung je Anruf. Ohne bereiten Adapter bleibt Telefonie gesperrt. Fridays Sprachdialog ist noch nicht mit dem Telefon verbunden.", "skills/communication/friday-phone-call-coordinator/SKILL.md", "Friday Dashboard > Einstellungen > Skill-Konten > Telefonie"),
     "weather": ("Öffentlichen Wetterleser bei Bedarf separat als Hermes-Plugin aktivieren; kein Konto nötig.", "docs/WEATHER_PLUGIN.md", "Hermes: optionales Wetter-Plugin"),
     "web_fetch": ("Erlaubte Webquellen und Host-Egress konfigurieren; Zugriff je Quelle prüfen.", "docs/WEB_EXTRACTION_ADAPTER.md", "Host: Web-Egress-Allowlist"),
     "whatsapp_gateway": ("Im Friday Dashboard unter Einstellungen > Skill-Konten > WhatsApp das lokale Hermes-Dashboard zur QR-Kopplung öffnen; danach Modus und erlaubte Telefonnummer mit Ländervorwahl ohne + einrichten. Friday zeigt die Session-Datei und Gateway-Konfiguration, keine bestätigte Verbindung oder Nachrichtenzustellung.", "skills/communication/friday-whatsapp-communication/SKILL.md", "Friday Dashboard > Einstellungen > Skill-Konten > WhatsApp"),
@@ -143,8 +143,9 @@ def build() -> dict:
             if len(conditional) > 1:
                 setup += " Weitere optionale Aktionen stehen in der Integrationsliste."
         if name == "friday-phone-call-coordinator":
-            setup = ("Gesprächsplan ohne Konto möglich. Für einen echten Anruf zuerst Telefonie-Provider, "
-                     "Rufnummer, Dial-Adapter und Anrufberechtigung einrichten; CardDAV ist nur eine optionale Kontaktquelle.")
+            setup = ("Gesprächsplan ohne Konto möglich. Für einen Owner-bestätigten Anruf den optionalen Asterisk-SIP-Adapter "
+                     "im Friday Dashboard einrichten und dessen Bereitschaft prüfen. Externe Nummern benötigen einen eigenen registrierten SIP-Trunk; "
+                     "CardDAV ist nur eine optionale Kontaktquelle. Der Skill erhält keinen autonomen Wählzugriff.")
         records[name] = {"required_capabilities": record["required"], "conditional_capabilities": record["conditional"],
                          "required_integrations": required, "conditional_integrations": conditional,
                          "account": account, "setup_de": setup.strip(),

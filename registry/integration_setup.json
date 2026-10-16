@@ -265,9 +265,9 @@
     },
     "telephony": {
       "account": "required",
-      "setup_de": "Für echte Anrufe Telefonanbieter, eigene Rufnummer, verifizierte Ziele und Anrufberechtigung festlegen; ein Dial-Adapter fehlt. Ein Kontaktkonto allein schaltet keine Anrufe frei.",
+      "setup_de": "Im Friday Dashboard unter Einstellungen > Skill-Konten > Telefonie den optionalen Asterisk-SIP-Adapter einrichten. Lokale Nebenstellen benötigen zwei eigene SIP-Endpunkte; externe Nummern zusätzlich einen registrierten SIP-Trunk, eigene Rufnummer, verifizierte Ziele und eine Bestätigung je Anruf. Ohne bereiten Adapter bleibt Telefonie gesperrt. Fridays Sprachdialog ist noch nicht mit dem Telefon verbunden.",
       "reference": "skills/communication/friday-phone-call-coordinator/SKILL.md",
-      "settings_target": "Host: Telefonie-Provider und Dial-Adapter noch offen",
+      "settings_target": "Friday Dashboard > Einstellungen > Skill-Konten > Telefonie",
       "auth_kind": "provider_account"
     },
     "weather": {
@@ -790,7 +790,7 @@
         "telephony"
       ],
       "account": "conditional",
-      "setup_de": "Gesprächsplan ohne Konto möglich. Für einen echten Anruf zuerst Telefonie-Provider, Rufnummer, Dial-Adapter und Anrufberechtigung einrichten; CardDAV ist nur eine optionale Kontaktquelle.",
+      "setup_de": "Gesprächsplan ohne Konto möglich. Für einen Owner-bestätigten Anruf den optionalen Asterisk-SIP-Adapter im Friday Dashboard einrichten und dessen Bereitschaft prüfen. Externe Nummern benötigen einen eigenen registrierten SIP-Trunk; CardDAV ist nur eine optionale Kontaktquelle. Der Skill erhält keinen autonomen Wählzugriff.",
       "live_status": "unknown"
     },
     "friday-unified-conversation-summary": {
