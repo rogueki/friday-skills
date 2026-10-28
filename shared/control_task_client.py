@@ -210,7 +210,7 @@ class ControlTaskClient:
             _text(csrf, "CSRF token")
         if self.transport is None:
             raise TaskClientError("transport_unavailable")
-        headers = {"Accept": "application/json", "Cookie": f"jarvis_session={session}"}
+        headers = {"Accept": "application/json", "Cookie": f"friday_session={session}"}
         if body is not None:
             headers["Content-Type"] = "application/json"
         if csrf is not None:

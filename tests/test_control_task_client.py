@@ -43,7 +43,7 @@ class ControlTaskClientTests(unittest.TestCase):
                              csrf="csrf-token", idempotency_key="request-123")
         self.assertEqual((task.id, task.version, task.if_match), (TASK_ID, 1, "1"))
         self.assertEqual(transport.calls[0][0:2], ("POST", "http://127.0.0.1:8384/api/v1/tasks"))
-        self.assertEqual(transport.calls[0][2]["Cookie"], "jarvis_session=opaque_session")
+        self.assertEqual(transport.calls[0][2]["Cookie"], "friday_session=opaque_session")
         self.assertEqual(transport.calls[0][2]["X-CSRF-Token"], "csrf-token")
         self.assertEqual(transport.calls[0][2]["Idempotency-Key"], "request-123")
         client.create({"priority": "P3", "title": "Test task"}, session="opaque_session",
