@@ -18,6 +18,19 @@ class RegistryAndPackageTests(unittest.TestCase):
         self.assertEqual(len(records), 15)
         self.assertTrue(all(not record["enabled"] and record["skill"] in names for record in records))
 
+    def test_content_studio_skills_are_registered_shipped_and_cataloged(self):
+        # I-048: the dashboard's Content Studio depends on exactly these four; a count alone missed their absence once.
+        content_studio = ("friday-content-planning", "friday-kie-media", "friday-elevenlabs-voice", "friday-video-editing")
+        registered = {item["name"]: item for item in json.loads((ROOT / "registry/skills.json").read_text(encoding="utf-8"))["skills"]}
+        catalog = json.loads((ROOT / "registry/integration_setup.json").read_text(encoding="utf-8"))["skills"]
+        for name in content_studio:
+            with self.subTest(skill=name):
+                self.assertIn(name, registered)
+                self.assertEqual(registered[name]["path"], f"skills/media/{name}/SKILL.md")
+                self.assertTrue((ROOT / registered[name]["path"]).is_file())
+                self.assertIn(name, catalog)
+                self.assertIn(name, build()["dashboard.yaml"]["skills"])
+
     def test_routing_and_dashboard_cover_registered_skills(self):
         generated = build()
         names = {item["name"] for item in json.loads((ROOT / "registry/skills.json").read_text(encoding="utf-8"))["skills"]}
