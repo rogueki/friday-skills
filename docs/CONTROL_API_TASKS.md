@@ -4,7 +4,7 @@ Dieser optionale Python-3.11-Client bildet die Task-Operationen der F.R.I.D.A.Y.
 
 ## Umfang
 
-- `POST /api/v1/tasks`: Operator, `jarvis_session`, `X-CSRF-Token`, `Idempotency-Key` (8 bis 128 Zeichen), `TaskCreateRequest`, Antwort 201 mit `TaskResponse`.
+- `POST /api/v1/tasks`: Operator, `friday_session`, `X-CSRF-Token`, `Idempotency-Key` (8 bis 128 Zeichen), `TaskCreateRequest`, Antwort 201 mit `TaskResponse`.
 - `PATCH /api/v1/tasks/{id}`: Operator, Session, CSRF, `If-Match` als positive Task-Version, nicht als ETag. `TaskUpdateRequest` enthält den Kanban-Status; Antwort 200.
 - `GET /api/v1/tasks/{id}`: Viewer, Session, Antwort 200. Der Client bietet aktuell keine Listen-, Cancel-, Retry-, Pause- oder Resume-Methode.
 - Ein Transport wird **explizit** injiziert. Ohne Transport gibt es keinen Netzwerkzugriff. Origin ist auf `localhost`, `127.0.0.0/8` oder `::1` beschränkt; URL-Pfade und Userinfo werden abgelehnt. Keine automatische Anmeldung, Credential-Ermittlung, Redirects oder Retries.
@@ -26,7 +26,7 @@ updated = client.update(
 )
 ```
 
-`session_cookie_value` ist nur der Wert des `jarvis_session`-Cookies, kein gesamter Cookie-Header. Der CSRF-Wert stammt laut Vertrag aus `GET /auth/session`. Die Bereitstellung von Session und CSRF ist Sache des aufrufenden, autorisierten Hosts. Dieser Client speichert sie nicht und schreibt sie nicht in Fehlermeldungen.
+`session_cookie_value` ist nur der Wert des `friday_session`-Cookies, kein gesamter Cookie-Header. Der CSRF-Wert stammt laut Vertrag aus `GET /auth/session`. Die Bereitstellung von Session und CSRF ist Sache des aufrufenden, autorisierten Hosts. Dieser Client speichert sie nicht und schreibt sie nicht in Fehlermeldungen.
 
 ## Fehler und Abgleich
 
